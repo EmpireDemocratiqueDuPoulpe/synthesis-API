@@ -1,13 +1,12 @@
 import { APIResp, APIError, Logger } from "../../global/global.js";
-import { API } from "../../config/config.js";
 
 const logger = new Logger({ separator: ": " });
 
 /* ---- Logger ---------------------------------- */
 const expressLogger = (err, request, response, next) => {
 	const error = (err instanceof APIError || err instanceof Error)
-			? (err.stack ?? err.message)
-			: (err.toString());
+		? (err.stack ?? err.message)
+		: (err.toString());
 
 	logger.error(error, { ip: request.clientIP });
 
@@ -23,7 +22,7 @@ const errorForwarder = (err, request, response, next) => {
 	const resp = new APIResp().setData({ error: err.message });
 
 	if (err instanceof APIError) {
-		response.status(err.code).json({ code: err.code, error: err.message, fields: err.fields })
+		response.status(err.code).json({ code: err.code, error: err.message, fields: err.fields });
 	} else {
 		switch (err.type) {
 			case "time-out":
@@ -41,7 +40,9 @@ const failSafe = (err, request, response, next) => {
 	const resp = err.setCode(500);
 
 	if (process.env.NODE_ENV === "production") {
-		resp.setData({ error: `Le serveur a rencontré une erreur inconnue. Veuillez réessayer plus tard où contacter le support.` });
+		resp.setData({
+			error: "Le serveur a rencontré une erreur inconnue. Veuillez réessayer plus tard où contacter le support.",
+		});
 	}
 
 	response.status(resp.code).json(resp.toJSON());

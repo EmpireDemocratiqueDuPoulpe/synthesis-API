@@ -1,6 +1,5 @@
 import Checkers from "./Checkers.js";
 import { APIError } from "./APIResp.js";
-import e from "express";
 
 export default class ModelTester {
 	tests = [];

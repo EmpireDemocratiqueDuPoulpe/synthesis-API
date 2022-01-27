@@ -23,7 +23,7 @@ function dateToString(date, withTime = true, locale = "fr-FR") {
 
 export default {
 	isDefined, isArray, isString, isNumber,
-	dateToString
+	dateToString,
 };
 
 /* TEMPORARY FILE */

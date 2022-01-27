@@ -3,5 +3,5 @@ export default {
 	port: 5432,
 	name: "cpem_db",
 	user: "cpem",
-	password: "Salut Je Suis Le Mot De P@sse"
+	password: "Salut Je Suis Le Mot De P@sse",
 };

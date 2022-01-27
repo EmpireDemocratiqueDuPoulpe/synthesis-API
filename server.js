@@ -19,9 +19,9 @@ function startServer() {
 	// Initialize servers
 	const app = express();
 	const server = http.createServer(app);
-	//const secureServer = https.createServer(opts, app);
+	// const secureServer = https.createServer(opts, app);
 	const port = API.http.port || 3000;
-	//const securePort = API.https.port || 3443;
+	// const securePort = API.https.port || 3443;
 
 	// CORS
 	// TODO: CORS
@@ -43,12 +43,12 @@ function startServer() {
 
 	// Start listening
 	server.listen(port, () => console.log(serverReady("http", port)))
-			.on("error", err => {
-				console.error(err);
-				process.exit(1);
-			});
+		.on("error", (err) => {
+			console.error(err);
+			process.exit(1);
+		});
 
-	/*secureServer.listen(securePort, () => console.log(serverReady("https", securePort)))
+	/* secureServer.listen(securePort, () => console.log(serverReady("https", securePort)))
 			.on("error", err => {
 				console.error(err);
 				process.exit(1);

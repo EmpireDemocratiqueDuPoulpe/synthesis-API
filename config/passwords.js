@@ -4,7 +4,7 @@ export default {
 		lowerCase: true,
 		upperCase: true,
 		number: true,
-		special: true
+		special: true,
 	},
-	minLength: 8
+	minLength: 8,
 };

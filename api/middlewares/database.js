@@ -7,7 +7,7 @@ const pool = new pg.Pool({
 	port: DB.port,
 	database: DB.name,
 	user: DB.user,
-	password: DB.password
+	password: DB.password,
 });
 
 const database = async (request, response, next) => {

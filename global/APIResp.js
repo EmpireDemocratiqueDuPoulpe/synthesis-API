@@ -38,7 +38,7 @@ export default class APIResp {
 	}*/
 
 	/* ---- Getters --------------------------------- */
-	get code() { return this.#code }
+	get code() { return this.#code; }
 	get message() { return this.#message; }
 	get data() { return this.#data; }
 	// get error() { return this.#error; }

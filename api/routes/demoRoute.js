@@ -1,4 +1,4 @@
-import AsyncRouter from "express-promise-router"
+import AsyncRouter from "express-promise-router";
 import { database } from "../middlewares/middlewares.js";
 import { Logger } from "../../global/global.js";
 import { Demo } from "../models/models.js";

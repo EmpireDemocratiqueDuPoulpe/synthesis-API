@@ -6,7 +6,7 @@ import { endHandler, errorHandler } from "./middlewares/middlewares.js";
 export default () => {
 	const router = Router();
 
-	//router.use(endHandler);
+	router.use(endHandler);
 	router.use(requestIP.mw({ attributeName: "clientIP" }));
 
 	demoRoute(router);
