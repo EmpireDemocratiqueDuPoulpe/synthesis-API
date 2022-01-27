@@ -1,0 +1,35 @@
+{
+  "name": "campus-booster-en-mieux-api",
+  "version": "1.0.0",
+  "description": "campus-booster-en-mieux-API",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=development node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src"
+  },
+  "devDependencies": {
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.24.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.22.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EmpireDemocratiqueDuPoulpe/campus-booster-en-mieux-API.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EmpireDemocratiqueDuPoulpe/campus-booster-en-mieux-API/issues"
+  },
+  "homepage": "https://github.com/EmpireDemocratiqueDuPoulpe/campus-booster-en-mieux-API#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.2",
+    "uuid": "^8.3.2"
+  }
+}
