@@ -12,7 +12,7 @@
   },
   "rules": {
     "require-jsdoc": "warn",
-    "linebreak-style": [ "error", "windows" ],
+    "linebreak-style": [ "warn", "windows" ],
     "no-tabs": "off",
     "object-curly-spacing": "off",
     "block-spacing": "off",
