@@ -7,7 +7,7 @@ import Checkers from "./Checkers.js";
 export default class APIResp {
 	#code = 200;
 	#message = null;
-	#data = {};
+	#data = {}
 	// #error = null;
 
 	constructor(code) {

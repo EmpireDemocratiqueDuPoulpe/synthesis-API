@@ -4,6 +4,11 @@ function isDefined(value) {
 	return value !== undefined && value !== null;
 }
 
+/**
+ * pisjdf
+ * @param {*} value
+ * @return {Array}
+ */
 function isArray(value) {
 	return Array.isArray(value);
 }
