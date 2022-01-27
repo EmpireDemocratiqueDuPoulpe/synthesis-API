@@ -31,4 +31,4 @@ export default {
 	dateToString,
 };
 
-/* TEMPORARY FILE */
+/*  TEMPORARY FILE  */
