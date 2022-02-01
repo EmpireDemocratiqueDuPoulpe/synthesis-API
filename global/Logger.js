@@ -1,11 +1,17 @@
 import "colors";
 import Checkers from "./Checkers.js";
-
+/**
+ * Logger
+ */
 export default class Logger {
 	#prefix = "";
 	#separator = " - ";
 	#colors = true;
 
+	/**
+	 * constructor Logger
+	 * @param {*} options
+	 */
 	constructor(options = { prefix: null, separator: null, colors: true }) {
 		this.setPrefix(options.prefix);
 		this.setSeparator(options.separator);

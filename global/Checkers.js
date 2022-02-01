@@ -1,27 +1,48 @@
 /* TEMPORARY FILE */
-
+/**
+ * isDefined
+ * @param {*} value
+ * @return {boolean}
+ */
 function isDefined(value) {
 	return value !== undefined && value !== null;
 }
 
 /**
- * pisjdf
+ * isArray
  * @param {*} value
  * @return {Array}
  */
 function isArray(value) {
 	return Array.isArray(value);
 }
-
+/**
+ * isString
+ * @param {*} value
+ * @return {Object}
+ */
 function isString(value) {
 	return Object.prototype.toString.call(value) === "[object String]";
 }
 
+/**
+ * isNumber
+ * @param {*} value
+ * @param {false} parse
+ * @return {boolean}
+ */
 function isNumber(value, parse = false) {
 	const val = parse ? (isString(value) ? parseInt(value, 10) : value) : value;
 	return typeof val === "number" && !isNaN(val);
 }
 
+/**
+ * dateToString
+ * @param {*} date
+ * @param {*} withTime
+ * @param {*} locale
+ * @return {String}
+ */
 function dateToString(date, withTime = true, locale = "fr-FR") {
 	return withTime ? date.toLocaleString(locale) : date.toLocaleDateString(locale);
 }

@@ -3,7 +3,9 @@ import Checkers from "./Checkers.js";
 /*****************************************************
  * APIResp
  *****************************************************/
-
+/**
+ * APIResp
+ */
 export default class APIResp {
 	#code = 200;
 	#message = null;
