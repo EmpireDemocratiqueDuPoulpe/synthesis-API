@@ -1,13 +1,12 @@
 import express from "express";
 import http from "http";
-// import https from "https";
-// import fs from "fs";
+import https from "https";
+import fs from "fs";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import api from "./api/api.js";
-// eslint-disable-next-line no-unused-vars
-import sequelize from "./api/sequelizeLoader.js";
+import "./api/sequelizeLoader.js";
 import { API } from "./config/config.js";
 
 /**
@@ -27,16 +26,16 @@ const serverReady = (protocol, port) => {
  */
 function startServer() {
 	// Set HTTPS certificates
-	// const key = fs.readFileSync("./certs/selfsigned.key", "utf-8");
-	// const cert = fs.readFileSync("./certs/selfsigned.crt", "utf-8");
-	// const opts = { key, cert, passphrase: API.https.passphrase };
+	const key = fs.readFileSync("./certs/selfsigned-key.pem", "utf-8");
+	const cert = fs.readFileSync("./certs/selfsigned.pem", "utf-8");
+	const opts = { key, cert };
 
 	// Initialize servers
 	const app = express();
 	const server = http.createServer(app);
-	// const secureServer = https.createServer(opts, app);
+	const secureServer = https.createServer(opts, app);
 	const port = API.http.port || 3000;
-	// const securePort = API.https.port || 3443;
+	const securePort = API.https.port || 3443;
 
 	// CORS
 	// TODO: CORS
@@ -58,16 +57,16 @@ function startServer() {
 
 	// Start listening
 	server.listen(port, () => serverReady("http", port))
-		.on("error", (err) => {
+		.on("error", err => {
 			console.error(err);
 			process.exit(1);
 		});
 
-	/* secureServer.listen(securePort, () => serverReady("https", securePort))
-			.on("error", err => {
-				console.error(err);
-				process.exit(1);
-			});*/
+	secureServer.listen(securePort, () => serverReady("https", securePort))
+		.on("error", err => {
+			console.error(err);
+			process.exit(1);
+		});
 }
 
 startServer();
