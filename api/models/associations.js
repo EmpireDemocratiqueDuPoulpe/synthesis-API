@@ -6,8 +6,8 @@ const init = (sequelize, logger) => {
 	/* ---- User ------------------------------------ */
 	sequelize.models.User.belongsTo(sequelize.models.Enterprise, {
 		foreignKey: {
-			name: "user_uuid",
-			type: DataTypes.UUID,
+			name: "user_id",
+			type: DataTypes.INTEGER,
 			allowNull: false,
 		},
 	});

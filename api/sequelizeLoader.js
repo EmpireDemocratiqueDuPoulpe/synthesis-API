@@ -50,6 +50,9 @@ for await (const module of modules) {
 /* ---- Make associations ----------------------- */
 associations(sequelize, logger);
 
+await sequelize.sync({force: process.env.NODE_ENV !== "production"});
+logger.log("Successfully sync models");
+
 logger.log("Sequelize initialization done");
 
 export default sequelize;

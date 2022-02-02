@@ -97,7 +97,7 @@ export default class Logger {
 			params = params.join(", ");
 		} else params = "";
 
-		let preSep = `${this.prefix}${now} ${ip}${this.separator}`.red;
+		let preSep = `${this.prefix}${now} ${ip}${this.separator}`.green;
 		let postSep = `${message} ${params.gray}`;
 
 		if (options.subLevel) {
