@@ -10,8 +10,21 @@ import api from "./api/api.js";
 import sequelize from "./api/sequelizeLoader.js";
 import { API } from "./config/config.js";
 
-const serverReady = (protocol, port) => `~~~ Campus Booster en mieux API | Now listening on port ${port} (${protocol})`;
+/**
+ * Build a message to the console when the API is ready
+ * @param {("http"|"https")} protocol - Protocol used
+ * @param {Number} port - Listening port
+ * @return {void}
+ */
+const serverReady = (protocol, port) => {
+	console.log(`~~~ Campus Booster en mieux API | Now listening on port ${port} (${protocol})`);
+};
 
+/**
+ * Start the API
+ * @function
+ * @return {void}
+ */
 function startServer() {
 	// Set HTTPS certificates
 	// const key = fs.readFileSync("./certs/selfsigned.key", "utf-8");
@@ -34,11 +47,6 @@ function startServer() {
 	app.use(bodyParser.urlencoded({ extended: true }));
 	app.use(cookieParser());
 
-	/*initSequelize().catch((error) => {
-		console.error(`Sequelize init failed: ${error}`);
-		process.exit(1);
-	});*/
-
 	// Add API routes
 	app.use(API.prefix, api());
 
@@ -49,13 +57,13 @@ function startServer() {
 	});
 
 	// Start listening
-	server.listen(port, () => console.log(serverReady("http", port)))
+	server.listen(port, () => serverReady("http", port))
 		.on("error", (err) => {
 			console.error(err);
 			process.exit(1);
 		});
 
-	/* secureServer.listen(securePort, () => console.log(serverReady("https", securePort)))
+	/* secureServer.listen(securePort, () => serverReady("https", securePort))
 			.on("error", err => {
 				console.error(err);
 				process.exit(1);
