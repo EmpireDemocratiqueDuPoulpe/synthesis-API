@@ -36,6 +36,7 @@ const errorForwarder = (err, request, response, next) => {
 };
 
 /* ---- FailSafe -------------------------------- */
+// noinspection JSUnusedLocalSymbols
 const failSafe = (err, request, response, next) => {
 	const resp = err.setCode(500);
 

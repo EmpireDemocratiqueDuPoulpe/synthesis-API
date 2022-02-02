@@ -94,10 +94,10 @@ export default class APIResp {
 /**
  * APIError is used to pass errors from anywhere in the express call stack
  * to the error handling middleware.
+ * @constructor
  * @param {Number} code - The HTTP code of the error
  * @param {string} message - The error message
  * @param {string|Array<string>|null} [fields] - Fields (query parameters) related to the error
- * @constructor
  */
 export function APIError(code, message, fields) {
 	const error = Error.call(this, message.toString());

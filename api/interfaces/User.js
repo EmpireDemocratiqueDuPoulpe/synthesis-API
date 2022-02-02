@@ -1,5 +1,4 @@
 import { APIResp, APIError } from "../../global/global.js";
-// import sequelize from "../middlewares/database.js";
 import sequelize from "../sequelizeLoader.js";
 
 const { models } = sequelize;

@@ -83,7 +83,6 @@ export default class Logger {
 	/**
 	 * Build the complete log message to show
 	 * @private
-	 *
 	 * @param {string} message - The message to log
 	 * @param {Logger~Options} options - Build options
 	 * @return {string} - The message once it has been built
