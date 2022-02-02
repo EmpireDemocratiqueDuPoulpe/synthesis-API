@@ -1,13 +1,12 @@
 import AsyncRouter from "express-promise-router";
-//import { database } from "../middlewares/middlewares.js";
 import { Logger } from "../../global/global.js";
-import { User } from "../models/models.js";
+import { User } from "../interfaces/interfaces.js";
 
 const route = AsyncRouter();
 const logger = new Logger({ separator: ": " });
 
 export default (router) => {
-	router.use("/user", route);
+	router.use("/users", route);
 
 	/* ---- CREATE ---------------------------------- */
 	/* ---- READ ------------------------------------ */

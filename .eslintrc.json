@@ -15,6 +15,7 @@
     "linebreak-style": [ "warn", "windows" ],
     "no-tabs": "off",
     "object-curly-spacing": "off",
+    "array-bracket-spacing": "off",
     "block-spacing": "off",
     "brace-style": "off",
     "spaced-comment": "off",

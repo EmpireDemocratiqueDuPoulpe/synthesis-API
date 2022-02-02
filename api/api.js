@@ -1,6 +1,6 @@
 import { Router } from "express";
 import requestIP from "request-ip";
-import { user } from "./routes/routes.js";
+import { users } from "./routes/routes.js";
 import { endHandler, errorHandler } from "./middlewares/middlewares.js";
 
 export default () => {
@@ -10,7 +10,7 @@ export default () => {
 	router.use(requestIP.mw({ attributeName: "clientIP" }));
 
 	// Routes
-	user(router);
+	users(router);
 
 	// Middlewares for errors
 	router.use(errorHandler.expressLogger);

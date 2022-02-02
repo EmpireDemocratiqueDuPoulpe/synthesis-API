@@ -1,14 +1,12 @@
 import { APIResp, APIError } from "../../global/global.js";
+// import sequelize from "../middlewares/database.js";
+import sequelize from "../sequelizeLoader.js";
+
+const { models } = sequelize;
 
 /*****************************************************
  * Functions
  *****************************************************/
-
-/*const isValid = async (db, demoId) => {
-	if (!demoId) return false;
-	const demo = await db.query("SELECT demo_id FROM demo WHERE id = $1", [demoId]);
-	return !!demo.rows.length;
-};*/
 
 /*****************************************************
  * CRUD Methods
@@ -16,14 +14,14 @@ import { APIResp, APIError } from "../../global/global.js";
 
 /* ---- CREATE ---------------------------------- */
 /* ---- READ ------------------------------------ */
-const get = async (db, params) => {
-	const demo = await db.query("SELECT * FROM demo");
+const get = async (params) => {
+	const users = await models.User.findAll();
 
-	if (!demo.rows.length) {
+	if (!users.length) {
 		throw new APIError(404, "Y'a rien en fait");
 	}
 
-	return new APIResp(200).setData({ demo: demo.rows });
+	return new APIResp(200).setData({ users });
 };
 
 /* ---- UPDATE ---------------------------------- */
@@ -33,5 +31,5 @@ const get = async (db, params) => {
  * Export
  *****************************************************/
 
-const Demo = { get };
-export default Demo;
+const User = { get };
+export default User;

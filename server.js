@@ -6,8 +6,9 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import api from "./api/api.js";
+// eslint-disable-next-line no-unused-vars
+import sequelize from "./api/sequelizeLoader.js";
 import { API } from "./config/config.js";
-import { initSequelize } from "./api/middlewares/database.js";
 
 const serverReady = (protocol, port) => `~~~ Campus Booster en mieux API | Now listening on port ${port} (${protocol})`;
 
@@ -33,10 +34,10 @@ function startServer() {
 	app.use(bodyParser.urlencoded({ extended: true }));
 	app.use(cookieParser());
 
-	initSequelize().catch ((error) => {
-		console.error("Sequelize init failed");
+	/*initSequelize().catch((error) => {
+		console.error(`Sequelize init failed: ${error}`);
 		process.exit(1);
-	});
+	});*/
 
 	// Add API routes
 	app.use(API.prefix, api());

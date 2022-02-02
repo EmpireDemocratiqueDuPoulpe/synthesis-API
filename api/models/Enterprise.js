@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 
-const User = {
+const Enterprise = {
 	id: {
 		type: DataTypes.INTEGER,
 		primaryKey: true,
@@ -12,13 +12,13 @@ const User = {
 		// primaryKey: true,
 		allowNull: false,
 	},
+	// start_date: { type: DataTypes.DATE },
+	// end_date: { type: DataTypes.DATE },
 	name: { type: DataTypes.STRING },
-	email: { type: DataTypes.STRING },
-	birth_date: { type: DataTypes.DATE },
 };
 
 export const define = (sequelize) => {
-	sequelize.define("User", User);
+	sequelize.define("Enterprise", Enterprise);
 };
 
-export default User;
+export default Enterprise;
