@@ -14,6 +14,9 @@ const sequelize = new Sequelize(DB.name, DB.user, DB.password, {
 	port: DB.port,
 	dialect: DB.dialect,
 	logging: process.env.NODE_ENV === "production" ? false : ((msg) => logger.log(msg)),
+	define: {
+		timestamps: false,
+	},
 });
 
 /* ---- Test the connection --------------------- */

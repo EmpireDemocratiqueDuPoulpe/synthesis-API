@@ -4,7 +4,7 @@ const init = (sequelize, logger) => {
 	logger.log(`Making associations ([${Object.keys(sequelize.models).join(", ")}])...`);
 
 	/* ---- User ------------------------------------ */
-	sequelize.models.User.belongsTo(sequelize.models.Enterprise, {
+	sequelize.models.Enterprise.belongsTo(sequelize.models.User, {
 		foreignKey: {
 			name: "user_id",
 			type: DataTypes.INTEGER,
