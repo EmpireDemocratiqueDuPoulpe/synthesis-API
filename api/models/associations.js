@@ -4,9 +4,56 @@ const init = (sequelize, logger) => {
 	logger.log(`Making associations ([${Object.keys(sequelize.models).join(", ")}])...`);
 
 	/* ---- User ------------------------------------ */
-	sequelize.models.Enterprise.belongsTo(sequelize.models.User, {
+	// Job * - 1 User
+	sequelize.models.User.hasMany(sequelize.models.Job, {
 		foreignKey: {
 			name: "user_id",
+			type: DataTypes.INTEGER,
+			allowNull: false,
+		},
+	});
+
+	// Study 1 - 1 User
+	sequelize.models.Study.hasOne(sequelize.models.User, {
+		foreignKey: {
+			name: "user_id",
+			type: DataTypes.INTEGER,
+			allowNull: false,
+		},
+	});
+
+	// Note * - 1 User
+	sequelize.models.User.hasMany(sequelize.models.Note, {
+		foreignKey: {
+			name: "user_id",
+			type: DataTypes.INTEGER,
+			allowNull: false,
+		},
+	});
+
+	// Absence * - 1 User
+	sequelize.models.User.hasMany(sequelize.models.Absence, {
+		foreignKey: {
+			name: "user_id",
+			type: DataTypes.INTEGER,
+			allowNull: false,
+		},
+	});
+
+	// Compta 1 - 1 User
+	sequelize.models.User.hasOne(sequelize.models.Compta, {
+		foreignKey: {
+			name: "user_id",
+			type: DataTypes.INTEGER,
+			allowNull: false,
+		},
+	});
+
+	/* ---- Module ------------------------------------ */
+	// Module 1 - * Note
+	sequelize.models.Module.hasMany(sequelize.models.Note, {
+		foreignKey: {
+			name: "module_id",
 			type: DataTypes.INTEGER,
 			allowNull: false,
 		},

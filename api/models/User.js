@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 
 const User = {
-	id: {
+	user_id: {
 		type: DataTypes.INTEGER,
 		primaryKey: true,
 		allowNull: false,
@@ -13,19 +13,23 @@ const User = {
 	},
 	first_name: { type: DataTypes.STRING },
 	last_name: { type: DataTypes.STRING },
-	email: { type: DataTypes.STRING },
 	birth_date: { type: DataTypes.DATE },
+	email: {
+		type: DataTypes.STRING,
+		unique: true,
+	},
 	password: { type: DataTypes.STRING },
 	street_address: { type: DataTypes.STRING },
-	gender: { type: DataTypes.BOOLEAN },
+	gender: { type: DataTypes.STRING },
 	region: { type: DataTypes.STRING},
 	status: {type: DataTypes.ENUM,
 		values: [
 			"student",
 			"fullprofessor",
-			"directeur academique",
+			"directeur académique",
 			"admin",
-			"ccoordinateur",
+			"coordinateur",
+			"intervenant",
 		],
 	},
 	campus: {type: DataTypes.ENUM,
