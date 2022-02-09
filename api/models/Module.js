@@ -7,7 +7,7 @@ const Module = {
 		allowNull: false,
 		autoIncrement: true,
 	},
-	module: {
+	name: {
 		type: DataTypes.STRING(4),
 		unique: true,
 	},

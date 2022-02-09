@@ -9,7 +9,7 @@ const Compta = {
 	},
 	payment_type: {
 		type: DataTypes.ENUM,
-		values: ["OPCA", "Comptant", "Echelonnemt"],
+		values: ["OPCA", "Comptant", "Échelonnement"],
 	},
 	payment_due: { type: DataTypes.FLOAT },
 	paid: { type: DataTypes.BOOLEAN },
