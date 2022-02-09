@@ -7,10 +7,6 @@ const Absence = {
 		allowNull: false,
 		autoIncrement: true,
 	},
-	payment_type: {
-		type: DataTypes.ENUM,
-		values: ["OPCA", "Comptant", "Echelonnemt"],
-	},
 	start_date: { type: DataTypes.DATE },
 	end_date: { type: DataTypes.DATE },
 };
