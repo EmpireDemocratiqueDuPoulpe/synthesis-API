@@ -7,7 +7,7 @@ const Note = {
 		allowNull: false,
 		autoIncrement: true,
 	},
-	note: { type: DataTypes.FLOAT },
+	note: { type: DataTypes.DECIMAL(6, 2) },
 };
 
 export const define = (sequelize) => {

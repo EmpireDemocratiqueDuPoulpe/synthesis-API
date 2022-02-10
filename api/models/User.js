@@ -11,18 +11,29 @@ const User = {
 		type: DataTypes.UUID,
 		allowNull: false,
 	},
-	first_name: { type: DataTypes.STRING },
-	last_name: { type: DataTypes.STRING },
+	first_name: {
+		type: DataTypes.STRING(100),
+		allowNull: false,
+	},
+	last_name: {
+		type: DataTypes.STRING(100),
+		allowNull: false,
+	},
 	birth_date: { type: DataTypes.DATE },
 	email: {
-		type: DataTypes.STRING,
+		type: DataTypes.STRING(256),
 		unique: true,
+		allowNull: false,
 	},
-	password: { type: DataTypes.STRING },
+	password: {
+		type: DataTypes.STRING,
+		allowNull: false,
+	},
 	street_address: { type: DataTypes.STRING },
 	gender: { type: DataTypes.STRING },
 	region: { type: DataTypes.STRING },
-	status: { type: DataTypes.ENUM,
+	status: {
+		type: DataTypes.ENUM,
 		values: [
 			"élève",
 			"full professor",
@@ -31,8 +42,10 @@ const User = {
 			"coordinateur",
 			"intervenant",
 		],
+		allowNull: false,
 	},
-	campus: { type: DataTypes.ENUM,
+	campus: {
+		type: DataTypes.ENUM,
 		values: [
 			"Caen",
 			"Distanciel",
@@ -40,7 +53,8 @@ const User = {
 			"Lyon",
 			"Paris",
 			"Tours",
-		]},
+		],
+	},
 };
 
 export const define = (sequelize) => {

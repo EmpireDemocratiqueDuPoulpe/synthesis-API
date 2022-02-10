@@ -9,12 +9,26 @@ const Job = {
 	},
 	job_type: {
 		type: DataTypes.ENUM,
-		values: ["stage", "alternance"],
+		values: [ "stage", "alternance" ],
+		allowNull: false,
 	},
-	start_date: { type: DataTypes.DATE },
-	end_date: { type: DataTypes.DATE },
-	company_name: { type: DataTypes.STRING },
-	is_hired: { type: DataTypes.BOOLEAN },
+	start_date: {
+		type: DataTypes.DATE,
+		allowNull: false,
+	},
+	end_date: {
+		type: DataTypes.DATE,
+		allowNull: false,
+	},
+	company_name: {
+		type: DataTypes.STRING,
+		allowNull: false,
+	},
+	is_hired: {
+		type: DataTypes.BOOLEAN,
+		defaultValue: false,
+		allowNull: false,
+	},
 	length_month_hired: { type: DataTypes.INTEGER },
 };
 

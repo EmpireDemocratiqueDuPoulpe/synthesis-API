@@ -7,11 +7,18 @@ const Module = {
 		allowNull: false,
 		autoIncrement: true,
 	},
+	year: {
+		type: DataTypes.SMALLINT,
+		allowNull: false,
+	},
 	name: {
 		type: DataTypes.STRING(4),
-		unique: true,
+		allowNull: false,
 	},
-	longName: { type: DataTypes.STRING },
+	longName: {
+		type: DataTypes.STRING,
+		allowNull: false,
+	},
 };
 
 export const define = (sequelize) => {

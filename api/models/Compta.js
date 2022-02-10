@@ -9,11 +9,24 @@ const Compta = {
 	},
 	payment_type: {
 		type: DataTypes.ENUM,
-		values: ["OPCA", "Comptant", "Échelonnement"],
+		values: [ "OPCA", "Comptant", "Échelonnement" ],
+		allowNull: false,
 	},
-	payment_due: { type: DataTypes.FLOAT },
-	paid: { type: DataTypes.BOOLEAN },
-	relance: { type: DataTypes.BOOLEAN },
+	payment_due: {
+		type: DataTypes.DECIMAL(17, 2),
+		defaultValue: 0,
+		allowNull: false,
+	},
+	paid: {
+		type: DataTypes.BOOLEAN,
+		defaultValue: false,
+		allowNull: false,
+	},
+	relance: {
+		type: DataTypes.BOOLEAN,
+		defaultValue: false,
+		allowNull: false,
+	},
 };
 
 export const define = (sequelize) => {

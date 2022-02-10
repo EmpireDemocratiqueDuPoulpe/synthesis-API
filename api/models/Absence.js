@@ -7,7 +7,10 @@ const Absence = {
 		allowNull: false,
 		autoIncrement: true,
 	},
-	start_date: { type: DataTypes.DATE },
+	start_date: {
+		type: DataTypes.DATE,
+		allowNull: false,
+	},
 	end_date: { type: DataTypes.DATE },
 };
 
