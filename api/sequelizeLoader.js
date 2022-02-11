@@ -15,6 +15,7 @@ const sequelize = new Sequelize(DB.name, DB.user, DB.password, {
 	dialect: DB.dialect,
 	logging: process.env.NODE_ENV === "production" ? false : ((msg) => logger.log(msg)),
 	define: {
+		// TODO: Enable timestamp for some tables
 		timestamps: false,
 	},
 });
@@ -55,7 +56,14 @@ associations(sequelize, logger);
 
 /* ---- Syncing models with the database -------- */
 logger.log(`Running model synchronization (${process.env.FORCE_SYNC === "true" ? "" : "not "}forced)...`);
-await sequelize.sync({force: (process.env.NODE_ENV !== "production" && process.env.FORCE_SYNC === "true")});
+
+// TODO: This is not working
+const syncExclusions = [ "Position", "Permission", "PositionPermissions" ];
+await sequelize.sync({
+	force: (process.env.NODE_ENV !== "production" && process.env.FORCE_SYNC === "true"),
+	match: new RegExp(`^(?!.*(${syncExclusions.join("|")}))`),
+});
+
 logger.log("Models synced successfully ");
 
 logger.log("Sequelize initialization done");

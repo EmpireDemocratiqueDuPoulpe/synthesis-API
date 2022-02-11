@@ -3,17 +3,35 @@ import { DataTypes } from "sequelize";
 const init = (sequelize, logger) => {
 	logger.log(`Making associations ([${Object.keys(sequelize.models).join(", ")}])...`);
 
-	/* ---- User ------------------------------------ */
-	// Job * - 1 User
-	sequelize.models.User.hasMany(sequelize.models.Job, {
+	/* ---- Module ---------------------------------- */
+	// Note [* - 1] Module
+	sequelize.models.Module.hasMany(sequelize.models.Note, {
 		foreignKey: {
-			name: "user_id",
+			name: "module_id",
 			type: DataTypes.INTEGER,
 			allowNull: false,
 		},
 	});
 
-	// Study 1 - 1 User
+	/* ---- Permission ------------------------------ */
+	// Permission [* - *] Position
+	sequelize.models.Permission.belongsToMany(sequelize.models.Position, { through: sequelize.models.PositionPermissions });
+
+	/* ---- Position -------------------------------- */
+	// Position [1 - *] User
+	sequelize.models.Position.hasMany(sequelize.models.User, {
+		foreignKey: {
+			name: "position_id",
+			type: DataTypes.INTEGER,
+			allowNull: false,
+		},
+	});
+
+	// Position [* - *] Permission
+	sequelize.models.Position.belongsToMany(sequelize.models.Permission, { through: sequelize.models.PositionPermissions });
+
+	/* ---- Study ----------------------------------- */
+	// Study [1 - 1] User
 	sequelize.models.Study.hasOne(sequelize.models.User, {
 		foreignKey: {
 			name: "user_id",
@@ -22,7 +40,17 @@ const init = (sequelize, logger) => {
 		},
 	});
 
-	// Note * - 1 User
+	/* ---- User ------------------------------------ */
+	// User [1 - *] Job
+	sequelize.models.User.hasMany(sequelize.models.Job, {
+		foreignKey: {
+			name: "user_id",
+			type: DataTypes.INTEGER,
+			allowNull: false,
+		},
+	});
+
+	// User [1 - *] Note
 	sequelize.models.User.hasMany(sequelize.models.Note, {
 		foreignKey: {
 			name: "user_id",
@@ -31,7 +59,7 @@ const init = (sequelize, logger) => {
 		},
 	});
 
-	// Absence * - 1 User
+	// User [1 - *] Absence
 	sequelize.models.User.hasMany(sequelize.models.Absence, {
 		foreignKey: {
 			name: "user_id",
@@ -40,20 +68,10 @@ const init = (sequelize, logger) => {
 		},
 	});
 
-	// Compta 1 - 1 User
+	// User [1 - 1] Compta
 	sequelize.models.User.hasOne(sequelize.models.Compta, {
 		foreignKey: {
 			name: "user_id",
-			type: DataTypes.INTEGER,
-			allowNull: false,
-		},
-	});
-
-	/* ---- Module ------------------------------------ */
-	// Module 1 - * Note
-	sequelize.models.Module.hasMany(sequelize.models.Note, {
-		foreignKey: {
-			name: "module_id",
 			type: DataTypes.INTEGER,
 			allowNull: false,
 		},
