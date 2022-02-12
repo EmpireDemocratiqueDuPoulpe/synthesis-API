@@ -1,3 +1,8 @@
+/**
+ * @module Absence
+ * @author Louan L. <louan.leplae@supinfo.com>
+ */
+
 import { DataTypes } from "sequelize";
 
 const Absence = {
@@ -14,6 +19,13 @@ const Absence = {
 	end_date: { type: DataTypes.DATE },
 };
 
+/**
+ * Define the model
+ * @function
+ *
+ * @param {Sequelize} sequelize
+ * @param {string} name - The file name used for the definition
+ */
 export const define = (sequelize, name) => {
 	sequelize.define(name, Absence);
 };

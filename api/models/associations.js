@@ -1,5 +1,17 @@
+/**
+ * @module associations
+ * @author Alexis L. <alexis.lecomte@supinfo.com>
+ */
+
 import { DataTypes } from "sequelize";
 
+/**
+ * Make associations between the models
+ * @function
+ *
+ * @param {Sequelize} sequelize
+ * @param {Logger|Console} logger
+ */
 const init = (sequelize, logger) => {
 	logger.log(`Making associations ([${Object.keys(sequelize.models).join(", ")}])...`);
 
@@ -31,12 +43,12 @@ const init = (sequelize, logger) => {
 	sequelize.models.Position.belongsToMany(sequelize.models.Permission, { through: sequelize.models.PositionPermissions });
 
 	/* ---- Study ----------------------------------- */
-	// Study [1 - 1] User
+	// Study [0 - 1] User
 	sequelize.models.Study.hasOne(sequelize.models.User, {
 		foreignKey: {
 			name: "user_id",
 			type: DataTypes.INTEGER,
-			allowNull: false,
+			allowNull: true,
 		},
 	});
 

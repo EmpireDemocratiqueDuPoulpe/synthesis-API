@@ -1,3 +1,8 @@
+/**
+ * @module Logger
+ * @author Alexis L. <alexis.lecomte@supinfo.com>
+ */
+
 import "colors";
 import Checkers from "./Checkers.js";
 

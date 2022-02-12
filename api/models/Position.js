@@ -1,3 +1,8 @@
+/**
+ * @module Position
+ * @author Alexis L. <alexis.lecomte@supinfo.com>
+ */
+
 import { DataTypes } from "sequelize";
 
 const Position = {
@@ -13,6 +18,13 @@ const Position = {
 	},
 };
 
+/**
+ * Define the model
+ * @function
+ *
+ * @param {Sequelize} sequelize
+ * @param {string} name - The file name used for the definition
+ */
 export const define = (sequelize, name) => {
 	sequelize.define(name, Position);
 };

@@ -1,29 +1,48 @@
+/**
+ * @module User
+ * @author Louan L. <louan.leplae@supinfo.com>
+ */
+
 import { DataTypes } from "sequelize";
 
+// TODO: Custom messages
 const User = {
 	user_id: {
 		type: DataTypes.INTEGER,
 		primaryKey: true,
 		allowNull: false,
 		autoIncrement: true,
+		validate: { isInteger: true },
 	},
 	uuid: {
 		type: DataTypes.UUID,
+		unique: true,
 		allowNull: false,
+		defaultValue: DataTypes.UUIDV4,
+		validate: { isUUID: 4 },
 	},
 	first_name: {
 		type: DataTypes.STRING(100),
 		allowNull: false,
+		validate: { notEmpty: true },
 	},
 	last_name: {
 		type: DataTypes.STRING(100),
 		allowNull: false,
+		validate: { notEmpty: true },
 	},
-	birth_date: { type: DataTypes.DATE },
+	birth_date: {
+		type: DataTypes.DATE,
+		validate: { isAfter: "1900-01-01" },
+	},
 	email: {
 		type: DataTypes.STRING(256),
-		unique: true,
+		unique: {
+			args: true,
+			msg: "L'adresse e-mail est déjà utilisée.",
+		},
 		allowNull: false,
+		validate: { isEmail: true },
 	},
 	password: {
 		type: DataTypes.STRING,
@@ -57,6 +76,13 @@ const User = {
 	},
 };
 
+/**
+ * Define the model
+ * @function
+ *
+ * @param {Sequelize} sequelize
+ * @param {string} name - The file name used for the definition
+ */
 export const define = (sequelize, name) => {
 	sequelize.define(name, User);
 };

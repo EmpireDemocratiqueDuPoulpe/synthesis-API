@@ -1,3 +1,8 @@
+/**
+ * @module api
+ * @author Alexis L. <alexis.lecomte@supinfo.com>
+ */
+
 import { Router } from "express";
 import requestIP from "request-ip";
 import { users } from "./routes/routes.js";
@@ -5,6 +10,7 @@ import { endHandler, errorHandler } from "./middlewares/middlewares.js";
 
 export default () => {
 	const router = Router();
+
 	// Middlewares
 	router.use(endHandler);
 	router.use(requestIP.mw({ attributeName: "clientIP" }));

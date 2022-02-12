@@ -1,3 +1,8 @@
+/**
+ * @module Study
+ * @author Louan L. <louan.leplae@supinfo.com>
+ */
+
 import { DataTypes } from "sequelize";
 
 const Study = {
@@ -34,6 +39,13 @@ const Study = {
 	exit_date: { type: DataTypes.DATE },
 };
 
+/**
+ * Define the model
+ * @function
+ *
+ * @param {Sequelize} sequelize
+ * @param {string} name - The file name used for the definition
+ */
 export const define = (sequelize, name) => {
 	sequelize.define(name, Study);
 };

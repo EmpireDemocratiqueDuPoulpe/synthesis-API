@@ -1,3 +1,8 @@
+/**
+ * @module DirName
+ * @author Alexis L. <alexis.lecomte@supinfo.com>
+ */
+
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 

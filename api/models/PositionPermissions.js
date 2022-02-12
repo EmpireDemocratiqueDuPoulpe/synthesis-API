@@ -1,3 +1,8 @@
+/**
+ * @module PositionPermissions
+ * @author Alexis L. <alexis.lecomte@supinfo.com>
+ */
+
 import { DataTypes } from "sequelize";
 
 const PositionPermissions = {
@@ -17,6 +22,13 @@ const PositionPermissions = {
 	},
 };
 
+/**
+ * Define the model
+ * @function
+ *
+ * @param {Sequelize} sequelize
+ * @param {string} name - The file name used for the definition
+ */
 export const define = (sequelize, name) => {
 	PositionPermissions.position_id.references.model = sequelize.models.Position;
 	PositionPermissions.permission_id.references.model = sequelize.models.Permission;
