@@ -23,7 +23,13 @@
     "new-cap": "off",
     "operator-linebreak": "off",
     "indent": [ "error", "tab", {"SwitchCase": 1} ],
-    "max-len": [ "error", {"code": 130} ],
+    "max-len": [
+      "error",
+      {
+        "code": 130,
+        "ignorePattern": "^\\s*(console|logger)\\.(log|info|warn|error|debug)"
+      }
+    ],
     "quotes": [ "error", "double", {"avoidEscape": true} ],
     "semi": [ "error", "always" ]
   }
