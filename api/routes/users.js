@@ -1,3 +1,8 @@
+/**
+ * @module users
+ * @author Alexis L. <alexis.lecomte@supinfo.com>
+ */
+
 import AsyncRouter from "express-promise-router";
 import { Logger } from "../../global/global.js";
 import { User } from "../interfaces/interfaces.js";
@@ -9,12 +14,35 @@ export default (router) => {
 	router.use("/users", route);
 
 	/* ---- CREATE ---------------------------------- */
-	/* ---- READ ------------------------------------ */
-	route.get("/", async (request, response) => {
-		const resp = await User.get(request.query);
+	route.post("/", async (request, response) => {
+		const { user } = request.body;
+
+		const resp = await User.add(user);
 		response.status(resp.code).json(resp.toJSON());
 
-		logger.log("Request user", { ip: request.clientIP, params: {code: resp.code, ...request.query} });
+		logger.log("Add a new user", { ip: request.clientIP, params: {code: resp.code, email: user?.email} });
+	});
+
+	/* ---- READ ------------------------------------ */
+	route.get("/all", async (request, response) => {
+		const resp = await User.getAll();
+		response.status(resp.code).json(resp.toJSON());
+
+		logger.log("Fetch all users", { ip: request.clientIP, params: {code: resp.code} });
+	});
+
+	route.get("/by-id/:userID", async (request, response) => {
+		const resp = await User.getByID(request.params.userID);
+		response.status(resp.code).json(resp.toJSON());
+
+		logger.log("Retrieves a user by his user ID", { ip: request.clientIP, params: {code: resp.code, userID: request.params.userID} });
+	});
+
+	route.get("/by-uuid/:UUID", async (request, response) => {
+		const resp = await User.getByUUID(request.params.UUID);
+		response.status(resp.code).json(resp.toJSON());
+
+		logger.log("Retrieves a user by his UUID", { ip: request.clientIP, params: {code: resp.code, UUID: request.params.UUID} });
 	});
 
 	/* ---- UPDATE ---------------------------------- */
