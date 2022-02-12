@@ -14,8 +14,8 @@ const Absence = {
 	end_date: { type: DataTypes.DATE },
 };
 
-export const define = (sequelize) => {
-	sequelize.define("Absence", Absence);
+export const define = (sequelize, name) => {
+	sequelize.define(name, Absence);
 };
 
 export default Absence;

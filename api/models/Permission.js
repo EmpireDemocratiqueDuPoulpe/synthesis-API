@@ -14,8 +14,8 @@ const Permission = {
 	name_localized: { type: DataTypes.STRING },
 };
 
-export const define = (sequelize) => {
-	sequelize.define("Permission", Permission);
+export const define = (sequelize, name) => {
+	sequelize.define(name, Permission);
 };
 
 export default Permission;

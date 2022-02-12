@@ -21,8 +21,8 @@ const Module = {
 	},
 };
 
-export const define = (sequelize) => {
-	sequelize.define("Module", Module);
+export const define = (sequelize, name) => {
+	sequelize.define(name, Module);
 };
 
 export default Module;

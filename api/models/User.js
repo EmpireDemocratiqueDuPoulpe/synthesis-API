@@ -57,8 +57,8 @@ const User = {
 	},
 };
 
-export const define = (sequelize) => {
-	sequelize.define("User", User);
+export const define = (sequelize, name) => {
+	sequelize.define(name, User);
 };
 
 export default User;

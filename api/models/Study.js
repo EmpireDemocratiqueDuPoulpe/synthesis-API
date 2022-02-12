@@ -34,8 +34,8 @@ const Study = {
 	exit_date: { type: DataTypes.DATE },
 };
 
-export const define = (sequelize) => {
-	sequelize.define("Study", Study);
+export const define = (sequelize, name) => {
+	sequelize.define(name, Study);
 };
 
 export default Study;

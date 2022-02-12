@@ -10,8 +10,8 @@ const Note = {
 	note: { type: DataTypes.DECIMAL(6, 2) },
 };
 
-export const define = (sequelize) => {
-	sequelize.define("Note", Note);
+export const define = (sequelize, name) => {
+	sequelize.define(name, Note);
 };
 
 export default Note;

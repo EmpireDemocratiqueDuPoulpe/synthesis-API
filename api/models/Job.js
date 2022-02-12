@@ -32,8 +32,8 @@ const Job = {
 	length_month_hired: { type: DataTypes.INTEGER },
 };
 
-export const define = (sequelize) => {
-	sequelize.define("Job", Job);
+export const define = (sequelize, name) => {
+	sequelize.define(name, Job);
 };
 
 export default Job;

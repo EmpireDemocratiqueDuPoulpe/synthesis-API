@@ -17,11 +17,11 @@ const PositionPermissions = {
 	},
 };
 
-export const define = (sequelize) => {
+export const define = (sequelize, name) => {
 	PositionPermissions.position_id.references.model = sequelize.models.Position;
 	PositionPermissions.permission_id.references.model = sequelize.models.Permission;
 
-	sequelize.define("PositionPermissions", PositionPermissions);
+	sequelize.define(name, PositionPermissions);
 };
 
 export default PositionPermissions;

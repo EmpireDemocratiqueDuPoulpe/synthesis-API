@@ -13,8 +13,8 @@ const Position = {
 	},
 };
 
-export const define = (sequelize) => {
-	sequelize.define("Position", Position);
+export const define = (sequelize, name) => {
+	sequelize.define(name, Position);
 };
 
 export default Position;

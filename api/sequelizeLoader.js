@@ -42,7 +42,8 @@ const modules = fs.readdirSync(modelsDirPath)
 for await (const module of modules) {
 	try {
 		const model = await import(`./${modelsDir}/${module}`);
-		model.define(sequelize);
+		const modelName = module.slice(0, -3);
+		model.define(sequelize, modelName);
 
 		logger.log(`∟ Loaded "${module}"`, { subLevel: true });
 	} catch (err) {
@@ -56,14 +57,7 @@ associations(sequelize, logger);
 
 /* ---- Syncing models with the database -------- */
 logger.log(`Running model synchronization (${process.env.FORCE_SYNC === "true" ? "" : "not "}forced)...`);
-
-// TODO: This is not working
-const syncExclusions = [ "Position", "Permission", "PositionPermissions" ];
-await sequelize.sync({
-	force: (process.env.NODE_ENV !== "production" && process.env.FORCE_SYNC === "true"),
-	match: new RegExp(`^(?!.*(${syncExclusions.join("|")}))`),
-});
-
+await sequelize.sync({ force: (process.env.NODE_ENV !== "production" && process.env.FORCE_SYNC === "true") });
 logger.log("Models synced successfully ");
 
 logger.log("Sequelize initialization done");
