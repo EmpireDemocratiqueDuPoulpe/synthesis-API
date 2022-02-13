@@ -7,6 +7,7 @@ import fs from "fs";
 import path from "path";
 import { Sequelize } from "sequelize";
 import associations from "./models/associations.js";
+import addDummyData from "./models/addDummyData.js";
 import { Logger, DirName } from "../global/global.js";
 import { DB } from "../config/config.js";
 
@@ -38,7 +39,7 @@ try {
 /* ---- Import models --------------------------- */
 const modelsDir = "models";
 const modelsDirPath = path.join(currentFile.__dirname, `./${modelsDir}/`);
-const exclusionList = [ `${modelsDir}.js`, "associations.js" ];
+const exclusionList = [ `${modelsDir}.js`, "associations.js", "addDummyData.js" ];
 
 logger.log(`Loading models in "${modelsDirPath}"...`);
 
@@ -62,9 +63,16 @@ for await (const module of modules) {
 associations(sequelize, logger);
 
 /* ---- Syncing models with the database -------- */
-logger.log(`Running model synchronization (${process.env.FORCE_SYNC === "true" ? "" : "not "}forced)...`);
-await sequelize.sync({ force: (process.env.NODE_ENV !== "production" && process.env.FORCE_SYNC === "true") });
+const forceSync = (process.env.NODE_ENV !== "production" && process.env.FORCE_SYNC === "true");
+
+logger.log(`Running model synchronization (${forceSync ? "" : "not "}forced)...`);
+await sequelize.sync({ force: forceSync });
 logger.log("Models synced successfully ");
+
+/* ---- Add dummy data -------------------------- */
+if (forceSync) {
+	await addDummyData(sequelize, logger);
+}
 
 logger.log("Sequelize initialization done");
 
