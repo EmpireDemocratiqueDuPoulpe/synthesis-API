@@ -27,7 +27,10 @@ const init = (sequelize, logger) => {
 
 	/* ---- Permission ------------------------------ */
 	// Permission [* - *] Position
-	sequelize.models.Permission.belongsToMany(sequelize.models.Position, { through: sequelize.models.PositionPermissions });
+	sequelize.models.Permission.belongsToMany(sequelize.models.Position, {
+		through: sequelize.models.PositionPermissions,
+		foreignKey: "position_id",
+	});
 
 	/* ---- Position -------------------------------- */
 	// Position [1 - *] User
@@ -40,11 +43,14 @@ const init = (sequelize, logger) => {
 	});
 
 	// Position [* - *] Permission
-	sequelize.models.Position.belongsToMany(sequelize.models.Permission, { through: sequelize.models.PositionPermissions });
+	sequelize.models.Position.belongsToMany(sequelize.models.Permission, {
+		through: sequelize.models.PositionPermissions,
+		foreignKey: "permission_id",
+	});
 
-	/* ---- Study ----------------------------------- */
-	// Study [0 - 1] User
-	sequelize.models.Study.hasOne(sequelize.models.User, {
+	/* ---- User ------------------------------------ */
+	// User [1 - {0-1}] Study
+	sequelize.models.User.hasOne(sequelize.models.Study, {
 		foreignKey: {
 			name: "user_id",
 			type: DataTypes.INTEGER,
@@ -52,7 +58,6 @@ const init = (sequelize, logger) => {
 		},
 	});
 
-	/* ---- User ------------------------------------ */
 	// User [1 - *] Job
 	sequelize.models.User.hasMany(sequelize.models.Job, {
 		foreignKey: {
