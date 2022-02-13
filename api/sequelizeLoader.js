@@ -22,6 +22,7 @@ const sequelize = new Sequelize(DB.name, DB.user, DB.password, {
 	define: {
 		// TODO: Enable timestamp for some tables
 		timestamps: false,
+		underscored: true,
 	},
 });
 
