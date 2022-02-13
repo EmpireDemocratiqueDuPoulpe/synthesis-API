@@ -20,7 +20,7 @@ const logger = new Logger({ separator: ": " });
  */
 const expressLogger = (err, request, response, next) => {
 	const error = (err instanceof APIError || err instanceof Error)
-		? (err.stack ?? err.message)
+		? (`${err.message}${err.message ? "\n" : ""}${err.stack}`)
 		: (err.toString());
 
 	logger.error(error, { ip: request.clientIP });
