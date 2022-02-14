@@ -1,5 +1,5 @@
 /**
- * @module User
+ * @module user
  * @author Alexis L. <alexis.lecomte@supinfo.com>
  */
 
@@ -113,8 +113,7 @@ const add = async (newUser) => {
 	const processedUser = newUser;
 
 	// Check if the new user match the model
-	console.log(processedUser);
-	const model = models.User.build(processedUser);
+	const model = models.user.build(processedUser);
 
 	try {
 		await model.validate({ skip: ["user_id", "uuid", "password", "street_address"] });
@@ -145,7 +144,7 @@ const add = async (newUser) => {
 	processedUser.password2 = undefined;
 
 	// Add to the database
-	const user = await models.User.create(processedUser);
+	const user = await models.user.create(processedUser);
 
 	return new APIResp(200).setData({ userID: user.user_id });
 };
@@ -160,7 +159,7 @@ const add = async (newUser) => {
  * @return {Promise<APIResp>}
  */
 const getAll = async () => {
-	const users = await models.User.findAll({
+	const users = await models.user.findAll({
 		attributes: { exclude: ["password"] },
 	});
 
@@ -177,8 +176,16 @@ const getAll = async () => {
  * @return {Promise<APIResp>}
  */
 const getByID = async (userID) => {
-	const user = await models.User.findOne({
+	const user = await models.user.findOne({
 		attributes: { exclude: ["password"] },
+		include: [{
+			model: models.position,
+			required: true,
+			include: [{
+				model: models.permission,
+				through: {attributes: []},
+			}],
+		}],
 		where: { user_id: userID },
 	});
 
@@ -186,7 +193,10 @@ const getByID = async (userID) => {
 		throw new APIError(404, `Cet utilisateur (${userID}) n'existe pas.`);
 	}
 
-	return new APIResp(200).setData({ user });
+	const userJSON = user.toJSON();
+	userJSON.position.permissions.forEach((p, i, arr) => (arr[i] = p.name));
+
+	return new APIResp(200).setData({ user: userJSON });
 };
 
 /**
@@ -199,8 +209,16 @@ const getByID = async (userID) => {
  * @return {Promise<APIResp>}
  */
 const getByUUID = async (uuid) => {
-	const user = await models.User.findOne({
+	const user = await models.user.findOne({
 		attributes: { exclude: ["password"] },
+		include: [{
+			model: models.position,
+			required: true,
+			include: [{
+				model: models.permission,
+				through: {attributes: []},
+			}],
+		}],
 		where: { uuid },
 	});
 
@@ -208,7 +226,10 @@ const getByUUID = async (uuid) => {
 		throw new APIError(404, `Cet utilisateur (${uuid}) n'existe pas.`);
 	}
 
-	return new APIResp(200).setData({ user });
+	const userJSON = user.toJSON();
+	userJSON.position.permissions.forEach((p, i, arr) => (arr[i] = p.name));
+
+	return new APIResp(200).setData({ user: userJSON });
 };
 
 /* ---- UPDATE ---------------------------------- */
