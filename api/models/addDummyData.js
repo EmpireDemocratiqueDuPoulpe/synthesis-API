@@ -115,6 +115,15 @@ const setData = async (sequelize, logger) => {
 		},
 	]);
 
+	/* -------------- Modules --------------- */
+	await sequelize.models.module.bulkCreate([
+		{
+			year: 4,
+			name: "BOSS",
+			longName: "Business Owner",
+		},
+	]);
+
 	logger.log("Dummy data inserted");
 };
 

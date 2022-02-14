@@ -15,14 +15,20 @@ const module = {
 	year: {
 		type: DataTypes.SMALLINT,
 		allowNull: false,
+		validate: {
+			min: 1,
+			max: 5,
+		},
 	},
 	name: {
 		type: DataTypes.STRING(4),
 		allowNull: false,
+		validate: { notEmpty: true },
 	},
 	longName: {
 		type: DataTypes.STRING,
 		allowNull: false,
+		validate: { notEmpty: true },
 	},
 };
 
