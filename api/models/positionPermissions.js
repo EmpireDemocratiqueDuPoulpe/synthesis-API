@@ -1,11 +1,11 @@
 /**
- * @module PositionPermissions
+ * @module positionPermissions
  * @author Alexis L. <alexis.lecomte@supinfo.com>
  */
 
 import { DataTypes } from "sequelize";
 
-const PositionPermissions = {
+const positionPermissions = {
 	position_id: {
 		type: DataTypes.INTEGER,
 		references: {
@@ -30,7 +30,7 @@ const PositionPermissions = {
  * @param {string} name - The file name used for the definition
  */
 export const define = (sequelize, name) => {
-	sequelize.define(name, PositionPermissions);
+	sequelize.define(name, positionPermissions);
 };
 
-export default PositionPermissions;
+export default positionPermissions;

@@ -1,18 +1,26 @@
 /**
- * @module Position
- * @author Alexis L. <alexis.lecomte@supinfo.com>
+ * @module module
+ * @author Louan L. <louan.leplae@supinfo.com>
  */
 
 import { DataTypes } from "sequelize";
 
-const Position = {
-	position_id: {
+const module = {
+	module_id: {
 		type: DataTypes.INTEGER,
 		primaryKey: true,
 		allowNull: false,
 		autoIncrement: true,
 	},
+	year: {
+		type: DataTypes.SMALLINT,
+		allowNull: false,
+	},
 	name: {
+		type: DataTypes.STRING(4),
+		allowNull: false,
+	},
+	longName: {
 		type: DataTypes.STRING,
 		allowNull: false,
 	},
@@ -26,7 +34,7 @@ const Position = {
  * @param {string} name - The file name used for the definition
  */
 export const define = (sequelize, name) => {
-	sequelize.define(name, Position);
+	sequelize.define(name, module);
 };
 
-export default Position;
+export default module;

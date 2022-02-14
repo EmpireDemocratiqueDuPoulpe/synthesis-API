@@ -1,37 +1,40 @@
 /**
- * @module Compta
+ * @module job
  * @author Louan L. <louan.leplae@supinfo.com>
  */
 
 import { DataTypes } from "sequelize";
 
-const Compta = {
-	compta_id: {
+const Job = {
+	job_id: {
 		type: DataTypes.INTEGER,
 		primaryKey: true,
 		allowNull: false,
 		autoIncrement: true,
 	},
-	payment_type: {
+	job_type: {
 		type: DataTypes.ENUM,
-		values: [ "OPCA", "Comptant", "Échelonnement" ],
+		values: [ "stage", "alternance" ],
 		allowNull: false,
 	},
-	payment_due: {
-		type: DataTypes.DECIMAL(17, 2),
-		defaultValue: 0,
+	start_date: {
+		type: DataTypes.DATE,
 		allowNull: false,
 	},
-	paid: {
+	end_date: {
+		type: DataTypes.DATE,
+		allowNull: false,
+	},
+	company_name: {
+		type: DataTypes.STRING,
+		allowNull: false,
+	},
+	is_hired: {
 		type: DataTypes.BOOLEAN,
 		defaultValue: false,
 		allowNull: false,
 	},
-	relance: {
-		type: DataTypes.BOOLEAN,
-		defaultValue: false,
-		allowNull: false,
-	},
+	length_month_hired: { type: DataTypes.INTEGER },
 };
 
 /**
@@ -42,7 +45,7 @@ const Compta = {
  * @param {string} name - The file name used for the definition
  */
 export const define = (sequelize, name) => {
-	sequelize.define(name, Compta);
+	sequelize.define(name, Job);
 };
 
-export default Compta;
+export default Job;

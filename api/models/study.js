@@ -1,11 +1,11 @@
 /**
- * @module Study
+ * @module study
  * @author Louan L. <louan.leplae@supinfo.com>
  */
 
 import { DataTypes } from "sequelize";
 
-const Study = {
+const study = {
 	study_id: {
 		type: DataTypes.INTEGER,
 		primaryKey: true,
@@ -47,7 +47,7 @@ const Study = {
  * @param {string} name - The file name used for the definition
  */
 export const define = (sequelize, name) => {
-	sequelize.define(name, Study);
+	sequelize.define(name, study);
 };
 
-export default Study;
+export default study;

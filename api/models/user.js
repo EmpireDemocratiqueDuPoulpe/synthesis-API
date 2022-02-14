@@ -1,12 +1,12 @@
 /**
- * @module User
+ * @module user
  * @author Louan L. <louan.leplae@supinfo.com>
  */
 
 import { DataTypes } from "sequelize";
 
 // TODO: Custom messages
-const User = {
+const user = {
 	user_id: {
 		type: DataTypes.INTEGER,
 		primaryKey: true,
@@ -84,7 +84,7 @@ const User = {
  * @param {string} name - The file name used for the definition
  */
 export const define = (sequelize, name) => {
-	sequelize.define(name, User);
+	sequelize.define(name, user);
 };
 
-export default User;
+export default user;

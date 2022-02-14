@@ -6,12 +6,12 @@
 const setData = async (sequelize, logger) => {
 	logger.log("Inserting dummy data...");
 
-	/* ---- Permissions ----------------------------- */
+	/* ---- permissions ----------------------------- */
 	/*
 	 Setting `permission_id` makes AUTO_INCREMENT stay at one.
 	 To avoid this, these IDs start at 1001.
 	*/
-	await sequelize.models.Permission.bulkCreate([
+	await sequelize.models.permission.bulkCreate([
 		{ permission_id: 1001, name: "READ_STUDENTS", name_localized: "" },
 		{ permission_id: 1002, name: "READ_OLD_STUDENTS", name_localized: "" },
 		{ permission_id: 1003, name: "READ_STUDENTS_JOBS", name_localized: "" },
@@ -36,8 +36,8 @@ const setData = async (sequelize, logger) => {
 		{ permission_id: 1022, name: "EXPORT_DATA", name_localized: "" },
 	]);
 
-	/* ---- Position -------------------------------- */
-	await sequelize.models.Position.bulkCreate([
+	/* ---- position -------------------------------- */
+	await sequelize.models.position.bulkCreate([
 		/*{ name: "Administrateur" },
 		{ name: "Directeur académique" },
 		{ name: "Coordinateur" },
@@ -51,8 +51,8 @@ const setData = async (sequelize, logger) => {
 		{ name: "Étudiant" },
 	]);
 
-	/* ---- PositionPermissions --------------------- */
-	await sequelize.models.PositionPermissions.bulkCreate([
+	/* ---- positionPermissions --------------------- */
+	await sequelize.models.positionPermissions.bulkCreate([
 		// Admin. plateforme
 		{ position_id: 1, permission_id: 1021 },
 		{ position_id: 1, permission_id: 1022 },
@@ -95,7 +95,7 @@ const setData = async (sequelize, logger) => {
 	]);
 
 	/* ---- User ------------------------------------ */
-	await sequelize.models.User.bulkCreate([
+	await sequelize.models.user.bulkCreate([
 		{
 			"position_id": 1,
 			"first_name": "Sir Edward",

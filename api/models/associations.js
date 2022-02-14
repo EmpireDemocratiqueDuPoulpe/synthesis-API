@@ -15,9 +15,9 @@ import { DataTypes } from "sequelize";
 const init = (sequelize, logger) => {
 	logger.log(`Making associations ([${Object.keys(sequelize.models).join(", ")}])...`);
 
-	/* ---- Module ---------------------------------- */
-	// Note [* - 1] Module
-	sequelize.models.Module.hasMany(sequelize.models.Note, {
+	/* ---- module ---------------------------------- */
+	// note [* - 1] module
+	sequelize.models.module.hasMany(sequelize.models.note, {
 		foreignKey: {
 			name: "module_id",
 			type: DataTypes.INTEGER,
@@ -25,16 +25,16 @@ const init = (sequelize, logger) => {
 		},
 	});
 
-	/* ---- Permission ------------------------------ */
-	// Permission [* - *] Position
-	sequelize.models.Permission.belongsToMany(sequelize.models.Position, {
-		through: sequelize.models.PositionPermissions,
+	/* ---- permission ------------------------------ */
+	// permission [* - *] position
+	sequelize.models.permission.belongsToMany(sequelize.models.position, {
+		through: sequelize.models.positionPermissions,
 		foreignKey: "permission_id",
 	});
 
-	/* ---- Position -------------------------------- */
-	// Position [1 - *] User
-	sequelize.models.Position.hasMany(sequelize.models.User, {
+	/* ---- position -------------------------------- */
+	// position [1 - *] user
+	sequelize.models.position.hasMany(sequelize.models.user, {
 		foreignKey: {
 			name: "position_id",
 			type: DataTypes.INTEGER,
@@ -42,55 +42,75 @@ const init = (sequelize, logger) => {
 		},
 	});
 
-	// Position [* - *] Permission
-	sequelize.models.Position.belongsToMany(sequelize.models.Permission, {
-		through: sequelize.models.PositionPermissions,
+	// position [* - *] permission
+	sequelize.models.position.belongsToMany(sequelize.models.permission, {
+		through: sequelize.models.positionPermissions,
 		foreignKey: "position_id",
 	});
 
-	/* ---- User ------------------------------------ */
-	// User [1 - {0-1}] Study
-	sequelize.models.User.hasOne(sequelize.models.Study, {
+	/* ---- user ------------------------------------ */
+	// user [1 - *] absence
+	sequelize.models.user.hasMany(sequelize.models.absence, {
+		foreignKey: {
+			name: "user_id",
+			type: DataTypes.INTEGER,
+			allowNull: false,
+		},
+	});
+
+	// user [1 - 1] compta
+	sequelize.models.user.hasOne(sequelize.models.compta, {
+		foreignKey: {
+			name: "user_id",
+			type: DataTypes.INTEGER,
+			allowNull: false,
+		},
+	});
+
+	// user [1 - *] job
+	sequelize.models.user.hasMany(sequelize.models.job, {
+		foreignKey: {
+			name: "user_id",
+			type: DataTypes.INTEGER,
+			allowNull: false,
+		},
+	});
+
+	// user [1 - *] note
+	sequelize.models.user.hasMany(sequelize.models.note, {
+		foreignKey: {
+			name: "user_id",
+			type: DataTypes.INTEGER,
+			allowNull: false,
+		},
+	});
+
+	// user [1 - 1] position
+	sequelize.models.user.hasOne(sequelize.models.position, {
+		foreignKey: {
+			name: "position_id",
+			type: DataTypes.INTEGER,
+			allowNull: false,
+		},
+		constraints: false,
+	});
+
+	// user [1 - *] positionPermissions
+	sequelize.models.user.hasMany(sequelize.models.positionPermissions, {
+		foreignKey: {
+			name: "position_id",
+			type: DataTypes.INTEGER,
+			allowNull: false,
+		},
+		constraints: false,
+	});
+
+	// user [1 - {0-1}] study
+	sequelize.models.user.hasOne(sequelize.models.study, {
 		foreignKey: {
 			name: "user_id",
 			type: DataTypes.INTEGER,
 			allowNull: true,
-		},
-	});
-
-	// User [1 - *] Job
-	sequelize.models.User.hasMany(sequelize.models.Job, {
-		foreignKey: {
-			name: "user_id",
-			type: DataTypes.INTEGER,
-			allowNull: false,
-		},
-	});
-
-	// User [1 - *] Note
-	sequelize.models.User.hasMany(sequelize.models.Note, {
-		foreignKey: {
-			name: "user_id",
-			type: DataTypes.INTEGER,
-			allowNull: false,
-		},
-	});
-
-	// User [1 - *] Absence
-	sequelize.models.User.hasMany(sequelize.models.Absence, {
-		foreignKey: {
-			name: "user_id",
-			type: DataTypes.INTEGER,
-			allowNull: false,
-		},
-	});
-
-	// User [1 - 1] Compta
-	sequelize.models.User.hasOne(sequelize.models.Compta, {
-		foreignKey: {
-			name: "user_id",
-			type: DataTypes.INTEGER,
-			allowNull: false,
 		},
 	});
 

@@ -1,26 +1,22 @@
 /**
- * @module Permission
- * @author Alexis L. <alexis.lecomte@supinfo.com>
+ * @module absence
+ * @author Louan L. <louan.leplae@supinfo.com>
  */
 
 import { DataTypes } from "sequelize";
 
-const Permission = {
-	permission_id: {
+const absence = {
+	absence_id: {
 		type: DataTypes.INTEGER,
 		primaryKey: true,
 		allowNull: false,
 		autoIncrement: true,
 	},
-	name: {
-		type: DataTypes.STRING,
+	start_date: {
+		type: DataTypes.DATE,
 		allowNull: false,
-		validate: {
-			isUppercase: true,
-			notEmpty: true,
-		},
 	},
-	name_localized: { type: DataTypes.STRING },
+	end_date: { type: DataTypes.DATE },
 };
 
 /**
@@ -31,7 +27,7 @@ const Permission = {
  * @param {string} name - The file name used for the definition
  */
 export const define = (sequelize, name) => {
-	sequelize.define(name, Permission);
+	sequelize.define(name, absence);
 };
 
-export default Permission;
+export default absence;
