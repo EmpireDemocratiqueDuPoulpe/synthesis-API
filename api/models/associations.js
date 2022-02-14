@@ -29,7 +29,7 @@ const init = (sequelize, logger) => {
 	// Permission [* - *] Position
 	sequelize.models.Permission.belongsToMany(sequelize.models.Position, {
 		through: sequelize.models.PositionPermissions,
-		foreignKey: "position_id",
+		foreignKey: "permission_id",
 	});
 
 	/* ---- Position -------------------------------- */
@@ -45,7 +45,7 @@ const init = (sequelize, logger) => {
 	// Position [* - *] Permission
 	sequelize.models.Position.belongsToMany(sequelize.models.Permission, {
 		through: sequelize.models.PositionPermissions,
-		foreignKey: "permission_id",
+		foreignKey: "position_id",
 	});
 
 	/* ---- User ------------------------------------ */
