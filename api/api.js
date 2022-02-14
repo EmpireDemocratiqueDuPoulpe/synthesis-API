@@ -5,7 +5,7 @@
 
 import { Router } from "express";
 import requestIP from "request-ip";
-import { users, modules } from "./routes/routes.js";
+import { users, modules, studies } from "./routes/routes.js";
 import { endHandler, errorHandler } from "./middlewares/middlewares.js";
 
 export default () => {
@@ -18,6 +18,7 @@ export default () => {
 	// Routes
 	users(router);
 	modules(router);
+	studies(router);
 
 	// Middlewares for errors
 	router.use(errorHandler.expressLogger);
