@@ -98,7 +98,7 @@ const getByID = async (moduleID) => {
  *****************************************************/
 
 const Module = {
-	add,			// CREATE
-	getAll, getByID, // READ
+	add,							// CREATE
+	getAll, getByID,	// READ
 };
 export default Module;

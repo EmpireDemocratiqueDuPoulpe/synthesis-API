@@ -6,6 +6,15 @@
 const setData = async (sequelize, logger) => {
 	logger.log("Inserting dummy data...");
 
+	/* ---- modules ----------------------------- */
+	await sequelize.models.module.bulkCreate([
+		{
+			year: 4,
+			name: "BOSS",
+			longName: "Business Owner",
+		},
+	]);
+
 	/* ---- permissions ----------------------------- */
 	/*
 	 Setting `permission_id` makes AUTO_INCREMENT stay at one.
@@ -125,15 +134,6 @@ const setData = async (sequelize, logger) => {
 			entry_date: "06/01/22 04:11:05",
 			exit_date: "06/01/22 04:11:05",
 			user_id: 1,
-		},
-	]);
-
-	/* -------------- Modules --------------- */
-	await sequelize.models.module.bulkCreate([
-		{
-			year: 4,
-			name: "BOSS",
-			longName: "Business Owner",
 		},
 	]);
 
