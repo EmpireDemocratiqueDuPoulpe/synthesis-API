@@ -1,5 +1,5 @@
 /**
- * @module study
+ * @module Study
  * @author Louan L. <louan.leplae@supinfo.com>
  */
 
@@ -8,22 +8,18 @@ import { APIResp, APIError } from "../../global/global.js";
 
 const { models } = sequelize;
 
-
 /*****************************************************
   * Functions
   *****************************************************/
-
 
 /*****************************************************
   * CRUD Methods
   *****************************************************/
 
 /* ---- CREATE ---------------------------------- */
-
 /* ---- READ ------------------------------------ */
-
 /**
-  * Get studies user by user id
+  * Get user's study by user id
   * @function
   * @async
   *
@@ -40,11 +36,8 @@ const getByUserID = async (userID) => {
 		throw new APIError(404, `Cet utilisateur (${userID}) n'a pas de parcours d'étude.`);
 	}
 
-	const studyJSON = study.toJSON();
-
-	return new APIResp(200).setData({ study: studyJSON });
+	return new APIResp(200).setData({ study });
 };
-
 
 /* ---- UPDATE ---------------------------------- */
 /* ---- DELETE ---------------------------------- */

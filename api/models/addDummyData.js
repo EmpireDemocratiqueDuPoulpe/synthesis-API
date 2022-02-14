@@ -127,6 +127,7 @@ const setData = async (sequelize, logger) => {
 			user_id: 1,
 		},
 	]);
+
 	logger.log("Dummy data inserted");
 };
 

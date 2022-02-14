@@ -15,9 +15,7 @@ export default (router) => {
 
 	/* ---- CREATE ---------------------------------- */
 
-
 	/* ---- READ ------------------------------------ */
-
 	route.get("/by-user-id/:userID", async (request, response) => {
 		const resp = await Study.getByUserID(request.params.userID);
 		response.status(resp.code).json(resp.toJSON());
