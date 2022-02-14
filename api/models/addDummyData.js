@@ -115,6 +115,18 @@ const setData = async (sequelize, logger) => {
 		},
 	]);
 
+	/* ---- studies ----------------------------- */
+	await sequelize.models.study.bulkCreate([
+		{
+			study_id: 1,
+			entry_level: 1,
+			exit_level: 5,
+			previous_level: 4,
+			entry_date: "06/01/22 04:11:05",
+			exit_date: "06/01/22 04:11:05",
+			user_id: 1,
+		},
+	]);
 	logger.log("Dummy data inserted");
 };
 
