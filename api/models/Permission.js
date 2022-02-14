@@ -15,6 +15,10 @@ const Permission = {
 	name: {
 		type: DataTypes.STRING,
 		allowNull: false,
+		validate: {
+			isUppercase: true,
+			notEmpty: true,
+		},
 	},
 	name_localized: { type: DataTypes.STRING },
 };
