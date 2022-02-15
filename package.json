@@ -1,35 +1,48 @@
 {
   "name": "campus-booster-en-mieux-api",
   "version": "1.0.0",
-  "description": "campus-booster-en-mieux-API",
-  "main": "src/index.js",
-  "scripts": {
-    "start": "cross-env NODE_ENV=development node src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint src"
+  "description": "",
+  "main": "server.js",
+  "type": "module",
+  "standard": {
+    "parser": "@babel/eslint-parser"
   },
-  "devDependencies": {
-    "cors": "^2.8.5",
-    "cross-env": "^7.0.3",
-    "eslint": "^7.24.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-config-google": "^0.14.0",
-    "eslint-plugin-import": "^2.22.1"
+  "scripts": {
+    "start": "cross-env NODE_ENV=development node ./server.js",
+    "start-force-sync": "cross-env NODE_ENV=development FORCE_SYNC=true node ./server.js",
+    "test": "echo \"Error: no test specified\" && exit 0",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/EmpireDemocratiqueDuPoulpe/campus-booster-en-mieux-API.git"
   },
-  "author": "",
+  "author": "TODO",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/EmpireDemocratiqueDuPoulpe/campus-booster-en-mieux-API/issues"
   },
   "homepage": "https://github.com/EmpireDemocratiqueDuPoulpe/campus-booster-en-mieux-API#readme",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.19.0",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "express": "^4.17.2",
-    "uuid": "^8.3.2"
+    "express-promise-router": "^4.1.1",
+    "pg": "^8.7.1",
+    "request-ip": "^2.1.3",
+    "sequelize": "^6.15.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.12",
+    "@babel/eslint-parser": "^7.16.5",
+    "babel-eslint": "^10.1.0",
+    "colors": "^1.4.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.24.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.22.1"
   }
 }
