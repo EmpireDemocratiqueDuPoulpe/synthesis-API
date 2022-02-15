@@ -17,8 +17,8 @@ export default () => {
 
 	// Routes
 	absences(router);
-  comptas(router);
-  jobs(router);
+	comptas(router);
+	jobs(router);
 	modules(router);
 	notes(router);
 	users(router);
