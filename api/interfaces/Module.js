@@ -13,7 +13,7 @@ const { models } = sequelize;
  *
  * @property {number} year
  * @property {string} name
- * @property {string} longName
+ * @property {string} long_name
  */
 
 /*****************************************************

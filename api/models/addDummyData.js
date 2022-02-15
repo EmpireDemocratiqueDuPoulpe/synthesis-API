@@ -8,11 +8,7 @@ const setData = async (sequelize, logger) => {
 
 	/* ---- modules ----------------------------- */
 	await sequelize.models.module.bulkCreate([
-		{
-			year: 4,
-			name: "BOSS",
-			longName: "Business Owner",
-		},
+		{ year: 4, name: "BOSS", long_name: "Business Owner" },
 	]);
 
 	/* ---- permissions ----------------------------- */

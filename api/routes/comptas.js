@@ -24,13 +24,6 @@ export default (router) => {
 	});
 
 	/* ---- READ ------------------------------------ */
-	route.get("/all", async (request, response) => {
-		const resp = await Compta.getAll();
-		response.status(resp.code).json(resp.toJSON());
-
-		logger.log("Fetch all comptas", { ip: request.clientIP, params: {code: resp.code} });
-	});
-
 	route.get("/by-id/:comptaID", async (request, response) => {
 		const resp = await Compta.getByID(request.params.comptaID);
 		response.status(resp.code).json(resp.toJSON());

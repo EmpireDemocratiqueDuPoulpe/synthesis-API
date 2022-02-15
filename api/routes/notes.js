@@ -24,18 +24,18 @@ export default (router) => {
 	});
 
 	/* ---- READ ------------------------------------ */
-	route.get("/all", async (request, response) => {
-		const resp = await Note.getAll();
-		response.status(resp.code).json(resp.toJSON());
-
-		logger.log("Fetch all notes", { ip: request.clientIP, params: {code: resp.code} });
-	});
-
 	route.get("/by-id/:noteID", async (request, response) => {
 		const resp = await Note.getByID(request.params.noteID);
 		response.status(resp.code).json(resp.toJSON());
 
 		logger.log("Retrieves a note by his ID", { ip: request.clientIP, params: {code: resp.code, noteID: request.params.noteID} });
+	});
+
+	route.get("/by-user-id/:userID", async (request, response) => {
+		const resp = await Note.getByUserID(request.params.userID);
+		response.status(resp.code).json(resp.toJSON());
+
+		logger.log("Retrieves all notes of a user", { ip: request.clientIP, params: {code: resp.code, noteID: request.params.noteID} });
 	});
 
 	/* ---- UPDATE ---------------------------------- */

@@ -49,26 +49,12 @@ const add = async (newNote) => {
 	}
 
 	// Add to the database
-	const note = await models.module.create(processedNote);
+	const note = await models.note.create(processedNote);
 
 	return new APIResp(200).setData({ noteID: note.note_id });
 };
 
 /* ---- READ ------------------------------------ */
-/**
- * Get all notes
- * @function
- * @async
- *
- * @throws {APIError}
- * @return {Promise<APIResp>}
- */
-const getAll = async () => {
-	const notes = await models.note.findAll();
-
-	return new APIResp(200).setData({ notes });
-};
-
 /**
  * Get one note by its id
  * @function
@@ -90,6 +76,23 @@ const getByID = async (noteID) => {
 	return new APIResp(200).setData({ note });
 };
 
+/**
+ * Get all notes of a user
+ * @function
+ * @async
+ *
+ * @param {number} userID
+ * @throws {APIError}
+ * @return {Promise<APIResp>}
+ */
+const getByUserID = async (userID) => {
+	const notes = await models.note.findAll({
+		where: { user_id: userID },
+	});
+
+	return new APIResp(200).setData({ notes });
+};
+
 /* ---- UPDATE ---------------------------------- */
 /* ---- DELETE ---------------------------------- */
 
@@ -98,7 +101,7 @@ const getByID = async (noteID) => {
  *****************************************************/
 
 const Note = {
-	add,							// CREATE
-	getAll, getByID,	// READ
+	add,									// CREATE
+	getByID, getByUserID,	// READ
 };
 export default Note;

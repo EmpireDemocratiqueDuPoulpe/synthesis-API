@@ -58,20 +58,6 @@ const add = async (newCompta) => {
 
 /* ---- READ ------------------------------------ */
 /**
- * Get all comptas
- * @function
- * @async
- *
- * @throws {APIError}
- * @return {Promise<APIResp>}
- */
-const getAll = async () => {
-	const comptas = await models.compta.findAll();
-
-	return new APIResp(200).setData({ comptas });
-};
-
-/**
  * Get one compta by its id
  * @function
  * @async
@@ -100,7 +86,7 @@ const getByID = async (comptaID) => {
  *****************************************************/
 
 const Compta = {
-	add,							// CREATE
-	getAll, getByID,	// READ
+	add,			// CREATE
+	getByID,	// READ
 };
 export default Compta;
