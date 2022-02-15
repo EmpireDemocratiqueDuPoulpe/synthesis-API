@@ -34,7 +34,10 @@ const Job = {
 		defaultValue: false,
 		allowNull: false,
 	},
-	length_month_hired: { type: DataTypes.INTEGER },
+	length_month_hired: {
+		type: DataTypes.INTEGER,
+		allowNull: true,
+	},
 };
 
 /**
