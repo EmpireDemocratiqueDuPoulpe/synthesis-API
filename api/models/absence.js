@@ -15,6 +15,13 @@ const absence = {
 	start_date: {
 		type: DataTypes.DATE,
 		allowNull: false,
+		validate: {
+			isBeforeEndDate(startDate) {
+				if (startDate > this.end_date) {
+					throw new Error("La date de début doit être antérieur à la date de fin.");
+				}
+			},
+		},
 	},
 	end_date: { type: DataTypes.DATE },
 };
