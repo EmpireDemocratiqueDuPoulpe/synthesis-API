@@ -5,7 +5,7 @@
 
 import { Router } from "express";
 import requestIP from "request-ip";
-import { modules, users, studies, jobs, notes } from "./routes/routes.js";
+import { absences, comptas, jobs, modules, notes, users, studies } from "./routes/routes.js";
 import { endHandler, errorHandler } from "./middlewares/middlewares.js";
 
 export default () => {
@@ -16,11 +16,13 @@ export default () => {
 	router.use(requestIP.mw({ attributeName: "clientIP" }));
 
 	// Routes
+	absences(router);
+  comptas(router);
+  jobs(router);
 	modules(router);
 	notes(router);
 	users(router);
 	studies(router);
-	jobs(router);
 
 	// Middlewares for errors
 	router.use(errorHandler.expressLogger);

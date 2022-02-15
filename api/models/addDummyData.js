@@ -170,6 +170,17 @@ const setData = async (sequelize, logger) => {
 		},
 	]);
 
+	/* ---- comptas ----------------------------- */
+	await sequelize.models.compta.bulkCreate([
+		{
+			user_id: 1,
+			payment_type: "Comptant",
+			payment_due: 28750.56,
+			paid: false,
+			relance: true,
+		},
+	]);
+
 	logger.log("Dummy data inserted");
 };
 
