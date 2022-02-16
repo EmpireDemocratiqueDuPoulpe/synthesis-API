@@ -4,18 +4,45 @@
  */
 
 import bcrypt from "bcrypt";
+import * as jose from "jose";
+import keys from "../joseLoader.js";
 import sequelize from "../sequelizeLoader.js";
 import { APIResp, APIError } from "../../global/global.js";
-import { Passwords } from "../../config/config.js";
+import { API, Passwords } from "../../config/config.js";
 
 const { models } = sequelize;
 
 /**
+ * @typedef {Object} UserAddress
+ *
+ * @property {string} street
+ * @property {string} city
+ * @property {string} postalCode
+ */
+
+/**
+ * @typedef {Object} User
+ *
+ * @property {number} user_id
+ * @property {string} uuid
+ * @property {string} first_name
+ * @property {string} last_name
+ * @property {Date|string} birth_date
+ * @property {string} email
+ * @property {string} password
+ * @property {UserAddress} address
+ * @property {string} gender
+ * @property {string} region
+ * @property {string} status
+ * @property {string} campus
+ */
+
+/**
  * @typedef {Object} NewUser
  *
- * @property {string} firstName
- * @property {string} lastName
- * @property {string} birthDate
+ * @property {string} first_name
+ * @property {string} last_name
+ * @property {Date|string} birth_date
  * @property {string} email
  * @property {string} password1
  * @property {string} password2
@@ -27,11 +54,10 @@ const { models } = sequelize;
  */
 
 /**
- * @typedef {Object} UserAddress
+ * @typedef {Object} LoggingUser
  *
- * @property {string} street
- * @property {string} city
- * @property {string} postalCode
+ * @property {string} email
+ * @property {string} password
  */
 
 /*****************************************************
@@ -82,6 +108,36 @@ const hashPassword = async (password) => {
 };
 
 /**
+ * Generate a JWT token
+ * @function
+ * @async
+ *
+ * @param {User} user
+ * @return {Promise<string>}
+ */
+const generateJWT = async (user) => {
+	const JWTuser = {
+		uuid: user.uuid,
+		given_name: user.first_name,
+		family_name: user.last_name,
+		picture: null,
+		email: user.email,
+		gender: user.gender,
+		birthdate: user.birth_date,
+		groups: null,
+	};
+
+	return new jose.SignJWT(JWTuser)
+		.setProtectedHeader({ alg: API.jwt.algorithm })
+		.setIssuer("cpem") // TODO: Change to the site name
+		.setIssuedAt()
+		.setExpirationTime("15m")
+		.setSubject(user.user_id.toString())
+		.setExpirationTime("2h")
+		.sign(keys.privateKey);
+};
+
+/**
  * Compares a plaintext password to a hash
  * @function
  * @async
@@ -90,10 +146,10 @@ const hashPassword = async (password) => {
  * @param {string} hash - Hashed password
  * @throws {Error}
  * @return {Promise<boolean>}
- * /
+ */
 const passwordMatchHash = async (password, hash) => {
 	return await bcrypt.compare(password, hash);
-};*/
+};
 
 /*****************************************************
  * CRUD Methods
@@ -150,6 +206,37 @@ const add = async (newUser) => {
 };
 
 /* ---- READ ------------------------------------ */
+/**
+ * Login a user
+ * @function
+ * @async
+ *
+ * @param {LoggingUser} user
+ * @throws {APIError}
+ * @return {Promise<APIResp>}
+ */
+const login = async (user) => {
+	// Get user data
+	let storedUser;
+
+	try {
+		storedUser = await models.user.findOne({ where: {email: user.email} });
+		if (!storedUser) throw new Error();
+	} catch (err) {
+		throw new APIError(400, "L'adresse email et/ou le mot de passe sont erronés.", ["email", "password"]);
+	}
+
+	// Check the password
+	if (!(await passwordMatchHash(user.password, storedUser.password))) {
+		throw new APIError(400, "L'adresse email et/ou le mot de passe sont erronés.", ["email", "password"]);
+	}
+
+	// Generate a JWT token
+	const token = await generateJWT(storedUser);
+
+	return new APIResp(200).setData({ token });
+};
+
 /**
  * Get all users
  * @function
@@ -240,7 +327,7 @@ const getByUUID = async (uuid) => {
  *****************************************************/
 
 const User = {
-	add,												// CREATE
-	getAll, getByID, getByUUID, // READ
+	add,																// CREATE
+	login, getAll, getByID, getByUUID,	// READ
 };
 export default User;

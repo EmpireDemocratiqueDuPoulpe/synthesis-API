@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import api from "./api/api.js";
 import "./api/sequelizeLoader.js";
+import "./api/joseLoader.js";
 import { API } from "./config/config.js";
 
 /**
