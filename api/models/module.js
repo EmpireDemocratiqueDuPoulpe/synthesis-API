@@ -25,7 +25,7 @@ const module = {
 		allowNull: false,
 		validate: { notEmpty: true },
 	},
-	longName: {
+	long_name: {
 		type: DataTypes.STRING,
 		allowNull: false,
 		validate: { notEmpty: true },

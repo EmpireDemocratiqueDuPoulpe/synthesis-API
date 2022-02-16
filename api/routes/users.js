@@ -4,7 +4,8 @@
  */
 
 import AsyncRouter from "express-promise-router";
-import { Logger } from "../../global/global.js";
+import { authenticator } from "../middlewares/middlewares.js";
+import { Logger, APIResp, CookiesFn } from "../../global/global.js";
 import { User } from "../interfaces/interfaces.js";
 
 const route = AsyncRouter();
@@ -24,7 +25,20 @@ export default (router) => {
 	});
 
 	/* ---- READ ------------------------------------ */
-	route.get("/all", async (request, response) => {
+	route.post("/login", async (request, response) => {
+		const resp = new APIResp();
+		const { user } = request.body;
+
+		const auth = (await User.login(user)).data;
+		CookiesFn.setTokenCookie(response, auth.token);
+
+		resp.setData(null);
+		response.status(resp.code).json(resp.toJSON());
+
+		logger.log("Logs in", { ip: request.clientIP, params: {code: resp.code, email: user.email} });
+	});
+
+	route.get("/all", authenticator, async (request, response) => {
 		const resp = await User.getAll();
 		response.status(resp.code).json(resp.toJSON());
 

@@ -1,5 +1,5 @@
 /**
- * @module Module
+ * @module Note
  * @author Maxence P. <maxence.pawlowski@supinfo.com>
  */
 
@@ -9,11 +9,11 @@ import { APIResp, APIError } from "../../global/global.js";
 const { models } = sequelize;
 
 /**
- * @typedef {Object} NewModule
+ * @typedef {Object} NewNote
  *
- * @property {number} year
- * @property {string} name
- * @property {string} long_name
+ * @property {number} user_id
+ * @property {number} module_id
+ * @property {number} note
  */
 
 /*****************************************************
@@ -27,67 +27,70 @@ const { models } = sequelize;
 
 /* ---- CREATE ---------------------------------- */
 /**
- * Add a new module
+ * Add a new note
  * @function
  * @async
  *
- * @param {NewModule} newModule
+ * @param {NewNote} newNote
  * @throws {APIError}
  * @return {Promise<APIResp>}
  */
-const add = async (newModule) => {
-	const processedModule = newModule;
+const add = async (newNote) => {
+	const processedNote = newNote;
 
 	// Check if the new user match the model
-	const model = models.module.build(processedModule);
+	const model = models.note.build(processedNote);
 
 	try {
-		await model.validate({ skip: ["module_id"] });
+		await model.validate({ skip: ["note_id"] });
 	} catch (err) {
 		// TODO: Adapt the system
 		throw new APIError(400, "error", Object.values(err));
 	}
 
 	// Add to the database
-	const module = await models.module.create(processedModule);
+	const note = await models.note.create(processedNote);
 
-	return new APIResp(200).setData({ moduleID: module.module_id });
+	return new APIResp(200).setData({ noteID: note.note_id });
 };
 
 /* ---- READ ------------------------------------ */
 /**
- * Get all modules
+ * Get one note by its id
  * @function
  * @async
  *
+ * @param {number} noteID
  * @throws {APIError}
  * @return {Promise<APIResp>}
  */
-const getAll = async () => {
-	const modules = await models.module.findAll();
+const getByID = async (noteID) => {
+	const note = await models.note.findOne({
+		where: { note_id: noteID },
+	});
 
-	return new APIResp(200).setData({ modules });
+	if (!note) {
+		throw new APIError(404, `Cette note (${noteID}) n'existe pas.`);
+	}
+
+	return new APIResp(200).setData({ note });
 };
 
 /**
- * Get one module by its id
+ * Get all notes of a user
  * @function
  * @async
  *
- * @param {number} moduleID
+ * @param {number} userID
  * @throws {APIError}
  * @return {Promise<APIResp>}
  */
-const getByID = async (moduleID) => {
-	const module = await models.module.findOne({
-		where: { module_id: moduleID },
+const getByUserID = async (userID) => {
+	const notes = await models.note.findAll({
+		where: { user_id: userID },
 	});
 
-	if (!module) {
-		throw new APIError(404, `Ce module (${moduleID}) n'existe pas.`);
-	}
-
-	return new APIResp(200).setData({ module });
+	return new APIResp(200).setData({ notes });
 };
 
 /* ---- UPDATE ---------------------------------- */
@@ -97,8 +100,8 @@ const getByID = async (moduleID) => {
  * Export
  *****************************************************/
 
-const Module = {
-	add,							// CREATE
-	getAll, getByID,	// READ
+const Note = {
+	add,									// CREATE
+	getByID, getByUserID,	// READ
 };
-export default Module;
+export default Note;

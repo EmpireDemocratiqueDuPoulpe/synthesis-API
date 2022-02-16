@@ -1,5 +1,5 @@
 /**
- * @module Module
+ * @module Compta
  * @author Maxence P. <maxence.pawlowski@supinfo.com>
  */
 
@@ -9,11 +9,13 @@ import { APIResp, APIError } from "../../global/global.js";
 const { models } = sequelize;
 
 /**
- * @typedef {Object} NewModule
+ * @typedef {Object} NewCompta
  *
- * @property {number} year
- * @property {string} name
- * @property {string} long_name
+ * @property {number} user_id
+ * @property {string} payment_type
+ * @property {number} payment_due
+ * @property {boolean} paid
+ * @property {boolean} relance
  */
 
 /*****************************************************
@@ -27,67 +29,53 @@ const { models } = sequelize;
 
 /* ---- CREATE ---------------------------------- */
 /**
- * Add a new module
+ * Add a new compta
  * @function
  * @async
  *
- * @param {NewModule} newModule
+ * @param {NewCompta} newCompta
  * @throws {APIError}
  * @return {Promise<APIResp>}
  */
-const add = async (newModule) => {
-	const processedModule = newModule;
+const add = async (newCompta) => {
+	const processedCompta = newCompta;
 
 	// Check if the new user match the model
-	const model = models.module.build(processedModule);
+	const model = models.compta.build(processedCompta);
 
 	try {
-		await model.validate({ skip: ["module_id"] });
+		await model.validate({ skip: ["compta_id"] });
 	} catch (err) {
 		// TODO: Adapt the system
 		throw new APIError(400, "error", Object.values(err));
 	}
 
 	// Add to the database
-	const module = await models.module.create(processedModule);
+	const compta = await models.compta.create(processedCompta);
 
-	return new APIResp(200).setData({ moduleID: module.module_id });
+	return new APIResp(200).setData({ comptaID: compta.compta_id });
 };
 
 /* ---- READ ------------------------------------ */
 /**
- * Get all modules
+ * Get one compta by its id
  * @function
  * @async
  *
+ * @param {number} comptaID
  * @throws {APIError}
  * @return {Promise<APIResp>}
  */
-const getAll = async () => {
-	const modules = await models.module.findAll();
-
-	return new APIResp(200).setData({ modules });
-};
-
-/**
- * Get one module by its id
- * @function
- * @async
- *
- * @param {number} moduleID
- * @throws {APIError}
- * @return {Promise<APIResp>}
- */
-const getByID = async (moduleID) => {
-	const module = await models.module.findOne({
-		where: { module_id: moduleID },
+const getByID = async (comptaID) => {
+	const compta = await models.compta.findOne({
+		where: { compta_id: comptaID },
 	});
 
-	if (!module) {
-		throw new APIError(404, `Ce module (${moduleID}) n'existe pas.`);
+	if (!compta) {
+		throw new APIError(404, `La compta (${comptaID}) n'existe pas.`);
 	}
 
-	return new APIResp(200).setData({ module });
+	return new APIResp(200).setData({ compta });
 };
 
 /* ---- UPDATE ---------------------------------- */
@@ -97,8 +85,8 @@ const getByID = async (moduleID) => {
  * Export
  *****************************************************/
 
-const Module = {
-	add,							// CREATE
-	getAll, getByID,	// READ
+const Compta = {
+	add,			// CREATE
+	getByID,	// READ
 };
-export default Module;
+export default Compta;

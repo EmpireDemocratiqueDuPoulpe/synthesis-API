@@ -8,11 +8,7 @@ const setData = async (sequelize, logger) => {
 
 	/* ---- modules ----------------------------- */
 	await sequelize.models.module.bulkCreate([
-		{
-			year: 4,
-			name: "BOSS",
-			longName: "Business Owner",
-		},
+		{ year: 4, name: "BOSS", long_name: "Business Owner" },
 	]);
 
 	/* ---- permissions ----------------------------- */
@@ -131,9 +127,53 @@ const setData = async (sequelize, logger) => {
 			entry_level: 1,
 			exit_level: 5,
 			previous_level: 4,
+			current_level: 5,
 			entry_date: "06/01/22 04:11:05",
 			exit_date: "06/01/22 04:11:05",
 			user_id: 1,
+		},
+	]);
+
+	/* ---- jobs ----------------------------- */
+	await sequelize.models.job.bulkCreate([
+		{
+			job_id: 1,
+			job_type: "alternance",
+			start_date: "06/01/22 04:11:05",
+			end_date: "06/01/22 04:11:05",
+			company_name: "supinfo",
+			is_hired: false,
+			user_id: 1,
+		},
+		{
+			job_id: 2,
+			job_type: "stage",
+			start_date: "06/01/22 04:11:05",
+			end_date: "06/01/22 04:11:05",
+			company_name: "supinfo",
+			is_hired: false,
+			user_id: 1,
+		},
+	]);
+
+
+	/* ---- notes ----------------------------- */
+	await sequelize.models.note.bulkCreate([
+		{
+			user_id: 1,
+			module_id: 1,
+			note: 14.5,
+		},
+	]);
+
+	/* ---- comptas ----------------------------- */
+	await sequelize.models.compta.bulkCreate([
+		{
+			user_id: 1,
+			payment_type: "Comptant",
+			payment_due: 28750.56,
+			paid: false,
+			relance: true,
 		},
 	]);
 
