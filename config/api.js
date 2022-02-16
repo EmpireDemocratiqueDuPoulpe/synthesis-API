@@ -10,7 +10,14 @@ export default {
 	cors: {
 
 	},
+	jwt: {
+		algorithm: "ES256",
+		publicKey: "jwt-public.key",
+		privateKey: "jwt-private.key",
+	},
 	cookies: {
-
+		path: "/",
+		sameSite: "Lax",
+		secure: true,
 	},
 };

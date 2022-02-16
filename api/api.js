@@ -6,7 +6,7 @@
 import { Router } from "express";
 import requestIP from "request-ip";
 import { absences, comptas, jobs, modules, notes, users, studies } from "./routes/routes.js";
-import { endHandler, errorHandler } from "./middlewares/middlewares.js";
+import { tokenAssembler, endHandler, errorHandler } from "./middlewares/middlewares.js";
 
 export default () => {
 	const router = Router();
@@ -14,6 +14,7 @@ export default () => {
 	// Middlewares
 	router.use(endHandler);
 	router.use(requestIP.mw({ attributeName: "clientIP" }));
+	router.use(tokenAssembler);
 
 	// Routes
 	absences(router);

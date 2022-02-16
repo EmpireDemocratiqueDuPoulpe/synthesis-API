@@ -4,7 +4,8 @@
  */
 
 import AsyncRouter from "express-promise-router";
-import { Logger } from "../../global/global.js";
+import { authenticator } from "../middlewares/middlewares.js";
+import { Logger, APIResp, CookiesFn } from "../../global/global.js";
 import { User } from "../interfaces/interfaces.js";
 
 const route = AsyncRouter();
@@ -24,7 +25,23 @@ export default (router) => {
 	});
 
 	/* ---- READ ------------------------------------ */
-	// get all users
+	// Login a user
+	route.post("/login", async (request, response) => {
+		const resp = new APIResp();
+		const { user } = request.body;
+
+		const auth = (await User.login(user)).data;
+		CookiesFn.setTokenCookie(response, auth.token);
+
+		resp.setData(null);
+		response.status(resp.code).json(resp.toJSON());
+
+		logger.log("Logs in", { ip: request.clientIP, params: {code: resp.code, email: user.email} });
+	});
+
+	route.get("/all", authenticator, async (request, response) => {
+
+	// Get all users
 	route.get("/all", async (request, response) => {
 		const resp = await User.getAll();
 		response.status(resp.code).json(resp.toJSON());
@@ -32,7 +49,7 @@ export default (router) => {
 		logger.log("Fetch all users", { ip: request.clientIP, params: {code: resp.code} });
 	});
 
-	// get user by id
+	// Get a user by his id
 	route.get("/by-id/:userID", async (request, response) => {
 		const resp = await User.getByID(request.params.userID);
 		response.status(resp.code).json(resp.toJSON());
@@ -40,7 +57,7 @@ export default (router) => {
 		logger.log("Retrieves a user by his user ID", { ip: request.clientIP, params: {code: resp.code, userID: request.params.userID} });
 	});
 
-	// get all users by uuid
+	// Get a user by his UUID
 	route.get("/by-uuid/:UUID", async (request, response) => {
 		const resp = await User.getByUUID(request.params.UUID);
 		response.status(resp.code).json(resp.toJSON());
@@ -48,7 +65,7 @@ export default (router) => {
 		logger.log("Retrieves a user by his UUID", { ip: request.clientIP, params: {code: resp.code, UUID: request.params.UUID} });
 	});
 
-	// get all students of a campus
+	// Get all students of a campus
 	route.get("/students-by-campus", async (request, response) => {
 		const resp = await User.getAllStudentsFromCampus(request.query.campusName);
 		response.status(resp.code).json(resp.toJSON());
