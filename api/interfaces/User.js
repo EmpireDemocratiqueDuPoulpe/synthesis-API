@@ -232,6 +232,26 @@ const getByUUID = async (uuid) => {
 	return new APIResp(200).setData({ user: userJSON });
 };
 
+/**
+ * Get all student from a campus
+ * @function
+ * @async
+ *
+ * @param {string} campusName
+ * @throws {APIError}
+ * @return {Promise<APIResp>}
+ */
+const getAllStudentsFromCampus = async (campusName) => {
+	const students = await models.user.findAll({
+		where: {
+			status: "élève",
+			campus: campusName,
+		},
+	});
+
+	return new APIResp(200).setData({ students });
+};
+
 /* ---- UPDATE ---------------------------------- */
 /* ---- DELETE ---------------------------------- */
 
@@ -241,6 +261,6 @@ const getByUUID = async (uuid) => {
 
 const User = {
 	add,												// CREATE
-	getAll, getByID, getByUUID, // READ
+	getAll, getByID, getByUUID, getAllStudentsFromCampus, // READ
 };
 export default User;
