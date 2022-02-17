@@ -44,11 +44,16 @@ export default class APIResp {
 
 	/**
 	 * Set response data
-	 * @param {*} data - The response data
+	 * @param {Object|null} data - The response data
 	 * @return {APIResp}
 	 */
 	setData(data) {
-		this.#data = data;
+		if (!data) {
+			this.#data = {};
+		} else {
+			this.#data = data;
+		}
+
 		return this;
 	}
 
