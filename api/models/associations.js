@@ -92,6 +92,7 @@ const init = (sequelize, logger) => {
 			type: DataTypes.INTEGER,
 			allowNull: false,
 		},
+		sourceKey: "position_id",
 		constraints: false,
 	});
 

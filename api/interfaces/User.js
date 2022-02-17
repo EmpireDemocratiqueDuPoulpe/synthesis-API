@@ -244,11 +244,13 @@ const getByUUID = async (uuid) => {
 const getAllStudentsFromCampus = async (campusName) => {
 	const students = await models.user.findAll({
 		where: {
-			status: "élève",
-			campus: campusName,
-		},
+			campus: campusName},
+		include: [{
+			model: models.position,
+			required: true,
+			where: {name: "Étudiant"},
+		}],
 	});
-
 	return new APIResp(200).setData({ students });
 };
 
