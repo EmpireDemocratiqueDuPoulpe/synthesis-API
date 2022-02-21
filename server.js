@@ -39,7 +39,6 @@ function startServer() {
 	const securePort = API.https.port || 3443;
 
 	// CORS
-	// TODO: CORS
 	app.use(cors(API.cors));
 
 	// Transform raw and x-www-form-urlencoded to nice JSON
