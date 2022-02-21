@@ -39,10 +39,8 @@ export default (router) => {
 		logger.log("Logs in", { ip: request.clientIP, params: {code: resp.code, email: user.email} });
 	});
 
-	route.get("/all", authenticator, async (request, response) => {
-
 	// Get all users
-	route.get("/all", async (request, response) => {
+	route.get("/all", authenticator, async (request, response) => {
 		const resp = await User.getAll();
 		response.status(resp.code).json(resp.toJSON());
 
