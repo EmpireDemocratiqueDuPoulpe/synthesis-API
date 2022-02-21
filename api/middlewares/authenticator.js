@@ -14,7 +14,7 @@ const logger = new Logger({ prefix: "🔒 " });
  */
 export default function authenticator(request, response, next) {
 	const authHeader = request.headers["authorization"];
-	const specialHeader = request.headers["Brokilone"];
+	const specialHeader = request.headers["brokilone"];
 	const token = authHeader && authHeader.split(" ")[1];
 
 	if (!token || !specialHeader) {
