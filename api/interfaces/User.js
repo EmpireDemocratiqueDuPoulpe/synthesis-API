@@ -349,7 +349,7 @@ const getAllStudentsFromCampus = async (campusName) => {
  *****************************************************/
 
 const User = {
-	add,																													// CREATE
-	login, getAll, getByID, getByUUID, getAllStudentsFromCampus		// READ
+	add,																												// CREATE
+	login, getAll, getByID, getByUUID, getAllStudentsFromCampus, // READ
 };
 export default User;
