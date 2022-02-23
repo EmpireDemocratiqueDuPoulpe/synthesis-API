@@ -11,7 +11,8 @@
     "start": "cross-env NODE_ENV=development node ./server.js",
     "start-force-sync": "cross-env NODE_ENV=development FORCE_SYNC=true node ./server.js",
     "test": "echo \"Error: no test specified\" && exit 0",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "lint-no-crlf": "eslint --rule \"linebreak-style: 0\" ."
   },
   "repository": {
     "type": "git",
