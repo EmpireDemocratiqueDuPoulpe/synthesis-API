@@ -22,9 +22,7 @@ export default function authenticator(request, response, next) {
 	}
 
 	jwtVerify(token, keys.publicKey)
-		.then(({ header, payload }) => {
-			console.log(header);
-			console.log(payload);
+		.then(({ payload }) => {
 			request.user = payload;
 			next();
 		})
