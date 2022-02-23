@@ -115,7 +115,7 @@ const hashPassword = async (password) => {
  * @param {User} user
  * @return {Promise<string>}
  */
-const generateJWT = async (user) => {
+export const generateJWT = async (user) => {
 	const JWTuser = {
 		uuid: user.uuid,
 		given_name: user.first_name,
@@ -132,7 +132,7 @@ const generateJWT = async (user) => {
 		.setIssuer("cpem") // TODO: Change to the site name
 		.setIssuedAt()
 		.setExpirationTime("15m")
-		.setSubject(user.user_id.toString())
+		.setSubject(`${user.user_id}`)
 		.setExpirationTime("2h")
 		.sign(keys.privateKey);
 };

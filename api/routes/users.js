@@ -6,7 +6,7 @@
 import AsyncRouter from "express-promise-router";
 import { authenticator } from "../middlewares/middlewares.js";
 import { Logger, APIResp, CookiesFn } from "../../global/global.js";
-import { User } from "../interfaces/interfaces.js";
+import { User, generateJWT } from "../interfaces/interfaces.js";
 
 const route = AsyncRouter();
 const logger = new Logger({ separator: ": " });
@@ -37,6 +37,20 @@ export default (router) => {
 		response.status(resp.code).json(resp.toJSON());
 
 		logger.log("Logs in", { ip: request.clientIP, params: {code: resp.code, email: user.email} });
+	});
+
+	// Authenticate a user using his JWT token
+	route.post("/authenticate", authenticator, async (request, response) => {
+		const resp = new APIResp();
+
+		const user = (await User.getByID(request.user.sub)).data.user;
+		const token = await generateJWT(user);
+		CookiesFn.setTokenCookie(response, token);
+
+		resp.setData({ user });
+		response.status(resp.code).json(resp.toJSON());
+
+		logger.log("Logs in using a JWT token", { ip: request.clientIP, params: {code: resp.code, user_id: request.user.sub} });
 	});
 
 	// Get all users
