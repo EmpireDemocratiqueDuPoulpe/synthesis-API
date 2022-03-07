@@ -51,18 +51,6 @@ const user = {
 	street_address: { type: DataTypes.STRING },
 	gender: { type: DataTypes.STRING },
 	region: { type: DataTypes.STRING },
-	status: {
-		type: DataTypes.ENUM,
-		values: [
-			"élève",
-			"full professor",
-			"directeur académique",
-			"administrateur",
-			"coordinateur",
-			"intervenant",
-		],
-		allowNull: false,
-	},
 	campus: {
 		type: DataTypes.ENUM,
 		values: [

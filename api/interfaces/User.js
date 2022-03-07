@@ -33,7 +33,6 @@ const { models } = sequelize;
  * @property {UserAddress} address
  * @property {string} gender
  * @property {string} region
- * @property {string} status
  * @property {string} campus
  */
 
@@ -49,7 +48,6 @@ const { models } = sequelize;
  * @property {UserAddress} address
  * @property {string} gender
  * @property {string} region
- * @property {string} status
  * @property {string} campus
  */
 
