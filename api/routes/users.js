@@ -33,7 +33,7 @@ export default (router) => {
 		const auth = (await User.login(user)).data;
 		CookiesFn.setTokenCookie(response, auth.token);
 
-		resp.setData(null);
+		resp.setData({ user: auth.user });
 		response.status(resp.code).json(resp.toJSON());
 
 		logger.log("Logs in", { ip: request.clientIP, params: {code: resp.code, email: user.email} });

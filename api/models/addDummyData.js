@@ -105,7 +105,7 @@ const setData = async (sequelize, logger) => {
 			"position_id": 1,
 			"first_name": "Sir Edward",
 			"last_name": "Weak Ass",
-			"birth_date": "2021-06-24",
+			"birth_date": "968-06-24",
 			"email": "siredward.weakass@caramail.co.uk",
 			"password": "$2b$10$sbcqNmQi3DoIDQG1zbB9degN.toQN4hn2T562.yubcPvDra/RT46.", // "Mot De P4sse"
 			"address": {
@@ -120,18 +120,18 @@ const setData = async (sequelize, logger) => {
 		},
 		{
 			"position_id": 5,
-			"first_name": "Test",
-			"last_name": "Testf",
-			"birth_date": "2021-06-24",
-			"email": "test@caramail.co.uk",
+			"first_name": "Jay",
+			"last_name": "Raté Mon Année À L'Aide",
+			"birth_date": "2002-06-24",
+			"email": "jay.rate@forni.te",
 			"password": "$2b$10$sbcqNmQi3DoIDQG1zbB9degN.toQN4hn2T562.yubcPvDra/RT46.", // "Mot De P4sse"
 			"address": {
-				"street": "This is my street.",
-				"city": "London",
-				"postalCode": "45789",
+				"street": "Tomato Plaza",
+				"city": "Map de frotnite",
+				"postalCode": "0000",
 			},
-			"gender": "Knight",
-			"region": "UK",
+			"gender": "Homme",
+			"region": "France",
 			"status": "élève",
 			"campus": "Lille",
 		},

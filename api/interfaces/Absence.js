@@ -60,7 +60,6 @@ const add = async (newAbsence) => {
  * @async
  *
  * @param {number} userID
- * @throws {APIError}
  * @return {Promise<APIResp>}
  */
 const getByUserID = async (userID) => {

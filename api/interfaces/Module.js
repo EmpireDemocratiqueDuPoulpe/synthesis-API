@@ -60,7 +60,6 @@ const add = async (newModule) => {
  * @function
  * @async
  *
- * @throws {APIError}
  * @return {Promise<APIResp>}
  */
 const getAll = async () => {

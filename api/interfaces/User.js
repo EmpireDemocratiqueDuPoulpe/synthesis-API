@@ -234,7 +234,8 @@ const login = async (user) => {
 	// Generate a JWT token
 	const token = await generateJWT(storedUser);
 
-	return new APIResp(200).setData({ token });
+	delete storedUser.password;
+	return new APIResp(200).setData({ token, user: storedUser });
 };
 
 /**
@@ -242,7 +243,6 @@ const login = async (user) => {
  * @function
  * @async
  *
- * @throws {APIError}
  * @return {Promise<APIResp>}
  */
 const getAll = async () => {
@@ -325,19 +325,18 @@ const getByUUID = async (uuid) => {
  * @async
  *
  * @param {string} campusName
- * @throws {APIError}
  * @return {Promise<APIResp>}
  */
 const getAllStudentsFromCampus = async (campusName) => {
 	const students = await models.user.findAll({
-		where: {
-			campus: campusName},
+		where: { campus: campusName },
 		include: [{
 			model: models.position,
 			required: true,
-			where: {name: "Étudiant"},
+			where: { name: "Étudiant" },
 		}],
 	});
+
 	return new APIResp(200).setData({ students });
 };
 

@@ -82,7 +82,6 @@ const getByID = async (noteID) => {
  * @async
  *
  * @param {number} userID
- * @throws {APIError}
  * @return {Promise<APIResp>}
  */
 const getByUserID = async (userID) => {
