@@ -13,6 +13,9 @@ jobs:
       - name: Checkout API
         uses: actions/checkout@v2
 
+      - name: Running npm install
+        run: npm install
+
       - name: Build documentation
         uses: andstor/jsdoc-action@v1
         with:
