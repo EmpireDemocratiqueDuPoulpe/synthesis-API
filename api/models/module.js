@@ -61,6 +61,11 @@ const module = {
 		allowNull: false,
 		validate: { notEmpty: true },
 	},
+	ects: {
+		type: DataTypes.SMALLINT,
+		allowNull: false,
+		validate: { notEmpty: true },
+	},
 };
 
 /**
