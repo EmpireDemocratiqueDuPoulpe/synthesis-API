@@ -17,6 +17,7 @@ jobs:
         uses: andstor/jsdoc-action@v1
         with:
           config_file: .jsdoc.json
+          source_dir: .
           output_dir: ./docs/www
 
       - name: Deploy docs
