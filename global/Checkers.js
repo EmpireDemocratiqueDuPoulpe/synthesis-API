@@ -1,6 +1,7 @@
 /* TEMPORARY FILE */
 /**
  * isDefined
+ * @ignore
  * @param {*} value
  * @return {boolean}
  */
@@ -10,6 +11,7 @@ function isDefined(value) {
 
 /**
  * isArray
+ * @ignore
  * @param {*} value
  * @return {Array}
  */
@@ -18,6 +20,7 @@ function isArray(value) {
 }
 /**
  * isString
+ * @ignore
  * @param {*} value
  * @return {Object}
  */
@@ -27,6 +30,7 @@ function isString(value) {
 
 /**
  * isNumber
+ * @ignore
  * @param {*} value
  * @param {false} parse
  * @return {boolean}
@@ -38,6 +42,7 @@ function isNumber(value, parse = false) {
 
 /**
  * dateToString
+ * @ignore
  * @param {*} date
  * @param {*} withTime
  * @param {*} locale

@@ -1,9 +1,20 @@
 /**
  * @module addDummyData
+ * @category Sequelize
  * @author Alexis L. <alexis.lecomte@supinfo.com>
+ *
+ * @requires Sequelize
  */
 
-const setData = async (sequelize, logger) => {
+/**
+ * Add dummy data in the database
+ * @function
+ *
+ * @param {Sequelize} sequelize
+ * @param {module:Logger|Console} logger
+ * @return {Promise<void>}
+ */
+async function setData(sequelize, logger) {
 	logger.log("Inserting dummy data...");
 
 	/* ---- modules ----------------------------- */
@@ -212,6 +223,6 @@ const setData = async (sequelize, logger) => {
 	]);
 
 	logger.log("Dummy data inserted");
-};
+}
 
 export default setData;

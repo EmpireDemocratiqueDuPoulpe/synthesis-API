@@ -1,5 +1,7 @@
 /**
  * @module Permission
+ * @category API
+ * @subcategory Interfaces
  * @author Alexis L. <alexis.lecomte@supinfo.com>
  */
 
@@ -7,6 +9,12 @@ import sequelize from "../sequelizeLoader.js";
 import { APIResp } from "../../global/global.js";
 import { isEmpty } from "lodash-es";
 
+/**
+ * Sequelize models
+ * @const
+ * @name models
+ * @type {Object<Sequelize.models>}
+ */
 const { models } = sequelize;
 
 /*****************************************************

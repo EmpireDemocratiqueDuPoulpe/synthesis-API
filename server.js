@@ -12,6 +12,9 @@ import { API } from "./config/config.js";
 
 /**
  * Build a message to the console when the API is ready
+ * @function
+ * @category Server
+ *
  * @param {("http"|"https")} protocol - Protocol used
  * @param {Number} port - Listening port
  * @return {void}
@@ -23,6 +26,8 @@ const serverReady = (protocol, port) => {
 /**
  * Start the API
  * @function
+ * @category Server
+ *
  * @return {void}
  */
 function startServer() {

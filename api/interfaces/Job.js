@@ -1,20 +1,28 @@
 /**
  * @module Job
+ * @category API
+ * @subcategory Interfaces
  * @author Louan L. <louan.leplae@supinfo.com>
  */
 
 import sequelize from "../sequelizeLoader.js";
 import { APIResp, APIError } from "../../global/global.js";
 
+/**
+ * Sequelize models
+ * @const
+ * @name models
+ * @type {Object<Sequelize.models>}
+ */
 const { models } = sequelize;
 
 /*****************************************************
-  * Functions
-  *****************************************************/
+ * Functions
+ *****************************************************/
 
 /*****************************************************
-  * CRUD Methods
-  *****************************************************/
+ * CRUD Methods
+ *****************************************************/
 
 /* ---- CREATE ---------------------------------- */
 /* ---- READ ------------------------------------ */
@@ -43,8 +51,8 @@ const getAllByUserID = async (userID) => {
 /* ---- DELETE ---------------------------------- */
 
 /*****************************************************
-  * Export
-  *****************************************************/
+ * Export
+ *****************************************************/
 
 const Job = {
 	getAllByUserID, // READ

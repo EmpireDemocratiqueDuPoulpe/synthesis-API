@@ -1,10 +1,30 @@
 /**
  * @module position
+ * @category API
+ * @subcategory Models
  * @author Alexis L. <alexis.lecomte@supinfo.com>
  */
 
 import { DataTypes } from "sequelize";
 
+/**
+ * @const
+ * @type {Object}
+ *
+ * @example
+ * {
+ *  position_id: {
+ *    type: DataTypes.INTEGER,
+ *    primaryKey: boolean,
+ *    allowNull: boolean,
+ *    autoIncrement: boolean
+ *  },
+ *  name: {
+ *    type: DataTypes.STRING,
+ *    allowNull: boolean
+ *  }
+ * }
+ */
 const position = {
 	position_id: {
 		type: DataTypes.INTEGER,

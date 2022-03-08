@@ -1,10 +1,27 @@
 /**
  * @module note
+ * @category API
+ * @subcategory Models
  * @author Louan L. <louan.leplae@supinfo.com>
  */
 
 import { DataTypes } from "sequelize";
 
+/**
+ * @const
+ * @type {Object}
+ *
+ * @example
+ * {
+ *  note_id: {
+ *    type: DataTypes.INTEGER,
+ *    primaryKey: boolean,
+ *    allowNull: boolean,
+ *    autoIncrement: boolean
+ *  },
+ *  note: { type: DataTypes.DECIMAL }
+ * }
+ */
 const note = {
 	note_id: {
 		type: DataTypes.INTEGER,

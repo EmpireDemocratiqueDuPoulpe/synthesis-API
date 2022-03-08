@@ -12,7 +12,8 @@
     "start-force-sync": "cross-env NODE_ENV=development FORCE_SYNC=true node ./server.js",
     "test": "echo \"Error: no test specified\" && exit 0",
     "lint": "eslint .",
-    "lint-no-crlf": "eslint --rule \"linebreak-style: 0\" ."
+    "lint-no-crlf": "eslint --rule \"linebreak-style: 0\" .",
+    "generate-docs": "./node_modules/.bin/jsdoc --configure ./.jsdoc.json ."
   },
   "repository": {
     "type": "git",
@@ -41,11 +42,13 @@
     "@babel/core": "^7.16.12",
     "@babel/eslint-parser": "^7.16.5",
     "babel-eslint": "^10.1.0",
+    "better-docs": "^2.7.2",
     "colors": "^1.4.0",
     "cross-env": "^7.0.3",
     "eslint": "^7.24.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-google": "^0.14.0",
-    "eslint-plugin-import": "^2.22.1"
+    "eslint-plugin-import": "^2.22.1",
+    "jsdoc": "~3.6.10"
   }
 }

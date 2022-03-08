@@ -1,11 +1,66 @@
 /**
  * @module user
+ * @category API
+ * @subcategory Models
  * @author Louan L. <louan.leplae@supinfo.com>
  */
 
 import { DataTypes } from "sequelize";
 
 // TODO: Custom messages
+/**
+ * @const
+ * @type {Object}
+ *
+ * @example
+ * {
+ *  user_id: {
+ *    type: DataTypes.INTEGER,
+ *    primaryKey: boolean,
+ *    allowNull: boolean,
+ *    autoIncrement: boolean,
+ *    validate: { isInteger: boolean }
+ *  },
+ *  uuid: {
+ *    type: DataTypes.UUID,
+ *    unique: boolean,
+ *    allowNull: boolean,
+ *    defaultValue: DataTypes.UUIDV4,
+ *    validate: { isUUID: number }
+ *  },
+ *  first_name: {
+ *    type: DataTypes.STRING,
+ *    allowNull: boolean,
+ *    validate: { notEmpty: boolean }
+ *  },
+ *    last_name: {
+ *    type: DataTypes.STRING,
+ *    allowNull: boolean,
+ *    validate: { notEmpty: boolean }
+ *  },
+ *  birth_date: {
+ *    type: DataTypes.DATE,
+ *    validate: { isAfter: string }
+ *  },
+ *  email: {
+ *    type: DataTypes.STRING,
+ *    unique: { args: boolean, msg: string },
+ *    allowNull: boolean,
+ *    validate: { isEmail: boolean }
+ *  },
+ *  password: {
+ *    type: DataTypes.STRING,
+ *    allowNull: boolean
+ *  },
+ *  street_address: { type: DataTypes.STRING },
+ *  gender: { type: DataTypes.STRING },
+ *  region: { type: DataTypes.STRING },
+ *  campus: {
+ *    type: DataTypes.ENUM,
+ *    values: string[]
+ *  }
+ * }
+ */
 const user = {
 	user_id: {
 		type: DataTypes.INTEGER,

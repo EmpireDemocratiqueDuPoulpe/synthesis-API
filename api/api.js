@@ -1,5 +1,6 @@
 /**
  * @module api
+ * @category API
  * @author Alexis L. <alexis.lecomte@supinfo.com>
  */
 
@@ -8,6 +9,10 @@ import requestIP from "request-ip";
 import { absences, comptas, jobs, modules, notes, permissions, studies, users } from "./routes/routes.js";
 import { tokenAssembler, endHandler, errorHandler } from "./middlewares/middlewares.js";
 
+/**
+ * Builds the master router
+ * @return {e.Router}
+ */
 export default () => {
 	const router = Router();
 

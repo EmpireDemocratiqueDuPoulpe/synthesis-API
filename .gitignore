@@ -1,4 +1,10 @@
-.idea
-node_modules
-package-lock.json
-.vscode
+## NPM
+./node_modules/
+./package-lock.json
+
+## Build files
+./docs/www/
+
+## IDE
+./.idea/
+./.vscode/

@@ -1,10 +1,28 @@
 /**
  * @module positionPermissions
+ * @category API
+ * @subcategory Models
  * @author Alexis L. <alexis.lecomte@supinfo.com>
  */
 
 import { DataTypes } from "sequelize";
 
+/**
+ * @const
+ * @type {Object}
+ *
+ * @example
+ * {
+ *  position_id: {
+ *    type: DataTypes.INTEGER,
+ *    references: { model: string, key: string }
+ *  }
+ *  permission_id: {
+ *    type: DataTypes.INTEGER,
+ *    references: { model: string, key: string }
+ *  }
+ * }
+ */
 const positionPermissions = {
 	position_id: {
 		type: DataTypes.INTEGER,

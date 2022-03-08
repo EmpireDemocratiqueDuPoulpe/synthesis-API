@@ -1,6 +1,9 @@
 /**
  * @module associations
+ * @category Sequelize
  * @author Alexis L. <alexis.lecomte@supinfo.com>
+ *
+ *   @requires Sequelize
  */
 
 import { DataTypes } from "sequelize";
@@ -10,9 +13,9 @@ import { DataTypes } from "sequelize";
  * @function
  *
  * @param {Sequelize} sequelize
- * @param {Logger|Console} logger
+ * @param {module:Logger|Console} logger
  */
-const init = (sequelize, logger) => {
+function init(sequelize, logger) {
 	logger.log(`Making associations ([${Object.keys(sequelize.models).join(", ")}])...`);
 
 	/* ---- module ---------------------------------- */
@@ -116,6 +119,6 @@ const init = (sequelize, logger) => {
 	});
 
 	logger.log(`Completed associations of the ${Object.keys(sequelize.models).length} models`);
-};
+}
 
 export default init;

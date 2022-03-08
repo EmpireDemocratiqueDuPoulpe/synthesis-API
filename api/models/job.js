@@ -1,10 +1,52 @@
 /**
  * @module job
+ * @category API
+ * @subcategory Models
  * @author Louan L. <louan.leplae@supinfo.com>
  */
 
 import { DataTypes } from "sequelize";
 
+/**
+ * @const
+ * @type {Object}
+ *
+ * @example
+ * {
+ *  job_id: {
+ *    type: DataTypes.INTEGER,
+ *    primaryKey: boolean,
+ *    allowNull: boolean,
+ *    autoIncrement: boolean
+ *  },
+ *  job_type: {
+ *    type: DataTypes.ENUM,
+ *    values: string[],
+ *    allowNull: boolean
+ *  },
+ *  start_date: {
+ *    type: DataTypes.DATE,
+ *    allowNull: boolean
+ *  },
+ *  end_date: {
+ *    type: DataTypes.DATE,
+ *    allowNull: boolean
+ *  },
+ *  company_name: {
+ *    type: DataTypes.STRING,
+ *    allowNull: boolean
+ *  },
+ *  is_hired: {
+ *    type: DataTypes.BOOLEAN,
+ *    defaultValue: boolean,
+ *    allowNull: boolean
+ *  },
+ *  length_month_hired: {
+ *    type: DataTypes.BOOLEAN,
+ *    allowNull: boolean
+ *  }
+ * }
+ */
 const Job = {
 	job_id: {
 		type: DataTypes.INTEGER,

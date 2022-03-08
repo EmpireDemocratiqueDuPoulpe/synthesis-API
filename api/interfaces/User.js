@@ -1,5 +1,7 @@
 /**
- * @module user
+ * @module User
+ * @category API
+ * @subcategory Interfaces
  * @author Alexis L. <alexis.lecomte@supinfo.com>
  */
 
@@ -10,6 +12,12 @@ import sequelize from "../sequelizeLoader.js";
 import { APIResp, APIError } from "../../global/global.js";
 import { API, Passwords } from "../../config/config.js";
 
+/**
+ * Sequelize models
+ * @const
+ * @name models
+ * @type {Object<Sequelize.models>}
+ */
 const { models } = sequelize;
 
 /**

@@ -1,10 +1,41 @@
 /**
  * @module study
+ * @category API
+ * @subcategory Models
  * @author Louan L. <louan.leplae@supinfo.com>
  */
 
 import { DataTypes } from "sequelize";
 
+/**
+ * @const
+ * @type {Object}
+ *
+ * @example
+ * {
+ *  study_id: {
+ *    type: DataTypes.INTEGER,
+ *    primaryKey: boolean,
+ *    allowNull: boolean,
+ *    autoIncrement: boolean
+ *  },
+ *  entry_level: {
+ *    type: DataTypes.INTEGER,
+ *    allowNull: boolean
+ *  },
+ *  exit_level: { type: DataTypes.INTEGER },
+ *  previous_level: { type: DataTypes.INTEGER },
+ *  current_level: {
+ *    type: DataTypes.INTEGER,
+ *    allowNull: boolean
+ *  },
+ *  entry_date: {
+ *    type: DataTypes.DATE,
+ *    allowNull: boolean
+ *  },
+ *  exit_date: { type: DataTypes.DATE }
+ * }
+ */
 const study = {
 	study_id: {
 		type: DataTypes.INTEGER,
