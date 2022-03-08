@@ -1,15 +1,13 @@
 name: API Documentation
 
 on:
-  workflow_run:
-    workflows: ["Node.js CI"]
-    branches: [main, dev]
-    types:
-      - completed
+  push:
+    branches:
+      - master
+      - dev
 
 jobs:
   deploy:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout API
