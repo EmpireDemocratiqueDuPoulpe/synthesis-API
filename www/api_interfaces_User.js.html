@@ -1,0 +1,507 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CBEM - API api/interfaces/User.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="../custom/top-nav.css">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+             
+                <a class="image" href="index.html">
+                    <img src="https://i.imgur.com/G69c43Q.png" alt="logo">
+                </a>
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">Campus Booster en mieux - API</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                 
+                    
+                        <a
+                            class="link user-link "
+                            href="https://github.com/EmpireDemocratiqueDuPoulpe/campus-booster-en-mieux-API"
+                        >
+                            GitHub
+                        </a>
+                    
+                        <a
+                            class="link user-link "
+                            href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                        >
+                            YouTube
+                        </a>
+                    
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+                <div class="search-wrapper">
+                    <input id="search" type="text" placeholder="Search docs..." class="input">
+                </div>
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-absences.html">absences</a></li><li><a href="module-comptas.html">comptas</a></li><li><a href="module-jobs.html">jobs</a></li><li><a href="module-modules.html">modules</a></li><li><a href="module-notes.html">notes</a></li><li><a href="module-studies.html">studies</a></li><li><a href="module-users.html">users</a></li></ul><h3>Classes</h3><ul><li><a href="module-APIError.html">APIError</a></li><li><a href="module-APIResp.html">APIResp</a></li><li><a href="module-Logger.html">Logger</a></li></ul></div><div class="category"><h2>API</h2><h3>Modules / Interfaces</h3><ul><li><a href="module-Absence.html">Absence</a></li><li><a href="module-Compta.html">Compta</a></li><li><a href="module-Job.html">Job</a></li><li><a href="module-Module.html">Module</a></li><li><a href="module-Note.html">Note</a></li><li><a href="module-Permission.html">Permission</a></li><li><a href="module-Study.html">Study</a></li><li><a href="module-User.html">User</a></li></ul><h3>Modules / Models</h3><ul><li><a href="module-absence_.html">absence</a></li><li><a href="module-compta_.html">compta</a></li><li><a href="module-job_.html">job</a></li><li><a href="module-module_.html">module</a></li><li><a href="module-note_.html">note</a></li><li><a href="module-permission_.html">permission</a></li><li><a href="module-position.html">position</a></li><li><a href="module-positionPermissions.html">positionPermissions</a></li><li><a href="module-study_.html">study</a></li><li><a href="module-user_.html">user</a></li></ul><h3>Modules</h3><ul><li><a href="module-api.html">api</a></li></ul></div><div class="category"><h2>Global</h2><h3>Modules</h3><ul><li><a href="module-APIError.html">APIError</a></li><li><a href="module-APIResp.html">APIResp</a></li><li><a href="module-CookiesFn.html">CookiesFn</a></li><li><a href="module-DirName.html">DirName</a></li><li><a href="module-Logger.html">Logger</a></li></ul></div><div class="category"><h2>Middlewares</h2><h3>Modules / Authentication</h3><ul><li><a href="module-Authenticator.html">Authenticator</a></li><li><a href="module-TokenAssembler.html">TokenAssembler</a></li></ul><h3>Modules / Request flow</h3><ul><li><a href="module-EndHandler.html">EndHandler</a></li><li><a href="module-ErrorHandler.html">ErrorHandler</a></li></ul></div><div class="category"><h2>Sequelize</h2><h3>Modules</h3><ul><li><a href="module-addDummyData.html">addDummyData</a></li><li><a href="module-associations.html">associations</a></li><li><a href="module-sequelizeLoader.html">sequelizeLoader</a></li></ul></div><div class="category"><h2>Server</h2><h3>Global</h3><ul><li><a href="global.html#serverReady">serverReady</a></li><li><a href="global.html#startServer">startServer</a></li></ul></div><div class="category"><h2>jose</h2><h3>Modules</h3><ul><li><a href="module-joseLoader.html">joseLoader</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>api/interfaces/User.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module User
+ * @category API
+ * @subcategory Interfaces
+ * @author Alexis L. &lt;alexis.lecomte@supinfo.com>
+ */
+
+import bcrypt from "bcrypt";
+import * as jose from "jose";
+import keys from "../joseLoader.js";
+import sequelize from "../sequelizeLoader.js";
+import { APIResp, APIError } from "../../global/global.js";
+import { API, Passwords } from "../../config/config.js";
+
+/**
+ * Sequelize models
+ * @const
+ * @name models
+ * @type {Object&lt;Sequelize.models>}
+ */
+const { models } = sequelize;
+
+/**
+ * @typedef {Object} UserAddress
+ *
+ * @property {string} street
+ * @property {string} city
+ * @property {string} postalCode
+ */
+
+/**
+ * @typedef {Object} User
+ *
+ * @property {number} user_id
+ * @property {string} uuid
+ * @property {string} first_name
+ * @property {string} last_name
+ * @property {Date|string} birth_date
+ * @property {string} email
+ * @property {string} password
+ * @property {UserAddress} address
+ * @property {string} gender
+ * @property {string} region
+ * @property {string} campus
+ */
+
+/**
+ * @typedef {Object} NewUser
+ *
+ * @property {string} first_name
+ * @property {string} last_name
+ * @property {Date|string} birth_date
+ * @property {string} email
+ * @property {string} password1
+ * @property {string} password2
+ * @property {UserAddress} address
+ * @property {string} gender
+ * @property {string} region
+ * @property {string} campus
+ */
+
+/**
+ * @typedef {Object} LoggingUser
+ *
+ * @property {string} email
+ * @property {string} password
+ */
+
+/*****************************************************
+ * Functions
+ *****************************************************/
+
+/**
+ * Checks if the password is identical to the password confirmation
+ * @function
+ *
+ * @param {string} password1 - Password
+ * @param {string} password2 - Password confirmation
+ * @return {boolean}
+ */
+const arePasswordsSame = (password1, password2) => password1 === password2;
+
+/**
+ * Checks if the password is safe
+ * @function
+ *
+ * @param {string} password
+ * @return {boolean}
+ */
+const isPasswordSafe = (password) => {
+	const regex = (
+		(Passwords.mustContain.lowerCase ? "(?=.*[a-z])" : "") +
+		(Passwords.mustContain.upperCase ? "(?=.*[A-Z])" : "") +
+		(Passwords.mustContain.number ? "(?=.*[0-9])" : "") +
+		(Passwords.mustContain.special ? "(?=[^a-zA-Z0-9])" : "") +
+		(`(.{${Passwords.minLength},}$)`)
+	);
+
+	const isStrong = new RegExp(regex);
+	return isStrong.test(password);
+};
+
+/**
+ * Hash a password
+ * @function
+ * @async
+ *
+ * @param {string} password
+ * @throws {Error}
+ * @return {Promise&lt;string>}
+ */
+const hashPassword = async (password) => {
+	return await bcrypt.hash(password, Passwords.saltRound);
+};
+
+/**
+ * Generate a JWT token
+ * @function
+ * @async
+ *
+ * @param {User} user
+ * @return {Promise&lt;string>}
+ */
+export const generateJWT = async (user) => {
+	const JWTuser = {
+		uuid: user.uuid,
+		given_name: user.first_name,
+		family_name: user.last_name,
+		picture: null,
+		email: user.email,
+		gender: user.gender,
+		birthdate: user.birth_date,
+		groups: null,
+	};
+
+	return new jose.SignJWT(JWTuser)
+		.setProtectedHeader({ alg: API.jwt.algorithm })
+		.setIssuer("cpem") // TODO: Change to the site name
+		.setIssuedAt()
+		.setExpirationTime("15m")
+		.setSubject(`${user.user_id}`)
+		.setExpirationTime("2h")
+		.sign(keys.privateKey);
+};
+
+/**
+ * Compares a plaintext password to a hash
+ * @function
+ * @async
+ *
+ * @param {string} password - Plaintext password
+ * @param {string} hash - Hashed password
+ * @throws {Error}
+ * @return {Promise&lt;boolean>}
+ */
+const passwordMatchHash = async (password, hash) => {
+	return await bcrypt.compare(password, hash);
+};
+
+/*****************************************************
+ * CRUD Methods
+ *****************************************************/
+
+/* ---- CREATE ---------------------------------- */
+/**
+ * Add a new user
+ * @function
+ * @async
+ *
+ * @param {NewUser} newUser
+ * @throws {APIError}
+ * @return {Promise&lt;APIResp>}
+ */
+const add = async (newUser) => {
+	const processedUser = newUser;
+
+	// Check if the new user match the model
+	const model = models.user.build(processedUser);
+
+	try {
+		await model.validate({ skip: ["user_id", "uuid", "password", "street_address"] });
+	} catch (err) {
+		// TODO: Adapt the system
+		throw new APIError(400, "error", Object.values(err));
+	}
+
+	// Check and hash the password
+	if (!arePasswordsSame(processedUser.password1, processedUser.password2)) {
+		throw new APIError(400, "Les mots de passes sont différents.", ["password1", "password2"]);
+	}
+
+	if (!isPasswordSafe(processedUser.password1)) {
+		// TODO: Translate
+		const mustContain = Object.entries(Passwords.mustContain).map(([rule, value]) => value ? `one ${rule}` : null).join(", ");
+		const plural = Passwords.minLength > 1 ? "s" : "";
+
+		throw new APIError(
+			400,
+			`Le mot de passe doit avoir ${Passwords.minLength} caractère${plural} minimum et comporter: ${mustContain}`,
+			["password1", "password2"],
+		);
+	}
+
+	processedUser.password = await hashPassword(processedUser.password1);
+	processedUser.password1 = undefined;
+	processedUser.password2 = undefined;
+
+	// Add to the database
+	const user = await models.user.create(processedUser);
+
+	return new APIResp(200).setData({ userID: user.user_id });
+};
+
+/* ---- READ ------------------------------------ */
+/**
+ * Login a user
+ * @function
+ * @async
+ *
+ * @param {LoggingUser} user
+ * @throws {APIError}
+ * @return {Promise&lt;APIResp>}
+ */
+const login = async (user) => {
+	// Get user data
+	let storedUser;
+
+	try {
+		storedUser = await models.user.findOne({ where: {email: user.email} });
+		if (!storedUser) throw new Error();
+	} catch (err) {
+		throw new APIError(400, "L'adresse email et/ou le mot de passe sont erronés.", ["email", "password"]);
+	}
+
+	// Check the password
+	if (!(await passwordMatchHash(user.password, storedUser.password))) {
+		throw new APIError(400, "L'adresse email et/ou le mot de passe sont erronés.", ["email", "password"]);
+	}
+
+	// Generate a JWT token
+	const token = await generateJWT(storedUser);
+
+	delete storedUser.password;
+	return new APIResp(200).setData({ token, user: storedUser });
+};
+
+/**
+ * Get all users
+ * @function
+ * @async
+ *
+ * @return {Promise&lt;APIResp>}
+ */
+const getAll = async () => {
+	const users = await models.user.findAll({
+		attributes: { exclude: ["password"] },
+	});
+
+	return new APIResp(200).setData({ users });
+};
+
+/**
+ * Get one user by its id
+ * @function
+ * @async
+ *
+ * @param {number} userID
+ * @throws {APIError}
+ * @return {Promise&lt;APIResp>}
+ */
+const getByID = async (userID) => {
+	const user = await models.user.findOne({
+		attributes: { exclude: ["password"] },
+		include: [{
+			model: models.position,
+			required: true,
+			include: [{
+				model: models.permission,
+				through: {attributes: []},
+			}],
+		}],
+		where: { user_id: userID },
+	});
+
+	if (!user) {
+		throw new APIError(404, `Cet utilisateur (${userID}) n'existe pas.`);
+	}
+
+	const userJSON = user.toJSON();
+	userJSON.position.permissions.forEach((p, i, arr) => (arr[i] = p.name));
+
+	return new APIResp(200).setData({ user: userJSON });
+};
+
+/**
+ * Get one user by its uuid
+ * @function
+ * @async
+ *
+ * @param {string} uuid
+ * @throws {APIError}
+ * @return {Promise&lt;APIResp>}
+ */
+const getByUUID = async (uuid) => {
+	const user = await models.user.findOne({
+		attributes: { exclude: ["password"] },
+		include: [{
+			model: models.position,
+			required: true,
+			include: [{
+				model: models.permission,
+				through: {attributes: []},
+			}],
+		}],
+		where: { uuid },
+	});
+
+	if (!user) {
+		throw new APIError(404, `Cet utilisateur (${uuid}) n'existe pas.`);
+	}
+
+	const userJSON = user.toJSON();
+	userJSON.position.permissions.forEach((p, i, arr) => (arr[i] = p.name));
+
+	return new APIResp(200).setData({ user: userJSON });
+};
+
+/**
+ * Get all student from a campus
+ * @function
+ * @async
+ *
+ * @param {string} campusName
+ * @return {Promise&lt;APIResp>}
+ */
+const getAllStudentsFromCampus = async (campusName) => {
+	const students = await models.user.findAll({
+		where: { campus: campusName },
+		include: [{
+			model: models.position,
+			required: true,
+			where: { name: "Étudiant" },
+		}],
+	});
+
+	return new APIResp(200).setData({ students });
+};
+
+/* ---- UPDATE ---------------------------------- */
+/* ---- DELETE ---------------------------------- */
+
+/*****************************************************
+ * Export
+ *****************************************************/
+
+const User = {
+	add,																												// CREATE
+	login, getAll, getByID, getByUUID, getAllStudentsFromCampus, // READ
+};
+export default User;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/search.js"> </script>
+
+
+</body>
+</html>

@@ -1,0 +1,224 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CBEM - API server.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="../custom/top-nav.css">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+             
+                <a class="image" href="index.html">
+                    <img src="https://i.imgur.com/G69c43Q.png" alt="logo">
+                </a>
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">Campus Booster en mieux - API</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                 
+                    
+                        <a
+                            class="link user-link "
+                            href="https://github.com/EmpireDemocratiqueDuPoulpe/campus-booster-en-mieux-API"
+                        >
+                            GitHub
+                        </a>
+                    
+                        <a
+                            class="link user-link "
+                            href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                        >
+                            YouTube
+                        </a>
+                    
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+                <div class="search-wrapper">
+                    <input id="search" type="text" placeholder="Search docs..." class="input">
+                </div>
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-absences.html">absences</a></li><li><a href="module-comptas.html">comptas</a></li><li><a href="module-jobs.html">jobs</a></li><li><a href="module-modules.html">modules</a></li><li><a href="module-notes.html">notes</a></li><li><a href="module-studies.html">studies</a></li><li><a href="module-users.html">users</a></li></ul><h3>Classes</h3><ul><li><a href="module-APIError.html">APIError</a></li><li><a href="module-APIResp.html">APIResp</a></li><li><a href="module-Logger.html">Logger</a></li></ul></div><div class="category"><h2>API</h2><h3>Modules / Interfaces</h3><ul><li><a href="module-Absence.html">Absence</a></li><li><a href="module-Compta.html">Compta</a></li><li><a href="module-Job.html">Job</a></li><li><a href="module-Module.html">Module</a></li><li><a href="module-Note.html">Note</a></li><li><a href="module-Permission.html">Permission</a></li><li><a href="module-Study.html">Study</a></li><li><a href="module-User.html">User</a></li></ul><h3>Modules / Models</h3><ul><li><a href="module-absence_.html">absence</a></li><li><a href="module-compta_.html">compta</a></li><li><a href="module-job_.html">job</a></li><li><a href="module-module_.html">module</a></li><li><a href="module-note_.html">note</a></li><li><a href="module-permission_.html">permission</a></li><li><a href="module-position.html">position</a></li><li><a href="module-positionPermissions.html">positionPermissions</a></li><li><a href="module-study_.html">study</a></li><li><a href="module-user_.html">user</a></li></ul><h3>Modules</h3><ul><li><a href="module-api.html">api</a></li></ul></div><div class="category"><h2>Global</h2><h3>Modules</h3><ul><li><a href="module-APIError.html">APIError</a></li><li><a href="module-APIResp.html">APIResp</a></li><li><a href="module-CookiesFn.html">CookiesFn</a></li><li><a href="module-DirName.html">DirName</a></li><li><a href="module-Logger.html">Logger</a></li></ul></div><div class="category"><h2>Middlewares</h2><h3>Modules / Authentication</h3><ul><li><a href="module-Authenticator.html">Authenticator</a></li><li><a href="module-TokenAssembler.html">TokenAssembler</a></li></ul><h3>Modules / Request flow</h3><ul><li><a href="module-EndHandler.html">EndHandler</a></li><li><a href="module-ErrorHandler.html">ErrorHandler</a></li></ul></div><div class="category"><h2>Sequelize</h2><h3>Modules</h3><ul><li><a href="module-addDummyData.html">addDummyData</a></li><li><a href="module-associations.html">associations</a></li><li><a href="module-sequelizeLoader.html">sequelizeLoader</a></li></ul></div><div class="category"><h2>Server</h2><h3>Global</h3><ul><li><a href="global.html#serverReady">serverReady</a></li><li><a href="global.html#startServer">startServer</a></li></ul></div><div class="category"><h2>jose</h2><h3>Modules</h3><ul><li><a href="module-joseLoader.html">joseLoader</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>server.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import express from "express";
+import http from "http";
+import https from "https";
+import fs from "fs";
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import api from "./api/api.js";
+import "./api/sequelizeLoader.js";
+import "./api/joseLoader.js";
+import { API } from "./config/config.js";
+
+/**
+ * Build a message to the console when the API is ready
+ * @function
+ * @category Server
+ *
+ * @param {("http"|"https")} protocol - Protocol used
+ * @param {Number} port - Listening port
+ * @return {void}
+ */
+const serverReady = (protocol, port) => {
+	console.log(`~~~ Campus Booster en mieux API | Now listening on port ${port} (${protocol})`);
+};
+
+/**
+ * Start the API
+ * @function
+ * @category Server
+ *
+ * @return {void}
+ */
+function startServer() {
+	// Set HTTPS certificates
+	const key = fs.readFileSync("./certs/selfsigned-key.pem", "utf-8");
+	const cert = fs.readFileSync("./certs/selfsigned.pem", "utf-8");
+	const opts = { key, cert };
+
+	// Initialize servers
+	const app = express();
+	const server = http.createServer(app);
+	const secureServer = https.createServer(opts, app);
+	const port = API.http.port || 3000;
+	const securePort = API.https.port || 3443;
+
+	// CORS
+	app.use(cors(API.cors));
+
+	// Transform raw and x-www-form-urlencoded to nice JSON
+	app.use(bodyParser.json());
+	app.use(bodyParser.urlencoded({ extended: true }));
+	app.use(cookieParser());
+
+	// Add API routes
+	app.use(API.prefix, api());
+
+	// Handle 404
+	app.use((request, response, next) => {
+		response.status(404).end();
+		next();
+	});
+
+	// Start listening
+	server.listen(port, () => serverReady("http", port))
+		.on("error", err => {
+			console.error(err);
+			process.exit(1);
+		});
+
+	secureServer.listen(securePort, () => serverReady("https", securePort))
+		.on("error", err => {
+			console.error(err);
+			process.exit(1);
+		});
+}
+
+startServer();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/search.js"> </script>
+
+
+</body>
+</html>
