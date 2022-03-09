@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CBEM - API api/middlewares/endHandler.js</title>
+  <title>CBEM - API students</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -103,43 +101,53 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Source</p>
-                    <h1>api/middlewares/endHandler.js</h1>
+                    <p>Module</p>
+                    <h1>students</h1>
                 </header>
                 
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @module EndHandler
- * @author Alexis L. &lt;alexis.lecomte@supinfo.com>
- * @category Middlewares
- * @subcategory Request flow
- */
+        
+    
+</header>
 
-/**
- * @function
- *
- * @param {e.Request} request
- * @param {e.Response} response
- * @param {e.NextFunction} next
- */
-function endHandler(request, response, next) {
-	response.on("finish", () => {
-		if (request.db) request.db.release();
-	});
+<article>
+    <div class="container-overview">
+    
+        
 
-	next();
-}
+        
+    
+    </div>
+    
+    
 
-/* ---- Export ---------------------------------- */
-export default endHandler;
-</code></pre>
-        </article>
-    </section>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
