@@ -19,7 +19,37 @@ async function setData(sequelize, logger) {
 
 	/* ---- modules ----------------------------- */
 	await sequelize.models.module.bulkCreate([
-		{ year: 4, name: "BOSS", long_name: "Business Owner", ects: 3 },
+		{ module_id: 1000, year: 4, name: "BOSS", long_name: "Business Owner", ects: 3 },
+		{ module_id: 1001, year: 1, name: "WORK", long_name: null, ects: 3 },
+		{ module_id: 1002, year: 1, name: "TEAM", long_name: null, ects: 2 },
+		{ module_id: 1003, year: 1, name: "PROG", long_name: null, ects: 4 },
+		{ module_id: 1004, year: 2, name: "PYTH", long_name: null, ects: 4 },
+		{ module_id: 1005, year: 2, name: "O365", long_name: null, ects: 3 },
+		{ module_id: 1006, year: 2, name: "GRAP", long_name: null, ects: 2 },
+		{ module_id: 1007, year: 2, name: "AWSP", long_name: null, ects: 3 },
+		{ module_id: 1008, year: 2, name: "ALGO", long_name: null, ects: 1 },
+		{ module_id: 1009, year: 2, name: "PMGT", long_name: null, ects: 2 },
+		{ module_id: 1010, year: 2, name: "DVST", long_name: null, ects: 4 },
+		{ module_id: 1011, year: 2, name: "PHPD", long_name: null, ects: 3 },
+		{ module_id: 1012, year: 2, name: "UIXD", long_name: null, ects: 4 },
+		{ module_id: 1013, year: 2, name: "AGIL", long_name: null, ects: 2 },
+		{ module_id: 1014, year: 2, name: "DVSC", long_name: null, ects: 3 },
+		{ module_id: 1015, year: 2, name: "VRAR", long_name: null, ects: 4 },
+		{ module_id: 1016, year: 2, name: "BAEX", long_name: null, ects: 2 },
+		{ module_id: 1017, year: 2, name: "MERN", long_name: null, ects: 4 },
+		{ module_id: 1018, year: 2, name: "CCNA", long_name: null, ects: 3 },
+		{ module_id: 1019, year: 2, name: "BOSS", long_name: null, ects: 3 },
+		{ module_id: 1020, year: 2, name: "GDPR", long_name: null, ects: 3 },
+		{ module_id: 1021, year: 2, name: "PENE", long_name: null, ects: 3 },
+		{ module_id: 1022, year: 2, name: "DATA", long_name: null, ects: 3 },
+		{ module_id: 1023, year: 2, name: "DOKR", long_name: null, ects: 3 },
+		{ module_id: 1024, year: 2, name: "KUBE", long_name: null, ects: 2 },
+		{ module_id: 1025, year: 2, name: "DATA", long_name: null, ects: 2 },
+		{ module_id: 1026, year: 2, name: "RBIG", long_name: null, ects: 3 },
+		{ module_id: 1027, year: 2, name: "ENGL", long_name: null, ects: 4 },
+		{ module_id: 1028, year: 2, name: "MDDP", long_name: null, ects: 4 },
+		{ module_id: 1029, year: 2, name: "CCNA", long_name: null, ects: 3 },
+		{ module_id: 1030, year: 2, name: "ITIL", long_name: null, ects: 4 },
 	]);
 
 	/* ---- permissions ----------------------------- */
@@ -204,11 +234,27 @@ async function setData(sequelize, logger) {
 
 	/* ---- notes ----------------------------- */
 	await sequelize.models.note.bulkCreate([
-		{
-			user_id: 1,
-			module_id: 1,
-			note: 14.5,
-		},
+		{ user_id: 1, module_id: 1000, note: 14.5 },
+		{ user_id: 1, module_id: 1001, note: 14.5 },
+		{ user_id: 1, module_id: 1002, note: 14.5 },
+		{ user_id: 1, module_id: 1003, note: 14.5 },
+		{ user_id: 1, module_id: 1004, note: 14.5 },
+		{ user_id: 1, module_id: 1005, note: 14.5 },
+		{ user_id: 1, module_id: 1006, note: 14.5 },
+		{ user_id: 1, module_id: 1007, note: 14.5 },
+		{ user_id: 1, module_id: 1008, note: 14.5 },
+		{ user_id: 1, module_id: 1009, note: 14.5 },
+		{ user_id: 1, module_id: 1010, note: 14.5 },
+		{ user_id: 1, module_id: 1011, note: 14.5 },
+		{ user_id: 1, module_id: 1012, note: 14.5 },
+		{ user_id: 1, module_id: 1013, note: 14.5 },
+		{ user_id: 1, module_id: 1014, note: 14.5 },
+		{ user_id: 1, module_id: 1015, note: 14.5 },
+		{ user_id: 1, module_id: 1016, note: 14.5 },
+		{ user_id: 1, module_id: 1017, note: 14.5 },
+		{ user_id: 1, module_id: 1018, note: 14.5 },
+		{ user_id: 1, module_id: 1019, note: 14.5 },
+		{ user_id: 1, module_id: 1020, note: 14.5 },
 	]);
 
 	/* ---- comptas ----------------------------- */

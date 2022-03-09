@@ -93,6 +93,10 @@ const getByID = async (noteID) => {
  */
 const getByUserID = async (userID) => {
 	const notes = await models.note.findAll({
+		include: [{
+			model: models.module,
+			required: true,
+		}],
 		where: { user_id: userID },
 	});
 

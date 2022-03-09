@@ -28,6 +28,18 @@ function init(sequelize, logger) {
 		},
 	});
 
+	/* ---- note ---------------------------------- */
+	// module [1 - *] note
+	sequelize.models.note.hasOne(sequelize.models.module, {
+		foreignKey: {
+			name: "module_id",
+			type: DataTypes.INTEGER,
+			allowNull: false,
+		},
+		sourceKey: "module_id",
+		constraints: false,
+	});
+
 	/* ---- permission ------------------------------ */
 	// permission [* - *] position
 	sequelize.models.permission.belongsToMany(sequelize.models.position, {
