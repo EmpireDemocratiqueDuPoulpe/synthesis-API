@@ -330,12 +330,12 @@ const getByUUID = async (uuid) => {
  * @function
  * @async
  *
- * @param {string} campusName
+ * @param {Object} filters
  * @return {Promise<APIResp>}
  */
-const getAllStudentsFromCampus = async (campusName) => {
+const getAllStudents = async (filters) => {
 	const students = await models.user.findAll({
-		where: { campus: campusName },
+		where: filters,
 		include: [{
 			model: models.position,
 			required: true,
@@ -354,7 +354,7 @@ const getAllStudentsFromCampus = async (campusName) => {
  *****************************************************/
 
 const User = {
-	add,																												// CREATE
-	login, getAll, getByID, getByUUID, getAllStudentsFromCampus, // READ
+	add,																								// CREATE
+	login, getAll, getByID, getByUUID, getAllStudents,	// READ
 };
 export default User;
