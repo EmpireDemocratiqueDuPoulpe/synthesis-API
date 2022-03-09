@@ -1,0 +1,31 @@
+name: API Documentation
+
+on:
+  push:
+    branches:
+      - master
+      - dev
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout API
+        uses: actions/checkout@v2
+
+      - name: Running npm install
+        run: npm install
+
+      - name: Build documentation
+        uses: andstor/jsdoc-action@v1
+        with:
+          config_file: .jsdoc.json
+          source_dir: .
+          output_dir: ./docs/www
+
+      - name: Deploy docs
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          publish_dir: ./docs
+          publish_branch: gh-pages-docs

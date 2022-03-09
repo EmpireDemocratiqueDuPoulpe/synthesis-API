@@ -1,20 +1,34 @@
 /**
  * @module APIResp
+ * @category Global
  * @author Alexis L. <alexis.lecomte@supinfo.com>
  */
 
 import Checkers from "./Checkers.js";
 
-/** APIResp make it easy to return data to Express' response */
+/**
+ * APIResp make it easy to return data to Express' response
+ * @class
+ *
+ * @example
+ * const response = new APIResp(200).setMessage("Logged in!").setData({ user: {firstName: "Hammong", lastName: "Gus"} });
+ * const json = response.toJSON();
+ * console.log(json); // ->
+ * // {
+ * //   code: 200,
+ * //   message: "Logged in!",
+ * //   data: {
+ * //     firstName: "Hammong",
+ * //     lastName: "Gus"
+ * //   }
+ * // }
+ */
 export default class APIResp {
 	#code = 200;
 	#message = null;
 	#data = {}
 
-	/**
-	 * @constructor
-	 * @param {Number} [code] - The HTTP code of the response
-	 */
+	/** @param {Number} [code] - The HTTP code of the response */
 	constructor(code) {
 		this.setCode(code);
 	}

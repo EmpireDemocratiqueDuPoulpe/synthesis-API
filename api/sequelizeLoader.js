@@ -1,6 +1,9 @@
 /**
  * @module sequelizeLoader
+ * @category Sequelize
  * @author Alexis L. <alexis.lecomte@supinfo.com>
+ *
+ * @requires Sequelize
  */
 
 import fs from "fs";
@@ -15,6 +18,11 @@ const logger = new Logger({ prefix: "⛃ " });
 const currentFile = DirName(import.meta.url);
 
 /* ---- Initialize Sequelize -------------------- */
+/**
+ * Sequelize instance
+ * @const
+ * @type {Sequelize}
+ */
 const sequelize = new Sequelize(DB.name, DB.user, DB.password, {
 	host: DB.host,
 	port: DB.port,

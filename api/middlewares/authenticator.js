@@ -1,7 +1,18 @@
+/**
+ * @module Authenticator
+ * @author Alexis L. <alexis.lecomte@supinfo.com>
+ * @category Middlewares
+ * @subcategory Authentication
+ */
+
 import { jwtVerify } from "jose";
 import keys from "../joseLoader.js";
 import { APIError, Logger } from "../../global/global.js";
 
+/**
+ * @const
+ * @type {module:Logger}
+ */
 const logger = new Logger({ prefix: "🔒 " });
 
 /**
@@ -12,9 +23,9 @@ const logger = new Logger({ prefix: "🔒 " });
  * @param {e.Response} response
  * @param {e.NextFunction} next
  */
-export default function authenticator(request, response, next) {
+function authenticator(request, response, next) {
 	const authHeader = request.headers["authorization"];
-	const specialHeader = request.headers["Brokilone"];
+	const specialHeader = request.headers["brokilone"];
 	const token = authHeader && authHeader.split(" ")[1];
 
 	if (!token || !specialHeader) {
@@ -22,9 +33,7 @@ export default function authenticator(request, response, next) {
 	}
 
 	jwtVerify(token, keys.publicKey)
-		.then(({ header, payload }) => {
-			console.log(header);
-			console.log(payload);
+		.then(({ payload }) => {
 			request.user = payload;
 			next();
 		})
@@ -33,3 +42,5 @@ export default function authenticator(request, response, next) {
 			throw new APIError(403, "Accès non autorisé.");
 		});
 }
+
+export default authenticator;

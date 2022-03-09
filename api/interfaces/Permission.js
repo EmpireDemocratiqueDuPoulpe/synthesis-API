@@ -1,12 +1,13 @@
 /**
- * @module Study
+ * @module Permission
  * @category API
  * @subcategory Interfaces
- * @author Louan L. <louan.leplae@supinfo.com>
+ * @author Alexis L. <alexis.lecomte@supinfo.com>
  */
 
 import sequelize from "../sequelizeLoader.js";
-import { APIResp, APIError } from "../../global/global.js";
+import { APIResp } from "../../global/global.js";
+import { isEmpty } from "lodash-es";
 
 /**
  * Sequelize models
@@ -27,24 +28,21 @@ const { models } = sequelize;
 /* ---- CREATE ---------------------------------- */
 /* ---- READ ------------------------------------ */
 /**
-  * Get user's study by user id
-  * @function
-  * @async
-  *
-  * @param {number} userID
-  * @throws {APIError}
-  * @return {Promise<APIResp>}
-  */
-const getByUserID = async (userID) => {
-	const study = await models.study.findOne({
-		where: { user_id: userID },
+ * Get all available permissions
+ * @function
+ * @async
+ *
+ * @return {Promise<APIResp>}
+ */
+const getAll = async () => {
+	const permissions = await models.permission.findAll();
+	const permsAsObj = {};
+
+	permissions.forEach((p) => {
+		permsAsObj[p.name] = !isEmpty(p.name_localized) ? p.name_localized : p.name;
 	});
 
-	if (!study) {
-		throw new APIError(404, `Cet utilisateur (${userID}) n'a pas de parcours d'étude.`);
-	}
-
-	return new APIResp(200).setData({ study });
+	return new APIResp(200).setData({ permissions: permsAsObj });
 };
 
 /* ---- UPDATE ---------------------------------- */
@@ -54,8 +52,7 @@ const getByUserID = async (userID) => {
  * Export
  *****************************************************/
 
-const Study = {
-	getByUserID, // READ
+const Permission = {
+	getAll,	// READ
 };
-export default Study;
-
+export default Permission;

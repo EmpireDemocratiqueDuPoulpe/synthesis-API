@@ -1,11 +1,19 @@
 /**
  * @module Compta
+ * @category API
+ * @subcategory Interfaces
  * @author Maxence P. <maxence.pawlowski@supinfo.com>
  */
 
 import sequelize from "../sequelizeLoader.js";
 import { APIResp, APIError } from "../../global/global.js";
 
+/**
+ * Sequelize models
+ * @const
+ * @name models
+ * @type {Object<Sequelize.models>}
+ */
 const { models } = sequelize;
 
 /**
@@ -21,7 +29,6 @@ const { models } = sequelize;
 /*****************************************************
  * Functions
  *****************************************************/
-
 
 /*****************************************************
  * CRUD Methods

@@ -1,14 +1,25 @@
 /**
  * @module addDummyData
+ * @category Sequelize
  * @author Alexis L. <alexis.lecomte@supinfo.com>
+ *
+ * @requires Sequelize
  */
 
-const setData = async (sequelize, logger) => {
+/**
+ * Add dummy data in the database
+ * @function
+ *
+ * @param {Sequelize} sequelize
+ * @param {module:Logger|Console} logger
+ * @return {Promise<void>}
+ */
+async function setData(sequelize, logger) {
 	logger.log("Inserting dummy data...");
 
 	/* ---- modules ----------------------------- */
 	await sequelize.models.module.bulkCreate([
-		{ year: 4, name: "BOSS", long_name: "Business Owner" },
+		{ year: 4, name: "BOSS", long_name: "Business Owner", ects: 3 },
 	]);
 
 	/* ---- permissions ----------------------------- */
@@ -105,7 +116,7 @@ const setData = async (sequelize, logger) => {
 			"position_id": 1,
 			"first_name": "Sir Edward",
 			"last_name": "Weak Ass",
-			"birth_date": "2021-06-24",
+			"birth_date": "968-06-24",
 			"email": "siredward.weakass@caramail.co.uk",
 			"password": "$2b$10$sbcqNmQi3DoIDQG1zbB9degN.toQN4hn2T562.yubcPvDra/RT46.", // "Mot De P4sse"
 			"address": {
@@ -119,11 +130,28 @@ const setData = async (sequelize, logger) => {
 			"campus": "Distanciel",
 		},
 		{
-			"position_id": 2,
-			"first_name": "Sir Edward",
-			"last_name": "Weak Ass",
+			"position_id": 5,
+			"first_name": "Jay",
+			"last_name": "Raté Mon Année À L'Aide",
+			"birth_date": "2002-06-24",
+			"email": "jay.rate@forni.te",
+			"password": "$2b$10$sbcqNmQi3DoIDQG1zbB9degN.toQN4hn2T562.yubcPvDra/RT46.", // "Mot De P4sse"
+			"address": {
+				"street": "Tomato Plaza",
+				"city": "Map de frotnite",
+				"postalCode": "0000",
+			},
+			"gender": "Homme",
+			"region": "France",
+			"status": "élève",
+			"campus": "Lille",
+		},
+		{
+			"position_id": 5,
+			"first_name": "Test",
+			"last_name": "Testf",
 			"birth_date": "2021-06-24",
-			"email": "siredward.weakas@caramail.co.uk",
+			"email": "tedst@caramail.co.uk",
 			"password": "$2b$10$sbcqNmQi3DoIDQG1zbB9degN.toQN4hn2T562.yubcPvDra/RT46.", // "Mot De P4sse"
 			"address": {
 				"street": "This is my street.",
@@ -195,6 +223,6 @@ const setData = async (sequelize, logger) => {
 	]);
 
 	logger.log("Dummy data inserted");
-};
+}
 
 export default setData;

@@ -1,10 +1,32 @@
 /**
  * @module absence
+ * @category API
+ * @subcategory Models
  * @author Louan L. <louan.leplae@supinfo.com>
  */
 
 import { DataTypes } from "sequelize";
 
+/**
+ * @const
+ * @type {Object}
+ *
+ * @example
+ * {
+ *  absence_id: {
+ *    type: DataTypes.INTEGER,
+ *    primaryKey: boolean,
+ *    allowNull: boolean,
+ *    autoIncrement: boolean
+ *  },
+ *  start_date: {
+ *    type: DataTypes.DATE,
+ *    allowNull: boolean,
+ *    validate: { isBeforeEndDate(startDate): void }
+ *  },
+ *  end_date: { type: DataTypes.DATE }
+ * }
+ */
 const absence = {
 	absence_id: {
 		type: DataTypes.INTEGER,

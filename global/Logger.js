@@ -1,5 +1,6 @@
 /**
  * @module Logger
+ * @category Global
  * @author Alexis L. <alexis.lecomte@supinfo.com>
  */
 
@@ -16,7 +17,7 @@ import Checkers from "./Checkers.js";
 
 /**
  * Build option of the logger
- * @typedef {Object} Logger~Options
+ * @typedef {Object} Logger~BuildOptions
  * @property {boolean} [withTime=true] - Must show time before the log message
  * @property {string|null} [ip=null] - The IP address of the user who triggered this log message
  * @property {Object|null} [params=null] - A list of parameters to log
@@ -26,17 +27,17 @@ import Checkers from "./Checkers.js";
 /**
  * Logger used on top of console
  * @class
- * @public
+
+ * @example
+ * const logger = new Logger({ prefix: "@ " });
+ * logger.log("hi, world");
  */
 export default class Logger {
 	#prefix = "";
 	#separator = " - ";
 	#colors = true;
 
-	/**
-	 * @constructor
-	 * @param {Logger~InitOptions} [options] - The initialization options of the Logger
-	 */
+	/** @param {Logger~InitOptions} [options] - The initialization options of the Logger */
 	constructor(options = { prefix: null, separator: null, colors: true }) {
 		this.setPrefix(options.prefix);
 		this.setSeparator(options.separator);
@@ -89,7 +90,7 @@ export default class Logger {
 	 * Build the complete log message to show
 	 * @private
 	 * @param {string} message - The message to log
-	 * @param {Logger~Options} options - Build options
+	 * @param {Logger~BuildOptions} options - Build options
 	 * @return {string} - The message once it has been built
 	 */
 	build(message, options = { withTime: true, ip: null, params: null, subLevel: false }) {
@@ -117,7 +118,7 @@ export default class Logger {
 	/**
 	 * Equivalent of console.log with various options
 	 * @param {string} message - The message to log
-	 * @param {Logger~Options} [options] - Build options
+	 * @param {Logger~BuildOptions} [options] - Build options
 	 * @return {void}
 	 */
 	log(message, options) { console.log(this.build(message, { withTime: true, ...options })); }
@@ -125,7 +126,7 @@ export default class Logger {
 	/**
 	 * Equivalent of console.info with various options
 	 * @param {string} message - The message to log
-	 * @param {Logger~Options} [options] - Build options
+	 * @param {Logger~BuildOptions} [options] - Build options
 	 * @return {void}
 	 */
 	info(message, options) { console.info(this.build(message, { withTime: true, ...options })); }
@@ -133,7 +134,7 @@ export default class Logger {
 	/**
 	 * Equivalent of console.warn with various options
 	 * @param {string} message - The message to log
-	 * @param {Logger~Options} [options] - Build options
+	 * @param {Logger~BuildOptions} [options] - Build options
 	 * @return {void}
 	 */
 	warn(message, options) { console.warn(this.build(message, { withTime: true, ...options }).stripColors.yellow); }
@@ -141,7 +142,7 @@ export default class Logger {
 	/**
 	 * Equivalent of console.error with various options
 	 * @param {string} message - The message to log
-	 * @param {Logger~Options} [options] - Build options
+	 * @param {Logger~BuildOptions} [options] - Build options
 	 * @return {void}
 	 */
 	error(message, options) { console.warn(this.build(message, { withTime: true, ...options }).stripColors.red); }

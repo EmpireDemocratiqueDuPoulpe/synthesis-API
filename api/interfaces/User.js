@@ -1,5 +1,7 @@
 /**
- * @module user
+ * @module User
+ * @category API
+ * @subcategory Interfaces
  * @author Alexis L. <alexis.lecomte@supinfo.com>
  */
 
@@ -10,6 +12,12 @@ import sequelize from "../sequelizeLoader.js";
 import { APIResp, APIError } from "../../global/global.js";
 import { API, Passwords } from "../../config/config.js";
 
+/**
+ * Sequelize models
+ * @const
+ * @name models
+ * @type {Object<Sequelize.models>}
+ */
 const { models } = sequelize;
 
 /**
@@ -33,7 +41,6 @@ const { models } = sequelize;
  * @property {UserAddress} address
  * @property {string} gender
  * @property {string} region
- * @property {string} status
  * @property {string} campus
  */
 
@@ -49,7 +56,6 @@ const { models } = sequelize;
  * @property {UserAddress} address
  * @property {string} gender
  * @property {string} region
- * @property {string} status
  * @property {string} campus
  */
 
@@ -115,7 +121,7 @@ const hashPassword = async (password) => {
  * @param {User} user
  * @return {Promise<string>}
  */
-const generateJWT = async (user) => {
+export const generateJWT = async (user) => {
 	const JWTuser = {
 		uuid: user.uuid,
 		given_name: user.first_name,
@@ -132,7 +138,7 @@ const generateJWT = async (user) => {
 		.setIssuer("cpem") // TODO: Change to the site name
 		.setIssuedAt()
 		.setExpirationTime("15m")
-		.setSubject(user.user_id.toString())
+		.setSubject(`${user.user_id}`)
 		.setExpirationTime("2h")
 		.sign(keys.privateKey);
 };
@@ -234,7 +240,8 @@ const login = async (user) => {
 	// Generate a JWT token
 	const token = await generateJWT(storedUser);
 
-	return new APIResp(200).setData({ token });
+	delete storedUser.password;
+	return new APIResp(200).setData({ token, user: storedUser });
 };
 
 /**
@@ -242,7 +249,6 @@ const login = async (user) => {
  * @function
  * @async
  *
- * @throws {APIError}
  * @return {Promise<APIResp>}
  */
 const getAll = async () => {
@@ -324,16 +330,17 @@ const getByUUID = async (uuid) => {
  * @function
  * @async
  *
- * @param {string} campusName
- * @throws {APIError}
+ * @param {Object} filters
  * @return {Promise<APIResp>}
  */
-const getAllStudentsFromCampus = async (campusName) => {
+const getAllStudents = async (filters) => {
 	const students = await models.user.findAll({
-		where: {
-			status: "élève",
-			campus: campusName,
-		},
+		where: filters,
+		include: [{
+			model: models.position,
+			required: true,
+			where: { name: "Étudiant" },
+		}],
 	});
 
 	return new APIResp(200).setData({ students });
@@ -347,7 +354,7 @@ const getAllStudentsFromCampus = async (campusName) => {
  *****************************************************/
 
 const User = {
-	add,																													// CREATE
-	login, getAll, getByID, getByUUID, getAllStudentsFromCampus		// READ
+	add,																								// CREATE
+	login, getAll, getByID, getByUUID, getAllStudents,	// READ
 };
 export default User;

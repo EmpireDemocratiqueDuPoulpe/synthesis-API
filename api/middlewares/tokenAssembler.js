@@ -1,4 +1,11 @@
 /**
+ * @module TokenAssembler
+ * @author Alexis L. <alexis.lecomte@supinfo.com>
+ * @category Middlewares
+ * @subcategory Authentication
+ */
+
+/**
  * Merge `tokenPayload` and `tokenSignature`
  * @function
  *
@@ -6,7 +13,7 @@
  * @param {e.Response} response
  * @param {e.NextFunction} next
  */
-export default function tokenAssembler(request, response, next) {
+function tokenAssembler(request, response, next) {
 	const { tokenPayload, tokenSignature } = parseCookies(request.headers.cookie);
 
 	if (tokenPayload && tokenSignature) {
@@ -20,6 +27,7 @@ export default function tokenAssembler(request, response, next) {
 /**
  * Parse the cookie string to an Object
  * @function
+ * @private
  *
  * @param {string} cookies
  * @return {Object}
@@ -36,3 +44,5 @@ function parseCookies(cookies) {
 
 	return parsedCookies;
 }
+
+export default tokenAssembler;

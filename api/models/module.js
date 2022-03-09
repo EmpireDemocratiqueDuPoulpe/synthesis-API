@@ -1,10 +1,41 @@
 /**
  * @module module
+ * @category API
+ * @subcategory Models
  * @author Louan L. <louan.leplae@supinfo.com>
  */
 
 import { DataTypes } from "sequelize";
 
+/**
+ * @const
+ * @type {Object}
+ *
+ * @example
+ * {
+ *  module_id: {
+ *    type: DataTypes.INTEGER,
+ *    primaryKey: boolean,
+ *    allowNull: boolean,
+ *    autoIncrement: boolean
+ *  },
+ *  year: {
+ *    type: DataTypes.SMALLINT,
+ *    allowNull: boolean,
+ *    validate: { min: number, max: number }
+ *  },
+ *  name: {
+ *    type: DataTypes.STRING,
+ *    allowNull: boolean,
+ *    validate: { notEmpty: boolean }
+ *  },
+ *  long_name: {
+ *    type: DataTypes.STRING,
+ *    allowNull: boolean,
+ *    validate: { notEmpty: boolean }
+ *  }
+ * }
+ */
 const module = {
 	module_id: {
 		type: DataTypes.INTEGER,
@@ -27,6 +58,11 @@ const module = {
 	},
 	long_name: {
 		type: DataTypes.STRING,
+		allowNull: false,
+		validate: { notEmpty: true },
+	},
+	ects: {
+		type: DataTypes.SMALLINT,
 		allowNull: false,
 		validate: { notEmpty: true },
 	},

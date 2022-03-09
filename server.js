@@ -2,16 +2,22 @@ import express from "express";
 import http from "http";
 import https from "https";
 import fs from "fs";
+import urljoin from "urljoin";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import expressJSDocSwagger from "express-jsdoc-swagger";
 import api from "./api/api.js";
 import "./api/sequelizeLoader.js";
 import "./api/joseLoader.js";
-import { API } from "./config/config.js";
+import { DirName } from "./global/global.js";
+import { API, Swagger } from "./config/config.js";
 
 /**
  * Build a message to the console when the API is ready
+ * @function
+ * @category Server
+ *
  * @param {("http"|"https")} protocol - Protocol used
  * @param {Number} port - Listening port
  * @return {void}
@@ -21,8 +27,24 @@ const serverReady = (protocol, port) => {
 };
 
 /**
+ * Build a message to the console when the Swagger UI docs are ready
+ * @function
+ * @category Server
+ *
+ * @param {("http"|"https")} protocol - Protocol used
+ * @param {Number} port - Listening port
+ * @param {string} swaggerPath - Path to the Swagger UI docs
+ * @return {void}
+ */
+const swaggerReady = (protocol, port, swaggerPath) => {
+	console.log(`~~~ Campus Booster en mieux API | Routes docs available on ${urljoin(`${protocol}://localhost:${port}/`, swaggerPath)}`);
+};
+
+/**
  * Start the API
  * @function
+ * @category Server
+ *
  * @return {void}
  */
 function startServer() {
@@ -39,13 +61,16 @@ function startServer() {
 	const securePort = API.https.port || 3443;
 
 	// CORS
-	// TODO: CORS
 	app.use(cors(API.cors));
 
 	// Transform raw and x-www-form-urlencoded to nice JSON
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({ extended: true }));
 	app.use(cookieParser());
+
+	// Setup Swagger UI x JSDoc
+	expressJSDocSwagger(app)({ ...Swagger, baseDir: (DirName(import.meta.url).__dirname) });
+	swaggerReady("https", securePort, Swagger.swaggerUIPath);
 
 	// Add API routes
 	app.use(API.prefix, api());

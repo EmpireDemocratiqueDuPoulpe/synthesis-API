@@ -1,11 +1,19 @@
 /**
  * @module Module
+ * @category API
+ * @subcategory Interfaces
  * @author Maxence P. <maxence.pawlowski@supinfo.com>
  */
 
 import sequelize from "../sequelizeLoader.js";
 import { APIResp, APIError } from "../../global/global.js";
 
+/**
+ * Sequelize models
+ * @const
+ * @name models
+ * @type {Object<Sequelize.models>}
+ */
 const { models } = sequelize;
 
 /**
@@ -14,12 +22,12 @@ const { models } = sequelize;
  * @property {number} year
  * @property {string} name
  * @property {string} long_name
+ * @property {number} ects
  */
 
 /*****************************************************
  * Functions
  *****************************************************/
-
 
 /*****************************************************
  * CRUD Methods
@@ -60,7 +68,6 @@ const add = async (newModule) => {
  * @function
  * @async
  *
- * @throws {APIError}
  * @return {Promise<APIResp>}
  */
 const getAll = async () => {

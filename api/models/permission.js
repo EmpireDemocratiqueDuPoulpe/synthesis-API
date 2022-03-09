@@ -1,10 +1,32 @@
 /**
  * @module permission
+ * @category API
+ * @subcategory Models
  * @author Alexis L. <alexis.lecomte@supinfo.com>
  */
 
 import { DataTypes } from "sequelize";
 
+/**
+ * @const
+ * @type {Object}
+ *
+ * @example
+ * {
+ *  permission_id: {
+ *    type: DataTypes.INTEGER,
+ *    primaryKey: boolean,
+ *    allowNull: boolean,
+ *    autoIncrement: boolean
+ *   }
+ *  name: {
+ *    type: DataTypes.STRING,
+ *    allowNull: boolean,
+ *    validate: { isUppercase: boolean, notEmpty: boolean }
+ *  },
+ *  name_localized: { type: DataTypes.STRING }
+ * }
+ */
 const permission = {
 	permission_id: {
 		type: DataTypes.INTEGER,

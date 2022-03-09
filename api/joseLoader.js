@@ -1,5 +1,6 @@
 /**
  * @module joseLoader
+ * @category jose
  * @author Alexis L. <alexis.lecomte@supinfo.com>
  */
 
@@ -9,6 +10,10 @@ import { createPublicKey, createPrivateKey } from "crypto";
 import { Logger, DirName } from "../global/global.js";
 import { API } from "../config/config.js";
 
+/**
+ * @const
+ * @type {module:Logger}
+ */
 const logger = new Logger({ prefix: "🔒 " });
 const currentFile = DirName(import.meta.url);
 

@@ -1,10 +1,46 @@
 /**
  * @module compta
+ * @category API
+ * @subcategory Models
  * @author Louan L. <louan.leplae@supinfo.com>
  */
 
 import { DataTypes } from "sequelize";
 
+/**
+ * @const
+ * @type {Object}
+ *
+ * @example
+ * {
+ *  compta_id: {
+ *    type: DataTypes.INTEGER,
+ *    primaryKey: boolean,
+ *    allowNull: boolean,
+ *    autoIncrement: boolean
+ *  },
+ *  payment_type: {
+ *    type: DataTypes.ENUM,
+ *    values: string[],
+ *    allowNull: boolean
+ *  },
+ *  relance: {
+ *    type: DataTypes.BOOLEAN,
+ *    defaultValue: boolean,
+ *    allowNull: boolean
+ *  },
+ *  paid: {
+ *    type: DataTypes.BOOLEAN,
+ *    defaultValue: boolean,
+ *    allowNull: boolean
+ *  },
+ *  payment_due: {
+ *    type: DataTypes.DECIMAL,
+ *    defaultValue: number,
+ *    allowNull: boolean
+ *  }
+ * }
+ */
 const compta = {
 	compta_id: {
 		type: DataTypes.INTEGER,
