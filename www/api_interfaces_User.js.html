@@ -341,7 +341,18 @@ const login = async (user) => {
 	let storedUser;
 
 	try {
-		storedUser = await models.user.findOne({ where: {email: user.email} });
+		storedUser = await models.user.findOne({
+			include: [{
+				model: models.position,
+				required: true,
+				include: [{
+					model: models.permission,
+					through: {attributes: []},
+				}],
+			}],
+			where: {email: user.email},
+		});
+
 		if (!storedUser) throw new Error();
 	} catch (err) {
 		throw new APIError(400, "L'adresse email et/ou le mot de passe sont erronés.", ["email", "password"]);
