@@ -8,6 +8,7 @@
 import { DataTypes } from "sequelize";
 
 /* TODO: Add attachements */
+/* TODO: Add optional expiration date */
 /**
  * @const
  * @type {Object}
