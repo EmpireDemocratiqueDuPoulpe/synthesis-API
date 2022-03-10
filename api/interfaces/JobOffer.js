@@ -74,7 +74,13 @@ const add = async (newJobOffer) => {
  * @return {Promise<APIResp>}
  */
 const getAll = async () => {
-	const jobOffers = await models.jobOffer.findAll();
+	const jobOffers = await models.jobOffer.findAll({
+		include: {
+			model: models.jobDomain,
+			required: false,
+		},
+	});
+
 	return new APIResp(200).setData({ jobOffers });
 };
 
@@ -89,6 +95,10 @@ const getAll = async () => {
  */
 const getByID = async (jobOfferID) => {
 	const jobOffer = await models.jobOffer.findOne({
+		include: {
+			model: models.jobDomain,
+			required: false,
+		},
 		where: { job_offer_id: jobOfferID },
 	});
 
