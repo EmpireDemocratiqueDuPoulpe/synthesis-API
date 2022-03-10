@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CBEM - API api/models/position.js</title>
+  <title>CBEM - API jobOffers</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -103,71 +101,53 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Source</p>
-                    <h1>api/models/position.js</h1>
+                    <p>Module</p>
+                    <h1>jobOffers</h1>
                 </header>
                 
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @module position
- * @category API
- * @subcategory Models
- * @author Alexis L. &lt;alexis.lecomte@supinfo.com>
- */
+        
+    
+</header>
 
-import { DataTypes } from "sequelize";
+<article>
+    <div class="container-overview">
+    
+        
 
-/**
- * @const
- * @type {Object}
- *
- * @example
- * {
- *  position_id: {
- *    type: DataTypes.INTEGER,
- *    primaryKey: boolean,
- *    allowNull: boolean,
- *    autoIncrement: boolean
- *  },
- *  name: {
- *    type: DataTypes.STRING,
- *    allowNull: boolean
- *  }
- * }
- */
-const position = {
-	position_id: {
-		type: DataTypes.INTEGER,
-		primaryKey: true,
-		allowNull: false,
-		autoIncrement: true,
-	},
-	name: {
-		type: DataTypes.STRING,
-		allowNull: false,
-	},
-};
+        
+    
+    </div>
+    
+    
 
-/**
- * Define the model
- * @function
- *
- * @param {Sequelize} sequelize
- * @param {string} name - The file name used for the definition
- */
-export const define = (sequelize, name) => {
-	sequelize.define(name, position);
-};
+    
 
-export default position;
-</code></pre>
-        </article>
-    </section>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

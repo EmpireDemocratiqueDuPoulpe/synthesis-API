@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CBEM - API api/models/position.js</title>
+  <title>CBEM - API api/models/jobOfferDomain.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -104,7 +104,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>api/models/position.js</h1>
+                    <h1>api/models/jobOfferDomain.js</h1>
                 </header>
                 
 
@@ -114,7 +114,7 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @module position
+ * @module jobOfferDomain
  * @category API
  * @subcategory Models
  * @author Alexis L. &lt;alexis.lecomte@supinfo.com>
@@ -128,31 +128,32 @@ import { DataTypes } from "sequelize";
  *
  * @example
  * {
- *  position_id: {
+ *  job_offer_id: {
  *    type: DataTypes.INTEGER,
- *    primaryKey: boolean,
- *    allowNull: boolean,
- *    autoIncrement: boolean
- *  },
- *  name: {
- *    type: DataTypes.STRING,
- *    allowNull: boolean
+ *    references: { model: string, key: string }
+ *  }
+ *  job_domain_id: {
+ *    type: DataTypes.INTEGER,
+ *    references: { model: string, key: string }
  *  }
  * }
  */
-const position = {
-	position_id: {
+const jobOfferDomain = {
+	job_offer_id: {
 		type: DataTypes.INTEGER,
-		primaryKey: true,
-		allowNull: false,
-		autoIncrement: true,
+		references: {
+			model: "jobOffers",
+			key: "job_offer_id",
+		},
 	},
-	name: {
-		type: DataTypes.STRING,
-		allowNull: false,
+	job_domain_id: {
+		type: DataTypes.INTEGER,
+		references: {
+			model: "jobDomains",
+			key: "job_domain_id",
+		},
 	},
 };
-
 /**
  * Define the model
  * @function
@@ -161,10 +162,10 @@ const position = {
  * @param {string} name - The file name used for the definition
  */
 export const define = (sequelize, name) => {
-	sequelize.define(name, position);
+	sequelize.define(name, jobOfferDomain);
 };
 
-export default position;
+export default jobOfferDomain;
 </code></pre>
         </article>
     </section>

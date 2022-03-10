@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CBEM - API api/models/position.js</title>
+  <title>CBEM - API api/models/jobDomain.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -104,7 +104,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>api/models/position.js</h1>
+                    <h1>api/models/jobDomain.js</h1>
                 </header>
                 
 
@@ -114,7 +114,7 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @module position
+ * @module jobDomain
  * @category API
  * @subcategory Models
  * @author Alexis L. &lt;alexis.lecomte@supinfo.com>
@@ -128,27 +128,27 @@ import { DataTypes } from "sequelize";
  *
  * @example
  * {
- *  position_id: {
+ *  job_domain_id: {
  *    type: DataTypes.INTEGER,
  *    primaryKey: boolean,
- *    allowNull: boolean,
- *    autoIncrement: boolean
- *  },
+ *    autoIncrement: boolean,
+ *    allowNull: boolean
+ *  }
  *  name: {
- *    type: DataTypes.STRING,
+ *    type: DataTypes.TEXT,
  *    allowNull: boolean
  *  }
  * }
  */
-const position = {
-	position_id: {
+const jobDomain = {
+	job_domain_id: {
 		type: DataTypes.INTEGER,
 		primaryKey: true,
-		allowNull: false,
 		autoIncrement: true,
+		allowNull: false,
 	},
 	name: {
-		type: DataTypes.STRING,
+		type: DataTypes.TEXT,
 		allowNull: false,
 	},
 };
@@ -161,10 +161,10 @@ const position = {
  * @param {string} name - The file name used for the definition
  */
 export const define = (sequelize, name) => {
-	sequelize.define(name, position);
+	sequelize.define(name, jobDomain);
 };
 
-export default position;
+export default jobDomain;
 </code></pre>
         </article>
     </section>

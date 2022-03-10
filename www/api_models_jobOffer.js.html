@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CBEM - API api/models/position.js</title>
+  <title>CBEM - API api/models/jobOffer.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -104,7 +104,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>api/models/position.js</h1>
+                    <h1>api/models/jobOffer.js</h1>
                 </header>
                 
 
@@ -114,7 +114,7 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @module position
+ * @module jobOffer
  * @category API
  * @subcategory Models
  * @author Alexis L. &lt;alexis.lecomte@supinfo.com>
@@ -122,33 +122,79 @@
 
 import { DataTypes } from "sequelize";
 
+/* TODO: Add attachements */
+/* TODO: Add optional expiration date */
 /**
  * @const
  * @type {Object}
  *
  * @example
  * {
- *  position_id: {
+ *  job_offer_id: {
  *    type: DataTypes.INTEGER,
  *    primaryKey: boolean,
- *    allowNull: boolean,
- *    autoIncrement: boolean
+ *    autoIncrement: boolean,
+ *    allowNull: boolean
  *  },
- *  name: {
- *    type: DataTypes.STRING,
+ *  type: {
+ *    type: DataTypes.ENUM,
+ *    values: string[],
+ *    allowNull: boolean
+ *  },
+ *  title: {
+ *    type: DataTypes.TEXT,
+ *    allowNull: boolean
+ *  },
+ *  company_name: {
+ *    type: DataTypes.TEXT
+ *    allowNull: boolean
+ *  },
+ *  city: {
+ *    type: DataTypes.TEXT,
+ *    allowNull: boolean
+ *  },
+ *  postal_code: {
+ *    type: DataTypes.TEXT,
+ *    allowNull: boolean,
+ *    validate: { len: Array&lt;number> }
+ *  },
+ *  content: {
+ *    type: DataTypes.TEXT,
  *    allowNull: boolean
  *  }
  * }
  */
-const position = {
-	position_id: {
+const jobOffer = {
+	job_offer_id: {
 		type: DataTypes.INTEGER,
 		primaryKey: true,
-		allowNull: false,
 		autoIncrement: true,
+		allowNull: false,
 	},
-	name: {
-		type: DataTypes.STRING,
+	type: {
+		type: DataTypes.ENUM,
+		values: [ "stage", "alternance" ],
+		allowNull: false,
+	},
+	title: {
+		type: DataTypes.TEXT,
+		allowNull: false,
+	},
+	company_name: {
+		type: DataTypes.TEXT,
+		allowNull: false,
+	},
+	city: {
+		type: DataTypes.TEXT,
+		allowNull: true,
+	},
+	postal_code: {
+		type: DataTypes.TEXT,
+		allowNull: true,
+		validate: { len: [0, 10] },
+	},
+	content: {
+		type: DataTypes.TEXT,
 		allowNull: false,
 	},
 };
@@ -161,10 +207,10 @@ const position = {
  * @param {string} name - The file name used for the definition
  */
 export const define = (sequelize, name) => {
-	sequelize.define(name, position);
+	sequelize.define(name, jobOffer);
 };
 
-export default position;
+export default jobOffer;
 </code></pre>
         </article>
     </section>

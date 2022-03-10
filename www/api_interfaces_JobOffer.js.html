@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CBEM - API api/models/position.js</title>
+  <title>CBEM - API api/interfaces/JobOffer.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -104,7 +104,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>api/models/position.js</h1>
+                    <h1>api/interfaces/JobOffer.js</h1>
                 </header>
                 
 
@@ -114,57 +114,128 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @module position
+ * @module JobOffer
  * @category API
- * @subcategory Models
+ * @subcategory Interfaces
  * @author Alexis L. &lt;alexis.lecomte@supinfo.com>
  */
 
-import { DataTypes } from "sequelize";
+import sequelize from "../sequelizeLoader.js";
+import { APIResp, APIError } from "../../global/global.js";
 
 /**
+ * Sequelize models
  * @const
- * @type {Object}
- *
- * @example
- * {
- *  position_id: {
- *    type: DataTypes.INTEGER,
- *    primaryKey: boolean,
- *    allowNull: boolean,
- *    autoIncrement: boolean
- *  },
- *  name: {
- *    type: DataTypes.STRING,
- *    allowNull: boolean
- *  }
- * }
+ * @name models
+ * @type {Object&lt;Sequelize.models>}
  */
-const position = {
-	position_id: {
-		type: DataTypes.INTEGER,
-		primaryKey: true,
-		allowNull: false,
-		autoIncrement: true,
-	},
-	name: {
-		type: DataTypes.STRING,
-		allowNull: false,
-	},
+const { models } = sequelize;
+
+/**
+ * @typedef {Object} NewJobOffer
+ *
+ * @property {number} job_domain_id
+ * @property {string} title
+ * @property {string} company_name
+ * @property {string} city
+ * @property {string} postal_code
+ * @property {string} content
+ */
+
+/*****************************************************
+ * Functions
+ *****************************************************/
+
+/*****************************************************
+ * CRUD Methods
+ *****************************************************/
+
+/* ---- CREATE ---------------------------------- */
+/**
+ * Add a new job offer
+ * @function
+ * @async
+ *
+ * @param {NewJobOffer} newJobOffer
+ * @throws {APIError}
+ * @return {Promise&lt;APIResp>}
+ */
+const add = async (newJobOffer) => {
+	const processedOffer = newJobOffer;
+
+	// Check if the new job offer match the model
+	const model = models.jobOffer.build(processedOffer);
+
+	try {
+		await model.validate({ skip: ["job_offer_id"] });
+	} catch (err) {
+		// TODO: Adapt the system
+		throw new APIError(400, "error", Object.values(err));
+	}
+
+	// Add to the database
+	const jobOffer = await models.jobOffer.create(processedOffer);
+
+	return new APIResp(200).setData({ jobOfferID: jobOffer.job_offer_id });
+};
+
+/* ---- READ ------------------------------------ */
+/**
+ * Get all job offers
+ * @function
+ * @async
+ *
+ * @throws {APIError}
+ * @return {Promise&lt;APIResp>}
+ */
+const getAll = async () => {
+	const jobOffers = await models.jobOffer.findAll({
+		include: {
+			model: models.jobDomain,
+			required: false,
+		},
+	});
+
+	return new APIResp(200).setData({ jobOffers });
 };
 
 /**
- * Define the model
+ * Get a job offer by its id
  * @function
+ * @async
  *
- * @param {Sequelize} sequelize
- * @param {string} name - The file name used for the definition
+ * @param {number} jobOfferID
+ * @throws {APIError}
+ * @return {Promise&lt;APIResp>}
  */
-export const define = (sequelize, name) => {
-	sequelize.define(name, position);
+const getByID = async (jobOfferID) => {
+	const jobOffer = await models.jobOffer.findOne({
+		include: {
+			model: models.jobDomain,
+			required: false,
+		},
+		where: { job_offer_id: jobOfferID },
+	});
+
+	if (!jobOffer) {
+		throw new APIError(404, `L'offre d'emploi (${jobOfferID}) n'existe pas.`);
+	}
+
+	return new APIResp(200).setData({ jobOffer });
 };
 
-export default position;
+/* ---- UPDATE ---------------------------------- */
+/* ---- DELETE ---------------------------------- */
+
+/*****************************************************
+ * Export
+ *****************************************************/
+
+const JobOffer = {
+	add,							// CREATE
+	getAll, getByID,	// READ
+};
+export default JobOffer;
 </code></pre>
         </article>
     </section>
