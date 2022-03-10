@@ -6,7 +6,7 @@
 
 import { Router } from "express";
 import requestIP from "request-ip";
-import { absences, comptas, jobs, modules, notes, permissions, students, studies, users } from "./routes/routes.js";
+import { absences, comptas, jobs, jobOffers, modules, notes, permissions, students, studies, users } from "./routes/routes.js";
 import { tokenAssembler, endHandler, errorHandler } from "./middlewares/middlewares.js";
 
 /**
@@ -41,6 +41,7 @@ export default () => {
 	absences(router);
 	comptas(router);
 	jobs(router);
+	jobOffers(router);
 	modules(router);
 	notes(router);
 	permissions(router);

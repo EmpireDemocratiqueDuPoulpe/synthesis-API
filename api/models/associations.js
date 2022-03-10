@@ -18,8 +18,22 @@ import { DataTypes } from "sequelize";
 function init(sequelize, logger) {
 	logger.log(`Making associations ([${Object.keys(sequelize.models).join(", ")}])...`);
 
+	/* ---- jobOffer -------------------------------- */
+	// jobOffer [* - *] jobDomain
+	sequelize.models.jobOffer.belongsToMany(sequelize.models.jobDomain, {
+		through: sequelize.models.jobOfferDomain,
+		foreignKey: "job_offer_id",
+	});
+
+	/* ---- jobDomain ------------------------------- */
+	// jobDomain [* - *] jobOffer
+	sequelize.models.jobDomain.belongsToMany(sequelize.models.jobOffer, {
+		through: sequelize.models.jobOfferDomain,
+		foreignKey: "job_domain_id",
+	});
+
 	/* ---- module ---------------------------------- */
-	// note [* - 1] module
+	// module [1 - *] note
 	sequelize.models.module.hasMany(sequelize.models.note, {
 		foreignKey: {
 			name: "module_id",
@@ -29,7 +43,7 @@ function init(sequelize, logger) {
 	});
 
 	/* ---- note ------------------------------------ */
-	// module [1 - *] note
+	// note [* - 1] module
 	sequelize.models.note.hasOne(sequelize.models.module, {
 		foreignKey: {
 			name: "module_id",

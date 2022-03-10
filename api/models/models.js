@@ -1,6 +1,9 @@
 export { default as Absence } from "./absence.js";
 export { default as Compta } from "./compta.js";
 export { default as Job } from "./job.js";
+export { default as JobDomain } from "./jobDomain.js";
+export { default as JobOffer } from "./jobOffer.js";
+export { default as JobOfferDomain } from "./jobOfferDomain.js";
 export { default as Module } from "./module.js";
 export { default as Note } from "./note.js";
 export { default as Permission } from "./permission.js";
