@@ -45,7 +45,7 @@ const { models } = sequelize;
 const add = async (newNote) => {
 	const processedNote = newNote;
 
-	// Check if the new user match the model
+	// Check if the new note match the model
 	const model = models.note.build(processedNote);
 
 	try {

@@ -46,7 +46,7 @@ const { models } = sequelize;
 const add = async (newModule) => {
 	const processedModule = newModule;
 
-	// Check if the new user match the model
+	// Check if the new module match the model
 	const model = models.module.build(processedModule);
 
 	try {

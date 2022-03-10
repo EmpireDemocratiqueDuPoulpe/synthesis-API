@@ -47,7 +47,7 @@ const { models } = sequelize;
 const add = async (newCompta) => {
 	const processedCompta = newCompta;
 
-	// Check if the new user match the model
+	// Check if the new compta match the model
 	const model = models.compta.build(processedCompta);
 
 	try {

@@ -47,7 +47,7 @@ import { DataTypes } from "sequelize";
  *  }
  * }
  */
-const Job = {
+const job = {
 	job_id: {
 		type: DataTypes.INTEGER,
 		primaryKey: true,
@@ -90,7 +90,7 @@ const Job = {
  * @param {string} name - The file name used for the definition
  */
 export const define = (sequelize, name) => {
-	sequelize.define(name, Job);
+	sequelize.define(name, job);
 };
 
-export default Job;
+export default job;
