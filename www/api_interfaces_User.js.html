@@ -272,6 +272,20 @@ const passwordMatchHash = async (password, hash) => {
 	return await bcrypt.compare(password, hash);
 };
 
+/**
+ * Flatten the permission array to keep only names
+ * @function
+ *
+ * @param {Model} user
+ * @return {Object}
+ */
+const buildPermissions = (user) => {
+	const userJSON = user.toJSON();
+	userJSON.position.permissions.forEach((p, i, arr) => (arr[i] = p.name));
+
+	return userJSON;
+};
+
 /*****************************************************
  * CRUD Methods
  *****************************************************/
@@ -367,7 +381,8 @@ const login = async (user) => {
 	const token = await generateJWT(storedUser);
 
 	delete storedUser.password;
-	return new APIResp(200).setData({ token, user: storedUser });
+	const flattenUser = buildPermissions(storedUser);
+	return new APIResp(200).setData({ token, user: flattenUser });
 };
 
 /**
@@ -412,10 +427,8 @@ const getByID = async (userID) => {
 		throw new APIError(404, `Cet utilisateur (${userID}) n'existe pas.`);
 	}
 
-	const userJSON = user.toJSON();
-	userJSON.position.permissions.forEach((p, i, arr) => (arr[i] = p.name));
-
-	return new APIResp(200).setData({ user: userJSON });
+	const flattenUser = buildPermissions(user);
+	return new APIResp(200).setData({ user: flattenUser });
 };
 
 /**
