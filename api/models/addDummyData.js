@@ -116,6 +116,11 @@ async function setData(sequelize, logger) {
 		},
 	]);
 
+	/* ---- jobOfferDomain -------------------------- */
+	await sequelize.models.jobOfferDomain.bulkCreate([
+		{ job_offer_id: 1, job_domain_id: 1004 },
+	]);
+
 	/* ---- modules --------------------------------- */
 	await sequelize.models.module.bulkCreate([
 		{ module_id: 1000, year: 4, name: "BOSS", long_name: "Business Owner", ects: 3 },
