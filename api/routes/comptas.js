@@ -64,6 +64,28 @@ export default (router) => {
 		logger.log("Retrieves a compta by its ID", { ip: request.clientIP, params: {code: resp.code, comptaID: request.params.comptaID} });
 	});
 
+	/**
+	 * GET /v1/comptas/by-user-id/{userID}
+	 * @summary Get a user compta by its user_id
+	 * @security BearerAuth
+	 * @tags Comptas
+	 *
+	 * @param {number} userID.path.required - User id
+	 *
+	 * @return {SuccessResp} 200 - **Success**: the compta is returned - application/json
+	 *
+	 * @example response - 200 - Success response
+	 * { "code": 200, "compta": {
+	 *  "compta_id": 2, "payment_type": "OPCA", "payment_due": "5050.76", "paid": false, "relance": false, "user_id": 2
+	 * }}
+	 */
+	route.get("/by-user-id/:userID", async (request, response) => {
+		const resp = await Compta.getByUserID(request.params.userID);
+		response.status(resp.code).json(resp.toJSON());
+
+		logger.log("Retrieves a compta of a user by his user_id", { ip: request.clientIP, params: {code: resp.code, userID: request.params.userID} });
+	});
+
 	/* ---- UPDATE ---------------------------------- */
 	/* ---- DELETE ---------------------------------- */
 };
