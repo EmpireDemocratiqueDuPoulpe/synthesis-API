@@ -28,7 +28,7 @@ function init(sequelize, logger) {
 		},
 	});
 
-	/* ---- note ---------------------------------- */
+	/* ---- note ------------------------------------ */
 	// module [1 - *] note
 	sequelize.models.note.hasOne(sequelize.models.module, {
 		foreignKey: {
