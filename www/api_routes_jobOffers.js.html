@@ -175,7 +175,7 @@ export default (router) => {
 	 * }]}
 	 */
 	route.get("/all", async (request, response) => {
-		const resp = await JobOffer.getAll();
+		const resp = await JobOffer.getAll(request.query);
 		response.status(resp.code).json(resp.toJSON());
 
 		logger.log("Retrieves all job offers", { ip: request.clientIP, params: {code: resp.code} });
