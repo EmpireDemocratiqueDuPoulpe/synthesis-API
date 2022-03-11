@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CBEM - API Module</title>
+  <title>CBEM - API Attachement</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -102,7 +102,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Module</p>
-                    <h1>Module</h1>
+                    <h1>Attachement</h1>
                 </header>
                 
 
@@ -212,9 +212,9 @@
 
     
         <p class="tag-source">
-            <a href="api_interfaces_Module.js.html" class="button">View Source</a>
+            <a href="api_interfaces_Attachement.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_Module.js.html">api/interfaces/Module.js</a>, <a href="api_interfaces_Module.js.html#line11">line 11</a>
+                <a href="api_interfaces_Attachement.js.html">api/interfaces/Attachement.js</a>, <a href="api_interfaces_Attachement.js.html#line12">line 12</a>
             </span>
         </p>
     
@@ -250,7 +250,7 @@
         
         <span class="code-name">
             
-                add<span class="signature">(newModule)</span><span class="type-signature"> &rarr; {Promise.&lt;APIResp>}</span>
+                add<span class="signature">(parentKey, newAttachements, transaction<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;APIResp>}</span>
             
         </span>
     </h4>
@@ -259,7 +259,7 @@
     
     
     <div class="description">
-        <p>Add a new module</p>
+        <p>Add new attachements</p>
     </div>
     
 
@@ -284,6 +284,8 @@
             <th>Type</th>
 
             
+            <th>Attributes</th>
+            
 
             
 
@@ -297,18 +299,97 @@
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>newModule</code></td>
+      <td class="name"><code>parentKey</code></td>
   
 
   <td class="type">
   
       
-<code class="param-type">NewModule</code>
+<code class="param-type">Object</code>
 
 
   
   </td>
 
+  
+      <td class="attributes">
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last"><p>Key name/value of the parent primary key</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>newAttachements</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">MulterFile</code>
+|
+
+<code class="param-type">Array.&lt;MulterFile></code>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>transaction</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Transaction</code>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
   
 
   
@@ -359,334 +440,9 @@
 
     
         <p class="tag-source">
-            <a href="api_interfaces_Module.js.html" class="button">View Source</a>
+            <a href="api_interfaces_Attachement.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_Module.js.html">api/interfaces/Module.js</a>, <a href="api_interfaces_Module.js.html#line46">line 46</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Throws:</label></div>
-        <div class="column is-10">
-            
-                    
-<div class="columns">
-    
-        
-            <div class='column is-12 has-text-left'>
-            <label>Type: </label>
-<code class="param-type">APIError</code>
-
-
-            </div>
-        
-    
-</div>
-
-                
-        </div>
-    </div>
-
-
-
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Returns:</label></div>
-        <div class="column is-10">
-            
-                    
-
-<div class="columns">
-    
-    
-    <div class='column is-5 has-text-left'>
-        <label>Type: </label>
-        
-<code class="param-type">Promise.&lt;APIResp></code>
-
-
-    </div>
-    
-</div>
-
-                
-        </div>
-    </div>
-
-
-
-
-</div>
-            
-                <div class="member">
-
-
-    
-    <h4 class="name" id="~getAll">
-        <a class="href-link" href="#~getAll">#</a>
-        
-            
-                <span class='tag'>async</span>
-            
-                <span class='tag'>inner</span>
-            
-        
-        <span class="code-name">
-            
-                getAll<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;APIResp>}</span>
-            
-        </span>
-    </h4>
-    
-
-    
-    
-    <div class="description">
-        <p>Get all modules</p>
-    </div>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="api_interfaces_Module.js.html" class="button">View Source</a>
-            <span>
-                <a href="api_interfaces_Module.js.html">api/interfaces/Module.js</a>, <a href="api_interfaces_Module.js.html#line73">line 73</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Returns:</label></div>
-        <div class="column is-10">
-            
-                    
-
-<div class="columns">
-    
-    
-    <div class='column is-5 has-text-left'>
-        <label>Type: </label>
-        
-<code class="param-type">Promise.&lt;APIResp></code>
-
-
-    </div>
-    
-</div>
-
-                
-        </div>
-    </div>
-
-
-
-
-</div>
-            
-                <div class="member">
-
-
-    
-    <h4 class="name" id="~getByID">
-        <a class="href-link" href="#~getByID">#</a>
-        
-            
-                <span class='tag'>async</span>
-            
-                <span class='tag'>inner</span>
-            
-        
-        <span class="code-name">
-            
-                getByID<span class="signature">(moduleID)</span><span class="type-signature"> &rarr; {Promise.&lt;APIResp>}</span>
-            
-        </span>
-    </h4>
-    
-
-    
-    
-    <div class="description">
-        <p>Get one module by its id</p>
-    </div>
-    
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-<div class="table-container">
-    <table class="params table">
-        <thead>
-        <tr>
-            
-            <th>Name</th>
-            
-
-            <th>Type</th>
-
-            
-
-            
-
-            <th class="last">Description</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>moduleID</code></td>
-  
-
-  <td class="type">
-  
-      
-<code class="param-type">number</code>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last"></td>
-</tr>
-
-
-        
-        </tbody>
-    </table>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="api_interfaces_Module.js.html" class="button">View Source</a>
-            <span>
-                <a href="api_interfaces_Module.js.html">api/interfaces/Module.js</a>, <a href="api_interfaces_Module.js.html#line88">line 88</a>
+                <a href="api_interfaces_Attachement.js.html">api/interfaces/Attachement.js</a>, <a href="api_interfaces_Attachement.js.html#line66">line 66</a>
             </span>
         </p>
     
@@ -778,11 +534,11 @@
 
     </span>
 
-<h4 class="name" id="~NewModule">
-    <a class="href-link" href="#~NewModule">#</a>
+<h4 class="name" id="~MulterFile">
+    <a class="href-link" href="#~MulterFile">#</a>
     
     <span class="code-name">
-        NewModule
+        MulterFile
     </span>
     
 </h4>
@@ -820,7 +576,76 @@
             
 <tr class="deep-level-0">
     
-        <td class="name"><code>year</code></td>
+        <td class="name"><code>fieldname</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">string</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Field name specified in the form.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>originalname</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">string</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Name of the file on the user's computer.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>encoding</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">string</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Encoding type of the file.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>mimetype</code></td>
     
 
     <td class="type">
@@ -836,7 +661,254 @@
 
     
 
-    <td class="description last"></td>
+    <td class="description last"><p>Mime type of the file.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>size</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">string</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Size of the file in bytes.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>destination</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">string</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The folder to which the file has been saved.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>filename</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">string</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The name of the file within the <code>destination</code>.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>path</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">string</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The full path to the uploaded file.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>buffer</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">string</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>A <code>Buffer</code> of the entire file.</p></td>
+</tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://www.npmjs.com/package/multer">https://www.npmjs.com/package/multer</a></li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="api_interfaces_Attachement.js.html" class="button">View Source</a>
+            <span>
+                <a href="api_interfaces_Attachement.js.html">api/interfaces/Attachement.js</a>, <a href="api_interfaces_Attachement.js.html#line30">line 30</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">Object</code>
+
+
+    </span>
+
+<h4 class="name" id="~NewAttachement">
+    <a class="href-link" href="#~NewAttachement">#</a>
+    
+    <span class="code-name">
+        NewAttachement
+    </span>
+    
+</h4>
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+<div class="table-container">
+    <table class="props table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>ressource_id</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">number</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>This ID must be named after the relation between the attachement and its parent.</p></td>
 </tr>
 
         
@@ -866,7 +938,7 @@
             
 <tr class="deep-level-0">
     
-        <td class="name"><code>long_name</code></td>
+        <td class="name"><code>path</code></td>
     
 
     <td class="type">
@@ -889,13 +961,36 @@
             
 <tr class="deep-level-0">
     
-        <td class="name"><code>ects</code></td>
+        <td class="name"><code>size</code></td>
     
 
     <td class="type">
     
         
 <code class="param-type">number</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>type</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">string</code>
 
 
     
@@ -948,9 +1043,9 @@
 
     
         <p class="tag-source">
-            <a href="api_interfaces_Module.js.html" class="button">View Source</a>
+            <a href="api_interfaces_Attachement.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_Module.js.html">api/interfaces/Module.js</a>, <a href="api_interfaces_Module.js.html#line19">line 19</a>
+                <a href="api_interfaces_Attachement.js.html">api/interfaces/Attachement.js</a>, <a href="api_interfaces_Attachement.js.html#line20">line 20</a>
             </span>
         </p>
     
