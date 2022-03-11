@@ -28,6 +28,12 @@ const { models } = sequelize;
  * @property {string} content
  */
 
+/**
+ * @typedef {Object} JobOfferFilters
+ *
+ * @property {("true"|"false")} expired
+ */
+
 /*****************************************************
  * Functions
  *****************************************************/
@@ -71,7 +77,7 @@ const add = async (newJobOffer) => {
  * @function
  * @async
  *
- * @param {null|{ expired: string }} [filters=null]
+ * @param {null|JobOfferFilters} [filters=null]
  *
  * @throws {APIError}
  * @return {Promise<APIResp>}
