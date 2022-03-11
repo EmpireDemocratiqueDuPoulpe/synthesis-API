@@ -8,7 +8,6 @@
 import { DataTypes } from "sequelize";
 
 /* TODO: Add attachements */
-/* TODO: Add optional expiration date */
 /**
  * @const
  * @type {Object}
@@ -46,7 +45,12 @@ import { DataTypes } from "sequelize";
  *  content: {
  *    type: DataTypes.TEXT,
  *    allowNull: boolean
- *  }
+ *  },
+ *  expiration_date: {
+ *    type: DataTypes.DATE,
+ *    allowNull: boolean,
+ *    validate: { isPosterior(expDate): void }
+ *  },
  * }
  */
 const jobOffer = {
@@ -81,6 +85,17 @@ const jobOffer = {
 	content: {
 		type: DataTypes.TEXT,
 		allowNull: false,
+	},
+	expiration_date: {
+		type: DataTypes.DATE,
+		allowNull: true,
+		validate: {
+			isPosterior(expDate) {
+				if (Date.now() > expDate) {
+					throw new Error("La date d'expiration doit être antérieure à la date d'aujourd'hui.");
+				}
+			},
+		},
 	},
 };
 

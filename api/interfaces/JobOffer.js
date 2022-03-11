@@ -5,6 +5,7 @@
  * @author Alexis L. <alexis.lecomte@supinfo.com>
  */
 
+import { Op } from "sequelize";
 import sequelize from "../sequelizeLoader.js";
 import { APIResp, APIError } from "../../global/global.js";
 
@@ -70,15 +71,33 @@ const add = async (newJobOffer) => {
  * @function
  * @async
  *
+ * @param {null|{ expired: string }} [filters=null]
+ *
  * @throws {APIError}
  * @return {Promise<APIResp>}
  */
-const getAll = async () => {
+const getAll = async (filters = null) => {
+	const usableFilters = {
+		expiration_date: {
+			[Op.or]: {
+				[Op.eq]: null,
+				[Op.gte]: new Date().setHours(0, 0, 0, 0),
+			},
+		},
+	};
+
+	if (filters) {
+		if (filters.expired === "true") {
+			delete usableFilters.expiration_date;
+		}
+	}
+
 	const jobOffers = await models.jobOffer.findAll({
 		include: {
 			model: models.jobDomain,
 			required: false,
 		},
+		where: usableFilters,
 	});
 
 	return new APIResp(200).setData({ jobOffers });
