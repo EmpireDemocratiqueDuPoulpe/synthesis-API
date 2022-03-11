@@ -5,6 +5,10 @@
 ## Build files
 ./docs/www/
 
+# Upload files
+./uploads/*
+!./uploads/job-offers/.keep
+
 ## IDE
 ./.idea/
 ./.vscode/

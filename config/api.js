@@ -23,4 +23,11 @@ export default {
 		sameSite: "Lax",
 		secure: true,
 	},
+	uploads: {
+		jobOfferAttachement: {
+			fieldName: "files",
+			folder: "./uploads/attachements/job-offers/",
+			maxSize: 8388608, // 8 Mo
+		},
+	},
 };

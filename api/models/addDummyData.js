@@ -240,6 +240,10 @@ async function setData(sequelize, logger) {
 	/* ---- jobOfferDomain -------------------------- */
 	await sequelize.models.jobOfferDomain.bulkCreate([
 		{ job_offer_id: 1, job_domain_id: 1004 },
+		{ job_offer_id: 2, job_domain_id: 1000 },
+		{ job_offer_id: 2, job_domain_id: 1002 },
+		{ job_offer_id: 2, job_domain_id: 1003 },
+		{ job_offer_id: 2, job_domain_id: 1005 },
 	]);
 
 	/* ---- modules --------------------------------- */

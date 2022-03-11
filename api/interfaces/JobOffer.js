@@ -8,6 +8,7 @@
 import { Op } from "sequelize";
 import sequelize from "../sequelizeLoader.js";
 import { APIResp, APIError } from "../../global/global.js";
+import Attachement from "./Attachement.js";
 
 /**
  * Sequelize models
@@ -20,7 +21,7 @@ const { models } = sequelize;
 /**
  * @typedef {Object} NewJobOffer
  *
- * @property {number} job_domain_id
+ * @property {Array<number>} [job_domains_ids]
  * @property {string} title
  * @property {string} company_name
  * @property {string} city
@@ -49,14 +50,13 @@ const { models } = sequelize;
  * @async
  *
  * @param {NewJobOffer} newJobOffer
+ * @param {Array<MulterFile>} [attachements]
  * @throws {APIError}
  * @return {Promise<APIResp>}
  */
-const add = async (newJobOffer) => {
-	const processedOffer = newJobOffer;
-
+const add = async (newJobOffer, attachements) => {
 	// Check if the new job offer match the model
-	const model = models.jobOffer.build(processedOffer);
+	const model = models.jobOffer.build(newJobOffer);
 
 	try {
 		await model.validate({ skip: ["job_offer_id"] });
@@ -65,10 +65,34 @@ const add = async (newJobOffer) => {
 		throw new APIError(400, "error", Object.values(err));
 	}
 
-	// Add to the database
-	const jobOffer = await models.jobOffer.create(processedOffer);
+	let transaction;
+	try {
+		// Add to the database
+		transaction = await sequelize.transaction({ autocommit: false });
+		const jobOffer = await models.jobOffer.create(newJobOffer, { transaction });
 
-	return new APIResp(200).setData({ jobOfferID: jobOffer.job_offer_id });
+		if (newJobOffer.job_domains_ids) {
+			await jobOffer.setJobDomains(newJobOffer.job_domains_ids, { transaction });
+		}
+
+		// Add attachements
+		let attachementsIDs = [];
+		if (attachements) {
+			attachementsIDs = await Attachement.add(
+				{ name: "job_offer_id", value: jobOffer.job_offer_id },
+				attachements,
+				transaction,
+			);
+		}
+
+		// Commit
+		await transaction.commit();
+		return new APIResp(200).setData({ jobOfferID: jobOffer.job_offer_id, attachementsIDs });
+	} catch (err) {
+		if (transaction) await transaction.rollback();
+		// TODO: Adapt the system
+		throw new APIError(400, "error", Object.values(err));
+	}
 };
 
 /* ---- READ ------------------------------------ */
@@ -104,6 +128,7 @@ const getAll = async (filters = null) => {
 			required: false,
 		},
 		where: usableFilters,
+		order: [ ["job_offer_id", "DESC"] ],
 	});
 
 	return new APIResp(200).setData({ jobOffers });
@@ -120,10 +145,10 @@ const getAll = async (filters = null) => {
  */
 const getByID = async (jobOfferID) => {
 	const jobOffer = await models.jobOffer.findOne({
-		include: {
-			model: models.jobDomain,
-			required: false,
-		},
+		include: [
+			{ model: models.jobDomain, required: false },
+			{ model: models.attachement, required: false },
+		],
 		where: { job_offer_id: jobOfferID },
 	});
 

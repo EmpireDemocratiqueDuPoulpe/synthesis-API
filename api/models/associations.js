@@ -18,11 +18,32 @@ import { DataTypes } from "sequelize";
 function init(sequelize, logger) {
 	logger.log(`Making associations ([${Object.keys(sequelize.models).join(", ")}])...`);
 
+	/* ---- attachement ----------------------------- */
+	// attachement [* - 1] jobOffer
+	sequelize.models.attachement.belongsTo(sequelize.models.jobOffer, {
+		foreignKey: {
+			name: "job_offer_id",
+			type: DataTypes.INTEGER,
+			allowNull: false,
+		},
+		sourceKey: "job_offer_id",
+		constraints: false,
+	});
+
 	/* ---- jobOffer -------------------------------- */
 	// jobOffer [* - *] jobDomain
 	sequelize.models.jobOffer.belongsToMany(sequelize.models.jobDomain, {
 		through: sequelize.models.jobOfferDomain,
 		foreignKey: "job_offer_id",
+	});
+
+	// jobOffer [1 - *] attachement
+	sequelize.models.jobOffer.hasMany(sequelize.models.attachement, {
+		foreignKey: {
+			name: "job_offer_id",
+			type: DataTypes.INTEGER,
+			allowNull: false,
+		},
 	});
 
 	/* ---- jobDomain ------------------------------- */

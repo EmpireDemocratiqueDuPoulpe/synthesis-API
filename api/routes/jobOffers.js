@@ -4,11 +4,24 @@
  */
 
 import AsyncRouter from "express-promise-router";
-import { Logger } from "../../global/global.js";
+import multer from "multer";
+import mime from "mime";
+import { v4 as UUIDV4 } from "uuid";
+import { Logger, APIError } from "../../global/global.js";
 import { JobOffer } from "../interfaces/interfaces.js";
+import { API } from "../../config/config.js";
 
 const route = AsyncRouter();
 const logger = new Logger({ separator: ": " });
+
+// Job offer attachements upload settings
+const uploadJobOffer = multer({
+	storage: multer.diskStorage({
+		destination: API.uploads.jobOfferAttachement.folder,
+		filename: (req, file, cb) => cb(null, `attachement-${Date.now()}-${UUIDV4()}.${mime.getExtension(file.mimetype)}`),
+	}),
+	limits: { fileSize: API.uploads.jobOfferAttachement.maxSize },
+}).array(API.uploads.jobOfferAttachement.fieldName);
 
 export default (router) => {
 	router.use("/jobs/offers", route);
@@ -36,12 +49,18 @@ export default (router) => {
 	 * { "code": 400, "error": "Le titre ne peut pas être vide.", "fields": null }
 	 */
 	route.post("/", async (request, response) => {
-		const { jobOffer } = request.body;
+		uploadJobOffer(request, response, async function(err) {
+			if (err) {
+				// TODO: Translate errors
+				throw new APIError((err instanceof multer.MulterError ? 400 : 500), err.message, "files");
+			}
+			const { jobOffer } = request.body;
 
-		const resp = await JobOffer.add(jobOffer);
-		response.status(resp.code).json(resp.toJSON());
+			const resp = await JobOffer.add(JSON.parse(jobOffer), request.files);
+			response.status(resp.code).json(resp.toJSON());
 
-		logger.log("Add a new job offer", { ip: request.clientIP, params: {code: resp.code} });
+			logger.log("Add a new job offer", { ip: request.clientIP, params: {code: resp.code} });
+		});
 	});
 
 	/* ---- READ ------------------------------------ */

@@ -75,6 +75,9 @@ function startServer() {
 	// Add API routes
 	app.use(API.prefix, api());
 
+	// Serves static files
+	app.use("/files", express.static("./uploads"));
+
 	// Handle 404
 	app.use((request, response, next) => {
 		response.status(404).end();

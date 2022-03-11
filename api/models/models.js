@@ -1,4 +1,5 @@
 export { default as Absence } from "./absence.js";
+export { default as Attachement } from "./attachement.js";
 export { default as Compta } from "./compta.js";
 export { default as Job } from "./job.js";
 export { default as JobDomain } from "./jobDomain.js";

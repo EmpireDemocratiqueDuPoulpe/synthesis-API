@@ -7,7 +7,6 @@
 
 import { DataTypes } from "sequelize";
 
-/* TODO: Add attachements */
 /**
  * @const
  * @type {Object}
