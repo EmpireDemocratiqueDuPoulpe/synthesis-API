@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CBEM - API api/middlewares/endHandler.js</title>
+  <title>CBEM - API api/routes/permissions.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -104,7 +104,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>api/middlewares/endHandler.js</h1>
+                    <h1>api/routes/permissions.js</h1>
                 </header>
                 
 
@@ -114,29 +114,45 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @module EndHandler
+ * @module absences
  * @author Alexis L. &lt;alexis.lecomte@supinfo.com>
- * @category Middlewares
- * @subcategory Request flow
  */
 
-/**
- * @function
- *
- * @param {e.Request} request
- * @param {e.Response} response
- * @param {e.NextFunction} next
- */
-function endHandler(request, response, next) {
-	response.on("finish", () => {
-		if (request.db) request.db.release();
+import AsyncRouter from "express-promise-router";
+import { Logger } from "../../global/global.js";
+import { Permission } from "../interfaces/interfaces.js";
+
+const route = AsyncRouter();
+const logger = new Logger({ separator: ": " });
+
+export default (router) => {
+	router.use("/permissions", route);
+
+	/* ---- READ ------------------------------------ */
+	/**
+	 * GET /v1/permissions/all
+	 * @summary Get all permissions
+	 * @security BearerAuth
+	 * @tags Permissions
+	 *
+	 * @return {SuccessResp} 200 - **Success**: the permissions are returned - application/json
+	 *
+	 * @example response - 200 - Success response
+	 * { "code": 200, "permissions": [
+	 *  { "permission_id": 1, "name": "READ_PLANNINGS", "name_localized": "Voir les plannings" },
+	 *  { "permission_id": 2, "name": "READ_NOTES", "name_localized": "Voir les notes" }
+	 * ]}
+	 */
+	route.get("/all", async (request, response) => {
+		const resp = await Permission.getAll();
+		response.status(resp.code).json(resp.toJSON());
+
+		logger.log("Retrieves all available permissions", { ip: request.clientIP, params: {code: resp.code} });
 	});
 
-	next();
-}
-
-/* ---- Export ---------------------------------- */
-export default endHandler;
+	/* ---- UPDATE ---------------------------------- */
+	/* ---- DELETE ---------------------------------- */
+};
 </code></pre>
         </article>
     </section>

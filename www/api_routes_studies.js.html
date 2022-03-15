@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CBEM - API api/middlewares/endHandler.js</title>
+  <title>CBEM - API api/routes/studies.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -104,7 +104,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>api/middlewares/endHandler.js</h1>
+                    <h1>api/routes/studies.js</h1>
                 </header>
                 
 
@@ -114,29 +114,50 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @module EndHandler
- * @author Alexis L. &lt;alexis.lecomte@supinfo.com>
- * @category Middlewares
- * @subcategory Request flow
+ * @module studies
+ * @author Louan L. &lt;louan.leplae@supinfo.com>
  */
 
-/**
- * @function
- *
- * @param {e.Request} request
- * @param {e.Response} response
- * @param {e.NextFunction} next
- */
-function endHandler(request, response, next) {
-	response.on("finish", () => {
-		if (request.db) request.db.release();
+import AsyncRouter from "express-promise-router";
+import { Logger } from "../../global/global.js";
+import { Study } from "../interfaces/interfaces.js";
+
+const route = AsyncRouter();
+const logger = new Logger({ separator: ": " });
+
+export default (router) => {
+	router.use("/studies", route);
+
+	/* ---- CREATE ---------------------------------- */
+
+	/* ---- READ ------------------------------------ */
+	/**
+	 * GET /v1/studies/by-user-id/{userID}
+	 * @summary Get a study of a user
+	 * @security BearerAuth
+	 * @tags Studies
+	 *
+	 * @param {number} userID.path.required - User id
+	 *
+	 * @return {SuccessResp} 200 - **Success**: the study is returned - application/json
+	 *
+	 * @example response - 200 - Success response
+	 * { "code": 200, "study": {
+	 *  "study_id": 1, "entry_level": 1, "exit_level": null, "previous_level": 3, "current_level": 4,
+	 *  "entry_date": "8/01/2018", "exit_date": "6/30/2023"
+	 * }}
+	 */
+	route.get("/by-user-id/:userID", async (request, response) => {
+		const resp = await Study.getByUserID(request.params.userID);
+		response.status(resp.code).json(resp.toJSON());
+
+		logger.log("Retrieves a user by his user ID", { ip: request.clientIP, params: {code: resp.code, userID: request.params.userID} });
 	});
 
-	next();
-}
+	/* ---- UPDATE ---------------------------------- */
+	/* ---- DELETE ---------------------------------- */
+};
 
-/* ---- Export ---------------------------------- */
-export default endHandler;
 </code></pre>
         </article>
     </section>

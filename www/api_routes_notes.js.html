@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CBEM - API api/middlewares/endHandler.js</title>
+  <title>CBEM - API api/routes/notes.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -104,7 +104,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>api/middlewares/endHandler.js</h1>
+                    <h1>api/routes/notes.js</h1>
                 </header>
                 
 
@@ -114,29 +114,92 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @module EndHandler
- * @author Alexis L. &lt;alexis.lecomte@supinfo.com>
- * @category Middlewares
- * @subcategory Request flow
+ * @module notes
+ * @author Maxence P. &lt;maxence.pawlowski@supinfo.com>
  */
 
-/**
- * @function
- *
- * @param {e.Request} request
- * @param {e.Response} response
- * @param {e.NextFunction} next
- */
-function endHandler(request, response, next) {
-	response.on("finish", () => {
-		if (request.db) request.db.release();
+import AsyncRouter from "express-promise-router";
+import { Logger } from "../../global/global.js";
+import { Note } from "../interfaces/interfaces.js";
+
+const route = AsyncRouter();
+const logger = new Logger({ separator: ": " });
+
+export default (router) => {
+	router.use("/notes", route);
+
+	/* ---- CREATE ---------------------------------- */
+	/**
+	 * POST /v1/notes
+	 * @summary Add a note to a user
+	 * @security BearerAuth
+	 * @tags Notes
+	 *
+	 * @param {NewNote} request.body.required - Note info - application/json
+	 *
+	 * @return {SuccessResp} 200 - **Success**: the note is added - application/json
+	 * @return {ErrorResp} 400 - **Bad request**: the provided data is invalid - application/json
+	 *
+	 * @example request - Add note to user with 2 as user_id
+	 * { "note": {"user_id": 2, "module_id": 1, "note": 9.95} }
+	 * @example response - 200 - Success response
+	 * { "code": 200, "noteID": 1 }
+	 * @example response - 400 - Bad request response
+	 * { "code": 400, "error": "Aucun module ne correspond à ce module_id (1).", "fields": null }
+	 */
+	route.post("/", async (request, response) => {
+		const { note } = request.body;
+
+		const resp = await Note.add(note);
+		response.status(resp.code).json(resp.toJSON());
+
+		logger.log("Add a new note", { ip: request.clientIP, params: {code: resp.code} });
 	});
 
-	next();
-}
+	/* ---- READ ------------------------------------ */
+	/**
+	 * GET /v1/notes/by-id/{noteID}
+	 * @summary Get a note by its id
+	 * @security BearerAuth
+	 * @tags Notes
+	 *
+	 * @param {number} noteID.path.required - Note id
+	 *
+	 * @return {SuccessResp} 200 - **Success**: the note is returned - application/json
+	 *
+	 * @example response - 200 - Success response
+	 * { "code": 200, "note": {"note_id": 1, "note": 9.95} }
+	 */
+	route.get("/by-id/:noteID", async (request, response) => {
+		const resp = await Note.getByID(request.params.noteID);
+		response.status(resp.code).json(resp.toJSON());
 
-/* ---- Export ---------------------------------- */
-export default endHandler;
+		logger.log("Retrieves a note by his ID", { ip: request.clientIP, params: {code: resp.code, noteID: request.params.noteID} });
+	});
+
+	/**
+	 * GET /v1/notes/by-user-id/{userID}
+	 * @summary Get all notes of a user
+	 * @security BearerAuth
+	 * @tags Notes
+	 *
+	 * @param {number} userID.path.required - User id
+	 *
+	 * @return {SuccessResp} 200 - **Success**: the notes are returned - application/json
+	 *
+	 * @example response - 200 - Success response
+	 * { "code": 200, "notes": [ {"note_id": 1, "note": 9.95}, {"note_id": 45, "note": 20} ] }
+	 */
+	route.get("/by-user-id/:userID", async (request, response) => {
+		const resp = await Note.getByUserID(request.params.userID);
+		response.status(resp.code).json(resp.toJSON());
+
+		logger.log("Retrieves all notes of a user", { ip: request.clientIP, params: {code: resp.code, noteID: request.params.noteID} });
+	});
+
+	/* ---- UPDATE ---------------------------------- */
+	/* ---- DELETE ---------------------------------- */
+};
 </code></pre>
         </article>
     </section>

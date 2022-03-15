@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CBEM - API api/models/jobDomain.js</title>
+  <title>CBEM - API students</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -96,78 +94,60 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="module-APIError.html">APIError</a></li><li><a href="module-APIResp.html">APIResp</a></li><li><a href="module-Logger.html">Logger</a></li></ul></div><div class="category"><h2>API</h2><h3>Modules / Interfaces</h3><ul><li><a href="module-Absence.html">Absence</a></li><li><a href="module-Attachement.html">Attachement</a></li><li><a href="module-Compta.html">Compta</a></li><li><a href="module-Job.html">Job</a></li><li><a href="module-JobOffer.html">JobOffer</a></li><li><a href="module-Module.html">Module</a></li><li><a href="module-Note.html">Note</a></li><li><a href="module-Permission.html">Permission</a></li><li><a href="module-Study.html">Study</a></li><li><a href="module-User.html">User</a></li></ul><h3>Modules / Models</h3><ul><li><a href="module-absence_.html">absence</a></li><li><a href="module-attachement_.html">attachement</a></li><li><a href="module-compta_.html">compta</a></li><li><a href="module-job_.html">job</a></li><li><a href="module-jobDomain.html">jobDomain</a></li><li><a href="module-jobOffer_.html">jobOffer</a></li><li><a href="module-jobOfferDomain.html">jobOfferDomain</a></li><li><a href="module-module_.html">module</a></li><li><a href="module-note_.html">note</a></li><li><a href="module-permission_.html">permission</a></li><li><a href="module-position.html">position</a></li><li><a href="module-positionPermissions.html">positionPermissions</a></li><li><a href="module-study_.html">study</a></li><li><a href="module-user_.html">user</a></li></ul><h3>Modules</h3><ul><li><a href="module-api.html">api</a></li></ul></div><div class="category"><h2>Global</h2><h3>Modules</h3><ul><li><a href="module-APIError.html">APIError</a></li><li><a href="module-APIResp.html">APIResp</a></li><li><a href="module-CookiesFn.html">CookiesFn</a></li><li><a href="module-DirName.html">DirName</a></li><li><a href="module-Logger.html">Logger</a></li></ul></div><div class="category"><h2>Middlewares</h2><h3>Modules / Authentication</h3><ul><li><a href="module-Authenticator.html">Authenticator</a></li><li><a href="module-TokenAssembler.html">TokenAssembler</a></li></ul><h3>Modules / Request flow</h3><ul><li><a href="module-EndHandler.html">EndHandler</a></li><li><a href="module-ErrorHandler.html">ErrorHandler</a></li></ul></div><div class="category"><h2>Sequelize</h2><h3>Modules</h3><ul><li><a href="module-addDummyData.html">addDummyData</a></li><li><a href="module-associations.html">associations</a></li><li><a href="module-sequelizeLoader.html">sequelizeLoader</a></li></ul></div><div class="category"><h2>Server</h2><h3>Global</h3><ul><li><a href="global.html#serverReady">serverReady</a></li><li><a href="global.html#startServer">startServer</a></li><li><a href="global.html#swaggerReady">swaggerReady</a></li></ul></div><div class="category"><h2>jose</h2><h3>Modules</h3><ul><li><a href="module-joseLoader.html">joseLoader</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-absences.html">absences</a></li><li><a href="module-comptas.html">comptas</a></li><li><a href="module-jobs.html">jobs</a></li><li><a href="module-modules.html">modules</a></li><li><a href="module-notes.html">notes</a></li><li><a href="module-students.html">students</a></li><li><a href="module-studies.html">studies</a></li><li><a href="module-users.html">users</a></li></ul><h3>Classes</h3><ul><li><a href="module-APIError.html">APIError</a></li><li><a href="module-APIResp.html">APIResp</a></li><li><a href="module-Logger.html">Logger</a></li></ul></div><div class="category"><h2>API</h2><h3>Modules / Interfaces</h3><ul><li><a href="module-Absence.html">Absence</a></li><li><a href="module-Compta.html">Compta</a></li><li><a href="module-Job.html">Job</a></li><li><a href="module-Module.html">Module</a></li><li><a href="module-Note.html">Note</a></li><li><a href="module-Permission.html">Permission</a></li><li><a href="module-Study.html">Study</a></li><li><a href="module-User.html">User</a></li></ul><h3>Modules / Models</h3><ul><li><a href="module-absence_.html">absence</a></li><li><a href="module-compta_.html">compta</a></li><li><a href="module-job_.html">job</a></li><li><a href="module-module_.html">module</a></li><li><a href="module-note_.html">note</a></li><li><a href="module-permission_.html">permission</a></li><li><a href="module-position.html">position</a></li><li><a href="module-positionPermissions.html">positionPermissions</a></li><li><a href="module-study_.html">study</a></li><li><a href="module-user_.html">user</a></li></ul><h3>Modules</h3><ul><li><a href="module-api.html">api</a></li></ul></div><div class="category"><h2>Global</h2><h3>Modules</h3><ul><li><a href="module-APIError.html">APIError</a></li><li><a href="module-APIResp.html">APIResp</a></li><li><a href="module-CookiesFn.html">CookiesFn</a></li><li><a href="module-DirName.html">DirName</a></li><li><a href="module-Logger.html">Logger</a></li></ul></div><div class="category"><h2>Middlewares</h2><h3>Modules / Authentication</h3><ul><li><a href="module-Authenticator.html">Authenticator</a></li><li><a href="module-TokenAssembler.html">TokenAssembler</a></li></ul><h3>Modules / Request flow</h3><ul><li><a href="module-EndHandler.html">EndHandler</a></li><li><a href="module-ErrorHandler.html">ErrorHandler</a></li></ul></div><div class="category"><h2>Sequelize</h2><h3>Modules</h3><ul><li><a href="module-addDummyData.html">addDummyData</a></li><li><a href="module-associations.html">associations</a></li><li><a href="module-sequelizeLoader.html">sequelizeLoader</a></li></ul></div><div class="category"><h2>Server</h2><h3>Global</h3><ul><li><a href="global.html#serverReady">serverReady</a></li><li><a href="global.html#startServer">startServer</a></li><li><a href="global.html#swaggerReady">swaggerReady</a></li></ul></div><div class="category"><h2>jose</h2><h3>Modules</h3><ul><li><a href="module-joseLoader.html">joseLoader</a></li></ul></div>
                 
             </nav>
         </div>
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Source</p>
-                    <h1>api/models/jobDomain.js</h1>
+                    <p>Module</p>
+                    <h1>students</h1>
                 </header>
                 
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @module jobDomain
- * @category API
- * @subcategory Models
- * @author Alexis L. &lt;alexis.lecomte@supinfo.com>
- */
+        
+    
+</header>
 
-import { DataTypes } from "sequelize";
+<article>
+    <div class="container-overview">
+    
+        
 
-/**
- * @const
- * @type {Object}
- *
- * @example
- * {
- *  job_domain_id: {
- *    type: DataTypes.INTEGER,
- *    primaryKey: boolean,
- *    autoIncrement: boolean,
- *    allowNull: boolean
- *  }
- *  name: {
- *    type: DataTypes.TEXT,
- *    allowNull: boolean
- *  }
- * }
- */
-const jobDomain = {
-	job_domain_id: {
-		type: DataTypes.INTEGER,
-		primaryKey: true,
-		autoIncrement: true,
-		allowNull: false,
-	},
-	name: {
-		type: DataTypes.TEXT,
-		allowNull: false,
-	},
-};
+        
+    
+    </div>
+    
+    
 
-/**
- * Define the model
- * @function
- *
- * @param {Sequelize} sequelize
- * @param {string} name - The file name used for the definition
- */
-export const define = (sequelize, name) => {
-	sequelize.define(name, jobDomain);
-};
+    
 
-export default jobDomain;
-</code></pre>
-        </article>
-    </section>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
