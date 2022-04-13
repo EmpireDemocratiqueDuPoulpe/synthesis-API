@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CBEM - API compta</title>
+  <title>CBEM - API attachement</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -102,7 +102,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Module</p>
-                    <h1>compta</h1>
+                    <h1>attachement</h1>
                 </header>
                 
 
@@ -153,8 +153,8 @@
 
     </span>
 
-<h4 class="name" id="~compta">
-    <a class="href-link" href="#~compta">#</a>
+<h4 class="name" id="~attachement">
+    <a class="href-link" href="#~attachement">#</a>
     
         
             <span class='tag'>inner</span>
@@ -163,7 +163,7 @@
         
     
     <span class="code-name">
-        compta
+        attachement
     </span>
     
 </h4>
@@ -208,9 +208,9 @@
 
     
         <p class="tag-source">
-            <a href="api_models_compta.js.html" class="button">View Source</a>
+            <a href="api_models_attachement.js.html" class="button">View Source</a>
             <span>
-                <a href="api_models_compta.js.html">api/models/compta.js</a>, <a href="api_models_compta.js.html#line44">line 44</a>
+                <a href="api_models_attachement.js.html">api/models/attachement.js</a>, <a href="api_models_attachement.js.html#line40">line 40</a>
             </span>
         </p>
     
@@ -224,32 +224,28 @@
     
     
         <pre class="prettyprint"><code>{
- compta_id: {
+ attachement_id: {
    type: DataTypes.INTEGER,
    primaryKey: boolean,
-   allowNull: boolean,
-   autoIncrement: boolean
- },
- payment_type: {
-   type: DataTypes.ENUM,
-   values: string[],
+   autoIncrement: boolean,
    allowNull: boolean
  },
- relance: {
-   type: DataTypes.BOOLEAN,
-   defaultValue: boolean,
+ name: {
+   type: DataTypes.TEXT,
    allowNull: boolean
  },
- paid: {
-   type: DataTypes.BOOLEAN,
-   defaultValue: boolean,
+ path: {
+   type: DataTypes.TEXT,
    allowNull: boolean
  },
- payment_due: {
-   type: DataTypes.DECIMAL,
-   defaultValue: number,
+ size: {
+   type: DataTypes.INTEGER,
    allowNull: boolean
- }
+ },
+ type: {
+   type: DataTypes.TEXT,
+   allowNull: boolean
+ },
 }</code></pre>
     
 
@@ -412,9 +408,9 @@
 
     
         <p class="tag-source">
-            <a href="api_models_compta.js.html" class="button">View Source</a>
+            <a href="api_models_attachement.js.html" class="button">View Source</a>
             <span>
-                <a href="api_models_compta.js.html">api/models/compta.js</a>, <a href="api_models_compta.js.html#line80">line 80</a>
+                <a href="api_models_attachement.js.html">api/models/attachement.js</a>, <a href="api_models_attachement.js.html#line72">line 72</a>
             </span>
         </p>
     

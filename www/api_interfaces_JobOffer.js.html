@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CBEM - API compta</title>
+  <title>CBEM - API api/interfaces/JobOffer.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -101,357 +103,192 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Module</p>
-                    <h1>compta</h1>
+                    <p>Source</p>
+                    <h1>api/interfaces/JobOffer.js</h1>
                 </header>
                 
 
 
 
-
-<section>
-
-<header>
     
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <div class='vertical-section'>
-            <h1>Members</h1>
-            <div class="members">
-            
-                <div class="member">
-
-    <span class="method-parameter is-pulled-right">
-        <label>Type:</label>
-        
-<code class="param-type">Object</code>
-
-
-    </span>
-
-<h4 class="name" id="~compta">
-    <a class="href-link" href="#~compta">#</a>
-    
-        
-            <span class='tag'>inner</span>
-        
-            <span class='tag'>constant</span>
-        
-    
-    <span class="code-name">
-        compta
-    </span>
-    
-</h4>
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="api_models_compta.js.html" class="button">View Source</a>
-            <span>
-                <a href="api_models_compta.js.html">api/models/compta.js</a>, <a href="api_models_compta.js.html#line44">line 44</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-    <h5>Example</h5>
-    
-    
-        <pre class="prettyprint"><code>{
- compta_id: {
-   type: DataTypes.INTEGER,
-   primaryKey: boolean,
-   allowNull: boolean,
-   autoIncrement: boolean
- },
- payment_type: {
-   type: DataTypes.ENUM,
-   values: string[],
-   allowNull: boolean
- },
- relance: {
-   type: DataTypes.BOOLEAN,
-   defaultValue: boolean,
-   allowNull: boolean
- },
- paid: {
-   type: DataTypes.BOOLEAN,
-   defaultValue: boolean,
-   allowNull: boolean
- },
- payment_due: {
-   type: DataTypes.DECIMAL,
-   defaultValue: number,
-   allowNull: boolean
- }
-}</code></pre>
-    
-
-
-</div>
-            
-            </div>
-        </div>
-    
-
-    
-        <div class='vertical-section'>
-            <h1>Methods</h1>
-            <div class="members">
-            
-                <div class="member">
-
-
-    
-    <h4 class="name" id=".define">
-        <a class="href-link" href="#.define">#</a>
-        
-            
-                <span class='tag'>static</span>
-            
-        
-        <span class="code-name">
-            
-                define<span class="signature">(sequelize, name)</span><span class="type-signature"></span>
-            
-        </span>
-    </h4>
-    
-
-    
-    
-    <div class="description">
-        <p>Define the model</p>
-    </div>
-    
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-<div class="table-container">
-    <table class="params table">
-        <thead>
-        <tr>
-            
-            <th>Name</th>
-            
-
-            <th>Type</th>
-
-            
-
-            
-
-            <th class="last">Description</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>sequelize</code></td>
-  
-
-  <td class="type">
-  
-      
-<code class="param-type">Sequelize</code>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last"></td>
-</tr>
-
-
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>name</code></td>
-  
-
-  <td class="type">
-  
-      
-<code class="param-type">string</code>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last"><p>The file name used for the definition</p></td>
-</tr>
-
-
-        
-        </tbody>
-    </table>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="api_models_compta.js.html" class="button">View Source</a>
-            <span>
-                <a href="api_models_compta.js.html">api/models/compta.js</a>, <a href="api_models_compta.js.html#line80">line 80</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-            
-            </div>
-        </div>
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module JobOffer
+ * @category API
+ * @subcategory Interfaces
+ * @author Alexis L. &lt;alexis.lecomte@supinfo.com>
+ */
+
+import { Op } from "sequelize";
+import sequelize from "../sequelizeLoader.js";
+import { APIResp, APIError } from "../../global/global.js";
+import Attachement from "./Attachement.js";
+
+/**
+ * Sequelize models
+ * @const
+ * @name models
+ * @type {Object&lt;Sequelize.models>}
+ */
+const { models } = sequelize;
+
+/**
+ * @typedef {Object} NewJobOffer
+ *
+ * @property {Array&lt;number>} [job_domains_ids]
+ * @property {string} title
+ * @property {string} company_name
+ * @property {string} city
+ * @property {string} postal_code
+ * @property {string} content
+ */
+
+/**
+ * @typedef {Object} JobOfferFilters
+ *
+ * @property {("true"|"false")} expired
+ */
+
+/*****************************************************
+ * Functions
+ *****************************************************/
+
+/*****************************************************
+ * CRUD Methods
+ *****************************************************/
+
+/* ---- CREATE ---------------------------------- */
+/**
+ * Add a new job offer
+ * @function
+ * @async
+ *
+ * @param {NewJobOffer} newJobOffer
+ * @param {Array&lt;MulterFile>} [attachements]
+ * @throws {APIError}
+ * @return {Promise&lt;APIResp>}
+ */
+const add = async (newJobOffer, attachements) => {
+	// Check if the new job offer match the model
+	const model = models.jobOffer.build(newJobOffer);
+
+	try {
+		await model.validate({ skip: ["job_offer_id"] });
+	} catch (err) {
+		// TODO: Adapt the system
+		throw new APIError(400, "error", Object.values(err));
+	}
+
+	let transaction;
+	try {
+		// Add to the database
+		transaction = await sequelize.transaction({ autocommit: false });
+		const jobOffer = await models.jobOffer.create(newJobOffer, { transaction });
+
+		if (newJobOffer.job_domains_ids) {
+			await jobOffer.setJobDomains(newJobOffer.job_domains_ids, { transaction });
+		}
+
+		// Add attachements
+		let attachementsIDs = [];
+		if (attachements) {
+			attachementsIDs = await Attachement.add(
+				{ name: "job_offer_id", value: jobOffer.job_offer_id },
+				attachements,
+				transaction,
+			);
+		}
+
+		// Commit
+		await transaction.commit();
+		return new APIResp(200).setData({ jobOfferID: jobOffer.job_offer_id, attachementsIDs });
+	} catch (err) {
+		if (transaction) await transaction.rollback();
+		// TODO: Adapt the system
+		throw new APIError(400, "error", Object.values(err));
+	}
+};
+
+/* ---- READ ------------------------------------ */
+/**
+ * Get all job offers
+ * @function
+ * @async
+ *
+ * @param {null|JobOfferFilters} [filters=null]
+ *
+ * @throws {APIError}
+ * @return {Promise&lt;APIResp>}
+ */
+const getAll = async (filters = null) => {
+	const usableFilters = {
+		expiration_date: {
+			[Op.or]: {
+				[Op.eq]: null,
+				[Op.gte]: new Date().setHours(0, 0, 0, 0),
+			},
+		},
+	};
+
+	if (filters) {
+		if (filters.expired === "true") {
+			delete usableFilters.expiration_date;
+		}
+	}
+
+	const jobOffers = await models.jobOffer.findAll({
+		include: {
+			model: models.jobDomain,
+			required: false,
+		},
+		where: usableFilters,
+		order: [ ["job_offer_id", "DESC"] ],
+	});
+
+	return new APIResp(200).setData({ jobOffers });
+};
+
+/**
+ * Get a job offer by its id
+ * @function
+ * @async
+ *
+ * @param {number} jobOfferID
+ * @throws {APIError}
+ * @return {Promise&lt;APIResp>}
+ */
+const getByID = async (jobOfferID) => {
+	const jobOffer = await models.jobOffer.findOne({
+		include: [
+			{ model: models.jobDomain, required: false },
+			{ model: models.attachement, required: false },
+		],
+		where: { job_offer_id: jobOfferID },
+	});
+
+	if (!jobOffer) {
+		throw new APIError(404, `L'offre d'emploi (${jobOfferID}) n'existe pas.`);
+	}
+
+	return new APIResp(200).setData({ jobOffer });
+};
+
+/* ---- UPDATE ---------------------------------- */
+/* ---- DELETE ---------------------------------- */
+
+/*****************************************************
+ * Export
+ *****************************************************/
+
+const JobOffer = {
+	add,							// CREATE
+	getAll, getByID,	// READ
+};
+export default JobOffer;
+</code></pre>
+        </article>
+    </section>
 
 
 

@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CBEM - API Note</title>
+  <title>CBEM - API JobOffer</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -102,7 +102,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Module</p>
-                    <h1>Note</h1>
+                    <h1>JobOffer</h1>
                 </header>
                 
 
@@ -212,9 +212,9 @@
 
     
         <p class="tag-source">
-            <a href="api_interfaces_Note.js.html" class="button">View Source</a>
+            <a href="api_interfaces_JobOffer.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_Note.js.html">api/interfaces/Note.js</a>, <a href="api_interfaces_Note.js.html#line11">line 11</a>
+                <a href="api_interfaces_JobOffer.js.html">api/interfaces/JobOffer.js</a>, <a href="api_interfaces_JobOffer.js.html#line13">line 13</a>
             </span>
         </p>
     
@@ -250,7 +250,7 @@
         
         <span class="code-name">
             
-                add<span class="signature">(newNote)</span><span class="type-signature"> &rarr; {Promise.&lt;APIResp>}</span>
+                add<span class="signature">(newJobOffer, attachements<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;APIResp>}</span>
             
         </span>
     </h4>
@@ -259,7 +259,7 @@
     
     
     <div class="description">
-        <p>Add a new note</p>
+        <p>Add a new job offer</p>
     </div>
     
 
@@ -284,6 +284,8 @@
             <th>Type</th>
 
             
+            <th>Attributes</th>
+            
 
             
 
@@ -297,18 +299,61 @@
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>newNote</code></td>
+      <td class="name"><code>newJobOffer</code></td>
   
 
   <td class="type">
   
       
-<code class="param-type">NewNote</code>
+<code class="param-type">NewJobOffer</code>
 
 
   
   </td>
 
+  
+      <td class="attributes">
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>attachements</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Array.&lt;MulterFile></code>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
   
 
   
@@ -359,9 +404,231 @@
 
     
         <p class="tag-source">
-            <a href="api_interfaces_Note.js.html" class="button">View Source</a>
+            <a href="api_interfaces_JobOffer.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_Note.js.html">api/interfaces/Note.js</a>, <a href="api_interfaces_Note.js.html#line45">line 45</a>
+                <a href="api_interfaces_JobOffer.js.html">api/interfaces/JobOffer.js</a>, <a href="api_interfaces_JobOffer.js.html#line57">line 57</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Throws:</label></div>
+        <div class="column is-10">
+            
+                    
+<div class="columns">
+    
+        
+            <div class='column is-12 has-text-left'>
+            <label>Type: </label>
+<code class="param-type">APIError</code>
+
+
+            </div>
+        
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Promise.&lt;APIResp></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="~getAll">
+        <a class="href-link" href="#~getAll">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+                <span class='tag'>inner</span>
+            
+        
+        <span class="code-name">
+            
+                getAll<span class="signature">(filters<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;APIResp>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Get all job offers</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+            <th>Attributes</th>
+            
+
+            
+            <th>Default</th>
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>filters</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">null</code>
+|
+
+<code class="param-type">JobOfferFilters</code>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
+  
+
+  
+      <td class="default">
+      
+          null
+      
+      </td>
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="api_interfaces_JobOffer.js.html" class="button">View Source</a>
+            <span>
+                <a href="api_interfaces_JobOffer.js.html">api/interfaces/JobOffer.js</a>, <a href="api_interfaces_JobOffer.js.html#line109">line 109</a>
             </span>
         </p>
     
@@ -449,7 +716,7 @@
         
         <span class="code-name">
             
-                getByID<span class="signature">(noteID)</span><span class="type-signature"> &rarr; {Promise.&lt;APIResp>}</span>
+                getByID<span class="signature">(jobOfferID)</span><span class="type-signature"> &rarr; {Promise.&lt;APIResp>}</span>
             
         </span>
     </h4>
@@ -458,7 +725,7 @@
     
     
     <div class="description">
-        <p>Get one note by its id</p>
+        <p>Get a job offer by its id</p>
     </div>
     
 
@@ -496,7 +763,7 @@
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>noteID</code></td>
+      <td class="name"><code>jobOfferID</code></td>
   
 
   <td class="type">
@@ -558,9 +825,9 @@
 
     
         <p class="tag-source">
-            <a href="api_interfaces_Note.js.html" class="button">View Source</a>
+            <a href="api_interfaces_JobOffer.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_Note.js.html">api/interfaces/Note.js</a>, <a href="api_interfaces_Note.js.html#line74">line 74</a>
+                <a href="api_interfaces_JobOffer.js.html">api/interfaces/JobOffer.js</a>, <a href="api_interfaces_JobOffer.js.html#line146">line 146</a>
             </span>
         </p>
     
@@ -652,11 +919,11 @@
 
     </span>
 
-<h4 class="name" id="~NewNote">
-    <a class="href-link" href="#~NewNote">#</a>
+<h4 class="name" id="~JobOfferFilters">
+    <a class="href-link" href="#~JobOfferFilters">#</a>
     
     <span class="code-name">
-        NewNote
+        JobOfferFilters
     </span>
     
 </h4>
@@ -694,59 +961,16 @@
             
 <tr class="deep-level-0">
     
-        <td class="name"><code>user_id</code></td>
+        <td class="name"><code>expired</code></td>
     
 
     <td class="type">
     
         
-<code class="param-type">number</code>
+<code class="param-type">"true"</code>
+|
 
-
-    
-    </td>
-
-    
-
-    
-
-    <td class="description last"></td>
-</tr>
-
-        
-            
-<tr class="deep-level-0">
-    
-        <td class="name"><code>module_id</code></td>
-    
-
-    <td class="type">
-    
-        
-<code class="param-type">number</code>
-
-
-    
-    </td>
-
-    
-
-    
-
-    <td class="description last"></td>
-</tr>
-
-        
-            
-<tr class="deep-level-0">
-    
-        <td class="name"><code>note</code></td>
-    
-
-    <td class="type">
-    
-        
-<code class="param-type">number</code>
+<code class="param-type">"false"</code>
 
 
     
@@ -799,9 +1023,289 @@
 
     
         <p class="tag-source">
-            <a href="api_interfaces_Note.js.html" class="button">View Source</a>
+            <a href="api_interfaces_JobOffer.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_Note.js.html">api/interfaces/Note.js</a>, <a href="api_interfaces_Note.js.html#line19">line 19</a>
+                <a href="api_interfaces_JobOffer.js.html">api/interfaces/JobOffer.js</a>, <a href="api_interfaces_JobOffer.js.html#line32">line 32</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">Object</code>
+
+
+    </span>
+
+<h4 class="name" id="~NewJobOffer">
+    <a class="href-link" href="#~NewJobOffer">#</a>
+    
+    <span class="code-name">
+        NewJobOffer
+    </span>
+    
+</h4>
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+<div class="table-container">
+    <table class="props table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+            <th>Attributes</th>
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>job_domains_ids</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">Array.&lt;number></code>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>title</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">string</code>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>company_name</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">string</code>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>city</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">string</code>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>postal_code</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">string</code>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>content</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">string</code>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="api_interfaces_JobOffer.js.html" class="button">View Source</a>
+            <span>
+                <a href="api_interfaces_JobOffer.js.html">api/interfaces/JobOffer.js</a>, <a href="api_interfaces_JobOffer.js.html#line21">line 21</a>
             </span>
         </p>
     
