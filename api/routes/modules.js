@@ -82,6 +82,29 @@ export default (router) => {
 		logger.log("Retrieves a module by his ID", { ip: request.clientIP, params: {code: resp.code, moduleID: request.params.moduleID} });
 	});
 
+	/**
+	 * GET /v1/modules/notes/by-user-id/{userID}
+	 * @summary Get all modules and notes of a user
+	 * @security BearerAuth
+	 * @tags Modules
+	 *
+	 * @param {number} userID.path.required - User id
+	 *
+	 * @return {SuccessResp} 200 - **Success**: the modules and notes are returned - application/json
+	 *
+	 * @example response - 200 - Success response
+	 * { "code": 200, "modules": [ {
+	 * 	"module_id": 1, "year": "4", "name": "PROJ", "long_name": "Projet de fin d'année", "ects": 4,
+	 * 	"notes": [{"note_id": 1, "note": 9.95}, {"note_id": 45, "note": 20}]
+	 * 	} ] }
+	 */
+	route.get("/notes/by-user-id/:userID", async (request, response) => {
+		const resp = await Module.getNotesByUserID(request.params.userID);
+		response.status(resp.code).json(resp.toJSON());
+
+		logger.log("Retrieves all modules and notes of a user", { ip: request.clientIP, params: {code: resp.code, noteID: request.params.noteID} });
+	});
+
 	/* ---- UPDATE ---------------------------------- */
 	/* ---- DELETE ---------------------------------- */
 };

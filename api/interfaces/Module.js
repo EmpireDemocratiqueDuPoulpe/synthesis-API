@@ -97,6 +97,26 @@ const getByID = async (moduleID) => {
 	return new APIResp(200).setData({ module });
 };
 
+/**
+ * Get all modules with notes of a user
+ * @function
+ * @async
+ *
+ * @param {number} userID
+ * @return {Promise<APIResp>}
+ */
+const getNotesByUserID = async (userID) => {
+	const modules = await models.module.findAll({
+		include: [{
+			model: models.note,
+			required: false,
+			where: { user_id: userID },
+		}],
+	});
+
+	return new APIResp(200).setData({ modules });
+};
+
 /* ---- UPDATE ---------------------------------- */
 /* ---- DELETE ---------------------------------- */
 
@@ -106,6 +126,6 @@ const getByID = async (moduleID) => {
 
 const Module = {
 	add,							// CREATE
-	getAll, getByID,	// READ
+	getAll, getByID, getNotesByUserID,	// READ
 };
 export default Module;
