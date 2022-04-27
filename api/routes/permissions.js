@@ -1,5 +1,5 @@
 /**
- * @module absences
+ * @module permissions
  * @author Alexis L. <alexis.lecomte@supinfo.com>
  */
 
