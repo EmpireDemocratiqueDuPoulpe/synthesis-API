@@ -24,9 +24,10 @@ const { models } = sequelize;
  * @property {Array<number>} [job_domains_ids]
  * @property {string} title
  * @property {string} company_name
- * @property {string} city
- * @property {string} postal_code
- * @property {string} content
+ * @property {string} [city]
+ * @property {string} [postal_code]
+ * @property {string} [content]
+ * @property {string} [expiration_date]
  */
 
 /**

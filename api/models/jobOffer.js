@@ -83,7 +83,7 @@ const jobOffer = {
 	},
 	content: {
 		type: DataTypes.TEXT,
-		allowNull: false,
+		allowNull: true,
 	},
 	expiration_date: {
 		type: DataTypes.DATE,
