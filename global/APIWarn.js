@@ -1,5 +1,5 @@
 /**
- * @module APIError
+ * @module APIWarn
  * @category Global
  * @author Alexis L. <alexis.lecomte@supinfo.com>
  */
@@ -7,7 +7,7 @@
 import Checkers from "./Checkers.js";
 
 /**
- * APIError is used to pass errors from anywhere in the express call stack
+ * APIWarn is used to pass warning from anywhere in the express call stack
  * to the error handling middleware.
  * @constructor
  *
@@ -17,18 +17,17 @@ import Checkers from "./Checkers.js";
  * @param {{ withStack: Boolean }} [options] - Options
  *
  * @example
- * throw new APIError(400, "Invalid email/password", ["email", "password"]);
- * throw new APIError(400, "Missing auth token.", null, { withStack: false });
+ * throw new APIWarn(404, "This page doesn't exist.");
  */
-export default function APIError(code, message, fields, options = {}) {
+export default function APIWarn(code, message, fields, options = {}) {
 	const error = Error.call(this, message.toString());
-	const opts = { withStack: true, ...options };
+	const opts = { withStack: false, ...options };
 
 	this.code = code ?? 500;
-	this.name = "API Error";
+	this.name = "API Warning";
 	this.message = error.message;
 	this.stack = opts.withStack ? error.stack : null;
 	this.fields = Checkers.isArray(fields) ? fields : (Checkers.isDefined(fields) ? [fields] : null);
 }
-APIError.prototype = Object.create(Error.prototype);
-APIError.prototype.constructor = APIError;
+APIWarn.prototype = Object.create(Error.prototype);
+APIWarn.prototype.constructor = APIWarn;

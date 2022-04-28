@@ -29,7 +29,7 @@ function authenticator(request, response, next) {
 	const token = authHeader && authHeader.split(" ")[1];
 
 	if (!token || !specialHeader) {
-		throw new APIError(401, "Jeton d'authentification manquant ou invalide.");
+		throw new APIError(401, "Jeton d'authentification manquant ou invalide.", null, { withStack: false });
 	}
 
 	jwtVerify(token, keys.publicKey)

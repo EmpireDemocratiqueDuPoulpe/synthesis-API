@@ -12,7 +12,7 @@ import expressJSDocSwagger from "express-jsdoc-swagger";
 import api from "./api/api.js";
 import "./api/sequelizeLoader.js";
 import "./api/joseLoader.js";
-import { DirName } from "./global/global.js";
+import { DirName, APIWarn } from "./global/global.js";
 import { API, Swagger } from "./config/config.js";
 
 /**
@@ -85,8 +85,7 @@ function startServer() {
 
 	// Handle 404
 	app.use((request, response, next) => {
-		response.status(404).end();
-		next();
+		throw new APIWarn(404, "Ce endpoint n'existe pas.");
 	});
 
 	// Error handling
