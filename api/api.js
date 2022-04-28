@@ -5,7 +5,6 @@
  */
 
 import { Router } from "express";
-import requestIP from "request-ip";
 import {
 	absences,
 	comptas,
@@ -15,7 +14,7 @@ import {
 	users, students,
 	studies,
 } from "./routes/routes.js";
-import { tokenAssembler, endHandler, errorHandler } from "./middlewares/middlewares.js";
+import { tokenAssembler, endHandler } from "./middlewares/middlewares.js";
 
 /**
  * @typedef {Object} SuccessResp
@@ -42,7 +41,6 @@ export default () => {
 
 	// Middlewares
 	router.use(endHandler);
-	router.use(requestIP.mw({ attributeName: "clientIP" }));
 	router.use(tokenAssembler);
 
 	// Routes
@@ -57,11 +55,6 @@ export default () => {
 	students(router);
 	studies(router);
 	users(router);
-
-	// Middlewares for errors
-	router.use(errorHandler.expressLogger);
-	router.use(errorHandler.errorForwarder);
-	router.use(errorHandler.failSafe);
 
 	return router;
 };

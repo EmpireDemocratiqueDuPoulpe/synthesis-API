@@ -24,11 +24,12 @@ const logger = new Logger({ separator: ": " });
  * @param {e.NextFunction} next
  */
 function expressLogger(err, request, response, next) {
+	const url = `${request.protocol}://${request.headers.host}${request.originalUrl}`;
 	const error = (err instanceof APIError || err instanceof Error)
 		? (`${err.message}${err.message ? "\n" : ""}${err.stack}`)
 		: (err.toString());
 
-	logger.error(error, { ip: request.clientIP });
+	logger.error(`At ${url}\n${error}`, { ip: request.clientIP });
 
 	if (err instanceof Error && !(err instanceof APIError)) {
 		// TODO: Send mail
