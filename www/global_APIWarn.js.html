@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CBEM - API api/models/compta.js</title>
+  <title>CBEM - API global/APIWarn.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -104,7 +104,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>api/models/compta.js</h1>
+                    <h1>global/APIWarn.js</h1>
                 </header>
                 
 
@@ -114,89 +114,38 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @module compta
- * @category API
- * @subcategory Models
- * @author Louan L. &lt;louan.leplae@supinfo.com>
+ * @module APIWarn
+ * @category Global
+ * @author Alexis L. &lt;alexis.lecomte@supinfo.com>
  */
 
-import { DataTypes } from "sequelize";
+import Checkers from "./Checkers.js";
 
 /**
- * @const
- * @type {Object}
+ * APIWarn is used to pass warning from anywhere in the express call stack
+ * to the error handling middleware.
+ * @constructor
+ *
+ * @param {Number} code - The HTTP code of the error
+ * @param {string} message - The error message
+ * @param {string|Array&lt;string>|null} [fields] - Fields (query parameters) related to the error
+ * @param {{ withStack: Boolean }} [options] - Options
  *
  * @example
- * {
- *  compta_id: {
- *    type: DataTypes.INTEGER,
- *    primaryKey: boolean,
- *    allowNull: boolean,
- *    autoIncrement: boolean
- *  },
- *  payment_type: {
- *    type: DataTypes.ENUM,
- *    values: string[],
- *    allowNull: boolean
- *  },
- *  relance: {
- *    type: DataTypes.BOOLEAN,
- *    defaultValue: boolean,
- *    allowNull: boolean
- *  },
- *  paid: {
- *    type: DataTypes.BOOLEAN,
- *    defaultValue: boolean,
- *    allowNull: boolean
- *  },
- *  payment_due: {
- *    type: DataTypes.DECIMAL,
- *    defaultValue: number,
- *    allowNull: boolean
- *  }
- * }
+ * throw new APIWarn(404, "This page doesn't exist.");
  */
-const compta = {
-	compta_id: {
-		type: DataTypes.INTEGER,
-		primaryKey: true,
-		allowNull: false,
-		autoIncrement: true,
-	},
-	payment_type: {
-		type: DataTypes.ENUM,
-		values: [ "OPCA", "Comptant", "Échelonnement" ],
-		allowNull: false,
-	},
-	payment_due: {
-		type: DataTypes.DECIMAL(17, 2),
-		defaultValue: 0,
-		allowNull: false,
-	},
-	paid: {
-		type: DataTypes.BOOLEAN,
-		defaultValue: false,
-		allowNull: false,
-	},
-	relance: {
-		type: DataTypes.BOOLEAN,
-		defaultValue: false,
-		allowNull: false,
-	},
-};
+export default function APIWarn(code, message, fields, options = {}) {
+	const error = Error.call(this, message.toString());
+	const opts = { withStack: false, ...options };
 
-/**
- * Define the model
- * @function
- *
- * @param {Sequelize} sequelize
- * @param {string} name - The file name used for the definition
- */
-export const define = (sequelize, name) => {
-	sequelize.define(name, compta);
-};
-
-export default compta;
+	this.code = code ?? 500;
+	this.name = "API Warning";
+	this.message = error.message;
+	this.stack = opts.withStack ? error.stack : null;
+	this.fields = Checkers.isArray(fields) ? fields : (Checkers.isDefined(fields) ? [fields] : null);
+}
+APIWarn.prototype = Object.create(Error.prototype);
+APIWarn.prototype.constructor = APIWarn;
 </code></pre>
         </article>
     </section>
