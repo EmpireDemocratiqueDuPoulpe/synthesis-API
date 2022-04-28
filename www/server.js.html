@@ -121,6 +121,8 @@ import urljoin from "urljoin";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import requestIP from "request-ip";
+import { errorHandler } from "./api/middlewares/middlewares.js";
 import expressJSDocSwagger from "express-jsdoc-swagger";
 import api from "./api/api.js";
 import "./api/sequelizeLoader.js";
@@ -178,6 +180,9 @@ function startServer() {
 	// CORS
 	app.use(cors(API.cors));
 
+	// IP
+	app.use(requestIP.mw({ attributeName: "clientIP" }));
+
 	// Transform raw and x-www-form-urlencoded to nice JSON
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({ extended: true }));
@@ -198,6 +203,11 @@ function startServer() {
 		response.status(404).end();
 		next();
 	});
+
+	// Error handling
+	app.use(errorHandler.expressLogger);
+	app.use(errorHandler.errorForwarder);
+	app.use(errorHandler.failSafe);
 
 	// Start listening
 	server.listen(port, () => serverReady("http", port))

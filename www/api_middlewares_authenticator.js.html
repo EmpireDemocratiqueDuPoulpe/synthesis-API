@@ -144,7 +144,7 @@ function authenticator(request, response, next) {
 	const token = authHeader &amp;&amp; authHeader.split(" ")[1];
 
 	if (!token || !specialHeader) {
-		throw new APIError(401, "Jeton d'authentification manquant.");
+		throw new APIError(401, "Jeton d'authentification manquant ou invalide.");
 	}
 
 	jwtVerify(token, keys.publicKey)
