@@ -25,7 +25,7 @@ export default {
 	},
 	uploads: {
 		jobOfferAttachement: {
-			fieldName: "files",
+			fieldName: "attachements[]",
 			folder: "./uploads/attachements/job-offers/",
 			maxSize: 8388608, // 8 Mo
 		},

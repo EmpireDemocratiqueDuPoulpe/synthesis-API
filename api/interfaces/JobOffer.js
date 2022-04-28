@@ -21,7 +21,7 @@ const { models } = sequelize;
 /**
  * @typedef {Object} NewJobOffer
  *
- * @property {Array<number>} [job_domains_ids]
+ * @property {Array<number>} [job_domains]
  * @property {string} title
  * @property {string} company_name
  * @property {string} [city]
@@ -56,34 +56,25 @@ const { models } = sequelize;
  * @return {Promise<APIResp>}
  */
 const add = async (newJobOffer, attachements) => {
-	// Check if the new job offer match the model
-	const model = models.jobOffer.build(newJobOffer);
-
-	try {
-		await model.validate({ skip: ["job_offer_id"] });
-	} catch (err) {
-		// TODO: Adapt the system
-		throw new APIError(400, "error", Object.values(err));
-	}
-
 	let transaction;
 	try {
 		// Add to the database
 		transaction = await sequelize.transaction({ autocommit: false });
 		const jobOffer = await models.jobOffer.create(newJobOffer, { transaction });
 
-		if (newJobOffer.job_domains_ids) {
-			await jobOffer.setJobDomains(newJobOffer.job_domains_ids, { transaction });
+		// Add job domains
+		if (newJobOffer.job_domains) {
+			await jobOffer.setJobDomains(newJobOffer.job_domains, { transaction });
 		}
 
 		// Add attachements
 		let attachementsIDs = [];
 		if (attachements) {
-			attachementsIDs = await Attachement.add(
+			attachementsIDs = (await Attachement.add(
 				{ name: "job_offer_id", value: jobOffer.job_offer_id },
 				attachements,
 				transaction,
-			);
+			)).data.attachementsIDs;
 		}
 
 		// Commit

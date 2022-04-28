@@ -52,14 +52,14 @@ export default (router) => {
 		uploadJobOffer(request, response, async function(err) {
 			if (err) {
 				// TODO: Translate errors
-				throw new APIError((err instanceof multer.MulterError ? 400 : 500), err.message, "files");
+				throw new APIError((err instanceof multer.MulterError ? 400 : 500), err.message, "attachements");
 			}
 			const { jobOffer } = request.body;
 
-			const resp = await JobOffer.add(JSON.parse(jobOffer), request.files);
+			const resp = await JobOffer.add(jobOffer, request.files);
 			response.status(resp.code).json(resp.toJSON());
 
-			logger.log("Add a new job offer", { ip: request.clientIP, params: {code: resp.code} });
+			logger.log("Add a new job offer", { ip: request.clientIP, params: {code: resp.code, title: jobOffer?.name} });
 		});
 	});
 
