@@ -110,4 +110,28 @@ export default (router) => {
 
 	/* ---- UPDATE ---------------------------------- */
 	/* ---- DELETE ---------------------------------- */
+	/**
+	 * DELETE /v1/jobs/offers/delete
+	 * @summary Delete a job offer by its id
+	 * @security BearerAuth
+	 * @tags JobOffers
+	 *
+	 * @param {number} request.body.required - Job offer id - application/json
+	 *
+	 * @return {SuccessResp} 200 - **Success**: the job offer is deleted - application/json
+	 * @return {ErrorResp} 400 - **Bad request**: the job offer id is invalid - application/json
+	 *
+	 * @example request - Delete a job offer
+	 * { "jobOfferID": 1 }
+	 * @example response - 200 - Success response
+	 * { "code": 200 }
+	 * @example response - 400 - Bad request response
+	 * { "code": 400, "error": "", "fields": null }
+	 */
+	route.delete("/delete", async (request, response) => {
+		const resp = await JobOffer.delete(request.body.jobOfferID);
+		response.status(resp.code).json(resp.toJSON());
+
+		logger.log("Deletes a job offer by its ID", { ip: request.clientIP, params: {code: resp.code, jobOfferID: request.params.jobOfferID} });
+	});
 };

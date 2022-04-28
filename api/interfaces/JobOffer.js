@@ -153,6 +153,15 @@ const getByID = async (jobOfferID) => {
 
 /* ---- UPDATE ---------------------------------- */
 /* ---- DELETE ---------------------------------- */
+const del = async jobOfferID => {
+	await models.jobOffer.destroy({
+		where: {
+			job_offer_id: jobOfferID,
+		},
+	});
+
+	return new APIResp(200);
+};
 
 /*****************************************************
  * Export
@@ -161,5 +170,6 @@ const getByID = async (jobOfferID) => {
 const JobOffer = {
 	add,							// CREATE
 	getAll, getByID,	// READ
+	delete: del,			// DELETE
 };
 export default JobOffer;
