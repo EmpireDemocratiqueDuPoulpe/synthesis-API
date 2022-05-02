@@ -434,7 +434,7 @@ async function setData(sequelize, logger) {
 			current_level: 5,
 			entry_date: "06/01/22 04:11:05",
 			exit_date: "06/01/22 04:11:05",
-			user_id: 1,
+			user_id: 2,
 		},
 	]);
 

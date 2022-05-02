@@ -5,6 +5,7 @@
  * @author Maxence P. <maxence.pawlowski@supinfo.com>
  */
 
+import { Op } from "sequelize";
 import sequelize from "../sequelizeLoader.js";
 import { APIResp, APIError } from "../../global/global.js";
 
@@ -23,6 +24,12 @@ const { models } = sequelize;
  * @property {string} name
  * @property {string} long_name
  * @property {number} ects
+ */
+
+/**
+ * @typedef {Object} ModuleNotesFilters
+ *
+ * @property {array<number>} years
  */
 
 /*****************************************************
@@ -103,15 +110,30 @@ const getByID = async (moduleID) => {
  * @async
  *
  * @param {number} userID
+ * @param {ModuleNotesFilters} filters
  * @return {Promise<APIResp>}
  */
-const getNotesByUserID = async (userID) => {
+const getNotesByUserID = async (userID, filters) => {
+	const usableFilters = {};
+
+	if (filters) {
+		if (filters.years) {
+			usableFilters.year = {
+				[Op.in]: filters.years,
+			};
+		}
+	}
+
 	const modules = await models.module.findAll({
 		include: [{
 			model: models.note,
 			required: false,
 			where: { user_id: userID },
 		}],
+		where: usableFilters,
+		order: [
+			["year", "DESC"],
+		],
 	});
 
 	return new APIResp(200).setData({ modules });

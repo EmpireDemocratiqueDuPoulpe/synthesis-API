@@ -99,7 +99,13 @@ export default (router) => {
 	 * 	} ] }
 	 */
 	route.get("/notes/by-user-id/:userID", async (request, response) => {
-		const resp = await Module.getNotesByUserID(request.params.userID);
+		const filters = request.query;
+
+		if (filters.years) {
+			filters.years = filters.years.split(",").map(y => parseInt(y, 10));
+		}
+
+		const resp = await Module.getNotesByUserID(request.params.userID, filters);
 		response.status(resp.code).json(resp.toJSON());
 
 		logger.log("Retrieves all modules and notes of a user", { ip: request.clientIP, params: {code: resp.code, noteID: request.params.noteID} });
