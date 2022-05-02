@@ -109,6 +109,31 @@ export default (router) => {
 	});
 
 	/* ---- UPDATE ---------------------------------- */
+	/**
+	 * PUT /v1/jobs/offers
+	 * @summary Update a job offer by its id
+	 * @security BearerAuth
+	 * @tags JobOffers
+	 *
+	 * @param {number} request.body.required - Job offer - application/json
+	 *
+	 * @return {SuccessResp} 200 - **Success**: the job offer is updated - application/json
+	 * @return {ErrorResp} 400 - **Bad request**: the job offer id is invalid - application/json
+	 *
+	 * @example request - Update a job offer
+	 * { "jobOfferID": 1, "content": "on prend plus les moches" }
+	 * @example response - 200 - Success response
+	 * { "code": 200, "jobOfferID": 1 }
+	 * @example response - 400 - Bad request response
+	 * { "code": 400, "error": "", "fields": null }
+	 */
+	route.put("/", async (request, response) => {
+		const resp = await JobOffer.update(request.body.jobOffer);
+		response.status(resp.code).json(resp.toJSON());
+
+		logger.log("Update a job offer by its ID", { ip: request.clientIP, params: {code: resp.code, jobOffer: request.params.jobOffer.job_offer_id} });
+	});
+
 	/* ---- DELETE ---------------------------------- */
 	/**
 	 * DELETE /v1/jobs/offers/delete
