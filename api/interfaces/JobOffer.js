@@ -152,6 +152,19 @@ const getByID = async (jobOfferID) => {
 };
 
 /* ---- UPDATE ---------------------------------- */
+const update = async jobOffer => {
+	const { job_offer_id: jobOfferID, ...updatable } = jobOffer;
+	const upd = await models.jobOffer.update(updatable, {
+		where: { job_offer_id: jobOfferID },
+	});
+
+	if (upd[0] === 0) {
+		throw new APIError(404, `L'offre d'emploi (${jobOfferID}) n'existe pas.`);
+	}
+
+	return new APIResp(200).setData({ jobOfferID });
+};
+
 /* ---- DELETE ---------------------------------- */
 const del = async jobOfferID => {
 	await models.jobOffer.destroy({
@@ -170,6 +183,7 @@ const del = async jobOfferID => {
 const JobOffer = {
 	add,							// CREATE
 	getAll, getByID,	// READ
+	update,						// UPDATE
 	delete: del,			// DELETE
 };
 export default JobOffer;
