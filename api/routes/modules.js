@@ -48,6 +48,8 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Modules
 	 *
+	 * @param {string} years.query - Years
+	 *
 	 * @return {SuccessResp} 200 - **Success**: the modules are returned - application/json
 	 *
 	 * @example response - 200 - Success response
@@ -56,7 +58,13 @@ export default (router) => {
 	 * ]}
 	 */
 	route.get("/all", async (request, response) => {
-		const resp = await Module.getAll();
+		const filters = request.query;
+
+		if (filters.years) {
+			filters.years = filters.years.split(",").map(y => parseInt(y, 10));
+		}
+
+		const resp = await Module.getAll(filters);
 		response.status(resp.code).json(resp.toJSON());
 
 		logger.log("Fetch all modules", { ip: request.clientIP, params: {code: resp.code} });
@@ -89,6 +97,7 @@ export default (router) => {
 	 * @tags Modules
 	 *
 	 * @param {number} userID.path.required - User id
+	 * @param {string} years.query - Years
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the modules and notes are returned - application/json
 	 *

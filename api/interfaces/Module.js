@@ -32,6 +32,12 @@ const { models } = sequelize;
  * @property {array<number>} years
  */
 
+/**
+ * @typedef {Object} ModuleFilters
+ *
+ * @property {array<number>} years
+ */
+
 /*****************************************************
  * Functions
  *****************************************************/
@@ -75,10 +81,23 @@ const add = async (newModule) => {
  * @function
  * @async
  *
+ * @param {ModuleFilters} filters
  * @return {Promise<APIResp>}
  */
-const getAll = async () => {
-	const modules = await models.module.findAll();
+const getAll = async filters => {
+	const usableFilters = {};
+
+	if (filters) {
+		if (filters.years) {
+			usableFilters.year = {
+				[Op.in]: filters.years,
+			};
+		}
+	}
+	const modules = await models.module.findAll({
+		where: usableFilters,
+		order: [ ["year", "ASC"] ],
+	});
 
 	return new APIResp(200).setData({ modules });
 };
@@ -131,9 +150,7 @@ const getNotesByUserID = async (userID, filters) => {
 			where: { user_id: userID },
 		}],
 		where: usableFilters,
-		order: [
-			["year", "DESC"],
-		],
+		order: [ ["year", "DESC"] ],
 	});
 
 	return new APIResp(200).setData({ modules });
