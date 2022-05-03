@@ -241,19 +241,24 @@ const login = async (user) => {
 
 	try {
 		storedUser = await models.user.findOne({
-			include: [{
-				model: models.position,
-				required: true,
-				include: [{
-					model: models.permission,
-					through: {attributes: []},
-				}],
-			}],
+			include: [
+				{
+					model: models.position,
+					required: true,
+					include: [{
+						model: models.permission,
+						through: {attributes: []},
+					}],
+				},
+				{ model: models.campus, required: false },
+			],
 			where: {email: user.email},
 		});
 
 		if (!storedUser) throw new Error();
 	} catch (err) {
+		// TODO: Better handling
+		console.error(err);
 		throw new APIError(400, "L'adresse email et/ou le mot de passe sont erronés.", ["email", "password"]);
 	}
 
@@ -280,6 +285,10 @@ const login = async (user) => {
 const getAll = async () => {
 	const users = await models.user.findAll({
 		attributes: { exclude: ["password"] },
+		include: [{
+			model: models.campus,
+			required: false,
+		}],
 	});
 
 	return new APIResp(200).setData({ users });
@@ -297,14 +306,17 @@ const getAll = async () => {
 const getByID = async (userID) => {
 	const user = await models.user.findOne({
 		attributes: { exclude: ["password"] },
-		include: [{
-			model: models.position,
-			required: true,
-			include: [{
-				model: models.permission,
-				through: {attributes: []},
-			}],
-		}],
+		include: [
+			{
+				model: models.position,
+				required: true,
+				include: [{
+					model: models.permission,
+					through: {attributes: []},
+				}],
+			},
+			{ model: models.campus, required: false },
+		],
 		where: { user_id: userID },
 	});
 
@@ -328,14 +340,17 @@ const getByID = async (userID) => {
 const getByUUID = async (uuid) => {
 	const user = await models.user.findOne({
 		attributes: { exclude: ["password"] },
-		include: [{
-			model: models.position,
-			required: true,
-			include: [{
-				model: models.permission,
-				through: {attributes: []},
-			}],
-		}],
+		include: [
+			{
+				model: models.position,
+				required: true,
+				include: [{
+					model: models.permission,
+					through: {attributes: []},
+				}],
+			},
+			{ model: models.campus, required: false },
+		],
 		where: { uuid },
 	});
 
@@ -360,6 +375,7 @@ const getAllStudents = async () => {
 	const students = await models.user.findAll({
 		include: [
 			{ model: models.position, required: true, where: { name: "Étudiant" } },
+			{ model: models.campus, required: true },
 			{ model: models.study, required: true },
 		],
 	});

@@ -30,6 +30,16 @@ function init(sequelize, logger) {
 		constraints: false,
 	});
 
+	/* ---- campus ---------------------------------- */
+	// campus [1 - *] user
+	sequelize.models.campus.hasMany(sequelize.models.user, {
+		foreignKey: {
+			name: "campus_id",
+			type: DataTypes.INTEGER,
+			allowNull: false,
+		},
+	});
+
 	/* ---- jobOffer -------------------------------- */
 	// jobOffer [* - *] jobDomain
 	sequelize.models.jobOffer.belongsToMany(sequelize.models.jobDomain, {
@@ -106,6 +116,17 @@ function init(sequelize, logger) {
 			type: DataTypes.INTEGER,
 			allowNull: false,
 		},
+	});
+
+	// user [* - 1] campus
+	sequelize.models.user.belongsTo(sequelize.models.campus, {
+		foreignKey: {
+			name: "campus_id",
+			type: DataTypes.INTEGER,
+			allowNull: false,
+		},
+		sourceKey: "campus_id",
+		constraints: false,
 	});
 
 	// user [1 - 1] compta

@@ -33,7 +33,7 @@ import { DataTypes } from "sequelize";
  *    allowNull: boolean,
  *    validate: { notEmpty: boolean }
  *  },
- *    last_name: {
+ *  last_name: {
  *    type: DataTypes.STRING,
  *    allowNull: boolean,
  *    validate: { notEmpty: boolean }
@@ -52,12 +52,17 @@ import { DataTypes } from "sequelize";
  *    type: DataTypes.STRING,
  *    allowNull: boolean
  *  },
- *  street_address: { type: DataTypes.STRING },
- *  gender: { type: DataTypes.STRING },
- *  region: { type: DataTypes.STRING },
- *  campus: {
- *    type: DataTypes.ENUM,
- *    values: string[]
+ *  street_address: {
+ *  	type: DataTypes.STRING,
+ *  	allowNull: boolean
+ *  },
+ *  gender: {
+ *  	type: DataTypes.STRING,
+ *  	allowNull: boolean
+ *  },
+ *  region: {
+ *  	type: DataTypes.STRING,
+ *  	allowNull: boolean
  *  }
  * }
  */
@@ -103,19 +108,17 @@ const user = {
 		type: DataTypes.STRING,
 		allowNull: false,
 	},
-	street_address: { type: DataTypes.STRING },
-	gender: { type: DataTypes.STRING },
-	region: { type: DataTypes.STRING },
-	campus: {
-		type: DataTypes.ENUM,
-		values: [
-			"Caen",
-			"Distanciel",
-			"Lille",
-			"Lyon",
-			"Paris",
-			"Tours",
-		],
+	street_address: {
+		type: DataTypes.STRING,
+		allowNull: true,
+	},
+	gender: {
+		type: DataTypes.STRING,
+		allowNull: true,
+	},
+	region: {
+		type: DataTypes.STRING,
+		allowNull: true,
 	},
 };
 

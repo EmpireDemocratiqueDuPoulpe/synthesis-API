@@ -17,6 +17,34 @@
 async function setData(sequelize, logger) {
 	logger.log("Inserting dummy data...");
 
+	/* ---- campus ---------------------------------- */
+	await sequelize.models.campus.bulkCreate([
+		{
+			campus_id: 1000, name: "Caen",
+			address_street: "123 rue des phalempins", address_city: "France", address_postal_code: "AZERTY",
+		},
+		{
+			campus_id: 1001, name: "Distanciel",
+			address_street: "123 rue des phalempins", address_city: "France", address_postal_code: "AZERTY",
+		},
+		{
+			campus_id: 1002, name: "Lille",
+			address_street: "123 rue des phalempins", address_city: "France", address_postal_code: "AZERTY",
+		},
+		{
+			campus_id: 1003, name: "Lyon",
+			address_street: "123 rue des phalempins", address_city: "France", address_postal_code: "AZERTY",
+		},
+		{
+			campus_id: 1004, name: "Paris",
+			address_street: "123 rue des phalempins", address_city: "France", address_postal_code: "AZERTY",
+		},
+		{
+			campus_id: 1005, name: "Tours",
+			address_street: "123 rue des phalempins", address_city: "France", address_postal_code: "AZERTY",
+		},
+	]);
+
 	/* ---- jobDomain ------------------------------- */
 	await sequelize.models.jobDomain.bulkCreate([
 		{ job_domain_id: 1000, name: "Système" },
@@ -372,55 +400,34 @@ async function setData(sequelize, logger) {
 	/* ---- user ------------------------------------ */
 	await sequelize.models.user.bulkCreate([
 		{
-			"position_id": 1,
-			"first_name": "Sir Edward",
-			"last_name": "Weak Ass",
-			"birth_date": "968-06-24",
-			"email": "siredward.weakass@caramail.co.uk",
-			"password": "$2b$10$sbcqNmQi3DoIDQG1zbB9degN.toQN4hn2T562.yubcPvDra/RT46.", // "Mot De P4sse"
-			"address": {
-				"street": "This is my street.",
-				"city": "London",
-				"postalCode": "45789",
-			},
-			"gender": "Knight",
-			"region": "UK",
-			"status": "full professor",
-			"campus": "Distanciel",
+			position_id: 1, campus_id: 1002,
+			first_name: "Sir Edward", last_name: "Weak Ass",
+			birth_date: "968-06-24",
+			email: "siredward.weakass@caramail.co.uk",
+			password: "$2b$10$sbcqNmQi3DoIDQG1zbB9degN.toQN4hn2T562.yubcPvDra/RT46.", // "Mot De P4sse"
+			address: { street: "This is my street.", city: "London", postalCode: "45789" },
+			gender: "Knight",
+			region: "UK",
 		},
 		{
-			"position_id": 5,
-			"first_name": "Jay",
-			"last_name": "Raté Mon Année À L'Aide",
-			"birth_date": "2002-06-24",
-			"email": "jay.rate@forni.te",
-			"password": "$2b$10$sbcqNmQi3DoIDQG1zbB9degN.toQN4hn2T562.yubcPvDra/RT46.", // "Mot De P4sse"
-			"address": {
-				"street": "Tomato Plaza",
-				"city": "Map de frotnite",
-				"postalCode": "0000",
-			},
-			"gender": "Homme",
-			"region": "France",
-			"status": "élève",
-			"campus": "Lille",
+			position_id: 5, campus_id: 1001,
+			first_name: "Jay", last_name: "Raté Mon Année À L'Aide",
+			birth_date: "2002-06-24",
+			email: "jay.rate@forni.te",
+			password: "$2b$10$sbcqNmQi3DoIDQG1zbB9degN.toQN4hn2T562.yubcPvDra/RT46.", // "Mot De P4sse"
+			address: { street: "Tomato Plaza", city: "Map de frotnite", postalCode: "0000" },
+			gender: "Homme",
+			region: "France",
 		},
 		{
-			"position_id": 2,
-			"first_name": "Pony",
-			"last_name": "Sparks",
-			"birth_date": "1976-04-06",
-			"email": "pony.sparks@weapo.ns",
-			"password": "$2b$10$sbcqNmQi3DoIDQG1zbB9degN.toQN4hn2T562.yubcPvDra/RT46.", // "Mot De P4sse"
-			"address": {
-				"street": "Under the bridge",
-				"city": "NY",
-				"postalCode": "12345",
-			},
-			"gender": "homme",
-			"region": "US",
-			"status": "élève",
-			"campus": "Lille",
+			position_id: 2, campus_id: 1003,
+			first_name: "Pony", last_name: "Sparks",
+			birth_date: "1976-04-06",
+			email: "pony.sparks@weapo.ns",
+			password: "$2b$10$sbcqNmQi3DoIDQG1zbB9degN.toQN4hn2T562.yubcPvDra/RT46.", // "Mot De P4sse"
+			address: { street: "Under the bridge", city: "NY", postalCode: "12345" },
+			gender: "homme",
+			region: "US",
 		},
 	]);
 
