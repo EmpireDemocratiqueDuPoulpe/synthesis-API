@@ -469,17 +469,14 @@ const getByUUID = async (uuid) => {
  * @function
  * @async
  *
- * @param {Object} filters
  * @return {Promise&lt;APIResp>}
  */
-const getAllStudents = async (filters) => {
+const getAllStudents = async () => {
 	const students = await models.user.findAll({
-		where: filters,
-		include: [{
-			model: models.position,
-			required: true,
-			where: { name: "Étudiant" },
-		}],
+		include: [
+			{ model: models.position, required: true, where: { name: "Étudiant" } },
+			{ model: models.study, required: true },
+		],
 	});
 
 	return new APIResp(200).setData({ students });
