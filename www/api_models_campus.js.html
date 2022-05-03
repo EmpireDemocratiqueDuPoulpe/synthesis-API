@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CBEM - API api/interfaces/Study.js</title>
+  <title>CBEM - API api/models/campus.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -104,7 +104,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>api/interfaces/Study.js</h1>
+                    <h1>api/models/campus.js</h1>
                 </header>
                 
 
@@ -114,66 +114,85 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @module Study
+ * @module campus
  * @category API
- * @subcategory Interfaces
- * @author Louan L. &lt;louan.leplae@supinfo.com>
+ * @subcategory Models
+ * @author Alexis L. &lt;alexis.lecomte@supinfo.com>
  */
 
-import sequelize from "../sequelizeLoader.js";
-import { APIResp, APIError } from "../../global/global.js";
+import { DataTypes } from "sequelize";
 
 /**
- * Sequelize models
  * @const
- * @name models
- * @type {Object&lt;Sequelize.models>}
+ * @type {Object}
+ *
+ * @example
+ * {
+ *  campus_id: {
+ *    type: DataTypes.INTEGER,
+ *    primaryKey: boolean,
+ *    allowNull: boolean,
+ *    autoIncrement: boolean,
+ *    validate: { isInteger: boolean }
+ *  },
+ *  name: {
+ *    type: DataTypes.STRING,
+ *    allowNull: boolean,
+ *    validate: { notEmpty: boolean }
+ *  },
+ *  address_street: {
+ *  	type: DataTypes.STRING,
+ * 	 	allowNull: boolean,
+ *  },
+ *  address_city: {
+ *  	type: DataTypes.STRING,
+ * 	 	allowNull: boolean,
+ *  },
+ *  address_postal_code: {
+ *  	type: DataTypes.STRING,
+ * 	 	allowNull: boolean,
+ *  }
+ * }
  */
-const { models } = sequelize;
+const campus = {
+	campus_id: {
+		type: DataTypes.INTEGER,
+		primaryKey: true,
+		allowNull: false,
+		autoIncrement: true,
+		validate: { isInteger: true },
+	},
+	name: {
+		type: DataTypes.STRING(100),
+		allowNull: false,
+		validate: { notEmpty: true },
+	},
+	address_street: {
+		type: DataTypes.STRING,
+		allowNull: true,
+	},
+	address_city: {
+		type: DataTypes.STRING,
+		allowNull: true,
+	},
+	address_postal_code: {
+		type: DataTypes.STRING,
+		allowNull: true,
+	},
+};
 
-/*****************************************************
- * Functions
- *****************************************************/
-
-/*****************************************************
- * CRUD Methods
- *****************************************************/
-
-/* ---- CREATE ---------------------------------- */
-/* ---- READ ------------------------------------ */
 /**
-  * Get user's study by user id
-  * @function
-  * @async
-  *
-  * @param {number} userID
-  * @throws {APIError}
-  * @return {Promise&lt;APIResp>}
-  */
-const getByUserID = async (userID) => {
-	const study = await models.study.findOne({
-		where: { user_id: userID },
-	});
-
-	if (!study) {
-		throw new APIError(404, `Cet utilisateur (${userID}) n'a pas de parcours d'étude.`);
-	}
-
-	return new APIResp(200).setData({ study });
+ * Define the model
+ * @function
+ *
+ * @param {Sequelize} sequelize
+ * @param {string} name - The file name used for the definition
+ */
+export const define = (sequelize, name) => {
+	sequelize.define(name, campus);
 };
 
-/* ---- UPDATE ---------------------------------- */
-/* ---- DELETE ---------------------------------- */
-
-/*****************************************************
- * Export
- *****************************************************/
-
-const Study = {
-	getByUserID, // READ
-};
-export default Study;
-
+export default campus;
 </code></pre>
         </article>
     </section>
