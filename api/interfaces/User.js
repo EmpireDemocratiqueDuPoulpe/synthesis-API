@@ -66,6 +66,12 @@ const { models } = sequelize;
  * @property {string} password
  */
 
+/**
+ * @typedef {Object} StudentFilters
+ *
+ * @property {("true"|"false")} withModules
+ */
+
 /*****************************************************
  * Functions
  *****************************************************/
@@ -369,15 +375,24 @@ const getByUUID = async (uuid) => {
  * @function
  * @async
  *
+ * @param {StudentFilters} filters
  * @return {Promise<APIResp>}
  */
-const getAllStudents = async () => {
+const getAllStudents = async filters => {
+	const included = [
+		{ model: models.position, required: true, where: { name: "Étudiant" } },
+		{ model: models.campus, required: true },
+		{ model: models.study, required: true },
+	];
+
+	if (filters) {
+		if (filters.withModules === "true") {
+			included.push({ model: models.module, required: false });
+		}
+	}
+
 	const students = await models.user.findAll({
-		include: [
-			{ model: models.position, required: true, where: { name: "Étudiant" } },
-			{ model: models.campus, required: true },
-			{ model: models.study, required: true },
-		],
+		include: included,
 	});
 
 	return new APIResp(200).setData({ students });

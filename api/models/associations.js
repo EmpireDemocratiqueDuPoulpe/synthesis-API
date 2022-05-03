@@ -73,6 +73,12 @@ function init(sequelize, logger) {
 		},
 	});
 
+	// module [* - *] user
+	sequelize.models.module.belongsToMany(sequelize.models.user, {
+		through: sequelize.models.studentModules,
+		foreignKey: "module_id",
+	});
+
 	/* ---- note ------------------------------------ */
 	// note [* - 1] module
 	sequelize.models.note.hasOne(sequelize.models.module, {
@@ -154,6 +160,12 @@ function init(sequelize, logger) {
 			type: DataTypes.INTEGER,
 			allowNull: false,
 		},
+	});
+
+	// user [* - *] module
+	sequelize.models.user.belongsToMany(sequelize.models.module, {
+		through: sequelize.models.studentModules,
+		foreignKey: "user_id",
 	});
 
 	// user [1 - 1] position

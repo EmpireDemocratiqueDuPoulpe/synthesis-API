@@ -35,7 +35,7 @@ export default (router) => {
 	 * ]}
 	 */
 	route.get("/all", async (request, response) => {
-		const resp = await User.getAllStudents();
+		const resp = await User.getAllStudents(request.query);
 		response.status(resp.code).json(resp.toJSON());
 
 		logger.log("Fetch all students", { ip: request.clientIP, params: {code: resp.code} });

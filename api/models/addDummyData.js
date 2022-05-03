@@ -431,6 +431,16 @@ async function setData(sequelize, logger) {
 		},
 	]);
 
+	/* ---- studentModules -------------------------- */
+	await sequelize.models.studentModules.bulkCreate([
+		{ user_id: 2, module_id: 1000 },
+		{ user_id: 2, module_id: 1001 },
+		{ user_id: 2, module_id: 1002 },
+		{ user_id: 2, module_id: 1003 },
+		{ user_id: 2, module_id: 1004 },
+		{ user_id: 2, module_id: 1005 },
+	]);
+
 	/* ---- study ----------------------------------- */
 	await sequelize.models.study.bulkCreate([
 		{
