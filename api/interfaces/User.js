@@ -69,6 +69,7 @@ const { models } = sequelize;
 /**
  * @typedef {Object} StudentFilters
  *
+ * @property {string} campus
  * @property {("true"|"false")} withModules
  */
 
@@ -371,7 +372,7 @@ const getByUUID = async (uuid) => {
 };
 
 /**
- * Get all student from a campus
+ * Get all student
  * @function
  * @async
  *
@@ -379,6 +380,7 @@ const getByUUID = async (uuid) => {
  * @return {Promise<APIResp>}
  */
 const getAllStudents = async filters => {
+	const usableFilters = {};
 	const included = [
 		{ model: models.position, required: true, where: { name: "Étudiant" } },
 		{ model: models.campus, required: true },
@@ -386,6 +388,10 @@ const getAllStudents = async filters => {
 	];
 
 	if (filters) {
+		if (filters.campus) {
+			usableFilters["$campus.name$"] = filters.campus;
+		}
+
 		if (filters.withModules === "true") {
 			included.push({ model: models.module, required: false });
 		}
@@ -393,6 +399,7 @@ const getAllStudents = async filters => {
 
 	const students = await models.user.findAll({
 		include: included,
+		where: usableFilters,
 	});
 
 	return new APIResp(200).setData({ students });
