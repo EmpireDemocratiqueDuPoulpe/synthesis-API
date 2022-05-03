@@ -21,7 +21,8 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Students
 	 *
-	 * @param {number} campus.query - Filter by campus name
+	 * @param {string} campus.query - Filter by campus name
+	 * @param {string} withModules.query - Fetch with students modules list?
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the students are returned - application/json
 	 *
@@ -29,8 +30,16 @@ export default (router) => {
 	 * { "code": 200, "students": [
 	 *  {
 	 *    "first_name": "Pony", "last_name": "Sparks", "birth_date": "4/16/1974", "email": "pony.sparks@psindustry.com",
-	 *    "address": "Earth", "gender": "Pony", "region": "New York", "campus": "Distanciel",
-	 *    "position": { "position_id": 5, "name": "Étudiant", "permissions": {"READ_PLANNINGS": "READ_PLANNINGS"} }
+	 *    "address": "Earth", "gender": "Pony", "region": "New York",
+	 *    "position": { "position_id": 5, "name": "Étudiant", "permissions": {"READ_PLANNINGS": "READ_PLANNINGS"} },
+	 *    "campus": {
+	 *    	"campus_id": 2, "name": "Distanciel",
+	 *    	"address_street": "streeeet", "address_city": "cityyyyyy", "address_postal_code": "coode"
+	 *    },
+	 *    "study":	{
+	 *    	"study_id": 1, "entry_level": 1, "exit_level": null, "previous_level": 3, "current_level": 4,
+	 *    	"entry_date": "28/08/2008", "exit_date": null
+	 *    }
 	 *  }
 	 * ]}
 	 */
