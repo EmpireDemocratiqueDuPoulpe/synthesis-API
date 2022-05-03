@@ -90,7 +90,7 @@ const jobOffer = {
 		allowNull: true,
 		validate: {
 			isPosterior(expDate) {
-				if (Date.now() > expDate) {
+				if (expDate && Date.now() > expDate) {
 					throw new Error("La date d'expiration doit être antérieure à la date d'aujourd'hui.");
 				}
 			},

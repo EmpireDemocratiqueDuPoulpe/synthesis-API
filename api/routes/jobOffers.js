@@ -131,7 +131,7 @@ export default (router) => {
 		const resp = await JobOffer.update(request.body.jobOffer);
 		response.status(resp.code).json(resp.toJSON());
 
-		logger.log("Update a job offer by its ID", { ip: request.clientIP, params: {code: resp.code, jobOffer: request.params.jobOffer.job_offer_id} });
+		logger.log("Update a job offer by its ID", { ip: request.clientIP, params: {code: resp.code, jobOffer: request.body.jobOffer.job_offer_id} });
 	});
 
 	/* ---- DELETE ---------------------------------- */
