@@ -147,7 +147,8 @@ function expressLogger(err, request, response, next) {
 		isAPIWarn: (error instanceof APIWarn),
 		isError: (error instanceof Error),
 	};
-	const message = (!err.stack ? err.message : (`${err.message}${err.message ? "\n" : ""}${err.stack}`));
+	const stack = err.stack ? (`\t${err.stack.replace(/\n\r?/g, "\n\t")}`) : null;
+	const message = (!stack ? err.message : (`${err.message}${err.message ? "\n" : ""}${stack}`));
 
 	if (types.isAPIWarn) {
 		logger.warn(`At ${url}\n${message}`, {ip: request.clientIP});
@@ -173,6 +174,8 @@ function expressLogger(err, request, response, next) {
  * @param {e.NextFunction} next
  */
 function errorForwarder(err, request, response, next) {
+	if (response.headersSent) next();
+
 	const resp = new APIResp(err.ref.code).setData({
 		code: err.ref.code ?? 500,
 		type: (err.types.isAPIWarn ? "warning" : "error"),
