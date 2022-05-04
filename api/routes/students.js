@@ -22,7 +22,7 @@ export default (router) => {
 	 * @tags Students
 	 *
 	 * @param {string} campus.query - Filter by campus name
-	 * @param {string} withModules.query - Fetch with students modules list?
+	 * @param {string} expand.query - Fetch with associated data (campus, modules, ects)?
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the students are returned - application/json
 	 *
@@ -44,10 +44,16 @@ export default (router) => {
 	 * ]}
 	 */
 	route.get("/all", async (request, response) => {
-		const resp = await User.getAllStudents(request.query);
+		const filters = request.query;
+
+		if (filters.expand) {
+			filters.expand = filters.expand.split(",");
+		}
+
+		const resp = await User.getAllStudents(filters);
 		response.status(resp.code).json(resp.toJSON());
 
-		logger.log("Fetch all students", { ip: request.clientIP, params: {code: resp.code, ...request.query} });
+		logger.log("Fetch all students", { ip: request.clientIP, params: {code: resp.code, ...filters} });
 	});
 
 	/* ---- UPDATE ---------------------------------- */

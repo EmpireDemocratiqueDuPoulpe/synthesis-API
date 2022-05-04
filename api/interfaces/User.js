@@ -7,6 +7,7 @@
 
 import bcrypt from "bcrypt";
 import * as jose from "jose";
+import { Op } from "sequelize";
 import keys from "../joseLoader.js";
 import sequelize from "../sequelizeLoader.js";
 import { APIResp, APIError } from "../../global/global.js";
@@ -70,7 +71,7 @@ const { models } = sequelize;
  * @typedef {Object} StudentFilters
  *
  * @property {string} campus
- * @property {("true"|"false")} withModules
+ * @property {array<"campus"|"module"|"ects">} expand
  */
 
 /*****************************************************
@@ -381,9 +382,8 @@ const getByUUID = async (uuid) => {
  */
 const getAllStudents = async filters => {
 	const usableFilters = {};
-	const included = [
+	let included = [
 		{ model: models.position, required: true, where: { name: "Étudiant" } },
-		{ model: models.campus, required: true },
 		{ model: models.study, required: true },
 	];
 
@@ -392,8 +392,24 @@ const getAllStudents = async filters => {
 			usableFilters["$campus.name$"] = filters.campus;
 		}
 
-		if (filters.withModules === "true") {
-			included.push({ model: models.module, required: false });
+		if (filters.expand) {
+			included = [
+				...included,
+				(filters.expand.includes("campus") ? { model: models.campus, required: true } : {}),
+				(filters.expand.includes("module") ? {
+					model: models.module,
+					required: true,
+					...(filters.expand.includes("ects") ? {
+						include: [{
+							model: models.note,
+							required: true,
+							where: {
+								user_id: {[Op.col]: "user.user_id" },
+							},
+						}],
+					} : {}),
+				} : {}),
+			];
 		}
 	}
 
