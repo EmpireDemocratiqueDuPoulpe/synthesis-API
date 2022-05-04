@@ -70,6 +70,8 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags JobOffers
 	 *
+	 * @param {string} expired.query - Get expired job offers?
+	 *
 	 * @return {SuccessResp} 200 - **Success**: the job offers are returned - application/json
 	 *
 	 * @example response - 200 - Success response
