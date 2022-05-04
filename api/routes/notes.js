@@ -62,26 +62,6 @@ export default (router) => {
 		logger.log("Retrieves a note by his ID", { ip: request.clientIP, params: {code: resp.code, noteID: request.params.noteID} });
 	});
 
-	/**
-	 * GET /v1/notes/by-user-id/{userID}
-	 * @summary Get all notes of a user
-	 * @security BearerAuth
-	 * @tags Notes
-	 *
-	 * @param {number} userID.path.required - User id
-	 *
-	 * @return {SuccessResp} 200 - **Success**: the notes are returned - application/json
-	 *
-	 * @example response - 200 - Success response
-	 * { "code": 200, "notes": [ {"note_id": 1, "note": 9.95}, {"note_id": 45, "note": 20} ] }
-	 */
-	route.get("/by-user-id/:userID", async (request, response) => {
-		const resp = await Note.getByUserID(request.params.userID);
-		response.status(resp.code).json(resp.toJSON());
-
-		logger.log("Retrieves all notes of a user", { ip: request.clientIP, params: {code: resp.code, noteID: request.params.noteID} });
-	});
-
 	/* ---- UPDATE ---------------------------------- */
 	/* ---- DELETE ---------------------------------- */
 };
