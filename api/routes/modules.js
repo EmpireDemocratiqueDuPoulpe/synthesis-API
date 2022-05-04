@@ -67,7 +67,7 @@ export default (router) => {
 		const resp = await Module.getAll(filters);
 		response.status(resp.code).json(resp.toJSON());
 
-		logger.log("Fetch all modules", { ip: request.clientIP, params: {code: resp.code} });
+		logger.log("Fetch all modules", { ip: request.clientIP, params: {code: resp.code, ...filters} });
 	});
 
 	/**
@@ -117,7 +117,7 @@ export default (router) => {
 		const resp = await Module.getNotesByUserID(request.params.userID, filters);
 		response.status(resp.code).json(resp.toJSON());
 
-		logger.log("Retrieves all modules and notes of a user", { ip: request.clientIP, params: {code: resp.code, noteID: request.params.noteID} });
+		logger.log("Retrieves all modules and notes of a user", { ip: request.clientIP, params: {code: resp.code, noteID: request.params.noteID, ...filters} });
 	});
 
 	/* ---- UPDATE ---------------------------------- */

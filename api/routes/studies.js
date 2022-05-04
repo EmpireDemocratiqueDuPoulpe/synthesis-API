@@ -14,7 +14,6 @@ export default (router) => {
 	router.use("/studies", route);
 
 	/* ---- CREATE ---------------------------------- */
-
 	/* ---- READ ------------------------------------ */
 	/**
 	 * GET /v1/studies/by-user-id/{userID}

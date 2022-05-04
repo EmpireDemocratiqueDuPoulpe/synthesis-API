@@ -47,7 +47,7 @@ export default (router) => {
 		const resp = await User.getAllStudents(request.query);
 		response.status(resp.code).json(resp.toJSON());
 
-		logger.log("Fetch all students", { ip: request.clientIP, params: {code: resp.code} });
+		logger.log("Fetch all students", { ip: request.clientIP, params: {code: resp.code, ...request.query} });
 	});
 
 	/* ---- UPDATE ---------------------------------- */

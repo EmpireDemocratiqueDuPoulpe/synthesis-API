@@ -14,7 +14,6 @@ export default (router) => {
 	router.use("/jobs", route);
 
 	/* ---- CREATE ---------------------------------- */
-
 	/* ---- READ ------------------------------------ */
 	/**
 	 * GET /v1/jobs/all-by-user-id/{userID}

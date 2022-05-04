@@ -43,7 +43,7 @@ export default (router) => {
 		const resp = await User.add(user);
 		response.status(resp.code).json(resp.toJSON());
 
-		logger.log("Add a new user", { ip: request.clientIP, params: {code: resp.code, email: user?.email} });
+		logger.log("Add a new user", { ip: request.clientIP, params: {code: resp.code, email: user.email} });
 	});
 
 	/* ---- READ ------------------------------------ */
@@ -105,7 +105,7 @@ export default (router) => {
 		resp.setData({ user });
 		response.status(resp.code).json(resp.toJSON());
 
-		logger.log("Logs in using a JWT token", { ip: request.clientIP, params: {code: resp.code, user_id: request.user.sub} });
+		logger.log("Logs in using a JWT token", { ip: request.clientIP, params: {code: resp.code, user_id: request.user.sub, email: user.email} });
 	});
 
 	/**

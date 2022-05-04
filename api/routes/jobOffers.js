@@ -84,7 +84,7 @@ export default (router) => {
 		const resp = await JobOffer.getAll(request.query);
 		response.status(resp.code).json(resp.toJSON());
 
-		logger.log("Retrieves all job offers", { ip: request.clientIP, params: {code: resp.code} });
+		logger.log("Retrieves all job offers", { ip: request.clientIP, params: {code: resp.code, ...request.query} });
 	});
 
 	/**
@@ -159,6 +159,6 @@ export default (router) => {
 		const resp = await JobOffer.delete(request.body.jobOfferID);
 		response.status(resp.code).json(resp.toJSON());
 
-		logger.log("Deletes a job offer by its ID", { ip: request.clientIP, params: {code: resp.code, jobOfferID: request.params.jobOfferID} });
+		logger.log("Deletes a job offer by its ID", { ip: request.clientIP, params: {code: resp.code, jobOfferID: request.body.jobOfferID} });
 	});
 };
