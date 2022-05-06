@@ -406,7 +406,7 @@ async function setData(sequelize, logger) {
 			email: "siredward.weakass@caramail.co.uk",
 			password: "$2b$10$sbcqNmQi3DoIDQG1zbB9degN.toQN4hn2T562.yubcPvDra/RT46.", // "Mot De P4sse"
 			address: { street: "This is my street.", city: "London", postalCode: "45789" },
-			gender: "Knight",
+			gender: "homme",
 			region: "UK",
 		},
 		{
@@ -416,8 +416,28 @@ async function setData(sequelize, logger) {
 			email: "jay.rate@forni.te",
 			password: "$2b$10$sbcqNmQi3DoIDQG1zbB9degN.toQN4hn2T562.yubcPvDra/RT46.", // "Mot De P4sse"
 			address: { street: "Tomato Plaza", city: "Map de frotnite", postalCode: "0000" },
-			gender: "Homme",
+			gender: "homme",
 			region: "France",
+		},
+		{
+			position_id: 5, campus_id: 1004,
+			first_name: "Johnny", last_name: "Hotbody",
+			birth_date: "2019-01-29",
+			email: "johnny.hotbody@bodylan.de",
+			password: "$2b$10$sbcqNmQi3DoIDQG1zbB9degN.toQN4hn2T562.yubcPvDra/RT46.", // "Mot De P4sse"
+			address: { street: "Absville", city: "Bodylande", postalCode: "12345" },
+			gender: "homme",
+			region: "US",
+		},
+		{
+			position_id: 5, campus_id: 1005,
+			first_name: "yo", last_name: "mom",
+			birth_date: "0001-01-01",
+			email: "yo.mom@so.fat",
+			password: "$2b$10$sbcqNmQi3DoIDQG1zbB9degN.toQN4hn2T562.yubcPvDra/RT46.", // "Mot De P4sse"
+			address: { street: "Yo mom so fat", city: "She's a black hole", postalCode: "(haha)" },
+			gender: "femme",
+			region: "US",
 		},
 		{
 			position_id: 2, campus_id: 1003,
@@ -439,12 +459,22 @@ async function setData(sequelize, logger) {
 		{ user_id: 2, module_id: 1003 },
 		{ user_id: 2, module_id: 1004 },
 		{ user_id: 2, module_id: 1005 },
+		{ user_id: 3, module_id: 1018 },
+		{ user_id: 3, module_id: 1019 },
+		{ user_id: 3, module_id: 1020 },
+		{ user_id: 2, module_id: 1021 },
+		{ user_id: 2, module_id: 1022 },
+		{ user_id: 2, module_id: 1023 },
+		{ user_id: 4, module_id: 1007 },
+		{ user_id: 4, module_id: 1008 },
+		{ user_id: 4, module_id: 1009 },
+		{ user_id: 4, module_id: 1010 },
 	]);
 
 	/* ---- study ----------------------------------- */
 	await sequelize.models.study.bulkCreate([
 		{
-			study_id: 1,
+			study_id: 1000,
 			entry_level: 1,
 			exit_level: 5,
 			previous_level: 3,
@@ -452,6 +482,26 @@ async function setData(sequelize, logger) {
 			entry_date: "06/01/22 04:11:05",
 			exit_date: "06/01/22 04:11:05",
 			user_id: 2,
+		},
+		{
+			study_id: 1001,
+			entry_level: 1,
+			exit_level: null,
+			previous_level: 2,
+			current_level: 3,
+			entry_date: "2019-01-29",
+			exit_date: null,
+			user_id: 3,
+		},
+		{
+			study_id: 1002,
+			entry_level: 1,
+			exit_level: null,
+			previous_level: 0,
+			current_level: 1,
+			entry_date: "06/05/22 07:54:05",
+			exit_date: null,
+			user_id: 4,
 		},
 	]);
 
