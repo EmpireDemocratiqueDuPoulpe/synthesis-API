@@ -113,7 +113,8 @@ const user = {
 		allowNull: true,
 	},
 	gender: {
-		type: DataTypes.STRING,
+		type: DataTypes.ENUM,
+		values: ["homme", "femme"],
 		allowNull: true,
 	},
 	region: {
