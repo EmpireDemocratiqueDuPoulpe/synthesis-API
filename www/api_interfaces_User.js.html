@@ -513,11 +513,11 @@ const getAllStudents = async filters => {
 				(filters.expand.includes("campus") ? { model: models.campus, required: true } : {}),
 				(filters.expand.includes("module") ? {
 					model: models.module,
-					required: true,
+					required: false,
 					...(filters.expand.includes("ects") ? {
 						include: [{
 							model: models.note,
-							required: true,
+							required: false,
 							where: {
 								user_id: {[Op.col]: "user.user_id" },
 							},
