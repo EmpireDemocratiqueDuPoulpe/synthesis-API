@@ -11,6 +11,6 @@ export { default as Note } from "./note.js";
 export { default as Permission } from "./permission.js";
 export { default as Position } from "./position.js";
 export { default as PositionPermissions } from "./positionPermissions.js";
-export { default as StudentModules } from "./studentModules.js";
+export { default as UserModules } from "./userModules.js";
 export { default as Study } from "./study.js";
 export { default as User } from "./user.js";

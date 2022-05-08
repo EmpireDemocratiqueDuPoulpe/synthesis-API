@@ -351,6 +351,7 @@ async function setData(sequelize, logger) {
 		{ name: "Direction académique" },
 		{ name: "Administration" },
 		{ name: "Pédagogie" },
+		{ name: "Intervenant" },
 		{ name: "Étudiant" },
 	]);
 
@@ -410,7 +411,7 @@ async function setData(sequelize, logger) {
 			region: "UK",
 		},
 		{
-			position_id: 5, campus_id: 1001,
+			position_id: 6, campus_id: 1001,
 			first_name: "Jay", last_name: "Raté Mon Année À L'Aide",
 			birth_date: "2002-06-24",
 			email: "jay.rate@forni.te",
@@ -420,7 +421,7 @@ async function setData(sequelize, logger) {
 			region: "France",
 		},
 		{
-			position_id: 5, campus_id: 1004,
+			position_id: 6, campus_id: 1004,
 			first_name: "Johnny", last_name: "Hotbody",
 			birth_date: "2019-01-29",
 			email: "johnny.hotbody@bodylan.de",
@@ -430,7 +431,7 @@ async function setData(sequelize, logger) {
 			region: "US",
 		},
 		{
-			position_id: 5, campus_id: 1005,
+			position_id: 6, campus_id: 1005,
 			first_name: "yo", last_name: "mom",
 			birth_date: "0001-01-01",
 			email: "yo.mom@so.fat",
@@ -449,10 +450,20 @@ async function setData(sequelize, logger) {
 			gender: "homme",
 			region: "US",
 		},
+		{
+			position_id: 5, campus_id: 1003,
+			first_name: "Space", last_name: "Odin",
+			birth_date: "0001-01-01",
+			email: "space.odin@spacesh.ip",
+			password: "$2b$10$sbcqNmQi3DoIDQG1zbB9degN.toQN4hn2T562.yubcPvDra/RT46.", // "Mot De P4sse"
+			address: { street: "Andromeda", city: "X4s-GA5", postalCode: "3,1415" },
+			gender: "homme",
+			region: "Espace de la confédération galactique",
+		},
 	]);
 
-	/* ---- studentModules -------------------------- */
-	await sequelize.models.studentModules.bulkCreate([
+	/* ---- userModules ----------------------------- */
+	await sequelize.models.userModules.bulkCreate([
 		{ user_id: 2, module_id: 1000 },
 		{ user_id: 2, module_id: 1001 },
 		{ user_id: 2, module_id: 1002 },
@@ -469,6 +480,9 @@ async function setData(sequelize, logger) {
 		{ user_id: 4, module_id: 1008 },
 		{ user_id: 4, module_id: 1009 },
 		{ user_id: 4, module_id: 1010 },
+		{ user_id: 6, module_id: 1000 },
+		{ user_id: 6, module_id: 1005 },
+		{ user_id: 6, module_id: 1010 },
 	]);
 
 	/* ---- study ----------------------------------- */

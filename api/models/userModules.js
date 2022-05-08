@@ -1,5 +1,5 @@
 /**
- * @module studentModules
+ * @module userModules
  * @category API
  * @subcategory Models
  * @author Alexis L. <alexis.lecomte@supinfo.com>
@@ -23,7 +23,7 @@ import { DataTypes } from "sequelize";
  *  }
  * }
  */
-const studentModules = {
+const userModules = {
 	user_id: {
 		type: DataTypes.INTEGER,
 		references: {
@@ -48,7 +48,7 @@ const studentModules = {
  * @param {string} name - The file name used for the definition
  */
 export const define = (sequelize, name) => {
-	sequelize.define(name, studentModules);
+	sequelize.define(name, userModules);
 };
 
-export default studentModules;
+export default userModules;
