@@ -95,6 +95,17 @@ const getAll = async filters => {
 		}
 	}
 	const modules = await models.module.findAll({
+		include: [{
+			model: models.user,
+			required: false,
+			include: [{
+				model: models.position,
+				required: true,
+				where: {
+					name: "Intervenant",
+				},
+			}],
+		}],
 		where: usableFilters,
 		order: [ ["year", "ASC"] ],
 	});
