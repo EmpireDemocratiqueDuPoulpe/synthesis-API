@@ -74,6 +74,13 @@ const { models } = sequelize;
  * @property {array<"campus"|"module"|"ects">} expand
  */
 
+/**
+ * @typedef {Object} SeqStudentFilters
+ *
+ * @property {Object} where - Where clause
+ * @property {Array<{model: Object, where: Object, required: boolean}>} include - Include clause
+ */
+
 /*****************************************************
  * Functions
  *****************************************************/
@@ -180,7 +187,7 @@ const buildPermissions = (user) => {
 };
 
 /*****************************************************
- * CRUD Methods
+ * CRUD Methods - Users
  *****************************************************/
 
 /* ---- CREATE ---------------------------------- */
@@ -372,29 +379,32 @@ const getByUUID = async (uuid) => {
 	return new APIResp(200).setData({ user: userJSON });
 };
 
+/*****************************************************
+ * CRUD Methods - Students
+ *****************************************************/
+
 /**
- * Get all student
+ * Transform URI query params to sequelize `where` and `include` clauses.
  * @function
- * @async
  *
  * @param {StudentFilters} filters
- * @return {Promise<APIResp>}
+ * @return {SeqStudentFilters}
  */
-const getAllStudents = async filters => {
-	const usableFilters = {};
-	let included = [
+const processStudentFilters = filters => {
+	const where = {};
+	let include = [
 		{ model: models.position, required: true, where: { name: "Étudiant" } },
 		{ model: models.study, required: true },
 	];
 
 	if (filters) {
 		if (filters.campus) {
-			usableFilters["$campus.name$"] = filters.campus;
+			where["$campus.name$"] = filters.campus;
 		}
 
 		if (filters.expand) {
-			included = [
-				...included,
+			include = [
+				...include,
 				(filters.expand.includes("campus") ? { model: models.campus, required: true } : {}),
 				(filters.expand.includes("module") ? {
 					model: models.module,
@@ -413,12 +423,55 @@ const getAllStudents = async filters => {
 		}
 	}
 
+	return { where, include };
+};
+
+/**
+ * Get all student
+ * @function
+ * @async
+ *
+ * @param {StudentFilters} filters
+ * @return {Promise<APIResp>}
+ */
+const getAllStudents = async filters => {
+	const clauses = processStudentFilters(filters);
+
 	const students = await models.user.findAll({
-		include: included,
-		where: usableFilters,
+		attributes: { exclude: ["password"] },
+		include: clauses.include,
+		where: clauses.where,
 	});
 
 	return new APIResp(200).setData({ students });
+};
+
+/**
+ * Get all student
+ * @function
+ * @async
+ *
+ * @param {string} uuid
+ * @param {StudentFilters} filters
+ * @return {Promise<APIResp>}
+ */
+const getStudentByUUID = async (uuid, filters) => {
+	const clauses = processStudentFilters(filters);
+
+	const student = await models.user.findOne({
+		attributes: { exclude: ["password"] },
+		include: clauses.include,
+		where: {
+			...clauses.where,
+			uuid: uuid,
+		},
+	});
+
+	if (!student) {
+		throw new APIError(404, `Cet étudiant (${uuid}) n'existe pas.`);
+	}
+
+	return new APIResp(200).setData({ student });
 };
 
 /* ---- UPDATE ---------------------------------- */
@@ -429,7 +482,7 @@ const getAllStudents = async filters => {
  *****************************************************/
 
 const User = {
-	add,																								// CREATE
-	login, getAll, getByID, getByUUID, getAllStudents,	// READ
+	/* CREATE */ add,
+	/* READ */ login, getAll, getByID, getByUUID, getAllStudents, getStudentByUUID,
 };
 export default User;
