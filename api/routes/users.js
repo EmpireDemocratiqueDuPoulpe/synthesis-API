@@ -163,7 +163,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Users
 	 *
-	 * @param {number} UUID.path.required - UUIDv4
+	 * @param {string} UUID.path.required - UUIDv4
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the user is returned - application/json
 	 *
