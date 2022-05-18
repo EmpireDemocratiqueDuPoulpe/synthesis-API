@@ -407,6 +407,7 @@ async function setData(sequelize, logger) {
 
 	/* ---- user ------------------------------------ */
 	await sequelize.models.user.bulkCreate([
+		// Admin. plateforme
 		{
 			position_id: 1, campus_id: 1002,
 			first_name: "Sir Edward", last_name: "Weak Ass",
@@ -417,6 +418,7 @@ async function setData(sequelize, logger) {
 			gender: "homme",
 			region: "UK",
 		},
+		// Étudiant
 		{
 			position_id: 6, campus_id: 1001,
 			first_name: "Jay", last_name: "Raté Mon Année À L'Aide",
@@ -447,6 +449,7 @@ async function setData(sequelize, logger) {
 			gender: "femme",
 			region: "US",
 		},
+		// Direction académique
 		{
 			position_id: 2, campus_id: 1003,
 			first_name: "Pony", last_name: "Sparks",
@@ -457,6 +460,7 @@ async function setData(sequelize, logger) {
 			gender: "homme",
 			region: "US",
 		},
+		// Intervenant
 		{
 			position_id: 5, campus_id: 1003,
 			first_name: "Space", last_name: "Odin",
@@ -466,6 +470,17 @@ async function setData(sequelize, logger) {
 			address: { street: "Andromeda", city: "X4s-GA5", postalCode: "3,1415" },
 			gender: "homme",
 			region: "Espace de la confédération galactique",
+		},
+		// Pédagogie
+		{
+			position_id: 4, campus_id: 1004,
+			first_name: "Gorge W.", last_name: "Bouche",
+			birth_date: "1946-07-06",
+			email: "gorge.w@bouc.he",
+			password: "$2b$10$sbcqNmQi3DoIDQG1zbB9degN.toQN4hn2T562.yubcPvDra/RT46.", // "Mot De P4sse"
+			address: { street: "États-Unis du Corps", city: "Tête", postalCode: "00000" },
+			gender: "homme",
+			region: "Maestro Secret Room",
 		},
 	]);
 
