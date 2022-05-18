@@ -507,7 +507,7 @@ const getByUUID = async (uuid) => {
  */
 const processStudentFilters = filters => {
 	const where = {};
-	let include = [
+	const include = [
 		{ model: models.position, required: true, where: { name: "Étudiant" } },
 		{ model: models.study, required: true },
 	];
@@ -518,23 +518,25 @@ const processStudentFilters = filters => {
 		}
 
 		if (filters.expand) {
-			include = [
-				...include,
-				(filters.expand.includes("campus") ? { model: models.campus, required: true } : {}),
-				(filters.expand.includes("module") ? {
-					model: models.module,
-					required: false,
-					...(filters.expand.includes("ects") ? {
-						include: [{
-							model: models.note,
-							required: false,
-							where: {
-								user_id: {[Op.col]: "user.user_id" },
-							},
-						}],
-					} : {}),
-				} : {}),
-			];
+			if (filters.expand.includes("campus")) {
+				include.push({ model: models.campus, required: true });
+			}
+
+			if (filters.expand.includes("module")) {
+				const subProps = {};
+
+				if (filters.expand.includes("ects")) {
+					subProps.include = [{
+						model: models.note,
+						required: false,
+						where: {
+							user_id: {[Op.col]: "user.user_id" },
+						},
+					}];
+				}
+
+				include.push({ model: models.module, required: false, ...subProps });
+			}
 		}
 	}
 
