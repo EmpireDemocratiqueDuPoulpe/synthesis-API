@@ -196,6 +196,20 @@ const { models } = sequelize;
  * @property {Array&lt;{model: Object, where: Object, required: boolean}>} include - Include clause
  */
 
+/**
+ * @typedef {Object} SCTsFilters
+ *
+ * @property {string} campus
+ * @property {array&lt;"campus"|"module">} expand
+ */
+
+/**
+ * @typedef {Object} SeqSCTsFilters
+ *
+ * @property {Object} where - Where clause
+ * @property {Array&lt;{model: Object, where: Object, required: boolean}>} include - Include clause
+ */
+
 /*****************************************************
  * Functions
  *****************************************************/
@@ -299,6 +313,83 @@ const buildPermissions = (user) => {
 	userJSON.position.permissions.forEach((p, i, arr) => (arr[i] = p.name));
 
 	return userJSON;
+};
+
+/**
+ * Transform URI query params to sequelize `where` and `include` clauses.
+ * @function
+ *
+ * @param {StudentFilters} filters
+ * @return {SeqStudentFilters}
+ */
+const processStudentFilters = filters => {
+	const where = {};
+	const include = [
+		{ model: models.position, required: true, where: { name: "Étudiant" } },
+		{ model: models.study, required: true },
+	];
+
+	if (filters) {
+		if (filters.campus) {
+			where["$campus.name$"] = filters.campus;
+		}
+
+		if (filters.expand) {
+			if (filters.expand.includes("campus")) {
+				include.push({ model: models.campus, required: true });
+			}
+
+			if (filters.expand.includes("module")) {
+				const subProps = {};
+
+				if (filters.expand.includes("ects")) {
+					subProps.include = [{
+						model: models.note,
+						required: false,
+						where: {
+							user_id: {[Op.col]: "user.user_id" },
+						},
+					}];
+				}
+
+				include.push({ model: models.module, required: false, ...subProps });
+			}
+		}
+	}
+
+	return { where, include };
+};
+
+/**
+ * Transform URI query params to sequelize `where` and `include` clauses.
+ * @function
+ *
+ * @param {SCTsFilters} filters
+ * @return {SeqSCTsFilters}
+ */
+const processSCTFilters = filters => {
+	const where = {};
+	const include = [
+		{ model: models.position, required: true, where: { name: "Intervenant" } },
+	];
+
+	if (filters) {
+		if (filters.campus) {
+			where["$campus.name$"] = filters.campus;
+		}
+
+		if (filters.expand) {
+			if (filters.expand.includes("campus")) {
+				include.push({ model: models.campus, required: true });
+			}
+
+			if (filters.expand.includes("module")) {
+				include.push({ model: models.module, required: false });
+			}
+		}
+	}
+
+	return { where, include };
 };
 
 /*****************************************************
@@ -498,51 +589,8 @@ const getByUUID = async (uuid) => {
  * CRUD Methods - Students
  *****************************************************/
 
-/**
- * Transform URI query params to sequelize `where` and `include` clauses.
- * @function
- *
- * @param {StudentFilters} filters
- * @return {SeqStudentFilters}
- */
-const processStudentFilters = filters => {
-	const where = {};
-	const include = [
-		{ model: models.position, required: true, where: { name: "Étudiant" } },
-		{ model: models.study, required: true },
-	];
-
-	if (filters) {
-		if (filters.campus) {
-			where["$campus.name$"] = filters.campus;
-		}
-
-		if (filters.expand) {
-			if (filters.expand.includes("campus")) {
-				include.push({ model: models.campus, required: true });
-			}
-
-			if (filters.expand.includes("module")) {
-				const subProps = {};
-
-				if (filters.expand.includes("ects")) {
-					subProps.include = [{
-						model: models.note,
-						required: false,
-						where: {
-							user_id: {[Op.col]: "user.user_id" },
-						},
-					}];
-				}
-
-				include.push({ model: models.module, required: false, ...subProps });
-			}
-		}
-	}
-
-	return { where, include };
-};
-
+/* ---- CREATE ---------------------------------- */
+/* ---- READ ------------------------------------ */
 /**
  * Get all student
  * @function
@@ -564,7 +612,7 @@ const getAllStudents = async filters => {
 };
 
 /**
- * Get all student
+ * Get a student by its UUID
  * @function
  * @async
  *
@@ -595,12 +643,41 @@ const getStudentByUUID = async (uuid, filters) => {
 /* ---- DELETE ---------------------------------- */
 
 /*****************************************************
+ * CRUD Methods - SCTs
+ *****************************************************/
+
+/* ---- CREATE ---------------------------------- */
+/* ---- READ ------------------------------------ */
+/**
+ * Get all SCTs
+ * @function
+ * @async
+ *
+ * @param {SCTsFilters} filters
+ * @return {Promise&lt;APIResp>}
+ */
+const getAllSCTs = async filters => {
+	const clauses = processSCTFilters(filters);
+
+	const scts = await models.user.findAll({
+		attributes: { exclude: ["password"] },
+		include: clauses.include,
+		where: clauses.where,
+	});
+
+	return new APIResp(200).setData({ scts });
+};
+
+/* ---- UPDATE ---------------------------------- */
+/* ---- DELETE ---------------------------------- */
+
+/*****************************************************
  * Export
  *****************************************************/
 
 const User = {
 	/* CREATE */ add,
-	/* READ */ login, getAll, getByID, getByUUID, getAllStudents, getStudentByUUID,
+	/* READ */ login, getAll, getByID, getByUUID, getAllStudents, getStudentByUUID, getAllSCTs,
 };
 export default User;
 </code></pre>
