@@ -19,10 +19,10 @@ export default (router) => {
 	 * GET /v1/students/all
 	 * @summary Get all students
 	 * @security BearerAuth
-	 * @tags Students
+	 * @tags Users [Students]
 	 *
 	 * @param {string} campus.query - Filter by campus name
-	 * @param {string} expand.query - Fetch with associated data (campus, modules, ects)?
+	 * @param {string} expand.query - Fetch with associated data (campus, module, ects)?
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the students are returned - application/json
 	 *
@@ -60,7 +60,7 @@ export default (router) => {
 	 * GET /v1/students/by-uuid/{UUID}
 	 * @summary Get a student by its UUID
 	 * @security BearerAuth
-	 * @tags Students
+	 * @tags Users [Students]
 	 *
 	 * @param {string} UUID.path.required - UUIDv4
 	 * @param {string} campus.query - Filter by campus name
@@ -72,7 +72,7 @@ export default (router) => {
 	 * { "code": 200, "students": {
 	 *    "first_name": "Pony", "last_name": "Sparks", "birth_date": "4/16/1974", "email": "pony.sparks@psindustry.com",
 	 *    "address": "Earth", "gender": "Pony", "region": "New York",
-	 *    "position": { "position_id": 5, "name": "Étudiant", "permissions": {"READ_PLANNINGS": "READ_PLANNINGS"} },
+	 *    "position": { "position_id": 6, "name": "Étudiant", "permissions": {"READ_PLANNINGS": "READ_PLANNINGS"} },
 	 *    "campus": {
 	 *    	"campus_id": 2, "name": "Distanciel",
 	 *    	"address_street": "streeeet", "address_city": "cityyyyyy", "address_postal_code": "coode"
