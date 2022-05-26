@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CBEM - API api/middlewares/tokenAssembler.js</title>
+  <title>CBEM - API api/interfaces/ModulePlanning.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -104,7 +104,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>api/middlewares/tokenAssembler.js</h1>
+                    <h1>api/interfaces/ModulePlanning.js</h1>
                 </header>
                 
 
@@ -114,53 +114,104 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @module TokenAssembler
- * @author Alexis L. &lt;alexis.lecomte@supinfo.com>
- * @category Middlewares
- * @subcategory Authentication
+ * @module ModulePlanning
+ * @category API
+ * @subcategory Interfaces
+ * @author Maxence P. &lt;maxence.pawlowski@supinfo.com>
+ */
+
+import { Op } from "sequelize";
+import sequelize from "../sequelizeLoader.js";
+import { APIResp, APIError } from "../../global/global.js";
+
+/**
+ * Sequelize models
+ * @const
+ * @name models
+ * @type {Object&lt;Sequelize.models>}
+ */
+const { models } = sequelize;
+
+/**
+ * @typedef {Object} NewModulePlanning
+ *
+ * @property {number} module_id
+ * @property {date} date
+ * @property {number} consecutive_days
  */
 
 /**
- * Merge `tokenPayload` and `tokenSignature`
- * @function
+ * @typedef {Object} ModulePlanningFilters
  *
- * @param {e.Request} request
- * @param {e.Response} response
- * @param {e.NextFunction} next
+ * @property {number} year
  */
-function tokenAssembler(request, response, next) {
-	const { tokenPayload, tokenSignature } = parseCookies(request.headers.cookie);
 
-	if (tokenPayload &amp;&amp; tokenSignature) {
-		const token = `${tokenPayload}.${tokenSignature}`;
-		request.headers["authorization"] = `Bearer ${token}`;
+/*****************************************************
+ * Functions
+ *****************************************************/
+
+/*****************************************************
+ * CRUD Methods
+ *****************************************************/
+
+/* ---- READ ------------------------------------ */
+/**
+ * Get all modules planning
+ * @function
+ * @async
+ *
+ * @param {ModulePlanningFilters} filters
+ * @return {Promise&lt;APIResp>}
+ */
+const getAll = async filters => {
+	const usableFilters = {};
+
+	if (filters) {
+		if (filters.year) {
+			usableFilters.year = {
+				[Op.eq]: filters.year,
+			};
+		}
 	}
+	const modulesPlanning = await models.modulePlanning.findAll({
+		where: usableFilters,
+	});
 
-	next();
-}
+	return new APIResp(200).setData({ modulesPlanning });
+};
 
 /**
- * Parse the cookie string to an Object
+ * Get one module planning by its id
  * @function
- * @private
+ * @async
  *
- * @param {string} cookies
- * @return {Object}
+ * @param {number} planningID
+ * @throws {APIError}
+ * @return {Promise&lt;APIResp>}
  */
-function parseCookies(cookies) {
-	if (!cookies) return {};
-	const rawCookies = cookies.split("; ");
-	const parsedCookies = {};
+const getByID = async (planningID) => {
+	const modulePlanning = await models.modulePlanning.findOne({
+		where: { planning_id: planningID },
+	});
 
-	for (const cookie of rawCookies) {
-		const parsed = cookie.split("=");
-		parsedCookies[parsed[0]] = parsed[1];
+	if (!modulePlanning) {
+		throw new APIError(404, `Ce planning de module (${planningID}) n'existe pas.`);
 	}
 
-	return parsedCookies;
-}
+	return new APIResp(200).setData({ modulePlanning });
+};
 
-export default tokenAssembler;
+/* ---- UPDATE ---------------------------------- */
+/* ---- DELETE ---------------------------------- */
+
+/*****************************************************
+ * Export
+ *****************************************************/
+
+const ModulePlanning = {
+	getAll, getByID,	// READ
+};
+export default ModulePlanning;
 </code></pre>
         </article>
     </section>

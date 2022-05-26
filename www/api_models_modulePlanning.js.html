@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CBEM - API api/middlewares/tokenAssembler.js</title>
+  <title>CBEM - API api/models/modulePlanning.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -104,7 +104,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>api/middlewares/tokenAssembler.js</h1>
+                    <h1>api/models/modulePlanning.js</h1>
                 </header>
                 
 
@@ -114,53 +114,84 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @module TokenAssembler
- * @author Alexis L. &lt;alexis.lecomte@supinfo.com>
- * @category Middlewares
- * @subcategory Authentication
+ * @module planning
+ * @category API
+ * @subcategory Models
+ * @author Maxence P. &lt;maxence.pawlowski@supinfo.com>
  */
+
+import { DataTypes } from "sequelize";
 
 /**
- * Merge `tokenPayload` and `tokenSignature`
- * @function
+ * @const
+ * @type {Object}
  *
- * @param {e.Request} request
- * @param {e.Response} response
- * @param {e.NextFunction} next
+ * @example
+ * {
+ *  planning_id: {
+ *    type: DataTypes.INTEGER,
+ *    primaryKey: boolean,
+ *    allowNull: boolean,
+ *    autoIncrement: boolean
+ *  },
+ *  date: {
+ *    type: DataTypes.DATE,
+ *    allowNull: boolean,
+ *    validate: { isDate: boolean }
+ *  },
+ *  consecutive_days: {
+ *    type: DataTypes.STRING,
+ *    allowNull: boolean,
+ *    validate: { notEmpty: boolean }
+ *  }
+ * }
  */
-function tokenAssembler(request, response, next) {
-	const { tokenPayload, tokenSignature } = parseCookies(request.headers.cookie);
-
-	if (tokenPayload &amp;&amp; tokenSignature) {
-		const token = `${tokenPayload}.${tokenSignature}`;
-		request.headers["authorization"] = `Bearer ${token}`;
-	}
-
-	next();
-}
+const planning = {
+	planning_id: {
+		type: DataTypes.INTEGER,
+		primaryKey: true,
+		allowNull: false,
+		autoIncrement: true,
+	},
+	date: {
+		type: DataTypes.DATE,
+		allowNull: false,
+		validate: {
+			isDate: true,
+		},
+	},
+	consecutive_days: {
+		type: DataTypes.SMALLINT,
+		allowNull: false,
+		validate: { min: 1 },
+	},
+	event_name: {
+		type: DataTypes.STRING,
+		allowNull: false,
+	},
+	event_type: {
+		type: DataTypes.STRING,
+		allowNull: false,
+	},
+	year: {
+		type: DataTypes.SMALLINT,
+		allowNull: true,
+		validate: { min: 1 },
+	},
+};
 
 /**
- * Parse the cookie string to an Object
+ * Define the model
  * @function
- * @private
  *
- * @param {string} cookies
- * @return {Object}
+ * @param {Sequelize} sequelize
+ * @param {string} name - The file name used for the definition
  */
-function parseCookies(cookies) {
-	if (!cookies) return {};
-	const rawCookies = cookies.split("; ");
-	const parsedCookies = {};
+export const define = (sequelize, name) => {
+	sequelize.define(name, planning);
+};
 
-	for (const cookie of rawCookies) {
-		const parsed = cookie.split("=");
-		parsedCookies[parsed[0]] = parsed[1];
-	}
-
-	return parsedCookies;
-}
-
-export default tokenAssembler;
+export default planning;
 </code></pre>
         </article>
     </section>
