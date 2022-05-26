@@ -4,6 +4,7 @@ export { default as jobs } from "./jobs.js";
 export { default as jobDomains } from "./jobDomains.js";
 export { default as jobOffers } from "./jobOffers.js";
 export { default as modules } from "./modules.js";
+export { default as modulePlanning } from "./modulePlanning.js";
 export { default as notes } from "./notes.js";
 export { default as permissions } from "./permissions.js";
 export { default as resits } from "./resits.js";

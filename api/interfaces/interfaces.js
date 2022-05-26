@@ -5,6 +5,7 @@ export { default as Job } from "./Job.js";
 export { default as JobDomain } from "./JobDomain.js";
 export { default as JobOffer } from "./JobOffer.js";
 export { default as Module } from "./Module.js";
+export { default as ModulePlanning } from "./ModulePlanning.js";
 export { default as Note } from "./Note.js";
 export { default as Permission } from "./Permission.js";
 export { default as Study } from "./Study.js";

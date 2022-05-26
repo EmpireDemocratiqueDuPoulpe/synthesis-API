@@ -198,6 +198,45 @@ function init(sequelize, logger) {
 		},
 	});
 
+	/* ---- planning ------------------------------------ */
+	// module [1 - *] planning
+	sequelize.models.module.hasMany(sequelize.models.planning, {
+		foreignKey: {
+			name: "module_id",
+			type: DataTypes.INTEGER,
+			allowNull: true,
+		},
+	});
+
+	// planning [* - 1] module
+	sequelize.models.planning.belongsTo(sequelize.models.module, {
+		foreignKey: {
+			name: "planning_id",
+			type: DataTypes.INTEGER,
+			allowNull: true,
+		},
+		constraints: false,
+	});
+
+	// user [1 - *] planning
+	sequelize.models.user.hasMany(sequelize.models.planning, {
+		foreignKey: {
+			name: "user_id",
+			type: DataTypes.INTEGER,
+			allowNull: true,
+		},
+	});
+
+	// planning [* - 1] user
+	sequelize.models.planning.belongsTo(sequelize.models.user, {
+		foreignKey: {
+			name: "planning_id",
+			type: DataTypes.INTEGER,
+			allowNull: true,
+		},
+		constraints: false,
+	});
+
 	logger.log(`Completed associations of the ${Object.keys(sequelize.models).length} models`);
 }
 
