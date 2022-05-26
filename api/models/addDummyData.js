@@ -538,7 +538,7 @@ async function setData(sequelize, logger) {
 		},
 	]);
 
-	/* ---- jobs ------------------------------------ */
+	/* ---- job ------------------------------------- */
 	await sequelize.models.job.bulkCreate([
 		{
 			job_id: 1000,
@@ -546,7 +546,7 @@ async function setData(sequelize, logger) {
 			start_date: "06/01/22 04:11:05",
 			end_date: "07/01/22 04:11:05",
 			company_name: "Supfinfo",
-			user_id: 1000,
+			user_id: 1001,
 		},
 		{
 			job_id: 1001,
@@ -554,7 +554,7 @@ async function setData(sequelize, logger) {
 			start_date: "06/01/22 04:11:05",
 			end_date: "07/01/22 04:11:05",
 			company_name: "Supfinfo",
-			user_id: 1000,
+			user_id: 1002,
 		},
 	]);
 
