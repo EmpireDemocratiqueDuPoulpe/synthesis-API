@@ -3,7 +3,6 @@ import http from "http";
 import https from "https";
 import fs from "fs";
 import urljoin from "urljoin";
-import url from "url";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
