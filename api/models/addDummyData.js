@@ -622,17 +622,21 @@ async function setData(sequelize, logger) {
 	]);
 
 	/* ---- modulePlanning ---------------------------------- */
-	await sequelize.models.modulePlanning.bulkCreate([
+	await sequelize.models.planning.bulkCreate([
 		{
 			module_id: 1000,
 			date: "2022-05-09",
 			consecutive_days: 1,
+			event_name: "McDonald",
+			event_type: "food",
 			campus_id: 1001,
 		},
 		{
 			module_id: 1000,
 			date: "2022-05-16",
 			consecutive_days: 3,
+			event_name: "Manucure d'Alexis",
+			event_type: "shopping",
 			campus_id: 1001,
 		},
 	]);

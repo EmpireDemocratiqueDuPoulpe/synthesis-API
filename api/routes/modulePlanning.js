@@ -26,7 +26,8 @@ export default (router) => {
 	 *
 	 * @example response - 200 - Success response
 	 * { "code": 200, "modulesPlanning": [
-	 *  { "module_id": 1, "year": 4, "name": "PROJ", "long_name": "Projet de fin d'année", "planning_id": 4, "date": "16/05/2022", "consecutive_days": 3, "campus_id": 1001 }
+	 *  { "module_id": 1, "year": 4, "name": "PROJ", "long_name": "Projet de fin d'année", "planning_id": 4,
+	 *  "date": "16/05/2022", "consecutive_days": 3, "campus_id": 1001 }
 	 * ]}
 	 */
 	route.get("/all", async (request, response) => {
