@@ -11,7 +11,7 @@ import {
 	jobs, jobDomains, jobOffers,
 	modules, modulePlanning, notes,
 	permissions,
-	users, students,
+	users, scts, students,
 	studies,
 } from "./routes/routes.js";
 import { tokenAssembler, endHandler } from "./middlewares/middlewares.js";
@@ -53,6 +53,7 @@ export default () => {
 	modulePlanning(router);
 	notes(router);
 	permissions(router);
+	scts(router);
 	students(router);
 	studies(router);
 	users(router);

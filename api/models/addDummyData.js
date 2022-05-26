@@ -351,6 +351,7 @@ async function setData(sequelize, logger) {
 		{ name: "Direction académique" },
 		{ name: "Administration" },
 		{ name: "Pédagogie" },
+		{ name: "Intervenant" },
 		{ name: "Étudiant" },
 	]);
 
@@ -382,23 +383,32 @@ async function setData(sequelize, logger) {
 		{ position_id: 4, permission_id: 1005 },
 		{ position_id: 4, permission_id: 1014 },
 		{ position_id: 4, permission_id: 1010 },
+		{ position_id: 4, permission_id: 1011 },
 		{ position_id: 4, permission_id: 1003 },
 		{ position_id: 4, permission_id: 1004 },
 		{ position_id: 4, permission_id: 1016 },
 		{ position_id: 4, permission_id: 1018 },
 		{ position_id: 4, permission_id: 1020 },
 
-		// Étudiant
-		{ position_id: 5, permission_id: 1008 },
-		{ position_id: 5, permission_id: 1010 },
-		{ position_id: 5, permission_id: 1009 },
+		// Intervenant
+		{ position_id: 5, permission_id: 1001 },
 		{ position_id: 5, permission_id: 1006 },
-		{ position_id: 5, permission_id: 1013 },
-		{ position_id: 5, permission_id: 1012 },
+		{ position_id: 5, permission_id: 1008 },
+		{ position_id: 5, permission_id: 1014 },
+		{ position_id: 5, permission_id: 1016 },
+
+		// Étudiant
+		{ position_id: 6, permission_id: 1008 },
+		{ position_id: 6, permission_id: 1010 },
+		{ position_id: 6, permission_id: 1009 },
+		{ position_id: 6, permission_id: 1006 },
+		{ position_id: 6, permission_id: 1013 },
+		{ position_id: 6, permission_id: 1012 },
 	]);
 
 	/* ---- user ------------------------------------ */
 	await sequelize.models.user.bulkCreate([
+		// Admin. plateforme
 		{
 			position_id: 1, campus_id: 1002,
 			first_name: "Sir Edward", last_name: "Weak Ass",
@@ -409,8 +419,9 @@ async function setData(sequelize, logger) {
 			gender: "homme",
 			region: "UK",
 		},
+		// Étudiant
 		{
-			position_id: 5, campus_id: 1001,
+			position_id: 6, campus_id: 1001,
 			first_name: "Jay", last_name: "Raté Mon Année À L'Aide",
 			birth_date: "2002-06-24",
 			email: "jay.rate@forni.te",
@@ -420,7 +431,7 @@ async function setData(sequelize, logger) {
 			region: "France",
 		},
 		{
-			position_id: 5, campus_id: 1004,
+			position_id: 6, campus_id: 1004,
 			first_name: "Johnny", last_name: "Hotbody",
 			birth_date: "2019-01-29",
 			email: "johnny.hotbody@bodylan.de",
@@ -430,7 +441,7 @@ async function setData(sequelize, logger) {
 			region: "US",
 		},
 		{
-			position_id: 5, campus_id: 1005,
+			position_id: 6, campus_id: 1005,
 			first_name: "yo", last_name: "mom",
 			birth_date: "0001-01-01",
 			email: "yo.mom@so.fat",
@@ -439,6 +450,7 @@ async function setData(sequelize, logger) {
 			gender: "femme",
 			region: "US",
 		},
+		// Direction académique
 		{
 			position_id: 2, campus_id: 1003,
 			first_name: "Pony", last_name: "Sparks",
@@ -449,10 +461,32 @@ async function setData(sequelize, logger) {
 			gender: "homme",
 			region: "US",
 		},
+		// Intervenant
+		{
+			position_id: 5, campus_id: 1003,
+			first_name: "Space", last_name: "Odin",
+			birth_date: "0001-01-01",
+			email: "space.odin@spacesh.ip",
+			password: "$2b$10$sbcqNmQi3DoIDQG1zbB9degN.toQN4hn2T562.yubcPvDra/RT46.", // "Mot De P4sse"
+			address: { street: "Andromeda", city: "X4s-GA5", postalCode: "3,1415" },
+			gender: "homme",
+			region: "Espace de la confédération galactique",
+		},
+		// Pédagogie
+		{
+			position_id: 4, campus_id: 1004,
+			first_name: "Gorge W.", last_name: "Bouche",
+			birth_date: "1946-07-06",
+			email: "gorge.w@bouc.he",
+			password: "$2b$10$sbcqNmQi3DoIDQG1zbB9degN.toQN4hn2T562.yubcPvDra/RT46.", // "Mot De P4sse"
+			address: { street: "États-Unis du Corps", city: "Tête", postalCode: "00000" },
+			gender: "homme",
+			region: "Maestro Secret Room",
+		},
 	]);
 
-	/* ---- studentModules -------------------------- */
-	await sequelize.models.studentModules.bulkCreate([
+	/* ---- userModules ----------------------------- */
+	await sequelize.models.userModules.bulkCreate([
 		{ user_id: 2, module_id: 1000 },
 		{ user_id: 2, module_id: 1001 },
 		{ user_id: 2, module_id: 1002 },
@@ -469,6 +503,9 @@ async function setData(sequelize, logger) {
 		{ user_id: 4, module_id: 1008 },
 		{ user_id: 4, module_id: 1009 },
 		{ user_id: 4, module_id: 1010 },
+		{ user_id: 6, module_id: 1000 },
+		{ user_id: 6, module_id: 1005 },
+		{ user_id: 6, module_id: 1010 },
 	]);
 
 	/* ---- study ----------------------------------- */
@@ -533,11 +570,11 @@ async function setData(sequelize, logger) {
 		{ user_id: 2, module_id: 1001, note: 14.5 },
 		{ user_id: 2, module_id: 1002, note: 14.5 },
 		{ user_id: 2, module_id: 1003, note: 14.5 },
-		{ user_id: 2, module_id: 1004, note: 14.5 },
+		{ user_id: 2, module_id: 1004, note: 8 },
 		{ user_id: 2, module_id: 1005, note: 14.5 },
 		{ user_id: 2, module_id: 1006, note: 14.5 },
 		{ user_id: 2, module_id: 1007, note: 14.5 },
-		{ user_id: 2, module_id: 1008, note: 14.5 },
+		{ user_id: 2, module_id: 1008, note: 0.1 },
 		{ user_id: 2, module_id: 1009, note: 14.5 },
 		{ user_id: 2, module_id: 1010, note: 14.5 },
 		{ user_id: 2, module_id: 1011, note: 14.5 },

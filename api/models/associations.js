@@ -75,7 +75,7 @@ function init(sequelize, logger) {
 
 	// module [* - *] user
 	sequelize.models.module.belongsToMany(sequelize.models.user, {
-		through: sequelize.models.studentModules,
+		through: sequelize.models.userModules,
 		foreignKey: "module_id",
 	});
 
@@ -164,7 +164,7 @@ function init(sequelize, logger) {
 
 	// user [* - *] module
 	sequelize.models.user.belongsToMany(sequelize.models.module, {
-		through: sequelize.models.studentModules,
+		through: sequelize.models.userModules,
 		foreignKey: "user_id",
 	});
 

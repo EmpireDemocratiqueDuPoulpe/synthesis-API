@@ -74,6 +74,27 @@ const { models } = sequelize;
  * @property {array<"campus"|"module"|"ects">} expand
  */
 
+/**
+ * @typedef {Object} SeqStudentFilters
+ *
+ * @property {Object} where - Where clause
+ * @property {Array<{model: Object, where: Object, required: boolean}>} include - Include clause
+ */
+
+/**
+ * @typedef {Object} SCTsFilters
+ *
+ * @property {string} campus
+ * @property {array<"campus"|"module">} expand
+ */
+
+/**
+ * @typedef {Object} SeqSCTsFilters
+ *
+ * @property {Object} where - Where clause
+ * @property {Array<{model: Object, where: Object, required: boolean}>} include - Include clause
+ */
+
 /*****************************************************
  * Functions
  *****************************************************/
@@ -179,8 +200,85 @@ const buildPermissions = (user) => {
 	return userJSON;
 };
 
+/**
+ * Transform URI query params to sequelize `where` and `include` clauses.
+ * @function
+ *
+ * @param {StudentFilters} filters
+ * @return {SeqStudentFilters}
+ */
+const processStudentFilters = filters => {
+	const where = {};
+	const include = [
+		{ model: models.position, required: true, where: { name: "Étudiant" } },
+		{ model: models.study, required: true },
+	];
+
+	if (filters) {
+		if (filters.campus) {
+			where["$campus.name$"] = filters.campus;
+		}
+
+		if (filters.expand) {
+			if (filters.expand.includes("campus")) {
+				include.push({ model: models.campus, required: true });
+			}
+
+			if (filters.expand.includes("module")) {
+				const subProps = {};
+
+				if (filters.expand.includes("ects")) {
+					subProps.include = [{
+						model: models.note,
+						required: false,
+						where: {
+							user_id: {[Op.col]: "user.user_id" },
+						},
+					}];
+				}
+
+				include.push({ model: models.module, required: false, ...subProps });
+			}
+		}
+	}
+
+	return { where, include };
+};
+
+/**
+ * Transform URI query params to sequelize `where` and `include` clauses.
+ * @function
+ *
+ * @param {SCTsFilters} filters
+ * @return {SeqSCTsFilters}
+ */
+const processSCTFilters = filters => {
+	const where = {};
+	const include = [
+		{ model: models.position, required: true, where: { name: "Intervenant" } },
+	];
+
+	if (filters) {
+		if (filters.campus) {
+			where["$campus.name$"] = filters.campus;
+		}
+
+		if (filters.expand) {
+			if (filters.expand.includes("campus")) {
+				include.push({ model: models.campus, required: true });
+			}
+
+			if (filters.expand.includes("module")) {
+				include.push({ model: models.module, required: false });
+			}
+		}
+	}
+
+	return { where, include };
+};
+
 /*****************************************************
- * CRUD Methods
+ * CRUD Methods - Users
  *****************************************************/
 
 /* ---- CREATE ---------------------------------- */
@@ -372,6 +470,12 @@ const getByUUID = async (uuid) => {
 	return new APIResp(200).setData({ user: userJSON });
 };
 
+/*****************************************************
+ * CRUD Methods - Students
+ *****************************************************/
+
+/* ---- CREATE ---------------------------------- */
+/* ---- READ ------------------------------------ */
 /**
  * Get all student
  * @function
@@ -381,44 +485,72 @@ const getByUUID = async (uuid) => {
  * @return {Promise<APIResp>}
  */
 const getAllStudents = async filters => {
-	const usableFilters = {};
-	let included = [
-		{ model: models.position, required: true, where: { name: "Étudiant" } },
-		{ model: models.study, required: true },
-	];
-
-	if (filters) {
-		if (filters.campus) {
-			usableFilters["$campus.name$"] = filters.campus;
-		}
-
-		if (filters.expand) {
-			included = [
-				...included,
-				(filters.expand.includes("campus") ? { model: models.campus, required: true } : {}),
-				(filters.expand.includes("module") ? {
-					model: models.module,
-					required: false,
-					...(filters.expand.includes("ects") ? {
-						include: [{
-							model: models.note,
-							required: false,
-							where: {
-								user_id: {[Op.col]: "user.user_id" },
-							},
-						}],
-					} : {}),
-				} : {}),
-			];
-		}
-	}
+	const clauses = processStudentFilters(filters);
 
 	const students = await models.user.findAll({
-		include: included,
-		where: usableFilters,
+		attributes: { exclude: ["password"] },
+		include: clauses.include,
+		where: clauses.where,
 	});
 
 	return new APIResp(200).setData({ students });
+};
+
+/**
+ * Get a student by its UUID
+ * @function
+ * @async
+ *
+ * @param {string} uuid
+ * @param {StudentFilters} filters
+ * @return {Promise<APIResp>}
+ */
+const getStudentByUUID = async (uuid, filters) => {
+	const clauses = processStudentFilters(filters);
+
+	const student = await models.user.findOne({
+		attributes: { exclude: ["password"] },
+		include: clauses.include,
+		where: {
+			...clauses.where,
+			uuid: uuid,
+		},
+	});
+
+	if (!student) {
+		throw new APIError(404, `Cet étudiant (${uuid}) n'existe pas.`);
+	}
+
+	return new APIResp(200).setData({ student });
+};
+
+/* ---- UPDATE ---------------------------------- */
+/* ---- DELETE ---------------------------------- */
+
+/*****************************************************
+ * CRUD Methods - SCTs
+ *****************************************************/
+
+/* ---- CREATE ---------------------------------- */
+/* ---- READ ------------------------------------ */
+/**
+ * Get all SCTs
+ * @function
+ * @async
+ *
+ * @param {SCTsFilters} filters
+ * @return {Promise<APIResp>}
+ */
+const getAllSCTs = async filters => {
+	const clauses = processSCTFilters(filters);
+
+	const scts = await models.user.findAll({
+		attributes: { exclude: ["password"] },
+		include: clauses.include,
+		where: clauses.where,
+	});
+
+	return new APIResp(200).setData({ scts });
 };
 
 /* ---- UPDATE ---------------------------------- */
@@ -429,7 +561,7 @@ const getAllStudents = async filters => {
  *****************************************************/
 
 const User = {
-	add,																								// CREATE
-	login, getAll, getByID, getByUUID, getAllStudents,	// READ
+	/* CREATE */ add,
+	/* READ */ login, getAll, getByID, getByUUID, getAllStudents, getStudentByUUID, getAllSCTs,
 };
 export default User;
