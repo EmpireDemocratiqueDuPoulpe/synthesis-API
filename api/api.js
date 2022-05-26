@@ -9,7 +9,7 @@ import {
 	absences,
 	comptas,
 	jobs, jobDomains, jobOffers,
-	modules, notes,
+	modules, modulePlanning, notes,
 	permissions,
 	users, students,
 	studies,
@@ -50,6 +50,7 @@ export default () => {
 	jobDomains(router);
 	jobOffers(router);
 	modules(router);
+	modulePlanning(router);
 	notes(router);
 	permissions(router);
 	students(router);

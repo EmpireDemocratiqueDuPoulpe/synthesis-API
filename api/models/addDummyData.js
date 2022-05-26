@@ -584,6 +584,22 @@ async function setData(sequelize, logger) {
 		},
 	]);
 
+	/* ---- modulePlanning ---------------------------------- */
+	await sequelize.models.modulePlanning.bulkCreate([
+		{
+			module_id: 1000,
+			date: "2022-05-09",
+			consecutive_days: 1,
+			campus_id: 1001,
+		},
+		{
+			module_id: 1000,
+			date: "2022-05-16",
+			consecutive_days: 3,
+			campus_id: 1001,
+		},
+	]);
+
 	logger.log("Dummy data inserted");
 }
 
