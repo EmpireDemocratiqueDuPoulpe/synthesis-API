@@ -155,6 +155,17 @@ function init(sequelize, logger) {
 		},
 	});
 
+	/* ---- job ------------------------------------- */
+	// job [* - 1] user
+	sequelize.models.job.belongsTo(sequelize.models.user, {
+		foreignKey: {
+			name: "job_id",
+			type: DataTypes.INTEGER,
+			allowNull: false,
+		},
+		constraints: false,
+	});
+
 	/* ---- jobOffer -------------------------------- */
 	// jobOffer [* - *] jobDomain
 	sequelize.models.jobOffer.belongsToMany(sequelize.models.jobDomain, {
