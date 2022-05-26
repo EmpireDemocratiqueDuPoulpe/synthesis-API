@@ -205,9 +205,10 @@ const buildPermissions = (user) => {
  * @function
  *
  * @param {StudentFilters} filters
+ * @param {Array<string>} disabledExpands - List of expand to not include in the clauses
  * @return {SeqStudentFilters}
  */
-const processStudentFilters = filters => {
+const processStudentFilters = (filters, disabledExpands = []) => {
 	const where = {};
 	const include = [
 		{ model: models.position, required: true, where: { name: "Étudiant" } },
@@ -220,14 +221,14 @@ const processStudentFilters = filters => {
 		}
 
 		if (filters.expand) {
-			if (filters.expand.includes("campus")) {
+			if (filters.expand.includes("campus") && !disabledExpands.includes("campus")) {
 				include.push({ model: models.campus, required: true });
 			}
 
-			if (filters.expand.includes("module")) {
+			if (filters.expand.includes("module") && !disabledExpands.includes("module")) {
 				const subProps = {};
 
-				if (filters.expand.includes("ects")) {
+				if (filters.expand.includes("ects") && !disabledExpands.includes("ects")) {
 					subProps.include = [{
 						model: models.note,
 						required: false,
@@ -524,6 +525,34 @@ const getStudentByUUID = async (uuid, filters) => {
 	return new APIResp(200).setData({ student });
 };
 
+const getStudentsAtResit = async (filters) => {
+	const clauses = processStudentFilters(filters, ["module", "ects"]);
+
+	const students = await models.user.findAll({
+		attributes: { exclude: ["password"] },
+		include: [
+			...clauses.include,
+			{
+				model: models.module,
+				required: true,
+				include: [
+					{
+						model: models.note,
+						required: true,
+						where: {
+							"user_id": { [Op.col]: "user.user_id" },
+							"note": { [Op.lt]: 10 },
+						},
+					},
+				],
+			},
+		],
+		where: clauses.where,
+	});
+
+	return new APIResp(200).setData({ students });
+};
+
 /* ---- UPDATE ---------------------------------- */
 /* ---- DELETE ---------------------------------- */
 
@@ -562,6 +591,6 @@ const getAllSCTs = async filters => {
 
 const User = {
 	/* CREATE */ add,
-	/* READ */ login, getAll, getByID, getByUUID, getAllStudents, getStudentByUUID, getAllSCTs,
+	/* READ */ login, getAll, getByID, getByUUID, getAllStudents, getStudentByUUID, getStudentsAtResit, getAllSCTs,
 };
 export default User;

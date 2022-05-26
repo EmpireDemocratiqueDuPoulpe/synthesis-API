@@ -11,6 +11,7 @@ import {
 	jobs, jobDomains, jobOffers,
 	modules, notes,
 	permissions,
+	resits,
 	users, scts, students,
 	studies,
 } from "./routes/routes.js";
@@ -52,6 +53,7 @@ export default () => {
 	modules(router);
 	notes(router);
 	permissions(router);
+	resits(router);
 	scts(router);
 	students(router);
 	studies(router);
