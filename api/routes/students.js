@@ -22,7 +22,8 @@ export default (router) => {
 	 * @tags Users [Students]
 	 *
 	 * @param {string} campus.query - Filter by campus name
-	 * @param {string} expand.query - Fetch with associated data (campus, module, ects)?
+	 * @param {string} onlyHired.query - Skips students without jobs (true/false)
+	 * @param {string} expand.query - Fetch with associated data (campus, module, ects, job)?
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the students are returned - application/json
 	 *

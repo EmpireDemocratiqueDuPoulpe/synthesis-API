@@ -71,15 +71,6 @@ const job = {
 		type: DataTypes.STRING,
 		allowNull: false,
 	},
-	is_hired: {
-		type: DataTypes.BOOLEAN,
-		defaultValue: false,
-		allowNull: false,
-	},
-	length_month_hired: {
-		type: DataTypes.INTEGER,
-		allowNull: true,
-	},
 };
 
 /**

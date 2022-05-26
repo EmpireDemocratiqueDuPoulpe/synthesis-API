@@ -70,8 +70,9 @@ const { models } = sequelize;
 /**
  * @typedef {Object} StudentFilters
  *
- * @property {string} campus
- * @property {array<"campus"|"module"|"ects">} expand
+ * @property {string} [campus]
+ * @property {"true"|"false"|string} [onlyHired]
+ * @property {array<"campus"|"module"|"ects"|"job">} [expand]
  */
 
 /**
@@ -84,8 +85,8 @@ const { models } = sequelize;
 /**
  * @typedef {Object} SCTsFilters
  *
- * @property {string} campus
- * @property {array<"campus"|"module">} expand
+ * @property {string} [campus]
+ * @property {array<"campus"|"module">} [expand]
  */
 
 /**
@@ -239,6 +240,10 @@ const processStudentFilters = (filters, disabledExpands = []) => {
 				}
 
 				include.push({ model: models.module, required: false, ...subProps });
+			}
+
+			if (filters.expand.includes("job") && !disabledExpands.includes("job")) {
+				include.push({ model: models.job, required: (filters.onlyHired === "true") });
 			}
 		}
 	}
@@ -525,8 +530,16 @@ const getStudentByUUID = async (uuid, filters) => {
 	return new APIResp(200).setData({ student });
 };
 
+/**
+ * Get all students at resit
+ * @function
+ * @async
+ *
+ * @param {StudentFilters} filters
+ * @return {Promise<APIResp>}
+ */
 const getStudentsAtResit = async (filters) => {
-	const clauses = processStudentFilters(filters, ["module", "ects"]);
+	const clauses = processStudentFilters(filters, ["module", "ects", "job"]);
 
 	const students = await models.user.findAll({
 		attributes: { exclude: ["password"] },
