@@ -134,16 +134,29 @@ import { DataTypes } from "sequelize";
  *    allowNull: boolean,
  *    autoIncrement: boolean
  *  },
- *  date: {
+ *  start_date: {
  *    type: DataTypes.DATE,
  *    allowNull: boolean,
  *    validate: { isDate: boolean }
  *  },
- *  consecutive_days: {
- *    type: DataTypes.STRING,
+ *  end_date: {
+ *    type: DataTypes.DATE,
  *    allowNull: boolean,
- *    validate: { notEmpty: boolean }
- *  }
+ *    validate: { isDate: boolean }
+ *  },
+ *  event_name: {
+ * 		type: DataTypes.STRING,
+ * 		allowNull: boolean,
+ * 	},
+ * 	event_type: {
+ * 		type: DataTypes.STRING,
+ * 		allowNull: boolean,
+ * 	},
+ * 	year: {
+ * 		type: DataTypes.SMALLINT,
+ * 		allowNull: boolean,
+ * 		validate: { min: int },
+ * 	},
  * }
  */
 const planning = {
@@ -153,17 +166,19 @@ const planning = {
 		allowNull: false,
 		autoIncrement: true,
 	},
-	date: {
+	start_date: {
 		type: DataTypes.DATE,
 		allowNull: false,
 		validate: {
 			isDate: true,
 		},
 	},
-	consecutive_days: {
-		type: DataTypes.SMALLINT,
+	end_date: {
+		type: DataTypes.DATE,
 		allowNull: false,
-		validate: { min: 1 },
+		validate: {
+			isDate: true,
+		},
 	},
 	event_name: {
 		type: DataTypes.STRING,
