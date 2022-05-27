@@ -27,5 +27,7 @@ export default {
 	exposeApiDocs: false,
 	apiDocsPath: "/v3/route-docs",
 	notRequiredAsNullable: false,
-	swaggerUiOptions: {},
+	swaggerUiOptions: {
+		displayRequestDuration: true,
+	},
 };
