@@ -342,7 +342,7 @@ const processStudentFilters = (filters, disabledExpands = []) => {
 		// Expand
 		if (filters.expand) {
 			filters.expand
-				.filter(e => validExpands.some(ve => ve.includes(e)))
+				.filter(e => validExpands.some(ve => e.includes(ve)))
 				.sort((a, b) => validExpands.indexOf(a) - validExpands.indexOf(b))
 				.map(expand => {
 					if (expand.includes("campus")) {
@@ -362,13 +362,11 @@ const processStudentFilters = (filters, disabledExpands = []) => {
 						const model = { model: models.job, required: (filters.onlyHired === "true") };
 
 						if (how === "current") {
+							const today = new Date().setHours(0, 0, 0, 0);
+
 							model.where = {
-								end_date: {
-									[Op.or]: {
-										[Op.eq]: null,
-										[Op.gte]: new Date().setHours(0, 0, 0, 0),
-									},
-								},
+								start_date: { [Op.lte]: today },
+								end_date: { [Op.or]: {[Op.eq]: null, [Op.gte]: today} },
 							};
 						}
 
