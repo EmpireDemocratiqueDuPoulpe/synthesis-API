@@ -1,5 +1,5 @@
 /**
- * @module ModulePlanning
+ * @module Planning
  * @category API
  * @subcategory Interfaces
  * @author Maxence P. <maxence.pawlowski@supinfo.com>
@@ -18,15 +18,16 @@ import { APIResp, APIError } from "../../global/global.js";
 const { models } = sequelize;
 
 /**
- * @typedef {Object} NewModulePlanning
+ * @typedef {Object} NewPlanning
  *
- * @property {number} module_id
  * @property {date} date
  * @property {number} consecutive_days
+ * @property {string} event_name
+ * @property {number} year
  */
 
 /**
- * @typedef {Object} ModulePlanningFilters
+ * @typedef {Object} PlanningFilters
  *
  * @property {number} year
  */
@@ -41,11 +42,11 @@ const { models } = sequelize;
 
 /* ---- READ ------------------------------------ */
 /**
- * Get all modules planning
+ * Get all planning
  * @function
  * @async
  *
- * @param {ModulePlanningFilters} filters
+ * @param {PlanningFilters} filters
  * @return {Promise<APIResp>}
  */
 const getAll = async filters => {
@@ -57,16 +58,25 @@ const getAll = async filters => {
 				[Op.eq]: filters.year,
 			};
 		}
+		if (filters.eventType) {
+			usableFilters.event_type = {
+				[Op.eq]: filters.eventType,
+			};
+		}
 	}
-	const modulesPlanning = await models.modulePlanning.findAll({
+	const planning = await models.planning.findAll({
+		include: [{
+			model: models.module,
+			required: false,
+		}],
 		where: usableFilters,
 	});
 
-	return new APIResp(200).setData({ modulesPlanning });
+	return new APIResp(200).setData({ planning });
 };
 
 /**
- * Get one module planning by its id
+ * Get one planning by its id
  * @function
  * @async
  *
@@ -75,15 +85,15 @@ const getAll = async filters => {
  * @return {Promise<APIResp>}
  */
 const getByID = async (planningID) => {
-	const modulePlanning = await models.modulePlanning.findOne({
+	const planning = await models.planning.findOne({
 		where: { planning_id: planningID },
 	});
 
-	if (!modulePlanning) {
-		throw new APIError(404, `Ce planning de module (${planningID}) n'existe pas.`);
+	if (!planning) {
+		throw new APIError(404, `Ce planning (${planningID}) n'existe pas.`);
 	}
 
-	return new APIResp(200).setData({ modulePlanning });
+	return new APIResp(200).setData({ planning });
 };
 
 /* ---- UPDATE ---------------------------------- */
@@ -93,7 +103,7 @@ const getByID = async (planningID) => {
  * Export
  *****************************************************/
 
-const ModulePlanning = {
+const Planning = {
 	getAll, getByID,	// READ
 };
-export default ModulePlanning;
+export default Planning;

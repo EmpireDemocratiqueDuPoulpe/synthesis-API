@@ -98,7 +98,7 @@ export default (router) => {
 	route.post("/authenticate", authenticator, async (request, response) => {
 		const resp = new APIResp();
 
-		const user = (await User.getByID(request.user.sub)).data.user;
+		const user = (await User.getByID(request.user.sub, {expand: ["study"]})).data.user;
 		const token = await generateJWT(user);
 		CookiesFn.setTokenCookie(response, token);
 

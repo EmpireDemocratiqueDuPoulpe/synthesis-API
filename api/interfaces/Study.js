@@ -16,6 +16,18 @@ import { APIResp, APIError } from "../../global/global.js";
  */
 const { models } = sequelize;
 
+/**
+ * @typedef {Object} Study
+ *
+ * @property {number} study_id
+ * @property {number} entry_level
+ * @property {number} exit_level
+ * @property {number} previous_level
+ * @property {number} current_level
+ * @property {Date|string} entry_date
+ * @property {Date|string} [exit_date]
+ */
+
 /*****************************************************
  * Functions
  *****************************************************/

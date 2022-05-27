@@ -43,6 +43,7 @@ const { models } = sequelize;
  * @property {string} gender
  * @property {string} region
  * @property {string} campus
+ * @property {Study} study
  */
 
 /**
@@ -160,6 +161,7 @@ export const generateJWT = async (user) => {
 		gender: user.gender,
 		birthdate: user.birth_date,
 		groups: null,
+		study: user.study,
 	};
 
 	return new jose.SignJWT(JWTuser)
@@ -357,6 +359,7 @@ const login = async (user) => {
 					}],
 				},
 				{ model: models.campus, required: false },
+				{ model: models.study, required: false },
 			],
 			where: {email: user.email},
 		});
@@ -406,23 +409,32 @@ const getAll = async () => {
  * @async
  *
  * @param {number} userID
+ * @param {object} filters
  * @throws {APIError}
  * @return {Promise<APIResp>}
  */
-const getByID = async (userID) => {
+const getByID = async (userID, filters) => {
+	const includeClause = [
+		{
+			model: models.position,
+			required: true,
+			include: [{
+				model: models.permission,
+				through: {attributes: []},
+			}],
+		},
+		{ model: models.campus, required: false },
+	];
+
+	if (filters && filters.expand) {
+		if (filters.expand.includes("study")) {
+			includeClause.push({ model: models.study, required: false });
+		}
+	}
+
 	const user = await models.user.findOne({
 		attributes: { exclude: ["password"] },
-		include: [
-			{
-				model: models.position,
-				required: true,
-				include: [{
-					model: models.permission,
-					through: {attributes: []},
-				}],
-			},
-			{ model: models.campus, required: false },
-		],
+		include: includeClause,
 		where: { user_id: userID },
 	});
 
