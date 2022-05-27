@@ -7,6 +7,7 @@ export { default as modules } from "./modules.js";
 export { default as modulePlanning } from "./planning.js";
 export { default as notes } from "./notes.js";
 export { default as permissions } from "./permissions.js";
+export { default as resits } from "./resits.js";
 export { default as scts } from "./scts.js";
 export { default as students } from "./students.js";
 export { default as studies } from "./studies.js";

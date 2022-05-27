@@ -58,6 +58,7 @@ async function setData(sequelize, logger) {
 	/* ---- jobOffer -------------------------------- */
 	await sequelize.models.jobOffer.bulkCreate([
 		{
+			job_offer_id: 1000,
 			type: "stage",
 			title: "[21-44] Stage d’outils automatiques d’analyse données oculométriques",
 			company_name: "Railenium",
@@ -143,6 +144,7 @@ async function setData(sequelize, logger) {
 			`,
 		},
 		{
+			job_offer_id: 1001,
 			type: "alternance",
 			title: "Full Stack Developer",
 			company_name: "Frizbiz",
@@ -267,21 +269,15 @@ async function setData(sequelize, logger) {
 
 	/* ---- jobOfferDomain -------------------------- */
 	await sequelize.models.jobOfferDomain.bulkCreate([
-		{ job_offer_id: 1, job_domain_id: 1004 },
-		{ job_offer_id: 2, job_domain_id: 1000 },
-		{ job_offer_id: 2, job_domain_id: 1002 },
-		{ job_offer_id: 2, job_domain_id: 1003 },
-		{ job_offer_id: 2, job_domain_id: 1005 },
+		{ job_offer_id: 1000, job_domain_id: 1004 },
+		{ job_offer_id: 1001, job_domain_id: 1000 },
+		{ job_offer_id: 1001, job_domain_id: 1002 },
+		{ job_offer_id: 1001, job_domain_id: 1003 },
+		{ job_offer_id: 1001, job_domain_id: 1005 },
 	]);
 
 	/* ---- modules --------------------------------- */
 	await sequelize.models.module.bulkCreate([
-		{ module_id: 1000, year: 4, name: "BOSS", long_name: "Business Owner", ects: 3 },
-		{ module_id: 1001, year: 4, name: "WORK", long_name: null, ects: 3 },
-		{ module_id: 1002, year: 4, name: "TEAM", long_name: null, ects: 2 },
-		{ module_id: 1003, year: 4, name: "PROG", long_name: null, ects: 4 },
-		{ module_id: 1004, year: 4, name: "PYTH", long_name: null, ects: 4 },
-		{ module_id: 1005, year: 4, name: "O365", long_name: null, ects: 3 },
 		{ module_id: 1006, year: 1, name: "GRAP", long_name: null, ects: 2 },
 		{ module_id: 1007, year: 1, name: "AWSP", long_name: null, ects: 3 },
 		{ module_id: 1008, year: 1, name: "ALGO", long_name: null, ects: 1 },
@@ -300,6 +296,12 @@ async function setData(sequelize, logger) {
 		{ module_id: 1021, year: 3, name: "PENE", long_name: null, ects: 3 },
 		{ module_id: 1022, year: 3, name: "DATA", long_name: null, ects: 3 },
 		{ module_id: 1023, year: 3, name: "DOKR", long_name: null, ects: 3 },
+		{ module_id: 1000, year: 4, name: "BOSS", long_name: "Business Owner", ects: 3 },
+		{ module_id: 1001, year: 4, name: "WORK", long_name: null, ects: 3 },
+		{ module_id: 1002, year: 4, name: "TEAM", long_name: null, ects: 2 },
+		{ module_id: 1003, year: 4, name: "PROG", long_name: null, ects: 4 },
+		{ module_id: 1004, year: 4, name: "PYTH", long_name: null, ects: 4 },
+		{ module_id: 1005, year: 4, name: "O365", long_name: null, ects: 3 },
 		{ module_id: 1024, year: 5, name: "KUBE", long_name: null, ects: 2 },
 		{ module_id: 1025, year: 5, name: "DATA", long_name: null, ects: 2 },
 		{ module_id: 1026, year: 5, name: "RBIG", long_name: null, ects: 3 },
@@ -341,18 +343,12 @@ async function setData(sequelize, logger) {
 
 	/* ---- position -------------------------------- */
 	await sequelize.models.position.bulkCreate([
-		/*{ name: "Administrateur" },
-		{ name: "Directeur académique" },
-		{ name: "Coordinateur" },
-		{ name: "Full Professor" },
-		{ name: "Intervenant" },
-		{ name: "Élève" },*/
-		{ name: "Admin. plateforme" },
-		{ name: "Direction académique" },
-		{ name: "Administration" },
-		{ name: "Pédagogie" },
-		{ name: "Intervenant" },
-		{ name: "Étudiant" },
+		{ position_id: 1, name: "Admin. plateforme" },
+		{ position_id: 2, name: "Direction académique" },
+		{ position_id: 3, name: "Administration" },
+		{ position_id: 4, name: "Pédagogie" },
+		{ position_id: 5, name: "Intervenant" },
+		{ position_id: 6, name: "Étudiant" },
 	]);
 
 	/* ---- positionPermissions --------------------- */
@@ -410,7 +406,7 @@ async function setData(sequelize, logger) {
 	await sequelize.models.user.bulkCreate([
 		// Admin. plateforme
 		{
-			position_id: 1, campus_id: 1002,
+			user_id: 1000, position_id: 1, campus_id: 1002,
 			first_name: "Sir Edward", last_name: "Weak Ass",
 			birth_date: "968-06-24",
 			email: "siredward.weakass@caramail.co.uk",
@@ -419,9 +415,42 @@ async function setData(sequelize, logger) {
 			gender: "homme",
 			region: "UK",
 		},
+		// Direction académique
+		{
+			user_id: 1004, position_id: 2, campus_id: 1003,
+			first_name: "Pony", last_name: "Sparks",
+			birth_date: "1976-04-06",
+			email: "pony.sparks@weapo.ns",
+			password: "$2b$10$sbcqNmQi3DoIDQG1zbB9degN.toQN4hn2T562.yubcPvDra/RT46.", // "Mot De P4sse"
+			address: { street: "Under the bridge", city: "NY", postalCode: "12345" },
+			gender: "homme",
+			region: "US",
+		},
+		// Pédagogie
+		{
+			user_id: 1006, position_id: 4, campus_id: 1004,
+			first_name: "Gorge W.", last_name: "Bouche",
+			birth_date: "1946-07-06",
+			email: "gorge.w@bouc.he",
+			password: "$2b$10$sbcqNmQi3DoIDQG1zbB9degN.toQN4hn2T562.yubcPvDra/RT46.", // "Mot De P4sse"
+			address: { street: "États-Unis du Corps", city: "Tête", postalCode: "00000" },
+			gender: "homme",
+			region: "Maestro Secret Room",
+		},
+		// Intervenant
+		{
+			user_id: 1005, position_id: 5, campus_id: 1003,
+			first_name: "Space", last_name: "Odin",
+			birth_date: "0001-01-01",
+			email: "space.odin@spacesh.ip",
+			password: "$2b$10$sbcqNmQi3DoIDQG1zbB9degN.toQN4hn2T562.yubcPvDra/RT46.", // "Mot De P4sse"
+			address: { street: "Andromeda", city: "X4s-GA5", postalCode: "3,1415" },
+			gender: "homme",
+			region: "Espace de la confédération galactique",
+		},
 		// Étudiant
 		{
-			position_id: 6, campus_id: 1001,
+			user_id: 1001, position_id: 6, campus_id: 1001,
 			first_name: "Jay", last_name: "Raté Mon Année À L'Aide",
 			birth_date: "2002-06-24",
 			email: "jay.rate@forni.te",
@@ -431,7 +460,7 @@ async function setData(sequelize, logger) {
 			region: "France",
 		},
 		{
-			position_id: 6, campus_id: 1004,
+			user_id: 1002, position_id: 6, campus_id: 1004,
 			first_name: "Johnny", last_name: "Hotbody",
 			birth_date: "2019-01-29",
 			email: "johnny.hotbody@bodylan.de",
@@ -441,7 +470,7 @@ async function setData(sequelize, logger) {
 			region: "US",
 		},
 		{
-			position_id: 6, campus_id: 1005,
+			user_id: 1003, position_id: 6, campus_id: 1005,
 			first_name: "yo", last_name: "mom",
 			birth_date: "0001-01-01",
 			email: "yo.mom@so.fat",
@@ -450,62 +479,29 @@ async function setData(sequelize, logger) {
 			gender: "femme",
 			region: "US",
 		},
-		// Direction académique
-		{
-			position_id: 2, campus_id: 1003,
-			first_name: "Pony", last_name: "Sparks",
-			birth_date: "1976-04-06",
-			email: "pony.sparks@weapo.ns",
-			password: "$2b$10$sbcqNmQi3DoIDQG1zbB9degN.toQN4hn2T562.yubcPvDra/RT46.", // "Mot De P4sse"
-			address: { street: "Under the bridge", city: "NY", postalCode: "12345" },
-			gender: "homme",
-			region: "US",
-		},
-		// Intervenant
-		{
-			position_id: 5, campus_id: 1003,
-			first_name: "Space", last_name: "Odin",
-			birth_date: "0001-01-01",
-			email: "space.odin@spacesh.ip",
-			password: "$2b$10$sbcqNmQi3DoIDQG1zbB9degN.toQN4hn2T562.yubcPvDra/RT46.", // "Mot De P4sse"
-			address: { street: "Andromeda", city: "X4s-GA5", postalCode: "3,1415" },
-			gender: "homme",
-			region: "Espace de la confédération galactique",
-		},
-		// Pédagogie
-		{
-			position_id: 4, campus_id: 1004,
-			first_name: "Gorge W.", last_name: "Bouche",
-			birth_date: "1946-07-06",
-			email: "gorge.w@bouc.he",
-			password: "$2b$10$sbcqNmQi3DoIDQG1zbB9degN.toQN4hn2T562.yubcPvDra/RT46.", // "Mot De P4sse"
-			address: { street: "États-Unis du Corps", city: "Tête", postalCode: "00000" },
-			gender: "homme",
-			region: "Maestro Secret Room",
-		},
 	]);
 
 	/* ---- userModules ----------------------------- */
 	await sequelize.models.userModules.bulkCreate([
-		{ user_id: 2, module_id: 1000 },
-		{ user_id: 2, module_id: 1001 },
-		{ user_id: 2, module_id: 1002 },
-		{ user_id: 2, module_id: 1003 },
-		{ user_id: 2, module_id: 1004 },
-		{ user_id: 2, module_id: 1005 },
-		{ user_id: 3, module_id: 1018 },
-		{ user_id: 3, module_id: 1019 },
-		{ user_id: 3, module_id: 1020 },
-		{ user_id: 2, module_id: 1021 },
-		{ user_id: 2, module_id: 1022 },
-		{ user_id: 2, module_id: 1023 },
-		{ user_id: 4, module_id: 1007 },
-		{ user_id: 4, module_id: 1008 },
-		{ user_id: 4, module_id: 1009 },
-		{ user_id: 4, module_id: 1010 },
-		{ user_id: 6, module_id: 1000 },
-		{ user_id: 6, module_id: 1005 },
-		{ user_id: 6, module_id: 1010 },
+		{ user_id: 1001, module_id: 1000 },
+		{ user_id: 1001, module_id: 1001 },
+		{ user_id: 1001, module_id: 1002 },
+		{ user_id: 1001, module_id: 1003 },
+		{ user_id: 1001, module_id: 1004 },
+		{ user_id: 1001, module_id: 1005 },
+		{ user_id: 1002, module_id: 1018 },
+		{ user_id: 1002, module_id: 1019 },
+		{ user_id: 1002, module_id: 1020 },
+		{ user_id: 1001, module_id: 1021 },
+		{ user_id: 1001, module_id: 1022 },
+		{ user_id: 1001, module_id: 1023 },
+		{ user_id: 1003, module_id: 1007 },
+		{ user_id: 1003, module_id: 1008 },
+		{ user_id: 1003, module_id: 1009 },
+		{ user_id: 1003, module_id: 1010 },
+		{ user_id: 1005, module_id: 1000 },
+		{ user_id: 1005, module_id: 1005 },
+		{ user_id: 1005, module_id: 1010 },
 	]);
 
 	/* ---- study ----------------------------------- */
@@ -518,7 +514,7 @@ async function setData(sequelize, logger) {
 			current_level: 4,
 			entry_date: "06/01/22 04:11:05",
 			exit_date: "06/01/22 04:11:05",
-			user_id: 2,
+			user_id: 1001,
 		},
 		{
 			study_id: 1001,
@@ -528,7 +524,7 @@ async function setData(sequelize, logger) {
 			current_level: 3,
 			entry_date: "2019-01-29",
 			exit_date: null,
-			user_id: 3,
+			user_id: 1002,
 		},
 		{
 			study_id: 1002,
@@ -538,82 +534,81 @@ async function setData(sequelize, logger) {
 			current_level: 1,
 			entry_date: "06/05/22 07:54:05",
 			exit_date: null,
-			user_id: 4,
+			user_id: 1003,
 		},
 	]);
 
-	/* ---- jobs ------------------------------------ */
+	/* ---- job ------------------------------------- */
 	await sequelize.models.job.bulkCreate([
 		{
-			job_id: 1,
-			job_type: "alternance",
+			job_id: 1000,
+			type: "alternance",
 			start_date: "06/01/22 04:11:05",
-			end_date: "06/01/22 04:11:05",
-			company_name: "supinfo",
-			is_hired: false,
-			user_id: 1,
+			end_date: "07/01/22 04:11:05",
+			company_name: "Supfinfo",
+			user_id: 1001,
 		},
 		{
-			job_id: 2,
-			job_type: "stage",
+			job_id: 1001,
+			type: "stage",
 			start_date: "06/01/22 04:11:05",
-			end_date: "06/01/22 04:11:05",
-			company_name: "supinfo",
-			is_hired: false,
-			user_id: 1,
+			end_date: "07/01/22 04:11:05",
+			company_name: "Supfinfo",
+			user_id: 1002,
 		},
 	]);
 
 	/* ---- notes ----------------------------------- */
 	await sequelize.models.note.bulkCreate([
-		{ user_id: 2, module_id: 1000, note: 14.5 },
-		{ user_id: 2, module_id: 1001, note: 14.5 },
-		{ user_id: 2, module_id: 1002, note: 14.5 },
-		{ user_id: 2, module_id: 1003, note: 14.5 },
-		{ user_id: 2, module_id: 1004, note: 8 },
-		{ user_id: 2, module_id: 1005, note: 14.5 },
-		{ user_id: 2, module_id: 1006, note: 14.5 },
-		{ user_id: 2, module_id: 1007, note: 14.5 },
-		{ user_id: 2, module_id: 1008, note: 0.1 },
-		{ user_id: 2, module_id: 1009, note: 14.5 },
-		{ user_id: 2, module_id: 1010, note: 14.5 },
-		{ user_id: 2, module_id: 1011, note: 14.5 },
-		{ user_id: 2, module_id: 1012, note: 14.5 },
-		{ user_id: 2, module_id: 1013, note: 14.5 },
-		{ user_id: 2, module_id: 1014, note: 14.5 },
-		{ user_id: 2, module_id: 1015, note: 14.5 },
-		{ user_id: 2, module_id: 1016, note: 14.5 },
-		{ user_id: 2, module_id: 1017, note: 14.5 },
-		{ user_id: 2, module_id: 1018, note: 14.5 },
-		{ user_id: 2, module_id: 1019, note: 14.5 },
-		{ user_id: 2, module_id: 1020, note: 14.5 },
-		{ user_id: 3, module_id: 1000, note: 14.5 },
-		{ user_id: 3, module_id: 1001, note: 14.5 },
-		{ user_id: 3, module_id: 1002, note: 14.5 },
-		{ user_id: 1, module_id: 1003, note: 14.5 },
-		{ user_id: 1, module_id: 1004, note: 14.5 },
-		{ user_id: 3, module_id: 1005, note: 14.5 },
-		{ user_id: 1, module_id: 1006, note: 14.5 },
-		{ user_id: 3, module_id: 1007, note: 14.5 },
-		{ user_id: 3, module_id: 1008, note: 14.5 },
-		{ user_id: 3, module_id: 1009, note: 14.5 },
-		{ user_id: 3, module_id: 1010, note: 14.5 },
-		{ user_id: 1, module_id: 1011, note: 14.5 },
-		{ user_id: 1, module_id: 1012, note: 14.5 },
-		{ user_id: 3, module_id: 1013, note: 14.5 },
-		{ user_id: 1, module_id: 1014, note: 14.5 },
-		{ user_id: 3, module_id: 1015, note: 14.5 },
-		{ user_id: 1, module_id: 1016, note: 14.5 },
-		{ user_id: 1, module_id: 1017, note: 14.5 },
-		{ user_id: 3, module_id: 1018, note: 14.5 },
-		{ user_id: 1, module_id: 1019, note: 14.5 },
-		{ user_id: 1, module_id: 1020, note: 14.5 },
+		{ user_id: 1001, module_id: 1000, note: 14.5 },
+		{ user_id: 1001, module_id: 1001, note: 14.5 },
+		{ user_id: 1001, module_id: 1002, note: 14.5 },
+		{ user_id: 1001, module_id: 1003, note: 14.5 },
+		{ user_id: 1001, module_id: 1004, note: 8 },
+		{ user_id: 1001, module_id: 1005, note: 14.5 },
+		{ user_id: 1001, module_id: 1006, note: 14.5 },
+		{ user_id: 1001, module_id: 1007, note: 14.5 },
+		{ user_id: 1001, module_id: 1008, note: 0.1 },
+		{ user_id: 1001, module_id: 1009, note: 14.5 },
+		{ user_id: 1001, module_id: 1010, note: 14.5 },
+		{ user_id: 1001, module_id: 1011, note: 14.5 },
+		{ user_id: 1001, module_id: 1012, note: 14.5 },
+		{ user_id: 1001, module_id: 1013, note: 14.5 },
+		{ user_id: 1001, module_id: 1014, note: 14.5 },
+		{ user_id: 1001, module_id: 1015, note: 14.5 },
+		{ user_id: 1001, module_id: 1016, note: 14.5 },
+		{ user_id: 1001, module_id: 1017, note: 14.5 },
+		{ user_id: 1001, module_id: 1018, note: 14.5 },
+		{ user_id: 1001, module_id: 1019, note: 14.5 },
+		{ user_id: 1001, module_id: 1020, note: 14.5 },
+		{ user_id: 1002, module_id: 1000, note: 14.5 },
+		{ user_id: 1002, module_id: 1001, note: 14.5 },
+		{ user_id: 1002, module_id: 1002, note: 14.5 },
+		{ user_id: 1000, module_id: 1003, note: 14.5 },
+		{ user_id: 1000, module_id: 1004, note: 14.5 },
+		{ user_id: 1002, module_id: 1005, note: 14.5 },
+		{ user_id: 1000, module_id: 1006, note: 14.5 },
+		{ user_id: 1002, module_id: 1007, note: 14.5 },
+		{ user_id: 1002, module_id: 1008, note: 14.5 },
+		{ user_id: 1002, module_id: 1009, note: 14.5 },
+		{ user_id: 1002, module_id: 1010, note: 14.5 },
+		{ user_id: 1000, module_id: 1011, note: 14.5 },
+		{ user_id: 1000, module_id: 1012, note: 14.5 },
+		{ user_id: 1002, module_id: 1013, note: 14.5 },
+		{ user_id: 1000, module_id: 1014, note: 14.5 },
+		{ user_id: 1002, module_id: 1015, note: 14.5 },
+		{ user_id: 1000, module_id: 1016, note: 14.5 },
+		{ user_id: 1000, module_id: 1017, note: 14.5 },
+		{ user_id: 1002, module_id: 1018, note: 14.5 },
+		{ user_id: 1000, module_id: 1019, note: 14.5 },
+		{ user_id: 1000, module_id: 1020, note: 14.5 },
 	]);
 
 	/* ---- compta ---------------------------------- */
 	await sequelize.models.compta.bulkCreate([
 		{
-			user_id: 2,
+			compta_id: 1000,
+			user_id: 1001,
 			payment_type: "Comptant",
 			payment_due: 28750.56,
 			paid: false,
@@ -624,6 +619,7 @@ async function setData(sequelize, logger) {
 	/* ---- modulePlanning ---------------------------------- */
 	await sequelize.models.planning.bulkCreate([
 		{
+			planning_id: 1000,
 			module_id: 1000,
 			date: "2022-05-09",
 			consecutive_days: 1,
@@ -632,6 +628,7 @@ async function setData(sequelize, logger) {
 			campus_id: 1001,
 		},
 		{
+			planning_id: 1001,
 			module_id: 1000,
 			date: "2022-05-16",
 			consecutive_days: 3,

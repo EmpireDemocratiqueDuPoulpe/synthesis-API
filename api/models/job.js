@@ -54,7 +54,7 @@ const job = {
 		allowNull: false,
 		autoIncrement: true,
 	},
-	job_type: {
+	type: {
 		type: DataTypes.ENUM,
 		values: [ "stage", "alternance" ],
 		allowNull: false,
@@ -70,15 +70,6 @@ const job = {
 	company_name: {
 		type: DataTypes.STRING,
 		allowNull: false,
-	},
-	is_hired: {
-		type: DataTypes.BOOLEAN,
-		defaultValue: false,
-		allowNull: false,
-	},
-	length_month_hired: {
-		type: DataTypes.INTEGER,
-		allowNull: true,
 	},
 };
 
