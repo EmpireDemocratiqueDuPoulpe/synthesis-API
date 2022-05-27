@@ -359,29 +359,30 @@ async function setData(sequelize, logger) {
 
 		// Direction académique
 		{ position_id: 2, permission_id: 1001 },
+		{ position_id: 2, permission_id: 1002 },
 		{ position_id: 2, permission_id: 1007 },
-		{ position_id: 2, permission_id: 1010 },
 		{ position_id: 2, permission_id: 1008 },
+		{ position_id: 2, permission_id: 1010 },
 		{ position_id: 2, permission_id: 1011 },
 		{ position_id: 2, permission_id: 1014 },
 		{ position_id: 2, permission_id: 1015 },
-		{ position_id: 2, permission_id: 1002 },
 		{ position_id: 2, permission_id: 1017 },
 
 		// Administration
-		{ position_id: 3, permission_id: 1019 },
 		{ position_id: 3, permission_id: 1013 },
+		{ position_id: 3, permission_id: 1019 },
 
 		// Pédagogie
 		{ position_id: 4, permission_id: 1001 },
-		{ position_id: 4, permission_id: 1006 },
-		{ position_id: 4, permission_id: 1008 },
-		{ position_id: 4, permission_id: 1005 },
-		{ position_id: 4, permission_id: 1014 },
-		{ position_id: 4, permission_id: 1010 },
-		{ position_id: 4, permission_id: 1011 },
 		{ position_id: 4, permission_id: 1003 },
 		{ position_id: 4, permission_id: 1004 },
+		{ position_id: 4, permission_id: 1005 },
+		{ position_id: 4, permission_id: 1006 },
+		{ position_id: 4, permission_id: 1008 },
+		{ position_id: 4, permission_id: 1010 },
+		{ position_id: 4, permission_id: 1011 },
+		{ position_id: 4, permission_id: 1012 },
+		{ position_id: 4, permission_id: 1014 },
 		{ position_id: 4, permission_id: 1016 },
 		{ position_id: 4, permission_id: 1018 },
 		{ position_id: 4, permission_id: 1020 },
@@ -394,12 +395,12 @@ async function setData(sequelize, logger) {
 		{ position_id: 5, permission_id: 1016 },
 
 		// Étudiant
-		{ position_id: 6, permission_id: 1008 },
-		{ position_id: 6, permission_id: 1010 },
-		{ position_id: 6, permission_id: 1009 },
 		{ position_id: 6, permission_id: 1006 },
-		{ position_id: 6, permission_id: 1013 },
+		{ position_id: 6, permission_id: 1008 },
+		{ position_id: 6, permission_id: 1009 },
+		{ position_id: 6, permission_id: 1010 },
 		{ position_id: 6, permission_id: 1012 },
+		{ position_id: 6, permission_id: 1013 },
 	]);
 
 	/* ---- user ------------------------------------ */
