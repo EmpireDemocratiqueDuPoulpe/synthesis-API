@@ -44,7 +44,7 @@ export default (router) => {
      * GET /v1/planning/by-id/{planningID}
      * @summary Get a planning by its id
      * @security BearerAuth
-     * @tags Module planning
+     * @tags Planning
      *
      * @param {number} planningID.path.required - Planning id
      *
