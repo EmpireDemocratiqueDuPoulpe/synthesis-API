@@ -54,7 +54,7 @@ const job = {
 		allowNull: false,
 		autoIncrement: true,
 	},
-	job_type: {
+	type: {
 		type: DataTypes.ENUM,
 		values: [ "stage", "alternance" ],
 		allowNull: false,

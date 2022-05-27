@@ -65,7 +65,7 @@ export default (router) => {
 	 *
 	 * @param {string} UUID.path.required - UUIDv4
 	 * @param {string} campus.query - Filter by campus name
-	 * @param {string} expand.query - Fetch with associated data (campus, modules, ects)?
+	 * @param {string} expand.query - Fetch with associated data (campus, modules, ects, job)?
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the student is returned - application/json
 	 *

@@ -210,45 +210,60 @@ const buildPermissions = (user) => {
  * @return {SeqStudentFilters}
  */
 const processStudentFilters = (filters, disabledExpands = []) => {
+	const validExpands = ["campus", "module", "ects", "job"];
+
 	const where = {};
-	const include = [
-		{ model: models.position, required: true, where: { name: "Étudiant" } },
-		{ model: models.study, required: true },
-	];
+	const include = {
+		position: { model: models.position, required: true, where: { name: "Étudiant" } },
+		study: { model: models.study, required: true },
+	};
 
 	if (filters) {
+		// Campus name
 		if (filters.campus) {
 			where["$campus.name$"] = filters.campus;
 		}
 
+		// Expand
 		if (filters.expand) {
-			if (filters.expand.includes("campus") && !disabledExpands.includes("campus")) {
-				include.push({ model: models.campus, required: true });
-			}
+			filters.expand
+				.filter(e => validExpands.some(ve => ve.includes(e)))
+				.sort((a, b) => validExpands.indexOf(a) - validExpands.indexOf(b))
+				.map(expand => {
+					if (expand.includes("campus")) {
+						include.campus = { model: models.campus, required: true };
+					} else if (expand.includes("module")) {
+						include.module = { model: models.module, required: false };
+					} else if (expand.includes("ects") && include.hasOwnProperty("module")) {
+						include.module.include = [{
+							model: models.note,
+							required: false,
+							where: {
+								user_id: {[Op.col]: "user.user_id" },
+							},
+						}];
+					} else if (expand.includes("job")) {
+						const how = expand.split("<").pop().split(">")[0];
+						const model = { model: models.job, required: (filters.onlyHired === "true") };
 
-			if (filters.expand.includes("module") && !disabledExpands.includes("module")) {
-				const subProps = {};
+						if (how === "current") {
+							model.where = {
+								end_date: {
+									[Op.or]: {
+										[Op.eq]: null,
+										[Op.gte]: new Date().setHours(0, 0, 0, 0),
+									},
+								},
+							};
+						}
 
-				if (filters.expand.includes("ects") && !disabledExpands.includes("ects")) {
-					subProps.include = [{
-						model: models.note,
-						required: false,
-						where: {
-							user_id: {[Op.col]: "user.user_id" },
-						},
-					}];
-				}
-
-				include.push({ model: models.module, required: false, ...subProps });
-			}
-
-			if (filters.expand.includes("job") && !disabledExpands.includes("job")) {
-				include.push({ model: models.job, required: (filters.onlyHired === "true") });
-			}
+						include.job = model;
+					}
+				});
 		}
 	}
 
-	return { where, include };
+	return { where, include: Object.values(include) };
 };
 
 /**
