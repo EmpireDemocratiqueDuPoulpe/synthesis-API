@@ -67,6 +67,7 @@ const getAll = async filters => {
 	const planning = await models.planning.findAll({
 		include: [{
 			model: models.module,
+			as: "module",
 			required: false,
 		}],
 		where: usableFilters,

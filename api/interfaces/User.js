@@ -216,8 +216,8 @@ const processStudentFilters = (filters, disabledExpands = []) => {
 
 	const where = {};
 	const include = {
-		position: { model: models.position, required: true, where: { name: "Étudiant" } },
-		study: { model: models.study, required: true },
+		position: { model: models.position, as: "position", required: true, where: { name: "Étudiant" } },
+		study: { model: models.study, as: "study", required: true },
 	};
 
 	if (filters) {
@@ -233,12 +233,13 @@ const processStudentFilters = (filters, disabledExpands = []) => {
 				.sort((a, b) => validExpands.indexOf(a) - validExpands.indexOf(b))
 				.map(expand => {
 					if (expand.includes("campus")) {
-						include.campus = { model: models.campus, required: true };
+						include.campus = { model: models.campus, as: "campus", required: true };
 					} else if (expand.includes("module")) {
-						include.module = { model: models.module, required: false };
+						include.module = { model: models.module, as: "modules", required: false };
 					} else if (expand.includes("ects") && include.hasOwnProperty("module")) {
 						include.module.include = [{
 							model: models.note,
+							as: "notes",
 							required: false,
 							where: {
 								user_id: {[Op.col]: "user.user_id" },
@@ -246,7 +247,7 @@ const processStudentFilters = (filters, disabledExpands = []) => {
 						}];
 					} else if (expand.includes("job")) {
 						const how = expand.split("<").pop().split(">")[0];
-						const model = { model: models.job, required: (filters.onlyHired === "true") };
+						const model = { model: models.job, as: "jobs", required: (filters.onlyHired === "true") };
 
 						if (how === "current") {
 							const today = new Date().setHours(0, 0, 0, 0);
@@ -276,7 +277,7 @@ const processStudentFilters = (filters, disabledExpands = []) => {
 const processSCTFilters = filters => {
 	const where = {};
 	const include = [
-		{ model: models.position, required: true, where: { name: "Intervenant" } },
+		{ model: models.position, as: "position", required: true, where: { name: "Intervenant" } },
 	];
 
 	if (filters) {
@@ -286,11 +287,11 @@ const processSCTFilters = filters => {
 
 		if (filters.expand) {
 			if (filters.expand.includes("campus")) {
-				include.push({ model: models.campus, required: true });
+				include.push({ model: models.campus, as: "campus", required: true });
 			}
 
 			if (filters.expand.includes("module")) {
-				include.push({ model: models.module, required: false });
+				include.push({ model: models.module, as: "modules", required: false });
 			}
 		}
 	}
@@ -371,14 +372,16 @@ const login = async (user) => {
 			include: [
 				{
 					model: models.position,
+					as: "position",
 					required: true,
 					include: [{
 						model: models.permission,
+						as: "permissions",
 						through: {attributes: []},
 					}],
 				},
-				{ model: models.campus, required: false },
-				{ model: models.study, required: false },
+				{ model: models.campus, as: "campus", required: false },
+				{ model: models.study, as: "study", required: false },
 			],
 			where: {email: user.email},
 		});
@@ -415,6 +418,7 @@ const getAll = async () => {
 		attributes: { exclude: ["password"] },
 		include: [{
 			model: models.campus,
+			as: "campus",
 			required: false,
 		}],
 	});
@@ -436,18 +440,20 @@ const getByID = async (userID, filters) => {
 	const includeClause = [
 		{
 			model: models.position,
+			as: "position",
 			required: true,
 			include: [{
 				model: models.permission,
+				as: "permissions",
 				through: {attributes: []},
 			}],
 		},
-		{ model: models.campus, required: false },
+		{ model: models.campus, as: "campus", required: false },
 	];
 
 	if (filters && filters.expand) {
 		if (filters.expand.includes("study")) {
-			includeClause.push({ model: models.study, required: false });
+			includeClause.push({ model: models.study, as: "study", required: false });
 		}
 	}
 
@@ -480,13 +486,15 @@ const getByUUID = async (uuid) => {
 		include: [
 			{
 				model: models.position,
+				as: "position",
 				required: true,
 				include: [{
 					model: models.permission,
+					as: "permissions",
 					through: {attributes: []},
 				}],
 			},
-			{ model: models.campus, required: false },
+			{ model: models.campus, as: "campus", required: false },
 		],
 		where: { uuid },
 	});
@@ -572,10 +580,12 @@ const getStudentsAtResit = async (filters) => {
 			...clauses.include,
 			{
 				model: models.module,
+				as: "modules",
 				required: true,
 				include: [
 					{
 						model: models.note,
+						as: "notes",
 						required: true,
 						where: {
 							"user_id": { [Op.col]: "user.user_id" },

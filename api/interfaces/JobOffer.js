@@ -117,6 +117,7 @@ const getAll = async (filters = null) => {
 	const jobOffers = await models.jobOffer.findAll({
 		include: {
 			model: models.jobDomain,
+			as: "jobDomains",
 			required: false,
 		},
 		where: usableFilters,
@@ -138,8 +139,8 @@ const getAll = async (filters = null) => {
 const getByID = async (jobOfferID) => {
 	const jobOffer = await models.jobOffer.findOne({
 		include: [
-			{ model: models.jobDomain, required: false },
-			{ model: models.attachement, required: false },
+			{ model: models.jobDomain, as: "jobDomains", required: false },
+			{ model: models.attachement, as: "attachements", required: false },
 		],
 		where: { job_offer_id: jobOfferID },
 	});

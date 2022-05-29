@@ -97,9 +97,11 @@ const getAll = async filters => {
 	const modules = await models.module.findAll({
 		include: [{
 			model: models.user,
+			as: "users",
 			required: false,
 			include: [{
 				model: models.position,
+				as: "position",
 				required: true,
 				where: {
 					name: "Intervenant",
@@ -157,6 +159,7 @@ const getNotesByUserID = async (userID, filters) => {
 	const modules = await models.module.findAll({
 		include: [{
 			model: models.note,
+			as: "notes",
 			required: false,
 			where: { user_id: userID },
 		}],
