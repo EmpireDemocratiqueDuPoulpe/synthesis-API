@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CBEM - API Authenticator</title>
+  <title>CBEM - API api/models/userPlanning.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -101,348 +103,73 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Module</p>
-                    <h1>Authenticator</h1>
+                    <p>Source</p>
+                    <h1>api/models/userPlanning.js</h1>
                 </header>
                 
 
 
 
-
-<section>
-
-<header>
     
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <div class='vertical-section'>
-            <h1>Members</h1>
-            <div class="members">
-            
-                <div class="member">
-
-    <span class="method-parameter is-pulled-right">
-        <label>Type:</label>
-        
-<code class="param-type"><a href="module-Logger.html">module:Logger</a></code>
-
-
-    </span>
-
-<h4 class="name" id="~logger">
-    <a class="href-link" href="#~logger">#</a>
-    
-        
-            <span class='tag'>inner</span>
-        
-            <span class='tag'>constant</span>
-        
-    
-    <span class="code-name">
-        logger
-    </span>
-    
-</h4>
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="api_middlewares_authenticator.js.html" class="button">View Source</a>
-            <span>
-                <a href="api_middlewares_authenticator.js.html">api/middlewares/authenticator.js</a>, <a href="api_middlewares_authenticator.js.html#line16">line 16</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-</div>
-            
-            </div>
-        </div>
-    
-
-    
-        <div class='vertical-section'>
-            <h1>Methods</h1>
-            <div class="members">
-            
-                <div class="member">
-
-
-    
-    <h4 class="name" id="~authenticator">
-        <a class="href-link" href="#~authenticator">#</a>
-        
-            
-                <span class='tag'>inner</span>
-            
-        
-        <span class="code-name">
-            
-                authenticator<span class="signature">(request, response, next)</span><span class="type-signature"></span>
-            
-        </span>
-    </h4>
-    
-
-    
-    
-    <div class="description">
-        <p>Verify the JWT token</p>
-    </div>
-    
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-<div class="table-container">
-    <table class="params table">
-        <thead>
-        <tr>
-            
-            <th>Name</th>
-            
-
-            <th>Type</th>
-
-            
-
-            
-
-            <th class="last">Description</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>request</code></td>
-  
-
-  <td class="type">
-  
-      
-<code class="param-type">e.Request</code>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last"></td>
-</tr>
-
-
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>response</code></td>
-  
-
-  <td class="type">
-  
-      
-<code class="param-type">e.Response</code>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last"></td>
-</tr>
-
-
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>next</code></td>
-  
-
-  <td class="type">
-  
-      
-<code class="param-type">e.NextFunction</code>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last"></td>
-</tr>
-
-
-        
-        </tbody>
-    </table>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="api_middlewares_authenticator.js.html" class="button">View Source</a>
-            <span>
-                <a href="api_middlewares_authenticator.js.html">api/middlewares/authenticator.js</a>, <a href="api_middlewares_authenticator.js.html#line26">line 26</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-            
-            </div>
-        </div>
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module userPlanning
+ * @category API
+ * @subcategory Models
+ * @author Alexis L. &lt;alexis.lecomte@supinfo.com>
+ */
+
+import { DataTypes } from "sequelize";
+
+/**
+ * @const
+ * @type {Object}
+ *
+ * @example
+ * {
+ *  user_id: {
+ *    type: DataTypes.INTEGER,
+ *    references: { model: string, key: string }
+ *  }
+ *  planning_id: {
+ *    type: DataTypes.INTEGER,
+ *    references: { model: string, key: string }
+ *  }
+ * }
+ */
+const userPlanning = {
+	user_id: {
+		type: DataTypes.INTEGER,
+		references: {
+			model: "users",
+			key: "user_id",
+		},
+	},
+	planning_id: {
+		type: DataTypes.INTEGER,
+		references: {
+			model: "planning",
+			key: "planning_id",
+		},
+	},
+};
+
+/**
+ * Define the model
+ * @function
+ *
+ * @param {Sequelize} sequelize
+ * @param {string} name - The file name used for the definition
+ */
+export const define = (sequelize, name) => {
+	sequelize.define(name, userPlanning);
+};
+
+export default userPlanning;
+</code></pre>
+        </article>
+    </section>
 
 
 
