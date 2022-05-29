@@ -51,7 +51,6 @@ const { models } = sequelize;
  */
 const getAll = async filters => {
 	const usableFilters = {};
-
 	if (filters) {
 		if (filters.year) {
 			usableFilters.year = {

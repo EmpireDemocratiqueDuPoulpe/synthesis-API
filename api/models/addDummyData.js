@@ -617,13 +617,13 @@ async function setData(sequelize, logger) {
 		},
 	]);
 
-	/* ---- modulePlanning ---------------------------------- */
+	/* ---- planning ---------------------------------- */
 	await sequelize.models.planning.bulkCreate([
 		{
 			planning_id: 1000,
 			module_id: 1000,
-			date: "2022-05-09",
-			consecutive_days: 1,
+			start_date: "05/09/22 04:11:05",
+			end_date: "05/09/22 05:11:05",
 			event_name: "McDonald",
 			event_type: "module",
 			campus_id: 1001,
@@ -631,8 +631,8 @@ async function setData(sequelize, logger) {
 		},
 		{
 			planning_id: 1001,
-			date: "2022-05-16",
-			consecutive_days: 3,
+			start_date: "05/16/22 10:11:05",
+			end_date: "05/16/22 15:11:05",
 			event_name: "Manucure d'Alexis",
 			event_type: "module",
 			campus_id: 1001,
