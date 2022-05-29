@@ -212,7 +212,7 @@ const buildPermissions = (user) => {
  * @return {SeqStudentFilters}
  */
 const processStudentFilters = (filters, disabledExpands = []) => {
-	const validExpands = ["campus", "module", "ects", "job"];
+	const validExpands = ["campus", "module", "ects", "job"].filter(e => !disabledExpands.includes(e));
 
 	const where = {};
 	const include = {
