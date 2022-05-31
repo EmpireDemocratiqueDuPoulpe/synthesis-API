@@ -14,6 +14,7 @@ import {
 	resits,
 	users, scts, students,
 	studies,
+	etl,
 } from "./routes/routes.js";
 import { tokenAssembler, endHandler } from "./middlewares/middlewares.js";
 
@@ -59,6 +60,7 @@ export default () => {
 	students(router);
 	studies(router);
 	users(router);
+	etl(router);
 
 	return router;
 };
