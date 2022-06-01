@@ -510,11 +510,11 @@ async function setData(sequelize, logger) {
 		{
 			study_id: 1000,
 			entry_level: 1,
-			exit_level: 5,
-			previous_level: 3,
-			current_level: 4,
-			entry_date: "06/01/22 04:11:05",
-			exit_date: "06/01/22 04:11:05",
+			exit_level: null,
+			previous_level: 0,
+			current_level: 1,
+			entry_date: "06/05/22 07:54:05",
+			exit_date: null,
 			user_id: 1001,
 		},
 		{
@@ -530,11 +530,11 @@ async function setData(sequelize, logger) {
 		{
 			study_id: 1002,
 			entry_level: 1,
-			exit_level: null,
-			previous_level: 0,
-			current_level: 1,
-			entry_date: "06/05/22 07:54:05",
-			exit_date: null,
+			exit_level: 5,
+			previous_level: 3,
+			current_level: 4,
+			entry_date: "06/01/22 04:11:05",
+			exit_date: "06/01/22 04:11:05",
 			user_id: 1003,
 		},
 	]);

@@ -216,8 +216,13 @@ const processStudentFilters = (filters, disabledExpands = []) => {
 
 	const where = {};
 	const include = {
-		position: { model: models.position, as: "position", required: true, where: { name: "Étudiant" } },
-		study: { model: models.study, as: "study", required: true },
+		position: { model: models.position, as: "position", required: true, where: {name: "Étudiant"} },
+		study: {
+			model: models.study,
+			as: "study",
+			required: true,
+			where: { exit_level: null, exit_date: null },
+		},
 	};
 
 	if (filters) {
