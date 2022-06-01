@@ -40,6 +40,7 @@ import { DataTypes } from "sequelize";
  *  },
  *  birth_date: {
  *    type: DataTypes.DATE,
+ *    allowNull: boolean,
  *    validate: { isAfter: string }
  *  },
  *  email: {
@@ -52,7 +53,15 @@ import { DataTypes } from "sequelize";
  *    type: DataTypes.STRING,
  *    allowNull: boolean
  *  },
- *  street_address: {
+ *  address_street: {
+ *  	type: DataTypes.STRING,
+ *  	allowNull: boolean
+ *  },
+ *  address_city: {
+ *  	type: DataTypes.STRING,
+ *  	allowNull: boolean
+ *  },
+ *  address_postal_code: {
  *  	type: DataTypes.STRING,
  *  	allowNull: boolean
  *  },
@@ -93,6 +102,7 @@ const user = {
 	},
 	birth_date: {
 		type: DataTypes.DATE,
+		allowNull: true,
 		validate: { isAfter: "1900-01-01" },
 	},
 	email: {
@@ -108,7 +118,15 @@ const user = {
 		type: DataTypes.STRING,
 		allowNull: false,
 	},
-	street_address: {
+	address_street: {
+		type: DataTypes.STRING,
+		allowNull: true,
+	},
+	address_city: {
+		type: DataTypes.STRING,
+		allowNull: true,
+	},
+	address_postal_code: {
 		type: DataTypes.STRING,
 		allowNull: true,
 	},
