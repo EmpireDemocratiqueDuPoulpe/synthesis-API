@@ -295,6 +295,18 @@ function init(sequelize, logger) {
 		foreignKey: { name: "module_id", type: DataTypes.INTEGER, allowNull: false },
 	});
 
+	/* ---- One campus has [multiple] planning items -----------------------------
+        ---- and one planning item has [one] campus ------------------------------ */
+	sequelize.models.planning.belongsTo(sequelize.models.campus, {
+		as: "campus",
+		foreignKey: { name: "campus_id", type: DataTypes.INTEGER, allowNull: true },
+	});
+
+	sequelize.models.campus.hasMany(sequelize.models.planning, {
+		as: "planningItems",
+		foreignKey: { name: "campus_id", type: DataTypes.INTEGER, allowNull: false },
+	});
+
 	/* ---- One user has [multiple] planning items -------------------------------
 			---- and one planning item has [multiple] users -------------------------- */
 	sequelize.models.user.belongsToMany(sequelize.models.planning, {
