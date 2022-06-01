@@ -65,25 +65,25 @@ export default (router) => {
 	});
 
 	/**
-	 * GET /v1/comptas/by-user-id/{userID}
-	 * @summary Get a user compta by its user_id
+	 * GET /v1/comptas/by-uuid/{UUID}
+	 * @summary Get a user compta by its UUID
 	 * @security BearerAuth
 	 * @tags Comptas
 	 *
-	 * @param {number} userID.path.required - User id
+	 * @param {number} UUID.path.required - User UUIDv4
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the compta is returned - application/json
 	 *
 	 * @example response - 200 - Success response
 	 * { "code": 200, "compta": {
-	 *  "compta_id": 2, "payment_type": "OPCA", "payment_due": "5050.76", "paid": false, "relance": false, "user_id": 2
+	 *  "compta_id": 1002, "payment_type": "OPCA", "payment_due": "5050.76", "paid": false, "relance": false, "user_id": 1002
 	 * }}
 	 */
-	route.get("/by-user-id/:userID", async (request, response) => {
-		const resp = await Compta.getByUserID(request.params.userID);
+	route.get("/by-uuid/:UUID", async (request, response) => {
+		const resp = await Compta.getByUUID(request.params.UUID);
 		response.status(resp.code).json(resp.toJSON());
 
-		logger.log("Retrieves a compta of a user by his user_id", { ip: request.clientIP, params: {code: resp.code, userID: request.params.userID} });
+		logger.log("Retrieves a compta of a user by his UUID", { ip: request.clientIP, params: {code: resp.code, UUID: request.params.UUID} });
 	});
 
 	/* ---- UPDATE ---------------------------------- */
