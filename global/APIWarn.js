@@ -11,9 +11,9 @@ import Checkers from "./Checkers.js";
  * to the error handling middleware.
  * @constructor
  *
- * @param {Number} code - The HTTP code of the error
- * @param {string} message - The error message
- * @param {string|Array<string>|null} [fields] - Fields (query parameters) related to the error
+ * @param {Number} code - The HTTP code of the warning
+ * @param {string} message - The warning message
+ * @param {string|Array<string>|null} [fields] - Fields (query parameters) related to the warning
  * @param {{ withStack: Boolean }} [options] - Options
  *
  * @example
