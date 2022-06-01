@@ -73,6 +73,7 @@ const { models } = sequelize;
  *
  * @property {string} [campus]
  * @property {"true"|"false"|string} [onlyHired]
+ * @property {"true"|"false"|string} [onlyOld]
  * @property {array<"campus"|"module"|"ects"|"job">} [expand]
  */
 
@@ -229,6 +230,15 @@ const processStudentFilters = (filters, disabledExpands = []) => {
 		// Campus name
 		if (filters.campus) {
 			where["$campus.name$"] = filters.campus;
+		}
+
+		if (filters.onlyOld === "true") {
+			include.study.where = {
+				[Op.or]: {
+					exit_level: { [Op.not]: null },
+					exit_date: { [Op.not]: null },
+				},
+			};
 		}
 
 		// Expand
