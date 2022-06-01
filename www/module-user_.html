@@ -210,7 +210,7 @@
         <p class="tag-source">
             <a href="api_models_user.js.html" class="button">View Source</a>
             <span>
-                <a href="api_models_user.js.html">api/models/user.js</a>, <a href="api_models_user.js.html#line69">line 69</a>
+                <a href="api_models_user.js.html">api/models/user.js</a>, <a href="api_models_user.js.html#line78">line 78</a>
             </span>
         </p>
     
@@ -250,6 +250,7 @@
  },
  birth_date: {
    type: DataTypes.DATE,
+   allowNull: boolean,
    validate: { isAfter: string }
  },
  email: {
@@ -262,7 +263,15 @@
    type: DataTypes.STRING,
    allowNull: boolean
  },
- street_address: {
+ address_street: {
+ 	type: DataTypes.STRING,
+ 	allowNull: boolean
+ },
+ address_city: {
+ 	type: DataTypes.STRING,
+ 	allowNull: boolean
+ },
+ address_postal_code: {
  	type: DataTypes.STRING,
  	allowNull: boolean
  },
@@ -438,7 +447,7 @@
         <p class="tag-source">
             <a href="api_models_user.js.html" class="button">View Source</a>
             <span>
-                <a href="api_models_user.js.html">api/models/user.js</a>, <a href="api_models_user.js.html#line133">line 133</a>
+                <a href="api_models_user.js.html">api/models/user.js</a>, <a href="api_models_user.js.html#line151">line 151</a>
             </span>
         </p>
     
