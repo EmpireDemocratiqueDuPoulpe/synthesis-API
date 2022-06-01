@@ -20,8 +20,9 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Planning
 	 *
-	 * @param {string} year.query - Year
-	 * @param {string} eventType.query - Event Type
+	 * @param {string} years.query - Years
+	 * @param {string} eventTypes.query - Event Types
+	 * @param {string} campuses.query - Campus IDs
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the plannings are returned - application/json
 	 *
@@ -33,6 +34,16 @@ export default (router) => {
 	 */
 	route.get("/all", async (request, response) => {
 		const filters = request.query;
+
+		if (filters.years) {
+			filters.years = filters.years.split(",").map(y => parseInt(y, 10));
+		}
+		if (filters.campuses) {
+			filters.campuses = filters.campuses.split(",").map(c => parseInt(c, 10));
+		}
+		if (filters.eventTypes) {
+			filters.eventTypes = filters.eventTypes.split(",");
+		}
 
 		const resp = await Planning.getAll(filters);
 		response.status(resp.code).json(resp.toJSON());
