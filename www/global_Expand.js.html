@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CBEM - API api/interfaces/Attachement.js</title>
+  <title>CBEM - API global/Expand.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -104,7 +104,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>api/interfaces/Attachement.js</h1>
+                    <h1>global/Expand.js</h1>
                 </header>
                 
 
@@ -114,106 +114,132 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @module Attachement
- * @category API
- * @subcategory Interfaces
+ * @module Expand
+ * @category Global
  * @author Alexis L. &lt;alexis.lecomte@supinfo.com>
  */
 
 import { isArray } from "lodash-es";
-import sequelize from "../sequelizeLoader.js";
-import { APIResp, APIError } from "../../global/global.js";
 
 /**
- * Sequelize models
- * @const
- * @name models
- * @type {Object&lt;Sequelize.models>}
- */
-const { models } = sequelize;
-
-/**
- * @typedef {Object} NewAttachement
+ * Expand is used to process the parameter named "expand" passed in the route. These expand have the following format:
+ * `tableName[~][&lt;FILTER>]`.
  *
- * @property {number} ressource_id - This ID must be named after the relation between the attachement and its parent.
- * @property {string} name
- * @property {string} path
- * @property {number} size
- * @property {string} type
- */
-
-/**
- * @typedef {Object} MulterFile
+ * `[~]`: If a tilde is added to the table name, the join is optional.
  *
- * @property {string} fieldname - Field name specified in the form.
- * @property {string} originalname - Name of the file on the user's computer.
- * @property {string} encoding - Encoding type of the file.
- * @property {number} mimetype - Mime type of the file.
- * @property {string} size - Size of the file in bytes.
- * @property {string} destination - The folder to which the file has been saved.
- * @property {string} filename - The name of the file within the `destination`.
- * @property {string} path - The full path to the uploaded file.
- * @property {string} buffer - A `Buffer` of the entire file.
+ * `[&lt;FILTER>]`: An additional filter for this join.
+ * @class
  *
- * @see {@link https://www.npmjs.com/package/multer}
- */
-
-/*****************************************************
- * Functions
- *****************************************************/
-
-/*****************************************************
- * CRUD Methods
- *****************************************************/
-
-/* ---- CREATE ---------------------------------- */
-/**
- * Add new attachements
- * @function
- * @async
+ * @example
+ * const expander = new Expand();
+ * expander.setAuthorized(["books", "editors", "awards"]).process(["books", "editors&lt;current>", "awards~"], expand => {
+ *  const isRequired = expand.required ? "required" : "not required";
+ *  const hasExtra = expand.how ? ` and have an extra filter (${expand.how})` : "";
  *
- * @param {{ name: string, value: number }} parentKey - Key name/value of the parent primary key
- * @param {MulterFile|Array&lt;MulterFile>} newAttachements
- * @param {Transaction} [transaction]
- * @throws {APIError}
- * @return {Promise&lt;APIResp>}
+ * 	console.log(`The join ${expand.name} is ${isRequired}{hasExtra}.`);
+ * 	// -> The join books is required.
+ * 	// -> The join editors is required and have an extra filter(current).
+ * 	// -> The join awards is not required.
+ * });
  */
-const add = async (parentKey, newAttachements, transaction) => {
-	const attachements = isArray(newAttachements) ? newAttachements : [newAttachements];
+export default class Expand {
+	authorizedTableNames = null;
 
-	const insertQueries = attachements.map((fileInfo) => {
-		const attachement = {
-			[parentKey.name]: parentKey.value,
-			name: fileInfo.originalname,
-			path: fileInfo.path.replace(/^uploads\\/, ""),
-			size: fileInfo.size,
-			type: fileInfo.mimetype,
-		};
+	/* ---- Setters --------------------------------- */
+	/**
+	 * Sets the authorized expands
+	 * @function
+	 *
+	 * @param {Array&lt;string>} tableNames - List of authorized expand/table names
+	 * @return {Expand}
+	 */
+	setAuthorized(tableNames) {
+		if (isArray(tableNames)) {
+			this.authorizedTableNames = tableNames;
+		}
 
-		return models.attachement.build(attachement).validate({ skip: ["attachement_id"] })
-			.then(() => {
-				return models.attachement.create(attachement, { transaction: (transaction ?? undefined )})
-					.then((insertedAttachement) => insertedAttachement.attachement_id);
-			})
-			.catch(err => { throw new APIError(400, "error", Object.values(err)); });
-	});
+		return this;
+	}
 
-	const attachementsIDs = await Promise.all(insertQueries);
-	return new APIResp(200).setData({ attachementsIDs });
-};
+	/**
+	 * Filter the expands being processed.
+	 * @function
+	 * @private
+	 *
+	 * @param {Array&lt;string>} expands - Expands being processed
+	 * @return {Array&lt;string>} - Filtered expands
+	 */
+	_filter(expands) {
+		if (this.authorizedTableNames) {
+			return expands.filter(tableName => {
+				return this.authorizedTableNames.some(authorizedName => tableName.includes(authorizedName));
+			});
+		} else return expands;
+	}
 
-/* ---- READ ------------------------------------ */
-/* ---- UPDATE ---------------------------------- */
-/* ---- DELETE ---------------------------------- */
+	/**
+	 * Sort the expands being processed.
+	 * @function
+	 * @private
+	 *
+	 * @param {Array&lt;string>} expands - Expands being processed
+	 * @return {Array&lt;string>} - Sorted expands
+	 */
+	_sort(expands) {
+		if (this.authorizedTableNames) {
+			return expands.sort((a, b) => {
+				const nameA = Expand._extractName(a);
+				const nameB = Expand._extractName(b);
 
-/*****************************************************
- * Export
- *****************************************************/
+				return this.authorizedTableNames.indexOf(nameA) - this.authorizedTableNames.indexOf(nameB);
+			});
+		} else return expands;
+	}
 
-const Attachement = {
-	add,	// CREATE
-};
-export default Attachement;
+	/**
+	 * Read an "expand" and extract information from it. See the class description to get detail on processing.
+	 * @function
+	 * @private
+	 *
+	 * @param {string} expand - The "expand" being processed
+	 * @return {{ name: string, required: boolean, how: (string|null) }} - Information extracted from the "expand"
+	 */
+	static _extractParts(expand) {
+		const parts = expand.split(/(^\w+)/).filter(Boolean);
+		const build = { name: parts[0], required: true, how: null };
+		parts.shift();
+
+		if (parts.length > 0) {
+			build.required = !parts.includes("~");
+			build.how = parts.some(part => /^&lt;\w+>$/.test(part)) ? expand.split("&lt;").pop().split(">")[0] : null;
+		}
+
+		return build;
+	}
+
+	/**
+	 * Read an "expand" and extract only its name. See the class description to get detail on processing.
+	 * @function
+	 * @private
+	 *
+	 * @param {string} expand - The "expand" being processed
+	 * @return {string} - The "expand" name
+	 */
+	static _extractName(expand) {
+		return Expand._extractParts(expand).name;
+	}
+
+	/**
+	 * Processes the expands and calls a callback for each of them.
+	 * @function
+	 *
+	 * @param {Array&lt;string>} expands - Expands being processed
+	 * @param {function} callback
+	 */
+	process(expands, callback) {
+		this._sort(this._filter(expands)).map(expand => callback(Expand._extractParts(expand)));
+	}
+}
 </code></pre>
         </article>
     </section>
