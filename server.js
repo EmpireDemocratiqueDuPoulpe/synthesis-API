@@ -82,8 +82,7 @@ function startServer() {
 
 	// Serves static files
 	app.use("/files", express.static("./uploads"));
-	app.use(bodyParser.json({ limit: "900mb" }));
-	app.use(bodyParser.urlencoded({ limit: "900mb", extended: true }));
+
 
 	// Handle 404
 	app.use((request, response, next) => {

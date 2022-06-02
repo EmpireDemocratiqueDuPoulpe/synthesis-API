@@ -9,63 +9,72 @@ import { DataTypes } from "sequelize";
 
 // TODO: Custom messages
 /**
- * @const
- * @type {Object}
- *
- * @example
- * {
- *  user_id: {
- *    type: DataTypes.INTEGER,
- *    primaryKey: boolean,
- *    allowNull: boolean,
- *    autoIncrement: boolean,
- *    validate: { isInteger: boolean }
- *  },
- *  uuid: {
- *    type: DataTypes.UUID,
- *    unique: boolean,
- *    allowNull: boolean,
- *    defaultValue: DataTypes.UUIDV4,
- *    validate: { isUUID: number }
- *  },
- *  first_name: {
- *    type: DataTypes.STRING,
- *    allowNull: boolean,
- *    validate: { notEmpty: boolean }
- *  },
- *  last_name: {
- *    type: DataTypes.STRING,
- *    allowNull: boolean,
- *    validate: { notEmpty: boolean }
- *  },
- *  birth_date: {
- *    type: DataTypes.DATE,
- *    validate: { isAfter: string }
- *  },
- *  email: {
- *    type: DataTypes.STRING,
- *    unique: { args: boolean, msg: string },
- *    allowNull: boolean,
- *    validate: { isEmail: boolean }
- *  },
- *  password: {
- *    type: DataTypes.STRING,
- *    allowNull: boolean
- *  },
- *  street_address: {
- *  	type: DataTypes.STRING,
- *  	allowNull: boolean
- *  },
- *  gender: {
- *  	type: DataTypes.STRING,
- *  	allowNull: boolean
- *  },
- *  region: {
- *  	type: DataTypes.STRING,
- *  	allowNull: boolean
- *  }
- * }
- */
+  * @const
+  * @type {Object}
+  *
+  * @example
+  * {
+  *  user_id: {
+  *    type: DataTypes.INTEGER,
+  *    primaryKey: boolean,
+  *    allowNull: boolean,
+  *    autoIncrement: boolean,
+  *    validate: { isInteger: boolean }
+  *  },
+  *  uuid: {
+  *    type: DataTypes.UUID,
+  *    unique: boolean,
+  *    allowNull: boolean,
+  *    defaultValue: DataTypes.UUIDV4,
+  *    validate: { isUUID: number }
+  *  },
+  *  first_name: {
+  *    type: DataTypes.STRING,
+  *    allowNull: boolean,
+  *    validate: { notEmpty: boolean }
+  *  },
+  *  last_name: {
+  *    type: DataTypes.STRING,
+  *    allowNull: boolean,
+  *    validate: { notEmpty: boolean }
+  *  },
+  *  birth_date: {
+  *    type: DataTypes.DATE,
+  *    allowNull: boolean,
+  *    validate: { isAfter: string }
+  *  },
+  *  email: {
+  *    type: DataTypes.STRING,
+  *    unique: { args: boolean, msg: string },
+  *    allowNull: boolean,
+  *    validate: { isEmail: boolean }
+  *  },
+  *  password: {
+  *    type: DataTypes.STRING,
+  *    allowNull: boolean
+  *  },
+  *  address_street: {
+  *  	type: DataTypes.STRING,
+  *  	allowNull: boolean
+  *  },
+  *  address_city: {
+  *  	type: DataTypes.STRING,
+  *  	allowNull: boolean
+  *  },
+  *  address_postal_code: {
+  *  	type: DataTypes.STRING,
+  *  	allowNull: boolean
+  *  },
+  *  gender: {
+  *  	type: DataTypes.STRING,
+  *  	allowNull: boolean
+  *  },
+  *  region: {
+  *  	type: DataTypes.STRING,
+  *  	allowNull: boolean
+  *  }
+  * }
+  */
 const user = {
 	user_id: {
 		type: DataTypes.INTEGER,
@@ -93,6 +102,7 @@ const user = {
 	},
 	birth_date: {
 		type: DataTypes.DATE,
+		allowNull: true,
 		validate: { isAfter: "1900-01-01" },
 	},
 	email: {
@@ -108,7 +118,15 @@ const user = {
 		type: DataTypes.STRING,
 		allowNull: false,
 	},
-	street_address: {
+	address_street: {
+		type: DataTypes.STRING,
+		allowNull: true,
+	},
+	address_city: {
+		type: DataTypes.STRING,
+		allowNull: true,
+	},
+	address_postal_code: {
 		type: DataTypes.STRING,
 		allowNull: true,
 	},
@@ -124,12 +142,12 @@ const user = {
 };
 
 /**
- * Define the model
- * @function
- *
- * @param {Sequelize} sequelize
- * @param {string} name - The file name used for the definition
- */
+  * Define the model
+  * @function
+  *
+  * @param {Sequelize} sequelize
+  * @param {string} name - The file name used for the definition
+  */
 export const define = (sequelize, name) => {
 	sequelize.define(name, user);
 };

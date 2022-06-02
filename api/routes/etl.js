@@ -4,7 +4,10 @@
  */
 
 import AsyncRouter from "express-promise-router";
-import { Logger } from "../../global/global.js";
+import { Logger, APIResp } from "../../global/global.js";
+import Compta from "../interfaces/Compta.js";
+import User from "../interfaces/User.js";
+import job from "../models/job.js";
 
 const route = AsyncRouter();
 const logger = new Logger({ separator: ": " });
@@ -16,11 +19,19 @@ export default (router) => {
 	  * TODO: POST /v1/etl/students
 	  */
 	route.post("/students", async (request, response) => {
+		const resp = new APIResp(200);
 		const list = request.body;
-		console.log(list);
-		// const resp = await Absence.add(absence); // ***********
-		// response.status(resp.code).json(resp.toJSON());
+		for (const key in list) {
+			if (Object.hasOwnProperty.call(list, key)) {
+				const student = list[key];
+				await User.addStudent(student).then((userId) => {
+					// await Compta.addAccountings(student.accounting, userId)
+					// await job.addJobs(student.job, userId)
+				});
+			}
+		}
+		response.status(resp.code).json(resp.toJSON());
 
-		// logger.log("Add a new absence to a user", { ip: request.clientIP, params: {code: resp.code, user_id: absence?.user_id} }); // **********
+		logger.log("Add students", { ip: request.clientIP, params: {code: resp.code}});
 	});
 };
