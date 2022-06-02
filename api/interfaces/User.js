@@ -10,7 +10,7 @@ import * as jose from "jose";
 import { Op } from "sequelize";
 import keys from "../joseLoader.js";
 import sequelize from "../sequelizeLoader.js";
-import { APIResp, APIError } from "../../global/global.js";
+import { APIResp, APIError, Expand } from "../../global/global.js";
 import { API, Passwords } from "../../config/config.js";
 
 /**
@@ -74,7 +74,7 @@ const { models } = sequelize;
  * @property {string} [campus]
  * @property {"true"|"false"|string} [onlyHired]
  * @property {"true"|"false"|string} [onlyOld]
- * @property {array<"campus"|"module"|"ects"|"job">} [expand]
+ * @property {array<"campus"|"module"|"ects"|"job"|"compta">} [expand]
  */
 
 /**
@@ -213,7 +213,7 @@ const buildPermissions = (user) => {
  * @return {SeqStudentFilters}
  */
 const processStudentFilters = (filters, disabledExpands = []) => {
-	const validExpands = ["campus", "module", "ects", "job"].filter(e => !disabledExpands.includes(e));
+	const validExpands = ["campus", "module", "ects", "job", "compta"].filter(e => !disabledExpands.includes(e));
 
 	const where = {};
 	const include = {
@@ -243,28 +243,32 @@ const processStudentFilters = (filters, disabledExpands = []) => {
 
 		// Expand
 		if (filters.expand) {
-			filters.expand
-				.filter(e => validExpands.some(ve => e.includes(ve)))
-				.sort((a, b) => validExpands.indexOf(a) - validExpands.indexOf(b))
-				.map(expand => {
-					if (expand.includes("campus")) {
-						include.campus = { model: models.campus, as: "campus", required: true };
-					} else if (expand.includes("module")) {
-						include.module = { model: models.module, as: "modules", required: false };
-					} else if (expand.includes("ects") && include.hasOwnProperty("module")) {
-						include.module.include = [{
-							model: models.note,
-							as: "notes",
-							required: false,
-							where: {
-								user_id: {[Op.col]: "user.user_id" },
-							},
-						}];
-					} else if (expand.includes("job")) {
-						const how = expand.split("<").pop().split(">")[0];
-						const model = { model: models.job, as: "jobs", required: (filters.onlyHired === "true") };
+			const expander = new Expand();
 
-						if (how === "current") {
+			expander.setAuthorized(validExpands).process(filters.expand, expand => {
+				switch (expand.name) {
+					case "campus":
+						include.campus = { model: models.campus, as: "campus", required: expand.required };
+						break;
+					case "module":
+						include.module = { model: models.module, as: "modules", required: expand.required };
+						break;
+					case "ects":
+						if (include.hasOwnProperty("module")) {
+							include.module.include = [{
+								model: models.note,
+								as: "notes",
+								required: expand.required,
+								where: {
+									user_id: {[Op.col]: "user.user_id" },
+								},
+							}];
+						}
+						break;
+					case "job":
+						const model = { model: models.job, as: "jobs", required: expand.required };
+
+						if (expand.how === "current") {
 							const today = new Date().setHours(0, 0, 0, 0);
 
 							model.where = {
@@ -274,8 +278,12 @@ const processStudentFilters = (filters, disabledExpands = []) => {
 						}
 
 						include.job = model;
-					}
-				});
+						break;
+					case "compta":
+						include.compta = { model: models.compta, as: "compta", required: expand.required };
+						break;
+				}
+			});
 		}
 	}
 
