@@ -8,7 +8,7 @@
 import { isEmpty } from "lodash-es";
 import sequelize from "../sequelizeLoader.js";
 import { buildPermissions } from "./User.js";
-import { APIResp } from "../../global/global.js";
+import { APIResp, APIError } from "../../global/global.js";
 
 /**
  * Sequelize models
@@ -63,10 +63,15 @@ const getByUUID = async (uuid) => {
 			include: [{
 				model: models.permission,
 				as: "permissions",
+				required: false,
 			}],
 		}],
 		where: { uuid },
 	});
+
+	if (!user) {
+		throw new APIError(404, `Cet utilisateur (${uuid}) n'existe pas.`);
+	}
 
 	const flattenUser = buildPermissions(user);
 	return new APIResp(200).setData({ permissions: flattenUser.position.permissions });
