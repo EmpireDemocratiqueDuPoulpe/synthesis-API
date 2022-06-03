@@ -137,7 +137,7 @@ const logger = new Logger({ separator: ": " });
  * @param {module:APIError|module:APIWarn|Error|string} err
  * @param {e.Request} request
  * @param {e.Response} response
- * @param {e.NextFunction} next
+ * @param {function} next
  */
 function expressLogger(err, request, response, next) {
 	const url = `${request.protocol}://${request.headers.host}${request.originalUrl}`;
@@ -171,7 +171,7 @@ function expressLogger(err, request, response, next) {
  * @param {{ url: string, types: Object&lt;Boolean>, ref: (APIError|APIWarn|Error) }} err
  * @param {e.Request} request
  * @param {e.Response} response
- * @param {e.NextFunction} next
+ * @param {function} next
  */
 function errorForwarder(err, request, response, next) {
 	if (response.headersSent) next();
@@ -205,7 +205,7 @@ function errorForwarder(err, request, response, next) {
  * @param {APIResp} err
  * @param {e.Request} request
  * @param {e.Response} response
- * @param {e.NextFunction} next
+ * @param {function} next
  */
 function failSafe(err, request, response, next) {
 	const resp = err.setCode(500);
