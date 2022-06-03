@@ -196,7 +196,7 @@ const passwordMatchHash = async (password, hash) => {
  * @param {Model} user
  * @return {Object}
  */
-const buildPermissions = (user) => {
+export const buildPermissions = (user) => {
 	const userJSON = user.toJSON();
 	userJSON.position.permissions.forEach((p, i, arr) => (arr[i] = p.name));
 
