@@ -6,6 +6,15 @@
 
 import { isArray } from "lodash-es";
 
+const ex = { CAMPUS: "campus", MODULE: "module", ECTS: "ects", JOB: "job", COMPTA: "compta" };
+const exPerms = {
+	campus: [ "READ_CAMPUS" ],
+	module: [ "READ_MODULES" ],
+	ects: [ "READ_MODULES", "READ_ECTS" ],
+	job: [ "READ_STUDENTS_JOBS" ],
+	compta: [ "READ_COMPTA" ],
+};
+
 /**
  * Expand is used to process the parameter named "expand" passed in the route. These expand have the following format:
  * `tableName[~][<FILTER>]`.
@@ -28,9 +37,43 @@ import { isArray } from "lodash-es";
  * });
  */
 export default class Expand {
+	currUser = null;
 	authorizedTableNames = null;
 
+	/**
+	 * @constructor
+	 *
+	 * @param {module:LoggedUser} user
+	 * @param {Array<string>} authorizedExpands
+	 * @return {Expand}
+	 */
+	constructor(user = null, authorizedExpands = null) {
+		if (user) this.setUser(user);
+		if (authorizedExpands) this.setAuthorized(authorizedExpands);
+
+		return this;
+	}
+
+	/* ---- Getters --------------------------------- */
+	/** @type {string} - Campus */ static get CAMPUS() { return ex.CAMPUS; }
+	/** @type {string} - MODULE */ static get MODULE() { return ex.MODULE; }
+	/** @type {string} - ECTS */ static get ECTS() { return ex.ECTS; }
+	/** @type {string} - JOB */ static get JOB() { return ex.JOB; }
+	/** @type {string} - COMPTA */ static get COMPTA() { return ex.COMPTA; }
+
 	/* ---- Setters --------------------------------- */
+	/**
+	 * Sets the current user for permission checks.
+	 * @function
+	 *
+	 * @param {module:LoggedUser} user
+	 * @return {Expand}
+	 */
+	setUser(user) {
+		this.currUser = user;
+		return this;
+	}
+
 	/**
 	 * Sets the authorized expands
 	 * @function
@@ -116,13 +159,43 @@ export default class Expand {
 	}
 
 	/**
+	 * Filters an array asynchronously.
+	 * @function
+	 * @async
+	 * @private
+	 *
+	 * @see From [this StackOverflow answer](https://stackoverflow.com/a/46842181).
+	 *
+	 * @example
+	 * const numbers = await this._asyncFilter([1, 2, 3], async (number) => {
+	 *   return await excludeOddButAsync(number);
+	 * });
+	 * console.log(numbers) // -> [2]
+	 *
+	 * @param {Array<*>} arr
+	 * @param {function} callback - Asynchronous callback with the current item
+	 * @return {Promise<Array>} - The filtered array
+	 */
+	async _asyncFilter(arr, callback) {
+		const fail = Symbol();
+		return (await Promise.all(arr.map(async item => (await callback(item)) ? item : fail))).filter(i => i !== fail);
+	}
+
+	/**
 	 * Processes the expands and calls a callback for each of them.
 	 * @function
 	 *
 	 * @param {Array<string>} expands - Expands being processed
 	 * @param {function} callback
 	 */
-	process(expands, callback) {
-		this._sort(this._filter(expands)).map(expand => callback(Expand._extractParts(expand)));
+	async process(expands, callback) {
+		const splittedExpands = this._sort(this._filter(expands)).map(ex => Expand._extractParts(ex));
+		const usableExpands = await this._asyncFilter(splittedExpands, async splittedEx => {
+			if (this.currUser && exPerms[splittedEx.name]) {
+				return await this.currUser.hasAllPermissions(exPerms[splittedEx.name]);
+			} return true;
+		});
+
+		usableExpands.map(callback);
 	}
 }

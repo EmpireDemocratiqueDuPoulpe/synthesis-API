@@ -207,12 +207,14 @@ export const buildPermissions = (user) => {
  * Transform URI query params to sequelize `where` and `include` clauses.
  * @function
  *
+ * @param {module:LoggedUser} currUser
  * @param {StudentFilters} filters
  * @param {Array<string>} disabledExpands - List of expand to not include in the clauses
  * @return {SeqStudentFilters}
  */
-const processStudentFilters = (filters, disabledExpands = []) => {
-	const validExpands = ["campus", "module", "ects", "job", "compta"].filter(e => !disabledExpands.includes(e));
+const processStudentFilters = async (currUser, filters, disabledExpands = []) => {
+	const validExpands = [Expand.CAMPUS, Expand.MODULE, Expand.ECTS, Expand.JOB, Expand.COMPTA]
+		.filter(e => !disabledExpands.includes(e));
 
 	const where = {};
 	const include = {
@@ -242,9 +244,7 @@ const processStudentFilters = (filters, disabledExpands = []) => {
 
 		// Expand
 		if (filters.expand) {
-			const expander = new Expand();
-
-			expander.setAuthorized(validExpands).process(filters.expand, expand => {
+			await new Expand(currUser).setAuthorized(validExpands).process(filters.expand, expand => {
 				switch (expand.name) {
 					case "campus":
 						include.campus = { model: models.campus, as: "campus", required: expand.required };
@@ -293,10 +293,13 @@ const processStudentFilters = (filters, disabledExpands = []) => {
  * Transform URI query params to sequelize `where` and `include` clauses.
  * @function
  *
+ * @param {module:LoggedUser} currUser
  * @param {SCTsFilters} filters
+ * @param {Array<string>} disabledExpands - List of expand to not include in the clauses
  * @return {SeqSCTsFilters}
  */
-const processSCTFilters = filters => {
+const processSCTFilters = async (currUser, filters, disabledExpands = []) => {
+	const validExpands = [Expand.CAMPUS, Expand.MODULE].filter(e => !disabledExpands.includes(e));
 	const where = {};
 	const include = [
 		{ model: models.position, as: "position", required: true, where: { name: "Intervenant" } },
@@ -308,17 +311,20 @@ const processSCTFilters = filters => {
 		}
 
 		if (filters.expand) {
-			if (filters.expand.includes("campus")) {
-				include.push({ model: models.campus, as: "campus", required: true });
-			}
-
-			if (filters.expand.includes("module")) {
-				include.push({ model: models.module, as: "modules", required: false });
-			}
+			await new Expand(currUser).setAuthorized(validExpands).process(filters.expand, expand => {
+				switch (expand.name) {
+					case "campus":
+						include.campus = {model: models.campus, as: "campus", required: expand.required};
+						break;
+					case "module":
+						include.module = {model: models.module, as: "modules", required: expand.required};
+						break;
+				}
+			});
 		}
 	}
 
-	return { where, include };
+	return { where, include: Object.values(include) };
 };
 
 /*****************************************************
@@ -452,12 +458,13 @@ const getAll = async () => {
  * @function
  * @async
  *
+ * @param {module:LoggedUser} currUser
  * @param {number} userID
  * @param {object} filters
  * @throws {APIError}
  * @return {Promise<APIResp>}
  */
-const getByID = async (userID, filters) => {
+const getByID = async (currUser, userID, filters) => {
 	const includeClause = [
 		{
 			model: models.position,
@@ -472,9 +479,13 @@ const getByID = async (userID, filters) => {
 	];
 
 	if (filters && filters.expand) {
-		if (filters.expand.includes("study")) {
-			includeClause.push({ model: models.study, as: "study", required: false });
-		}
+		await new Expand(currUser).setAuthorized([ "study" ]).process(filters.expand, expand => {
+			switch (expand.name) {
+				case "study":
+					includeClause.push({ model: models.study, as: "study", required: expand.required });
+					break;
+			}
+		});
 	}
 
 	const user = await models.user.findOne({
@@ -537,11 +548,12 @@ const getByUUID = async (uuid) => {
  * @function
  * @async
  *
+ * @param {module:LoggedUser} currUser
  * @param {StudentFilters} filters
  * @return {Promise<APIResp>}
  */
-const getAllStudents = async filters => {
-	const clauses = processStudentFilters(filters);
+const getAllStudents = async (currUser, filters) => {
+	const clauses = await processStudentFilters(currUser, filters);
 
 	const students = await models.user.findAll({
 		attributes: { exclude: ["password"] },
@@ -557,12 +569,13 @@ const getAllStudents = async filters => {
  * @function
  * @async
  *
+ * @param {module:LoggedUser} currUser
  * @param {string} uuid
  * @param {StudentFilters} filters
  * @return {Promise<APIResp>}
  */
-const getStudentByUUID = async (uuid, filters) => {
-	const clauses = processStudentFilters(filters);
+const getStudentByUUID = async (currUser, uuid, filters) => {
+	const clauses = await processStudentFilters(currUser, filters);
 
 	const student = await models.user.findOne({
 		attributes: { exclude: ["password"] },
@@ -585,11 +598,12 @@ const getStudentByUUID = async (uuid, filters) => {
  * @function
  * @async
  *
+ * @param {module:LoggedUser} currUser
  * @param {StudentFilters} filters
  * @return {Promise<APIResp>}
  */
-const getStudentsAtResit = async (filters) => {
-	const clauses = processStudentFilters(filters, ["module", "ects", "job"]);
+const getStudentsAtResit = async (currUser, filters) => {
+	const clauses = await processStudentFilters(currUser, filters, ["module", "ects", "job"]);
 
 	const students = await models.user.findAll({
 		attributes: { exclude: ["password"] },
@@ -632,11 +646,12 @@ const getStudentsAtResit = async (filters) => {
  * @function
  * @async
  *
+ * @param {module:LoggedUser} currUser
  * @param {SCTsFilters} filters
  * @return {Promise<APIResp>}
  */
-const getAllSCTs = async filters => {
-	const clauses = processSCTFilters(filters);
+const getAllSCTs = async (currUser, filters) => {
+	const clauses = await processSCTFilters(currUser, filters);
 
 	const scts = await models.user.findAll({
 		attributes: { exclude: ["password"] },

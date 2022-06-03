@@ -45,7 +45,7 @@ export default (router) => {
 				filters.expand = filters.expand.split(",");
 			}
 
-			const resp = await User.getAllSCTs(filters);
+			const resp = await User.getAllSCTs(request.user, filters);
 			response.status(resp.code).json(resp.toJSON());
 
 			logger.log("Fetch all SCTs", { ip: request.clientIP, params: {code: resp.code, ...filters} });

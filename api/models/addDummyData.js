@@ -325,7 +325,7 @@ async function setData(sequelize, logger) {
 		{ permission_id: 1006, name: "READ_PLANNINGS", name_localized: "" },
 		{ permission_id: 1007, name: "READ_CAMPUS", name_localized: "" },
 		{ permission_id: 1008, name: "READ_MODULES", name_localized: "" },
-		{ permission_id: 1009, name: "READ_NOTES", name_localized: "" },
+		{ permission_id: 1009, name: "READ_NOTES", name_localized: "" }, // TODO : Really useful ???
 		{ permission_id: 1010, name: "READ_ECTS", name_localized: "" },
 		{ permission_id: 1011, name: "READ_RESITS", name_localized: "" },
 		{ permission_id: 1012, name: "READ_INTERNSHIP_OFFERS", name_localized: "" },

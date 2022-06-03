@@ -58,7 +58,7 @@ export default (router) => {
 				filters.expand = filters.expand.split(",");
 			}
 
-			const resp = await User.getStudentsAtResit(filters);
+			const resp = await User.getStudentsAtResit(request.user, filters);
 			response.status(resp.code).json(resp.toJSON());
 
 			logger.log("Retrieves all students at resit", { ip: request.clientIP, params: {code: resp.code, ...filters} });

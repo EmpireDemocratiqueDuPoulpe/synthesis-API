@@ -54,7 +54,7 @@ export default (router) => {
 				filters.expand = filters.expand.split(",");
 			}
 
-			const resp = await User.getAllStudents(filters);
+			const resp = await User.getAllStudents(request.user, filters);
 			response.status(resp.code).json(resp.toJSON());
 
 			logger.log("Fetch all students", { ip: request.clientIP, params: {code: resp.code, ...filters} });
@@ -99,7 +99,7 @@ export default (router) => {
 				filters.expand = filters.expand.split(",");
 			}
 
-			const resp = await User.getStudentByUUID(UUID, filters);
+			const resp = await User.getStudentByUUID(request.user, UUID, filters);
 			response.status(resp.code).json(resp.toJSON());
 
 			logger.log("Fetch a student by its UUID", { ip: request.clientIP, params: {code: resp.code, UUID: request.params.UUID, ...filters} });
