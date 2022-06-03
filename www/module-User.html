@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CBEM - API User</title>
+  <title>CBEM - API module:User</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -94,15 +94,15 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="module-APIError.html">APIError</a></li><li><a href="module-APIResp.html">APIResp</a></li><li><a href="module-APIWarn.html">APIWarn</a></li><li><a href="module-Expand.html">Expand</a></li><li><a href="module-Logger.html">Logger</a></li></ul></div><div class="category"><h2>API</h2><h3>Modules / Interfaces</h3><ul><li><a href="module-Absence.html">Absence</a></li><li><a href="module-Attachement.html">Attachement</a></li><li><a href="module-Compta.html">Compta</a></li><li><a href="module-Job.html">Job</a></li><li><a href="module-JobDomain.html">JobDomain</a></li><li><a href="module-JobOffer.html">JobOffer</a></li><li><a href="module-Module.html">Module</a></li><li><a href="module-Note.html">Note</a></li><li><a href="module-Permission.html">Permission</a></li><li><a href="module-Planning.html">Planning</a></li><li><a href="module-Study.html">Study</a></li><li><a href="module-User.html">User</a></li></ul><h3>Modules / Models</h3><ul><li><a href="module-absence_.html">absence</a></li><li><a href="module-attachement_.html">attachement</a></li><li><a href="module-campus.html">campus</a></li><li><a href="module-compta_.html">compta</a></li><li><a href="module-job_.html">job</a></li><li><a href="module-jobDomain_.html">jobDomain</a></li><li><a href="module-jobOffer_.html">jobOffer</a></li><li><a href="module-jobOfferDomain.html">jobOfferDomain</a></li><li><a href="module-module_.html">module</a></li><li><a href="module-note_.html">note</a></li><li><a href="module-permission_.html">permission</a></li><li><a href="module-planning_.html">planning</a></li><li><a href="module-position.html">position</a></li><li><a href="module-positionPermissions.html">positionPermissions</a></li><li><a href="module-study_.html">study</a></li><li><a href="module-user_.html">user</a></li><li><a href="module-userModules.html">userModules</a></li><li><a href="module-userPlanning.html">userPlanning</a></li></ul><h3>Modules</h3><ul><li><a href="module-api.html">api</a></li></ul></div><div class="category"><h2>Global</h2><h3>Modules</h3><ul><li><a href="module-APIError.html">APIError</a></li><li><a href="module-APIResp.html">APIResp</a></li><li><a href="module-APIWarn.html">APIWarn</a></li><li><a href="module-CookiesFn.html">CookiesFn</a></li><li><a href="module-DirName.html">DirName</a></li><li><a href="module-Expand.html">Expand</a></li><li><a href="module-Logger.html">Logger</a></li></ul></div><div class="category"><h2>Middlewares</h2><h3>Modules / Authentication</h3><ul><li><a href="module-Authenticator.html">Authenticator</a></li><li><a href="module-TokenAssembler.html">TokenAssembler</a></li></ul><h3>Modules / Request flow</h3><ul><li><a href="module-ErrorHandler.html">ErrorHandler</a></li></ul></div><div class="category"><h2>Sequelize</h2><h3>Modules</h3><ul><li><a href="module-addDummyData.html">addDummyData</a></li><li><a href="module-associations.html">associations</a></li><li><a href="module-sequelizeLoader.html">sequelizeLoader</a></li></ul></div><div class="category"><h2>Server</h2><h3>Global</h3><ul><li><a href="global.html#serverReady">serverReady</a></li><li><a href="global.html#startServer">startServer</a></li><li><a href="global.html#swaggerReady">swaggerReady</a></li></ul></div><div class="category"><h2>jose</h2><h3>Modules</h3><ul><li><a href="module-joseLoader.html">joseLoader</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="module-APIError.html">APIError</a></li><li><a href="module-APIResp.html">APIResp</a></li><li><a href="module-APIWarn.html">APIWarn</a></li><li><a href="module-Expand.html">Expand</a></li><li><a href="module-Logger.html">Logger</a></li><li><a href="module-User.html">User</a></li></ul></div><div class="category"><h2>API</h2><h3>Modules / Interfaces</h3><ul><li><a href="module-Absence.html">Absence</a></li><li><a href="module-Attachement.html">Attachement</a></li><li><a href="module-Compta.html">Compta</a></li><li><a href="module-Job.html">Job</a></li><li><a href="module-JobDomain.html">JobDomain</a></li><li><a href="module-JobOffer.html">JobOffer</a></li><li><a href="module-Module.html">Module</a></li><li><a href="module-Note.html">Note</a></li><li><a href="module-Permission.html">Permission</a></li><li><a href="module-Planning.html">Planning</a></li><li><a href="module-Study.html">Study</a></li><li><a href="module-User.html">User</a></li></ul><h3>Modules / Models</h3><ul><li><a href="module-absence_.html">absence</a></li><li><a href="module-attachement_.html">attachement</a></li><li><a href="module-campus.html">campus</a></li><li><a href="module-compta_.html">compta</a></li><li><a href="module-job_.html">job</a></li><li><a href="module-jobDomain_.html">jobDomain</a></li><li><a href="module-jobOffer_.html">jobOffer</a></li><li><a href="module-jobOfferDomain.html">jobOfferDomain</a></li><li><a href="module-module_.html">module</a></li><li><a href="module-note_.html">note</a></li><li><a href="module-permission_.html">permission</a></li><li><a href="module-planning_.html">planning</a></li><li><a href="module-position.html">position</a></li><li><a href="module-positionPermissions.html">positionPermissions</a></li><li><a href="module-study_.html">study</a></li><li><a href="module-user_.html">user</a></li><li><a href="module-userModules.html">userModules</a></li><li><a href="module-userPlanning.html">userPlanning</a></li></ul><h3>Modules</h3><ul><li><a href="module-api.html">api</a></li></ul></div><div class="category"><h2>Global</h2><h3>Modules</h3><ul><li><a href="module-APIError.html">APIError</a></li><li><a href="module-APIResp.html">APIResp</a></li><li><a href="module-APIWarn.html">APIWarn</a></li><li><a href="module-CookiesFn.html">CookiesFn</a></li><li><a href="module-DirName.html">DirName</a></li><li><a href="module-Expand.html">Expand</a></li><li><a href="module-Logger.html">Logger</a></li><li><a href="module-User.html">User</a></li></ul></div><div class="category"><h2>Middlewares</h2><h3>Modules / Authentication</h3><ul><li><a href="module-Authenticator.html">Authenticator</a></li><li><a href="module-TokenAssembler.html">TokenAssembler</a></li></ul><h3>Modules / Request flow</h3><ul><li><a href="module-ErrorHandler.html">ErrorHandler</a></li></ul></div><div class="category"><h2>Sequelize</h2><h3>Modules</h3><ul><li><a href="module-addDummyData.html">addDummyData</a></li><li><a href="module-associations.html">associations</a></li><li><a href="module-sequelizeLoader.html">sequelizeLoader</a></li></ul></div><div class="category"><h2>Server</h2><h3>Global</h3><ul><li><a href="global.html#serverReady">serverReady</a></li><li><a href="global.html#startServer">startServer</a></li><li><a href="global.html#swaggerReady">swaggerReady</a></li></ul></div><div class="category"><h2>jose</h2><h3>Modules</h3><ul><li><a href="module-joseLoader.html">joseLoader</a></li></ul></div>
                 
             </nav>
         </div>
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Module</p>
-                    <h1>User</h1>
+                    <p>Class</p>
+                    <h1>module:User</h1>
                 </header>
                 
 
@@ -113,6 +113,9 @@
 
 <header>
     
+        <h2><span class="attribs"><span class="type-signature"></span></span>module:User<span class="signature">(userObj)</span><span class="type-signature"></span></h2>
+        
+            <div class="class-description"><p>User is a wrapper for the basic user object. It adds multiple functions such as permission checkers, ...</p></div>
         
     
 </header>
@@ -121,7 +124,165 @@
     <div class="container-overview">
     
         
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
 
+
+    
+    <h4 class="name" id="module:User">
+        <a class="href-link" href="#module:User">#</a>
+        
+        <span class="code-name">
+            
+                new module:User<span class="signature">(userObj)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>userObj</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type"><a href="User.html#~JWTObject">User~JWTObject</a></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="global_User.js.html" class="button">View Source</a>
+            <span>
+                <a href="global_User.js.html">global/User.js</a>, <a href="global_User.js.html#line32">line 32</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    
+        <pre class="prettyprint"><code>const user = new User({ ... });</code></pre>
+    
+
+
+
+                    </div>
+                </div>
+            </div>
         
     
     </div>
@@ -303,7 +464,7 @@
   <td class="type">
   
       
-<code class="param-type">User</code>
+<code class="param-type"><a href="User.html">User</a></code>
 
 
   
@@ -397,6 +558,511 @@
         <label>Type: </label>
         
 <code class="param-type">Promise.&lt;string></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="hasAllPermissions">
+        <a class="href-link" href="#hasAllPermissions">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+        
+        <span class="code-name">
+            
+                hasAllPermissions<span class="signature">(permissions)</span><span class="type-signature"> &rarr; {Promise.&lt;boolean>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Returns true if the user has <strong>all</strong> the given permission(s).</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>permissions</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Array.&lt;string></code>
+|
+
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="global_User.js.html" class="button">View Source</a>
+            <span>
+                <a href="global_User.js.html">global/User.js</a>, <a href="global_User.js.html#line130">line 130</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Promise.&lt;boolean></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+    <h5>Example</h5>
+    
+    
+        <pre class="prettyprint"><code>const user = new User({ ... });
+console.log(user.hasAllPermissions([ "SYNC_DATA", "READ_STUDENTS" ])); // -> false
+console.log(user.hasAllPermissions([ "READ_STUDENTS", "READ_OLD_STUDENTS" ])); // -> true</code></pre>
+    
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="hasPermissions">
+        <a class="href-link" href="#hasPermissions">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+        
+        <span class="code-name">
+            
+                hasPermissions<span class="signature">(permissions)</span><span class="type-signature"> &rarr; {Promise.&lt;Object.&lt;boolean>>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Check if the user has the given permission(s). Return an object with true/false for each permission.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>permissions</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Array.&lt;string></code>
+|
+
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="global_User.js.html" class="button">View Source</a>
+            <span>
+                <a href="global_User.js.html">global/User.js</a>, <a href="global_User.js.html#line105">line 105</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Promise.&lt;Object.&lt;boolean>></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+    <h5>Example</h5>
+    
+    
+        <pre class="prettyprint"><code>const user = new User({ ... });
+console.log(user.hasPermissions([ "SYNC_DATA", "READ_STUDENTS" ])); // ->
+// {
+//   "SYNC_DATA": false,
+//   "READ_STUDENTS": true
+// }</code></pre>
+    
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="updatePermissions">
+        <a class="href-link" href="#updatePermissions">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+        
+        <span class="code-name">
+            
+                updatePermissions<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="User.html">User</a>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Updates the user permissions.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="global_User.js.html" class="button">View Source</a>
+            <span>
+                <a href="global_User.js.html">global/User.js</a>, <a href="global_User.js.html#line55">line 55</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><ul>
+<li>Instance of current user</li>
+</ul></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type"><a href="User.html">User</a></code>
 
 
     </div>
@@ -1061,7 +1727,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line438">line 438</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line437">line 437</a>
             </span>
         </p>
     
@@ -1238,7 +1904,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line643">line 643</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line638">line 638</a>
             </span>
         </p>
     
@@ -1415,7 +2081,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line548">line 548</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line543">line 543</a>
             </span>
         </p>
     
@@ -1617,7 +2283,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line461">line 461</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line460">line 460</a>
             </span>
         </p>
     
@@ -1816,7 +2482,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line505">line 505</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line503">line 503</a>
             </span>
         </p>
     
@@ -2040,7 +2706,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line569">line 569</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line564">line 564</a>
             </span>
         </p>
     
@@ -2217,7 +2883,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line596">line 596</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line591">line 591</a>
             </span>
         </p>
     
