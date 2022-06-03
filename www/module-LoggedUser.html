@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CBEM - API Module</title>
+  <title>CBEM - API module:LoggedUser</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -101,8 +101,8 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Module</p>
-                    <h1>Module</h1>
+                    <p>Class</p>
+                    <h1>module:LoggedUser</h1>
                 </header>
                 
 
@@ -113,6 +113,9 @@
 
 <header>
     
+        <h2><span class="attribs"><span class="type-signature"></span></span>module:LoggedUser<span class="signature">(userObj)</span><span class="type-signature"></span></h2>
+        
+            <div class="class-description"><p>LoggedUser is a wrapper for the basic user object. It adds multiple functions such as permission checkers, ...</p></div>
         
     
 </header>
@@ -121,58 +124,87 @@
     <div class="container-overview">
     
         
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
 
+
+    
+    <h4 class="name" id="module:LoggedUser">
+        <a class="href-link" href="#module:LoggedUser">#</a>
         
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <div class='vertical-section'>
-            <h1>Members</h1>
-            <div class="members">
+        <span class="code-name">
             
-                <div class="member">
-
-    <span class="method-parameter is-pulled-right">
-        <label>Type:</label>
-        
-<code class="param-type">Object.&lt;Sequelize.models></code>
-
-
-    </span>
-
-<h4 class="name" id="~models">
-    <a class="href-link" href="#~models">#</a>
+                new module:LoggedUser<span class="signature">(userObj)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
     
-        
-            <span class='tag'>inner</span>
-        
-            <span class='tag'>constant</span>
-        
+
     
-    <span class="code-name">
-        models
-    </span>
     
-</h4>
 
 
 
 
-<div class="description">
-    <p>Sequelize models</p>
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>userObj</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type"><a href="LoggedUser.html#~JWTObject">LoggedUser~JWTObject</a></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
 </div>
 
 
@@ -212,9 +244,9 @@
 
     
         <p class="tag-source">
-            <a href="api_interfaces_Module.js.html" class="button">View Source</a>
+            <a href="global_LoggedUser.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_Module.js.html">api/interfaces/Module.js</a>, <a href="api_interfaces_Module.js.html#line12">line 12</a>
+                <a href="global_LoggedUser.js.html">global/LoggedUser.js</a>, <a href="global_LoggedUser.js.html#line32">line 32</a>
             </span>
         </p>
     
@@ -224,10 +256,49 @@
 
 
 
-</div>
-            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    
+        <pre class="prettyprint"><code>const user = new LoggedUser({ ... });</code></pre>
+    
+
+
+
+                    </div>
+                </div>
             </div>
-        </div>
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
     
 
     
@@ -239,18 +310,16 @@
 
 
     
-    <h4 class="name" id="~add">
-        <a class="href-link" href="#~add">#</a>
+    <h4 class="name" id="hasAllPermissions">
+        <a class="href-link" href="#hasAllPermissions">#</a>
         
             
                 <span class='tag'>async</span>
             
-                <span class='tag'>inner</span>
-            
         
         <span class="code-name">
             
-                add<span class="signature">(newModule)</span><span class="type-signature"> &rarr; {Promise.&lt;APIResp>}</span>
+                hasAllPermissions<span class="signature">(permissions)</span><span class="type-signature"> &rarr; {Promise.&lt;boolean>}</span>
             
         </span>
     </h4>
@@ -259,7 +328,7 @@
     
     
     <div class="description">
-        <p>Add a new module</p>
+        <p>Returns true if the user has <strong>all</strong> the given permission(s).</p>
     </div>
     
 
@@ -297,1124 +366,35 @@
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>newModule</code></td>
+      <td class="name"><code>permissions</code></td>
   
 
   <td class="type">
   
       
-<code class="param-type">NewModule</code>
+<code class="param-type">Array.&lt;string></code>
+|
 
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last"></td>
-</tr>
-
-
-        
-        </tbody>
-    </table>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="api_interfaces_Module.js.html" class="button">View Source</a>
-            <span>
-                <a href="api_interfaces_Module.js.html">api/interfaces/Module.js</a>, <a href="api_interfaces_Module.js.html#line59">line 59</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Throws:</label></div>
-        <div class="column is-10">
-            
-                    
-<div class="columns">
-    
-        
-            <div class='column is-12 has-text-left'>
-            <label>Type: </label>
-<code class="param-type">APIError</code>
-
-
-            </div>
-        
-    
-</div>
-
-                
-        </div>
-    </div>
-
-
-
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Returns:</label></div>
-        <div class="column is-10">
-            
-                    
-
-<div class="columns">
-    
-    
-    <div class='column is-5 has-text-left'>
-        <label>Type: </label>
-        
-<code class="param-type">Promise.&lt;APIResp></code>
-
-
-    </div>
-    
-</div>
-
-                
-        </div>
-    </div>
-
-
-
-
-</div>
-            
-                <div class="member">
-
-
-    
-    <h4 class="name" id="~getAll">
-        <a class="href-link" href="#~getAll">#</a>
-        
-            
-                <span class='tag'>async</span>
-            
-                <span class='tag'>inner</span>
-            
-        
-        <span class="code-name">
-            
-                getAll<span class="signature">(filters)</span><span class="type-signature"> &rarr; {Promise.&lt;APIResp>}</span>
-            
-        </span>
-    </h4>
-    
-
-    
-    
-    <div class="description">
-        <p>Get all modules</p>
-    </div>
-    
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-<div class="table-container">
-    <table class="params table">
-        <thead>
-        <tr>
-            
-            <th>Name</th>
-            
-
-            <th>Type</th>
-
-            
-
-            
-
-            <th class="last">Description</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>filters</code></td>
-  
-
-  <td class="type">
-  
-      
-<code class="param-type">ModuleFilters</code>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last"></td>
-</tr>
-
-
-        
-        </tbody>
-    </table>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="api_interfaces_Module.js.html" class="button">View Source</a>
-            <span>
-                <a href="api_interfaces_Module.js.html">api/interfaces/Module.js</a>, <a href="api_interfaces_Module.js.html#line87">line 87</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Returns:</label></div>
-        <div class="column is-10">
-            
-                    
-
-<div class="columns">
-    
-    
-    <div class='column is-5 has-text-left'>
-        <label>Type: </label>
-        
-<code class="param-type">Promise.&lt;APIResp></code>
-
-
-    </div>
-    
-</div>
-
-                
-        </div>
-    </div>
-
-
-
-
-</div>
-            
-                <div class="member">
-
-
-    
-    <h4 class="name" id="~getByID">
-        <a class="href-link" href="#~getByID">#</a>
-        
-            
-                <span class='tag'>async</span>
-            
-                <span class='tag'>inner</span>
-            
-        
-        <span class="code-name">
-            
-                getByID<span class="signature">(moduleID)</span><span class="type-signature"> &rarr; {Promise.&lt;APIResp>}</span>
-            
-        </span>
-    </h4>
-    
-
-    
-    
-    <div class="description">
-        <p>Get one module by its id</p>
-    </div>
-    
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-<div class="table-container">
-    <table class="params table">
-        <thead>
-        <tr>
-            
-            <th>Name</th>
-            
-
-            <th>Type</th>
-
-            
-
-            
-
-            <th class="last">Description</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>moduleID</code></td>
-  
-
-  <td class="type">
-  
-      
-<code class="param-type">number</code>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last"></td>
-</tr>
-
-
-        
-        </tbody>
-    </table>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="api_interfaces_Module.js.html" class="button">View Source</a>
-            <span>
-                <a href="api_interfaces_Module.js.html">api/interfaces/Module.js</a>, <a href="api_interfaces_Module.js.html#line127">line 127</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Throws:</label></div>
-        <div class="column is-10">
-            
-                    
-<div class="columns">
-    
-        
-            <div class='column is-12 has-text-left'>
-            <label>Type: </label>
-<code class="param-type">APIError</code>
-
-
-            </div>
-        
-    
-</div>
-
-                
-        </div>
-    </div>
-
-
-
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Returns:</label></div>
-        <div class="column is-10">
-            
-                    
-
-<div class="columns">
-    
-    
-    <div class='column is-5 has-text-left'>
-        <label>Type: </label>
-        
-<code class="param-type">Promise.&lt;APIResp></code>
-
-
-    </div>
-    
-</div>
-
-                
-        </div>
-    </div>
-
-
-
-
-</div>
-            
-                <div class="member">
-
-
-    
-    <h4 class="name" id="~getNotesByUserID">
-        <a class="href-link" href="#~getNotesByUserID">#</a>
-        
-            
-                <span class='tag'>async</span>
-            
-                <span class='tag'>inner</span>
-            
-        
-        <span class="code-name">
-            
-                getNotesByUserID<span class="signature">(userID, filters)</span><span class="type-signature"> &rarr; {Promise.&lt;APIResp>}</span>
-            
-        </span>
-    </h4>
-    
-
-    
-    
-    <div class="description">
-        <p>Get all modules with notes of a user</p>
-    </div>
-    
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-<div class="table-container">
-    <table class="params table">
-        <thead>
-        <tr>
-            
-            <th>Name</th>
-            
-
-            <th>Type</th>
-
-            
-
-            
-
-            <th class="last">Description</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>userID</code></td>
-  
-
-  <td class="type">
-  
-      
-<code class="param-type">number</code>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last"></td>
-</tr>
-
-
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>filters</code></td>
-  
-
-  <td class="type">
-  
-      
-<code class="param-type">ModuleNotesFilters</code>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last"></td>
-</tr>
-
-
-        
-        </tbody>
-    </table>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="api_interfaces_Module.js.html" class="button">View Source</a>
-            <span>
-                <a href="api_interfaces_Module.js.html">api/interfaces/Module.js</a>, <a href="api_interfaces_Module.js.html#line148">line 148</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Returns:</label></div>
-        <div class="column is-10">
-            
-                    
-
-<div class="columns">
-    
-    
-    <div class='column is-5 has-text-left'>
-        <label>Type: </label>
-        
-<code class="param-type">Promise.&lt;APIResp></code>
-
-
-    </div>
-    
-</div>
-
-                
-        </div>
-    </div>
-
-
-
-
-</div>
-            
-            </div>
-        </div>
-    
-
-    
-        <div class='vertical-section'>
-            <h1>Type Definitions</h1>
-            <div class="members">
-            
-                <div class="member">
-
-    <span class="method-parameter is-pulled-right">
-        <label>Type:</label>
-        
-<code class="param-type">Object</code>
-
-
-    </span>
-
-<h4 class="name" id="~ModuleFilters">
-    <a class="href-link" href="#~ModuleFilters">#</a>
-    
-    <span class="code-name">
-        ModuleFilters
-    </span>
-    
-</h4>
-
-
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-<div class="table-container">
-    <table class="props table">
-        <thead>
-        <tr>
-            
-            <th>Name</th>
-            
-
-            <th>Type</th>
-
-            
-
-            
-
-            <th class="last">Description</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        
-            
-<tr class="deep-level-0">
-    
-        <td class="name"><code>years</code></td>
-    
-
-    <td class="type">
-    
-        
-<code class="param-type">array.&lt;number></code>
-
-
-    
-    </td>
-
-    
-
-    
-
-    <td class="description last"></td>
-</tr>
-
-        
-        </tbody>
-    </table>
-</div>
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="api_interfaces_Module.js.html" class="button">View Source</a>
-            <span>
-                <a href="api_interfaces_Module.js.html">api/interfaces/Module.js</a>, <a href="api_interfaces_Module.js.html#line35">line 35</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-</div>
-            
-                <div class="member">
-
-    <span class="method-parameter is-pulled-right">
-        <label>Type:</label>
-        
-<code class="param-type">Object</code>
-
-
-    </span>
-
-<h4 class="name" id="~ModuleNotesFilters">
-    <a class="href-link" href="#~ModuleNotesFilters">#</a>
-    
-    <span class="code-name">
-        ModuleNotesFilters
-    </span>
-    
-</h4>
-
-
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-<div class="table-container">
-    <table class="props table">
-        <thead>
-        <tr>
-            
-            <th>Name</th>
-            
-
-            <th>Type</th>
-
-            
-
-            
-
-            <th class="last">Description</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        
-            
-<tr class="deep-level-0">
-    
-        <td class="name"><code>years</code></td>
-    
-
-    <td class="type">
-    
-        
-<code class="param-type">array.&lt;number></code>
-
-
-    
-    </td>
-
-    
-
-    
-
-    <td class="description last"></td>
-</tr>
-
-        
-        </tbody>
-    </table>
-</div>
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="api_interfaces_Module.js.html" class="button">View Source</a>
-            <span>
-                <a href="api_interfaces_Module.js.html">api/interfaces/Module.js</a>, <a href="api_interfaces_Module.js.html#line29">line 29</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-</div>
-            
-                <div class="member">
-
-    <span class="method-parameter is-pulled-right">
-        <label>Type:</label>
-        
-<code class="param-type">Object</code>
-
-
-    </span>
-
-<h4 class="name" id="~NewModule">
-    <a class="href-link" href="#~NewModule">#</a>
-    
-    <span class="code-name">
-        NewModule
-    </span>
-    
-</h4>
-
-
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-<div class="table-container">
-    <table class="props table">
-        <thead>
-        <tr>
-            
-            <th>Name</th>
-            
-
-            <th>Type</th>
-
-            
-
-            
-
-            <th class="last">Description</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        
-            
-<tr class="deep-level-0">
-    
-        <td class="name"><code>year</code></td>
-    
-
-    <td class="type">
-    
-        
-<code class="param-type">number</code>
-
-
-    
-    </td>
-
-    
-
-    
-
-    <td class="description last"></td>
-</tr>
-
-        
-            
-<tr class="deep-level-0">
-    
-        <td class="name"><code>name</code></td>
-    
-
-    <td class="type">
-    
-        
 <code class="param-type">string</code>
 
 
-    
-    </td>
+  
+  </td>
 
-    
+  
 
-    
+  
 
-    <td class="description last"></td>
+  <td class="description last"></td>
 </tr>
 
-        
-            
-<tr class="deep-level-0">
-    
-        <td class="name"><code>long_name</code></td>
-    
-
-    <td class="type">
-    
-        
-<code class="param-type">string</code>
-
-
-    
-    </td>
-
-    
-
-    
-
-    <td class="description last"></td>
-</tr>
-
-        
-            
-<tr class="deep-level-0">
-    
-        <td class="name"><code>ects</code></td>
-    
-
-    <td class="type">
-    
-        
-<code class="param-type">number</code>
-
-
-    
-    </td>
-
-    
-
-    
-
-    <td class="description last"></td>
-</tr>
 
         
         </tbody>
     </table>
 </div>
+
+
 
 
 
@@ -1451,9 +431,9 @@
 
     
         <p class="tag-source">
-            <a href="api_interfaces_Module.js.html" class="button">View Source</a>
+            <a href="global_LoggedUser.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_Module.js.html">api/interfaces/Module.js</a>, <a href="api_interfaces_Module.js.html#line20">line 20</a>
+                <a href="global_LoggedUser.js.html">global/LoggedUser.js</a>, <a href="global_LoggedUser.js.html#line130">line 130</a>
             </span>
         </p>
     
@@ -1463,10 +443,378 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Promise.&lt;boolean></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+    <h5>Example</h5>
+    
+    
+        <pre class="prettyprint"><code>const user = new LoggedUser({ ... });
+console.log(user.hasAllPermissions([ "SYNC_DATA", "READ_STUDENTS" ])); // -> false
+console.log(user.hasAllPermissions([ "READ_STUDENTS", "READ_OLD_STUDENTS" ])); // -> true</code></pre>
+    
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="hasPermissions">
+        <a class="href-link" href="#hasPermissions">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+        
+        <span class="code-name">
+            
+                hasPermissions<span class="signature">(permissions)</span><span class="type-signature"> &rarr; {Promise.&lt;Object.&lt;boolean>>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Check if the user has the given permission(s). Return an object with true/false for each permission.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>permissions</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Array.&lt;string></code>
+|
+
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="global_LoggedUser.js.html" class="button">View Source</a>
+            <span>
+                <a href="global_LoggedUser.js.html">global/LoggedUser.js</a>, <a href="global_LoggedUser.js.html#line105">line 105</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Promise.&lt;Object.&lt;boolean>></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+    <h5>Example</h5>
+    
+    
+        <pre class="prettyprint"><code>const user = new LoggedUser({ ... });
+console.log(user.hasPermissions([ "SYNC_DATA", "READ_STUDENTS" ])); // ->
+// {
+//   "SYNC_DATA": false,
+//   "READ_STUDENTS": true
+// }</code></pre>
+    
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="updatePermissions">
+        <a class="href-link" href="#updatePermissions">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+        
+        <span class="code-name">
+            
+                updatePermissions<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="LoggedUser.html">LoggedUser</a>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Updates the user permissions.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="global_LoggedUser.js.html" class="button">View Source</a>
+            <span>
+                <a href="global_LoggedUser.js.html">global/LoggedUser.js</a>, <a href="global_LoggedUser.js.html#line55">line 55</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><ul>
+<li>Instance of current user</li>
+</ul></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type"><a href="LoggedUser.html">LoggedUser</a></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
 </div>
             
             </div>
         </div>
+    
+
     
 
     

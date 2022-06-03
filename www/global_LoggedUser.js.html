@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CBEM - API global/User.js</title>
+  <title>CBEM - API global/LoggedUser.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -96,7 +96,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="module-APIError.html">APIError</a></li><li><a href="module-APIResp.html">APIResp</a></li><li><a href="module-APIWarn.html">APIWarn</a></li><li><a href="module-Expand.html">Expand</a></li><li><a href="module-Logger.html">Logger</a></li><li><a href="module-User.html">User</a></li></ul></div><div class="category"><h2>API</h2><h3>Modules / Interfaces</h3><ul><li><a href="module-Absence.html">Absence</a></li><li><a href="module-Attachement.html">Attachement</a></li><li><a href="module-Compta.html">Compta</a></li><li><a href="module-Job.html">Job</a></li><li><a href="module-JobDomain.html">JobDomain</a></li><li><a href="module-JobOffer.html">JobOffer</a></li><li><a href="module-Module.html">Module</a></li><li><a href="module-Note.html">Note</a></li><li><a href="module-Permission.html">Permission</a></li><li><a href="module-Planning.html">Planning</a></li><li><a href="module-Study.html">Study</a></li><li><a href="module-User.html">User</a></li></ul><h3>Modules / Models</h3><ul><li><a href="module-absence_.html">absence</a></li><li><a href="module-attachement_.html">attachement</a></li><li><a href="module-campus.html">campus</a></li><li><a href="module-compta_.html">compta</a></li><li><a href="module-job_.html">job</a></li><li><a href="module-jobDomain_.html">jobDomain</a></li><li><a href="module-jobOffer_.html">jobOffer</a></li><li><a href="module-jobOfferDomain.html">jobOfferDomain</a></li><li><a href="module-module_.html">module</a></li><li><a href="module-note_.html">note</a></li><li><a href="module-permission_.html">permission</a></li><li><a href="module-planning_.html">planning</a></li><li><a href="module-position.html">position</a></li><li><a href="module-positionPermissions.html">positionPermissions</a></li><li><a href="module-study_.html">study</a></li><li><a href="module-user_.html">user</a></li><li><a href="module-userModules.html">userModules</a></li><li><a href="module-userPlanning.html">userPlanning</a></li></ul><h3>Modules</h3><ul><li><a href="module-api.html">api</a></li></ul></div><div class="category"><h2>Global</h2><h3>Modules</h3><ul><li><a href="module-APIError.html">APIError</a></li><li><a href="module-APIResp.html">APIResp</a></li><li><a href="module-APIWarn.html">APIWarn</a></li><li><a href="module-CookiesFn.html">CookiesFn</a></li><li><a href="module-DirName.html">DirName</a></li><li><a href="module-Expand.html">Expand</a></li><li><a href="module-Logger.html">Logger</a></li><li><a href="module-User.html">User</a></li></ul></div><div class="category"><h2>Middlewares</h2><h3>Modules / Authentication</h3><ul><li><a href="module-Authenticator.html">Authenticator</a></li><li><a href="module-TokenAssembler.html">TokenAssembler</a></li></ul><h3>Modules / Request flow</h3><ul><li><a href="module-ErrorHandler.html">ErrorHandler</a></li></ul></div><div class="category"><h2>Sequelize</h2><h3>Modules</h3><ul><li><a href="module-addDummyData.html">addDummyData</a></li><li><a href="module-associations.html">associations</a></li><li><a href="module-sequelizeLoader.html">sequelizeLoader</a></li></ul></div><div class="category"><h2>Server</h2><h3>Global</h3><ul><li><a href="global.html#serverReady">serverReady</a></li><li><a href="global.html#startServer">startServer</a></li><li><a href="global.html#swaggerReady">swaggerReady</a></li></ul></div><div class="category"><h2>jose</h2><h3>Modules</h3><ul><li><a href="module-joseLoader.html">joseLoader</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="module-APIError.html">APIError</a></li><li><a href="module-APIResp.html">APIResp</a></li><li><a href="module-APIWarn.html">APIWarn</a></li><li><a href="module-Expand.html">Expand</a></li><li><a href="module-LoggedUser.html">LoggedUser</a></li><li><a href="module-Logger.html">Logger</a></li></ul></div><div class="category"><h2>API</h2><h3>Modules / Interfaces</h3><ul><li><a href="module-Absence.html">Absence</a></li><li><a href="module-Attachement.html">Attachement</a></li><li><a href="module-Compta.html">Compta</a></li><li><a href="module-Job.html">Job</a></li><li><a href="module-JobDomain.html">JobDomain</a></li><li><a href="module-JobOffer.html">JobOffer</a></li><li><a href="module-Module.html">Module</a></li><li><a href="module-Note.html">Note</a></li><li><a href="module-Permission.html">Permission</a></li><li><a href="module-Planning.html">Planning</a></li><li><a href="module-Study.html">Study</a></li><li><a href="module-User.html">User</a></li></ul><h3>Modules / Models</h3><ul><li><a href="module-absence_.html">absence</a></li><li><a href="module-attachement_.html">attachement</a></li><li><a href="module-campus.html">campus</a></li><li><a href="module-compta_.html">compta</a></li><li><a href="module-job_.html">job</a></li><li><a href="module-jobDomain_.html">jobDomain</a></li><li><a href="module-jobOffer_.html">jobOffer</a></li><li><a href="module-jobOfferDomain.html">jobOfferDomain</a></li><li><a href="module-module_.html">module</a></li><li><a href="module-note_.html">note</a></li><li><a href="module-permission_.html">permission</a></li><li><a href="module-planning_.html">planning</a></li><li><a href="module-position.html">position</a></li><li><a href="module-positionPermissions.html">positionPermissions</a></li><li><a href="module-study_.html">study</a></li><li><a href="module-user_.html">user</a></li><li><a href="module-userModules.html">userModules</a></li><li><a href="module-userPlanning.html">userPlanning</a></li></ul><h3>Modules</h3><ul><li><a href="module-api.html">api</a></li></ul></div><div class="category"><h2>Global</h2><h3>Modules</h3><ul><li><a href="module-APIError.html">APIError</a></li><li><a href="module-APIResp.html">APIResp</a></li><li><a href="module-APIWarn.html">APIWarn</a></li><li><a href="module-CookiesFn.html">CookiesFn</a></li><li><a href="module-DirName.html">DirName</a></li><li><a href="module-Expand.html">Expand</a></li><li><a href="module-LoggedUser.html">LoggedUser</a></li><li><a href="module-Logger.html">Logger</a></li></ul></div><div class="category"><h2>Middlewares</h2><h3>Modules / Authentication</h3><ul><li><a href="module-Authenticator.html">Authenticator</a></li><li><a href="module-TokenAssembler.html">TokenAssembler</a></li></ul><h3>Modules / Request flow</h3><ul><li><a href="module-ErrorHandler.html">ErrorHandler</a></li></ul></div><div class="category"><h2>Sequelize</h2><h3>Modules</h3><ul><li><a href="module-addDummyData.html">addDummyData</a></li><li><a href="module-associations.html">associations</a></li><li><a href="module-sequelizeLoader.html">sequelizeLoader</a></li></ul></div><div class="category"><h2>Server</h2><h3>Global</h3><ul><li><a href="global.html#serverReady">serverReady</a></li><li><a href="global.html#startServer">startServer</a></li><li><a href="global.html#swaggerReady">swaggerReady</a></li></ul></div><div class="category"><h2>jose</h2><h3>Modules</h3><ul><li><a href="module-joseLoader.html">joseLoader</a></li></ul></div>
                 
             </nav>
         </div>
@@ -104,7 +104,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>global/User.js</h1>
+                    <h1>global/LoggedUser.js</h1>
                 </header>
                 
 
@@ -114,7 +114,7 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @module User
+ * @module LoggedUser
  * @category Global
  * @author Alexis L. &lt;alexis.lecomte@supinfo.com>
  */
@@ -124,7 +124,7 @@ import { Permission } from "../api/interfaces/interfaces.js";
 
 /**
  * A user object stored in a JWT token
- * @typedef {Object} User~JWTObject
+ * @typedef {Object} LoggedUser~JWTObject
  * @property {string|int} sub - User ID
  * @property {string} uuid
  * @property {string} given_name - First name
@@ -138,16 +138,16 @@ import { Permission } from "../api/interfaces/interfaces.js";
  */
 
 /**
- * User is a wrapper for the basic user object. It adds multiple functions such as permission checkers, ...
+ * LoggedUser is a wrapper for the basic user object. It adds multiple functions such as permission checkers, ...
  * @class
  *
  * @example
- * const user = new User({ ... });
+ * const user = new LoggedUser({ ... });
  */
-export default class User {
+export default class LoggedUser {
 	permissions = null;
 
-	/** @param {User~JWTObject} userObj */
+	/** @param {LoggedUser~JWTObject} userObj */
 	constructor(userObj) {
 		const propMapping = { sub: "userID", first_name: "firstName", last_name: "lastName" };
 
@@ -165,7 +165,7 @@ export default class User {
 	 * @function
 	 * @async
 	 *
-	 * @return {User} - Instance of current user
+	 * @return {LoggedUser} - Instance of current user
 	 */
 	async updatePermissions() {
 		if (this.uuid) {
@@ -208,7 +208,7 @@ export default class User {
 	 * @param {Array&lt;string>|string} permissions
 	 *
 	 * @example
-	 * const user = new User({ ... });
+	 * const user = new LoggedUser({ ... });
 	 * console.log(user.hasPermissions([ "SYNC_DATA", "READ_STUDENTS" ])); // ->
 	 * // {
 	 * //   "SYNC_DATA": false,
@@ -236,7 +236,7 @@ export default class User {
 	 * @param {Array&lt;string>|string} permissions
 	 *
 	 * @example
-	 * const user = new User({ ... });
+	 * const user = new LoggedUser({ ... });
 	 * console.log(user.hasAllPermissions([ "SYNC_DATA", "READ_STUDENTS" ])); // -> false
 	 * console.log(user.hasAllPermissions([ "READ_STUDENTS", "READ_OLD_STUDENTS" ])); // -> true
 	 *
