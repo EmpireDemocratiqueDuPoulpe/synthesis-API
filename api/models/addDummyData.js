@@ -320,7 +320,7 @@ async function setData(sequelize, logger) {
 		{ permission_id: 1001, name: "READ_STUDENTS", name_localized: "" },
 		{ permission_id: 1002, name: "READ_OLD_STUDENTS", name_localized: "" },
 		{ permission_id: 1003, name: "READ_STUDENTS_JOBS", name_localized: "" },
-		{ permission_id: 1004, name: "READ_STUDENTS_COMPANIES", name_localized: "" },
+		{ permission_id: 1004, name: "READ_STUDENTS_COMPANIES", name_localized: "" }, // TODO : Really useful ???
 		{ permission_id: 1005, name: "READ_SCTS", name_localized: "" },
 		{ permission_id: 1006, name: "READ_PLANNINGS", name_localized: "" },
 		{ permission_id: 1007, name: "READ_CAMPUS", name_localized: "" },
@@ -330,13 +330,16 @@ async function setData(sequelize, logger) {
 		{ permission_id: 1011, name: "READ_RESITS", name_localized: "" },
 		{ permission_id: 1012, name: "READ_INTERNSHIP_OFFERS", name_localized: "" },
 		{ permission_id: 1013, name: "READ_COMPTA", name_localized: "" },
+		{ permission_id: 1025, name: "EDIT_USERS", name_localized: "" },
+		{ permission_id: 1024, name: "EDIT_MODULES", name_localized: "" },
 		{ permission_id: 1014, name: "EDIT_NOTES", name_localized: "" },
-		{ permission_id: 1015, name: "EDIT_ACHIEVEMENT_CRTS", name_localized: "" },
+		{ permission_id: 1023, name: "EDIT_COMPTA", name_localized: "" },
+		{ permission_id: 1015, name: "EDIT_ACHIEVEMENT_CRTS", name_localized: "" }, // TODO : Really useful ???
 		{ permission_id: 1016, name: "MANAGE_ABSENCES", name_localized: "" },
 		{ permission_id: 1017, name: "MANAGE_PARTNERSHIPS", name_localized: "" },
 		{ permission_id: 1018, name: "MANAGE_INTERNSHIP_OFFERS", name_localized: "" },
 		{ permission_id: 1019, name: "MANAGE_INTERNSHIP_CONTRACTS", name_localized: "" },
-		{ permission_id: 1020, name: "SEND_MAILS", name_localized: "" },
+		{ permission_id: 1020, name: "SEND_MAILS", name_localized: "" }, // TODO : Really useful ???
 		{ permission_id: 1021, name: "SYNC_DATA", name_localized: "" },
 		{ permission_id: 1022, name: "EXPORT_DATA", name_localized: "" },
 	]);

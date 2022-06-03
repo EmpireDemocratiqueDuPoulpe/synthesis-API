@@ -4,7 +4,8 @@
  */
 
 import AsyncRouter from "express-promise-router";
-import { Logger } from "../../global/global.js";
+import { authenticator } from "../middlewares/middlewares.js";
+import { Logger, APIError } from "../../global/global.js";
 import { User } from "../interfaces/interfaces.js";
 
 const route = AsyncRouter();
@@ -45,17 +46,19 @@ export default (router) => {
 	 *  }
 	 * ]}
 	 */
-	route.get("/all", async (request, response) => {
-		const filters = request.query;
+	route.get("/all", authenticator, async (request, response, next) => {
+		if (await request.user.hasAllPermissions("READ_STUDENTS")) {
+			const filters = request.query;
 
-		if (filters.expand) {
-			filters.expand = filters.expand.split(",");
-		}
+			if (filters.expand) {
+				filters.expand = filters.expand.split(",");
+			}
 
-		const resp = await User.getAllStudents(filters);
-		response.status(resp.code).json(resp.toJSON());
+			const resp = await User.getAllStudents(filters);
+			response.status(resp.code).json(resp.toJSON());
 
-		logger.log("Fetch all students", { ip: request.clientIP, params: {code: resp.code, ...filters} });
+			logger.log("Fetch all students", { ip: request.clientIP, params: {code: resp.code, ...filters} });
+		} else next(new APIError(403, "Permission denied: couldn't access this endpoint."));
 	});
 
 	/**
@@ -86,17 +89,21 @@ export default (router) => {
 	 *    }
 	 *  }}
 	 */
-	route.get("/by-uuid/:UUID", async (request, response) => {
-		const filters = request.query;
+	route.get("/by-uuid/:UUID", authenticator, async (request, response, next) => {
+		const { UUID } = request.params;
 
-		if (filters.expand) {
-			filters.expand = filters.expand.split(",");
-		}
+		if (request.user.uuid === UUID || await request.user.hasAllPermissions("READ_STUDENTS")) {
+			const filters = request.query;
 
-		const resp = await User.getStudentByUUID(request.params.UUID, filters);
-		response.status(resp.code).json(resp.toJSON());
+			if (filters.expand) {
+				filters.expand = filters.expand.split(",");
+			}
 
-		logger.log("Fetch a student by its UUID", { ip: request.clientIP, params: {code: resp.code, UUID: request.params.UUID, ...filters} });
+			const resp = await User.getStudentByUUID(UUID, filters);
+			response.status(resp.code).json(resp.toJSON());
+
+			logger.log("Fetch a student by its UUID", { ip: request.clientIP, params: {code: resp.code, UUID: request.params.UUID, ...filters} });
+		} else next(new APIError(403, "Permission denied: couldn't access this endpoint."));
 	});
 
 	/* ---- UPDATE ---------------------------------- */

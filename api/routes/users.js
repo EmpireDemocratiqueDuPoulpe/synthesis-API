@@ -5,7 +5,7 @@
 
 import AsyncRouter from "express-promise-router";
 import { authenticator } from "../middlewares/middlewares.js";
-import { Logger, APIResp, CookiesFn } from "../../global/global.js";
+import { Logger, APIResp, APIError, CookiesFn } from "../../global/global.js";
 import { User, generateJWT } from "../interfaces/interfaces.js";
 
 const route = AsyncRouter();
@@ -38,13 +38,15 @@ export default (router) => {
 	 * @example response - 400 - Bad request response
 	 * { "code": 400, "error": "Les mots de passe ne correspondent pas.", "fields": ["password1", "password2"] }
 	 */
-	route.post("/", async (request, response) => {
-		const { user } = request.body;
+	route.post("/", authenticator, async (request, response, next) => {
+		if (await request.user.hasAllPermissions("EDIT_USERS")) {
+			const { user } = request.body;
 
-		const resp = await User.add(user);
-		response.status(resp.code).json(resp.toJSON());
+			const resp = await User.add(user);
+			response.status(resp.code).json(resp.toJSON());
 
-		logger.log("Add a new user", { ip: request.clientIP, params: {code: resp.code, email: user.email} });
+			logger.log("Add a new user", { ip: request.clientIP, params: {code: resp.code, email: user.email} });
+		} else next(new APIError(403, "Permission denied: couldn't access this endpoint."));
 	});
 
 	/* ---- READ ------------------------------------ */
@@ -133,13 +135,13 @@ export default (router) => {
 	 *  }
 	 * ]}
 	 */
-	route.get("/all", authenticator, async (request, response) => {
-		if (await request.user.hasAllPermissions(["SYNC_DATA"])) {
+	route.get("/all", authenticator, async (request, response, next) => {
+		if (await request.user.hasAllPermissions("READ_USERS")) {
 			const resp = await User.getAll();
 			response.status(resp.code).json(resp.toJSON());
 
 			logger.log("Fetch all users", { ip: request.clientIP, params: {code: resp.code} });
-		} else throw new APIError(403, "en fait non");
+		} else next(new APIError(403, "Permission denied: couldn't access this endpoint."));
 	});
 
 	/**
@@ -160,7 +162,7 @@ export default (router) => {
 	 *    "position": { "position_id": 5, "name": "Étudiant", "permissions": {"READ_PLANNINGS": "READ_PLANNINGS"} }
 	 * }}
 	 */
-	route.get("/by-id/:userID", async (request, response) => {
+	route.get("/by-id/:userID", authenticator, async (request, response, next) => {
 		const resp = await User.getByID(request.params.userID);
 		response.status(resp.code).json(resp.toJSON());
 
@@ -185,7 +187,7 @@ export default (router) => {
 	 *    "position": { "position_id": 5, "name": "Étudiant", "permissions": {"READ_PLANNINGS": "READ_PLANNINGS"} }
 	 * }}
 	 */
-	route.get("/by-uuid/:UUID", async (request, response) => {
+	route.get("/by-uuid/:UUID", authenticator, async (request, response, next) => {
 		const resp = await User.getByUUID(request.params.UUID);
 		response.status(resp.code).json(resp.toJSON());
 

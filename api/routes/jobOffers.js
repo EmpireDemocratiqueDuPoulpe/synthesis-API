@@ -7,6 +7,7 @@ import AsyncRouter from "express-promise-router";
 import multer from "multer";
 import mime from "mime";
 import { v4 as UUIDV4 } from "uuid";
+import { authenticator } from "../middlewares/middlewares.js";
 import { Logger, APIError } from "../../global/global.js";
 import { JobOffer } from "../interfaces/interfaces.js";
 import { API } from "../../config/config.js";
@@ -49,19 +50,21 @@ export default (router) => {
 	 * @example response - 400 - Bad request response
 	 * { "code": 400, "error": "Le titre ne peut pas être vide.", "fields": null }
 	 */
-	route.post("/", async (request, response) => {
-		uploadJobOffer(request, response, async function(err) {
-			if (err) {
-				// TODO: Translate errors
-				throw new APIError((err instanceof multer.MulterError ? 400 : 500), err.message, "attachements");
-			}
-			const { jobOffer } = request.body;
+	route.post("/", authenticator, async (request, response, next) => {
+		if (await request.user.hasAllPermissions("MANAGE_INTERNSHIP_OFFERS")) {
+			uploadJobOffer(request, response, async function(err) {
+				if (err) {
+					// TODO: Translate errors
+					throw new APIError((err instanceof multer.MulterError ? 400 : 500), err.message, "attachements");
+				}
+				const { jobOffer } = request.body;
 
-			const resp = await JobOffer.add(jobOffer, request.files);
-			response.status(resp.code).json(resp.toJSON());
+				const resp = await JobOffer.add(jobOffer, request.files);
+				response.status(resp.code).json(resp.toJSON());
 
-			logger.log("Add a new job offer", { ip: request.clientIP, params: {code: resp.code, title: jobOffer?.name} });
-		});
+				logger.log("Add a new job offer", { ip: request.clientIP, params: {code: resp.code, title: jobOffer?.name} });
+			});
+		} else next(new APIError(403, "Permission denied: couldn't access this endpoint."));
 	});
 
 	/* ---- READ ------------------------------------ */
@@ -82,11 +85,13 @@ export default (router) => {
 	 *  "content": "searchin' cops"
 	 * }]}
 	 */
-	route.get("/all", async (request, response) => {
-		const resp = await JobOffer.getAll(request.query);
-		response.status(resp.code).json(resp.toJSON());
+	route.get("/all", authenticator, async (request, response, next) => {
+		if (await request.user.hasAllPermissions("READ_INTERNSHIP_OFFERS")) {
+			const resp = await JobOffer.getAll(request.query);
+			response.status(resp.code).json(resp.toJSON());
 
-		logger.log("Retrieves all job offers", { ip: request.clientIP, params: {code: resp.code, ...request.query} });
+			logger.log("Retrieves all job offers", { ip: request.clientIP, params: {code: resp.code, ...request.query} });
+		} else next(new APIError(403, "Permission denied: couldn't access this endpoint."));
 	});
 
 	/**
@@ -106,11 +111,13 @@ export default (router) => {
 	 *  "content": "searchin' cops"
 	 * }}
 	 */
-	route.get("/by-id/:jobOfferID", async (request, response) => {
-		const resp = await JobOffer.getByID(request.params.jobOfferID);
-		response.status(resp.code).json(resp.toJSON());
+	route.get("/by-id/:jobOfferID", authenticator, async (request, response, next) => {
+		if (await request.user.hasAllPermissions("READ_INTERNSHIP_OFFERS")) {
+			const resp = await JobOffer.getByID(request.params.jobOfferID);
+			response.status(resp.code).json(resp.toJSON());
 
-		logger.log("Retrieves a job offer by its ID", { ip: request.clientIP, params: {code: resp.code, jobOfferID: request.params.jobOfferID} });
+			logger.log("Retrieves a job offer by its ID", { ip: request.clientIP, params: {code: resp.code, jobOfferID: request.params.jobOfferID} });
+		} else next(new APIError(403, "Permission denied: couldn't access this endpoint."));
 	});
 
 	/* ---- UPDATE ---------------------------------- */
@@ -133,11 +140,13 @@ export default (router) => {
 	 * @example response - 400 - Bad request response
 	 * { "code": 400, "error": "", "fields": null }
 	 */
-	route.put("/", async (request, response) => {
-		const resp = await JobOffer.update(request.body.jobOffer);
-		response.status(resp.code).json(resp.toJSON());
+	route.put("/", authenticator, async (request, response, next) => {
+		if (await request.user.hasAllPermissions("MANAGE_INTERNSHIP_OFFERS")) {
+			const resp = await JobOffer.update(request.body.jobOffer);
+			response.status(resp.code).json(resp.toJSON());
 
-		logger.log("Update a job offer by its ID", { ip: request.clientIP, params: {code: resp.code, jobOffer: request.body.jobOffer.job_offer_id} });
+			logger.log("Update a job offer by its ID", { ip: request.clientIP, params: {code: resp.code, jobOffer: request.body.jobOffer.job_offer_id} });
+		} else next(new APIError(403, "Permission denied: couldn't access this endpoint."));
 	});
 
 	/* ---- DELETE ---------------------------------- */
@@ -160,10 +169,12 @@ export default (router) => {
 	 * @example response - 400 - Bad request response
 	 * { "code": 400, "error": "", "fields": null }
 	 */
-	route.delete("/delete", async (request, response) => {
-		const resp = await JobOffer.delete(request.body.jobOfferID);
-		response.status(resp.code).json(resp.toJSON());
+	route.delete("/delete", authenticator, async (request, response, next) => {
+		if (await request.user.hasAllPermissions("MANAGE_INTERNSHIP_OFFERS")) {
+			const resp = await JobOffer.delete(request.body.jobOfferID);
+			response.status(resp.code).json(resp.toJSON());
 
-		logger.log("Deletes a job offer by its ID", { ip: request.clientIP, params: {code: resp.code, jobOfferID: request.body.jobOfferID} });
+			logger.log("Deletes a job offer by its ID", { ip: request.clientIP, params: {code: resp.code, jobOfferID: request.body.jobOfferID} });
+		} else next(new APIError(403, "Permission denied: couldn't access this endpoint."));
 	});
 };
