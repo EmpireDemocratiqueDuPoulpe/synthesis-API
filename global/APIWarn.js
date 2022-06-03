@@ -4,7 +4,7 @@
  * @author Alexis L. <alexis.lecomte@supinfo.com>
  */
 
-import Checkers from "./Checkers.js";
+import { isArray, isNil } from "lodash-es";
 
 /**
  * APIWarn is used to pass warning from anywhere in the express call stack
@@ -27,7 +27,7 @@ export default function APIWarn(code, message, fields, options = {}) {
 	this.name = "API Warning";
 	this.message = error.message;
 	this.stack = opts.withStack ? error.stack : null;
-	this.fields = Checkers.isArray(fields) ? fields : (Checkers.isDefined(fields) ? [fields] : null);
+	this.fields = isArray(fields) ? fields : (!isNil(fields) ? [fields] : null);
 }
 APIWarn.prototype = Object.create(Error.prototype);
 APIWarn.prototype.constructor = APIWarn;

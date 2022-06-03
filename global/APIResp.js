@@ -4,7 +4,7 @@
  * @author Alexis L. <alexis.lecomte@supinfo.com>
  */
 
-import Checkers from "./Checkers.js";
+import { isNumber } from "lodash-es";
 
 /**
  * APIResp make it easy to return data to Express' response
@@ -36,11 +36,13 @@ export default class APIResp {
 	/* ---- Setters --------------------------------- */
 	/**
 	 * Changes the HTTP response code
+	 * @function
+	 *
 	 * @param {Number} code - The HTTP code of the response
 	 * @return {APIResp}
 	 */
 	setCode(code) {
-		if (!Checkers.isNumber(code)) return this;
+		if (!isNumber(code)) return this;
 
 		this.#code = code;
 		return this;
@@ -48,6 +50,8 @@ export default class APIResp {
 
 	/**
 	 * Changes the response message
+	 * @function
+	 *
 	 * @param {string|null} message - The response message
 	 * @return {APIResp}
 	 */
@@ -58,6 +62,8 @@ export default class APIResp {
 
 	/**
 	 * Set response data
+	 * @function
+	 *
 	 * @param {Object|null} data - The response data
 	 * @return {APIResp}
 	 */
@@ -93,6 +99,8 @@ export default class APIResp {
 	/* ---- Functions ------------------------------- */
 	/**
 	 * Create an object with the values of this instance
+	 * @function
+	 *
 	 * @return {Object.<string, *>}
 	 */
 	toJSON() {
