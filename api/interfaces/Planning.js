@@ -53,24 +53,21 @@ const { models } = sequelize;
  */
 const getAll = async filters => {
 	const usableFilters = {};
-	console.log(filters);
+
 	if (filters) {
 		if (filters.years) {
-			usableFilters.year = {
-				[Op.in]: filters.years,
-			};
+			usableFilters.year = { [Op.in]: filters.years };
 		}
+
 		if (filters.eventTypes) {
-			usableFilters.event_type = {
-				[Op.in]: filters.eventTypes,
-			};
+			usableFilters.event_type = { [Op.in]: filters.eventTypes };
 		}
+
 		if (filters.campuses) {
-			usableFilters["$campus.campus_id$"] = {
-				[Op.in]: filters.campuses,
-			};
+			usableFilters["$campus.campus_id$"] = { [Op.in]: filters.campuses };
 		}
 	}
+
 	const planning = await models.planning.findAll({
 		include: [{
 			model: models.module,
