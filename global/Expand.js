@@ -46,6 +46,7 @@ export default class Expand {
 		return this;
 	}
 
+	/* ---- Functions ------------------------------- */
 	/**
 	 * Filter the expands being processed.
 	 * @function
