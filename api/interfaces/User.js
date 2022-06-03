@@ -168,11 +168,10 @@ export const generateJWT = async (user) => {
 
 	return new jose.SignJWT(JWTuser)
 		.setProtectedHeader({ alg: API.jwt.algorithm })
-		.setIssuer("cpem") // TODO: Change to the site name
+		.setIssuer("cpem") // TODO : Change to the site name
 		.setIssuedAt()
 		.setExpirationTime("15m")
 		.setSubject(`${user.user_id}`)
-		.setExpirationTime("2h")
 		.sign(keys.privateKey);
 };
 
