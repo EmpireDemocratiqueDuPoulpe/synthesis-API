@@ -19,7 +19,7 @@ import "colors";
  * @typedef {Object} Logger~BuildOptions
  * @property {boolean} [withTime=true] - Must show time before the log message
  * @property {string|null} [ip=null] - The IP address of the user who triggered this log message
- * @property {Object|null} [params=null] - A list of parameters to log
+ * @property {Object|null} [params=null] - An object of parameters to log
  * @property {boolean} [subLevel=false] - Mark this log message as a sub-level log message
  */
 

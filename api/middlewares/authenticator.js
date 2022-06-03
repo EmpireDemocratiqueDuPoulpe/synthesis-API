@@ -21,7 +21,7 @@ const logger = new Logger({ prefix: "🔒 " });
  *
  * @param {e.Request} request
  * @param {e.Response} response
- * @param {e.NextFunction} next
+ * @param {function} next
  */
 function authenticator(request, response, next) {
 	const authHeader = request.headers["authorization"];
@@ -38,8 +38,8 @@ function authenticator(request, response, next) {
 			next();
 		})
 		.catch(err => {
-			logger.error("Unauthorized access", { ip: request.clientIP, params: err });
-			throw new APIError(403, "Accès non autorisé.");
+			logger.error("Unauthorized access", { ip: request.clientIP, params: {err} });
+			next(new APIError(403, "Accès non autorisé."));
 		});
 }
 
