@@ -15,7 +15,7 @@ import {
 	users, scts, students,
 	studies,
 } from "./routes/routes.js";
-import { tokenAssembler, endHandler } from "./middlewares/middlewares.js";
+import { tokenAssembler } from "./middlewares/middlewares.js";
 
 /**
  * @typedef {Object} SuccessResp
@@ -41,7 +41,6 @@ export default () => {
 	const router = Router();
 
 	// Middlewares
-	router.use(endHandler);
 	router.use(tokenAssembler);
 
 	// Routes
