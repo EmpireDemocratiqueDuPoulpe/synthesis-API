@@ -20,6 +20,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Modules
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {NewModule} request.body.required - Module info - application/json
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the module is added - application/json
@@ -48,6 +49,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Modules
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {string} years.query - Years
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the modules are returned - application/json
@@ -76,6 +78,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Modules
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {number} moduleID.path.required - Module id
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the module is returned - application/json
@@ -96,6 +99,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Modules
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {number} userID.path.required - User id
 	 * @param {string} years.query - Years
 	 *

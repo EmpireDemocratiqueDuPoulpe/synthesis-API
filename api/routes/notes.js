@@ -20,6 +20,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Notes
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {NewNote} request.body.required - Note info - application/json
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the note is added - application/json
@@ -48,6 +49,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Notes
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {number} noteID.path.required - Note id
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the note is returned - application/json

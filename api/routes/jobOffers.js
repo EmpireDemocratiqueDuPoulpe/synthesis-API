@@ -33,6 +33,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags JobOffers
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {NewJobOffer} request.body.required - Job offer info - application/json
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the job offer is added - application/json
@@ -70,6 +71,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags JobOffers
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {string} expired.query - Get expired job offers?
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the job offers are returned - application/json
@@ -93,6 +95,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags JobOffers
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {number} jobOfferID.path.required - Job offer id
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the job offer is returned - application/json
@@ -117,6 +120,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags JobOffers
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {number} request.body.required - Job offer - application/json
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the job offer is updated - application/json
@@ -143,6 +147,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags JobOffers
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {number} request.body.required - Job offer id - application/json
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the job offer is deleted - application/json

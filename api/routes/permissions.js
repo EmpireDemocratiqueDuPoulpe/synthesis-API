@@ -20,6 +20,8 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Permissions
 	 *
+	 * @param {string} brokilone.header.required - Auth header
+	 *
 	 * @return {SuccessResp} 200 - **Success**: the permissions are returned - application/json
 	 *
 	 * @example response - 200 - Success response

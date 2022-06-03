@@ -20,6 +20,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Planning
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {string} years.query - Years
 	 * @param {string} eventTypes.query - Event Types
 	 * @param {string} campuses.query - Campus IDs
@@ -57,6 +58,7 @@ export default (router) => {
      * @security BearerAuth
      * @tags Planning
      *
+	   * @param {string} brokilone.header.required - Auth header
      * @param {number} planningID.path.required - Planning id
      *
      * @return {SuccessResp} 200 - **Success**: the planning is returned - application/json

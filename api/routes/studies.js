@@ -21,6 +21,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Studies
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {number} userID.path.required - User id
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the study is returned - application/json

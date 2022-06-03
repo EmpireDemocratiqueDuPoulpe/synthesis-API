@@ -20,6 +20,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Comptas
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {NewCompta} request.body.required - Compta info - application/json
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the compta is added - application/json
@@ -48,6 +49,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Comptas
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {number} comptaID.path.required - Compta id
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the compta is returned - application/json
@@ -70,6 +72,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Comptas
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {number} UUID.path.required - User UUIDv4
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the compta is returned - application/json

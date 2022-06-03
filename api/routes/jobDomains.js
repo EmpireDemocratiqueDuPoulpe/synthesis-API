@@ -20,6 +20,8 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags JobDomains
 	 *
+	 * @param {string} brokilone.header.required - Auth header
+	 *
 	 * @return {SuccessResp} 200 - **Success**: the job domains are returned - application/json
 	 *
 	 * @example response - 200 - Success response

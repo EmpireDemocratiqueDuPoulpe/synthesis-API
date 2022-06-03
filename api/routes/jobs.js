@@ -21,6 +21,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Jobs
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {number} userID.path.required - User id
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the jobs are returned - application/json

@@ -21,6 +21,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Users [Students]
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {string} campus.query - Filter by campus name
 	 * @param {string} onlyHired.query - Skips students without jobs (true/false)
 	 * @param {string} expand.query - Fetch with associated data (campus, module, ects, job)?
@@ -63,6 +64,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Users [Students]
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {string} UUID.path.required - UUIDv4
 	 * @param {string} campus.query - Filter by campus name
 	 * @param {string} expand.query - Fetch with associated data (campus, modules, ects, job)?

@@ -399,7 +399,6 @@ const login = async (user) => {
 					include: [{
 						model: models.permission,
 						as: "permissions",
-						through: {attributes: []},
 					}],
 				},
 				{ model: models.campus, as: "campus", required: false },
@@ -467,7 +466,6 @@ const getByID = async (userID, filters) => {
 			include: [{
 				model: models.permission,
 				as: "permissions",
-				through: {attributes: []},
 			}],
 		},
 		{ model: models.campus, as: "campus", required: false },
@@ -513,7 +511,6 @@ const getByUUID = async (uuid) => {
 				include: [{
 					model: models.permission,
 					as: "permissions",
-					through: {attributes: []},
 				}],
 			},
 			{ model: models.campus, as: "campus", required: false },
@@ -525,10 +522,8 @@ const getByUUID = async (uuid) => {
 		throw new APIError(404, `Cet utilisateur (${uuid}) n'existe pas.`);
 	}
 
-	const userJSON = user.toJSON();
-	userJSON.position.permissions.forEach((p, i, arr) => (arr[i] = p.name));
-
-	return new APIResp(200).setData({ user: userJSON });
+	const flattenUser = buildPermissions(user);
+	return new APIResp(200).setData({ user: flattenUser });
 };
 
 /*****************************************************

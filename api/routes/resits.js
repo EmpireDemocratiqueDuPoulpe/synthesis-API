@@ -21,6 +21,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Resits
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {string} campus.query - Filter by campus name
 	 * @param {string} expand.query - Fetch with associated data (campus)?
 	 *

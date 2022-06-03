@@ -21,6 +21,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Users
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {NewUser} request.body.required - User info - application/json
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the user is added - application/json
@@ -52,10 +53,12 @@ export default (router) => {
 	 * @summary Login a user
 	 * @tags Users
 	 *
+	 * @param {LoggingUser} request.body.required - User email and password
+	 *
 	 * @return {SuccessResp} 200 - **Success**: the user is returned along with a JWT token in the cookies - application/json
 	 *
 	 * @example request - Login user
-	 * { "user": {"email": "pony.sparks@psindustry.com", "password": "My lil P0ny"} }
+	 * { "user": {"email": "pony.sparks@weapo.ns", "password": "Mot De P4sse"} }
 	 * @example response - 200 - Success response
 	 * { "code": 200, "user": {
 	 *  "first_name": "Pony", "last_name": "Sparks", "birth_date": "4/16/1974", "email": "pony.sparks@psindustry.com",
@@ -83,6 +86,8 @@ export default (router) => {
 	 * @summary Authenticate a user using his JWT token
 	 * @security BearerAuth
 	 * @tags Users
+	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the user is returned along with a new JWT token in the cookies - application/json
 	 *
@@ -115,6 +120,8 @@ export default (router) => {
 	 * @tags Users
 	 * @deprecated
 	 *
+	 * @param {string} brokilone.header.required - Auth header
+	 *
 	 * @return {SuccessResp} 200 - **Success**: the users are returned - application/json
 	 *
 	 * @example response - 200 - Success response
@@ -127,10 +134,12 @@ export default (router) => {
 	 * ]}
 	 */
 	route.get("/all", authenticator, async (request, response) => {
-		const resp = await User.getAll();
-		response.status(resp.code).json(resp.toJSON());
+		if (await request.user.hasAllPermissions(["SYNC_DATA"])) {
+			const resp = await User.getAll();
+			response.status(resp.code).json(resp.toJSON());
 
-		logger.log("Fetch all users", { ip: request.clientIP, params: {code: resp.code} });
+			logger.log("Fetch all users", { ip: request.clientIP, params: {code: resp.code} });
+		} else throw new APIError(403, "en fait non");
 	});
 
 	/**
@@ -139,6 +148,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Users
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {number} userID.path.required - User id
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the user is returned - application/json
@@ -163,6 +173,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Users
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {string} UUID.path.required - UUIDv4
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the user is returned - application/json

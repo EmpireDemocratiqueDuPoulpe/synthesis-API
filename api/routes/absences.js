@@ -20,6 +20,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Absences
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {NewAbsence} request.body.required - Absence info - application/json
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the absence is added - application/json
@@ -48,6 +49,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Absences
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {number} userID.path.required - User id
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the absences are returned - application/json
