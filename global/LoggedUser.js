@@ -1,5 +1,5 @@
 /**
- * @module User
+ * @module LoggedUser
  * @category Global
  * @author Alexis L. <alexis.lecomte@supinfo.com>
  */
@@ -9,7 +9,7 @@ import { Permission } from "../api/interfaces/interfaces.js";
 
 /**
  * A user object stored in a JWT token
- * @typedef {Object} User~JWTObject
+ * @typedef {Object} LoggedUser~JWTObject
  * @property {string|int} sub - User ID
  * @property {string} uuid
  * @property {string} given_name - First name
@@ -23,16 +23,16 @@ import { Permission } from "../api/interfaces/interfaces.js";
  */
 
 /**
- * User is a wrapper for the basic user object. It adds multiple functions such as permission checkers, ...
+ * LoggedUser is a wrapper for the basic user object. It adds multiple functions such as permission checkers, ...
  * @class
  *
  * @example
- * const user = new User({ ... });
+ * const user = new LoggedUser({ ... });
  */
-export default class User {
+export default class LoggedUser {
 	permissions = null;
 
-	/** @param {User~JWTObject} userObj */
+	/** @param {LoggedUser~JWTObject} userObj */
 	constructor(userObj) {
 		const propMapping = { sub: "userID", first_name: "firstName", last_name: "lastName" };
 
@@ -50,7 +50,7 @@ export default class User {
 	 * @function
 	 * @async
 	 *
-	 * @return {User} - Instance of current user
+	 * @return {LoggedUser} - Instance of current user
 	 */
 	async updatePermissions() {
 		if (this.uuid) {
@@ -93,7 +93,7 @@ export default class User {
 	 * @param {Array<string>|string} permissions
 	 *
 	 * @example
-	 * const user = new User({ ... });
+	 * const user = new LoggedUser({ ... });
 	 * console.log(user.hasPermissions([ "SYNC_DATA", "READ_STUDENTS" ])); // ->
 	 * // {
 	 * //   "SYNC_DATA": false,
@@ -121,7 +121,7 @@ export default class User {
 	 * @param {Array<string>|string} permissions
 	 *
 	 * @example
-	 * const user = new User({ ... });
+	 * const user = new LoggedUser({ ... });
 	 * console.log(user.hasAllPermissions([ "SYNC_DATA", "READ_STUDENTS" ])); // -> false
 	 * console.log(user.hasAllPermissions([ "READ_STUDENTS", "READ_OLD_STUDENTS" ])); // -> true
 	 *

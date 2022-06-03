@@ -5,4 +5,4 @@ export { default as CookiesFn } from "./CookiesFn.js";
 export { default as DirName } from "./DirName.js";
 export { default as Expand } from "./Expand.js";
 export { default as Logger } from "./Logger.js";
-export { default as User } from "./User.js";
+export { default as LoggedUser } from "./LoggedUser.js";

@@ -7,7 +7,7 @@
 
 import { jwtVerify } from "jose";
 import keys from "../joseLoader.js";
-import { APIError, Logger, User } from "../../global/global.js";
+import { APIError, Logger, LoggedUser } from "../../global/global.js";
 
 /**
  * @const
@@ -34,7 +34,7 @@ function authenticator(request, response, next) {
 
 	jwtVerify(token, keys.publicKey)
 		.then(({ payload }) => {
-			request.user = new User(payload);
+			request.user = new LoggedUser(payload);
 			next();
 		})
 		.catch(err => {
