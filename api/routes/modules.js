@@ -119,14 +119,16 @@ export default (router) => {
 	 * 	} ] }
 	 */
 	route.get("/notes/by-user-id/:userID", authenticator, async (request, response, next) => {
-		if (await request.user.hasAllPermissions(["READ_MODULES", "READ_NOTES"])) {
+		const { userID } = request.params;
+
+		if (request.user.userID === userID || await request.user.hasAllPermissions(["READ_MODULES", "READ_NOTES"])) {
 			const filters = request.query;
 
 			if (filters.years) {
 				filters.years = filters.years.split(",").map(y => parseInt(y, 10));
 			}
 
-			const resp = await Module.getNotesByUserID(request.params.userID, filters);
+			const resp = await Module.getNotesByUserID(userID, filters);
 			response.status(resp.code).json(resp.toJSON());
 
 			logger.log("Retrieves all modules and notes of a user", { ip: request.clientIP, params: {code: resp.code, noteID: request.params.noteID, ...filters} });
