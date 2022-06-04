@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CBEM - API api/models/module.js</title>
+  <title>CBEM - API Campus</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -103,101 +101,658 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Source</p>
-                    <h1>api/models/module.js</h1>
+                    <p>Module</p>
+                    <h1>Campus</h1>
                 </header>
                 
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @module module
- * @category API
- * @subcategory Models
- * @author Louan L. &lt;louan.leplae@supinfo.com>
- */
+        
+    
+</header>
 
-import { DataTypes } from "sequelize";
+<article>
+    <div class="container-overview">
+    
+        
 
-/**
- * @const
- * @type {Object}
- *
- * @example
- * {
- *  module_id: {
- *    type: DataTypes.INTEGER,
- *    primaryKey: boolean,
- *    allowNull: boolean,
- *    autoIncrement: boolean
- *  },
- *  year: {
- *    type: DataTypes.SMALLINT,
- *    allowNull: boolean,
- *    validate: { min: number, max: number }
- *  },
- *  name: {
- *    type: DataTypes.STRING,
- *    allowNull: boolean,
- *    validate: { notEmpty: boolean }
- *  },
- *  long_name: {
- *    type: DataTypes.STRING,
- *    allowNull: boolean,
- *    validate: { notEmpty: boolean }
- *  }
- * }
- */
-const module = {
-	module_id: {
-		type: DataTypes.INTEGER,
-		primaryKey: true,
-		allowNull: false,
-		autoIncrement: true,
-	},
-	year: {
-		type: DataTypes.SMALLINT,
-		allowNull: false,
-		validate: {
-			min: 1,
-			max: 5,
-		},
-	},
-	name: {
-		type: DataTypes.STRING(4),
-		allowNull: false,
-		validate: { notEmpty: true },
-	},
-	long_name: {
-		type: DataTypes.STRING,
-		allowNull: true,
-		validate: { notEmpty: true },
-	},
-	ects: {
-		type: DataTypes.SMALLINT,
-		allowNull: false,
-		validate: { notEmpty: true },
-	},
-};
+        
+    
+    </div>
+    
+    
 
-/**
- * Define the model
- * @function
- *
- * @param {Sequelize} sequelize
- * @param {string} name - The file name used for the definition
- */
-export const define = (sequelize, name) => {
-	sequelize.define(name, module);
-};
+    
 
-export default module;
-</code></pre>
-        </article>
-    </section>
+    
+
+    
+
+    
+
+    
+
+    
+        <div class='vertical-section'>
+            <h1>Members</h1>
+            <div class="members">
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">Object.&lt;Sequelize.models></code>
+
+
+    </span>
+
+<h4 class="name" id="~models">
+    <a class="href-link" href="#~models">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        models
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Sequelize models</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="api_interfaces_Campus.js.html" class="button">View Source</a>
+            <span>
+                <a href="api_interfaces_Campus.js.html">api/interfaces/Campus.js</a>, <a href="api_interfaces_Campus.js.html#line12">line 12</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+        <div class='vertical-section'>
+            <h1>Methods</h1>
+            <div class="members">
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="~getAll">
+        <a class="href-link" href="#~getAll">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+                <span class='tag'>inner</span>
+            
+        
+        <span class="code-name">
+            
+                getAll<span class="signature">(filters)</span><span class="type-signature"> &rarr; {Promise.&lt;APIResp>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Get all campuses</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>filters</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">CampusFilters</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="api_interfaces_Campus.js.html" class="button">View Source</a>
+            <span>
+                <a href="api_interfaces_Campus.js.html">api/interfaces/Campus.js</a>, <a href="api_interfaces_Campus.js.html#line43">line 43</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Promise.&lt;APIResp></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="~getByID">
+        <a class="href-link" href="#~getByID">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+                <span class='tag'>inner</span>
+            
+        
+        <span class="code-name">
+            
+                getByID<span class="signature">(campusID)</span><span class="type-signature"> &rarr; {Promise.&lt;APIResp>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Get one campus by its id</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>campusID</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">number</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="api_interfaces_Campus.js.html" class="button">View Source</a>
+            <span>
+                <a href="api_interfaces_Campus.js.html">api/interfaces/Campus.js</a>, <a href="api_interfaces_Campus.js.html#line70">line 70</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Throws:</label></div>
+        <div class="column is-10">
+            
+                    
+<div class="columns">
+    
+        
+            <div class='column is-12 has-text-left'>
+            <label>Type: </label>
+<code class="param-type">APIError</code>
+
+
+            </div>
+        
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Promise.&lt;APIResp></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+        <div class='vertical-section'>
+            <h1>Type Definitions</h1>
+            <div class="members">
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">Object</code>
+
+
+    </span>
+
+<h4 class="name" id="~CampusFilters">
+    <a class="href-link" href="#~CampusFilters">#</a>
+    
+    <span class="code-name">
+        CampusFilters
+    </span>
+    
+</h4>
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+<div class="table-container">
+    <table class="props table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>campus_ids</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">array.&lt;number></code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="api_interfaces_Campus.js.html" class="button">View Source</a>
+            <span>
+                <a href="api_interfaces_Campus.js.html">api/interfaces/Campus.js</a>, <a href="api_interfaces_Campus.js.html#line20">line 20</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+</article>
+
+</section>
 
 
 

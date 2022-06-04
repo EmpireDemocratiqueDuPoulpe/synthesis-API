@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CBEM - API api/models/module.js</title>
+  <title>CBEM - API api/interfaces/Campus.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -104,7 +104,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>api/models/module.js</h1>
+                    <h1>api/interfaces/Campus.js</h1>
                 </header>
                 
 
@@ -114,87 +114,97 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @module module
+ * @module Campus
  * @category API
- * @subcategory Models
- * @author Louan L. &lt;louan.leplae@supinfo.com>
+ * @subcategory Interfaces
+ * @author Maxence P. &lt;maxence.pawlowski@supinfo.com>
  */
 
-import { DataTypes } from "sequelize";
+import { Op } from "sequelize";
+import sequelize from "../sequelizeLoader.js";
+import { APIResp, APIError } from "../../global/global.js";
 
 /**
+ * Sequelize models
  * @const
- * @type {Object}
- *
- * @example
- * {
- *  module_id: {
- *    type: DataTypes.INTEGER,
- *    primaryKey: boolean,
- *    allowNull: boolean,
- *    autoIncrement: boolean
- *  },
- *  year: {
- *    type: DataTypes.SMALLINT,
- *    allowNull: boolean,
- *    validate: { min: number, max: number }
- *  },
- *  name: {
- *    type: DataTypes.STRING,
- *    allowNull: boolean,
- *    validate: { notEmpty: boolean }
- *  },
- *  long_name: {
- *    type: DataTypes.STRING,
- *    allowNull: boolean,
- *    validate: { notEmpty: boolean }
- *  }
- * }
+ * @name models
+ * @type {Object&lt;Sequelize.models>}
  */
-const module = {
-	module_id: {
-		type: DataTypes.INTEGER,
-		primaryKey: true,
-		allowNull: false,
-		autoIncrement: true,
-	},
-	year: {
-		type: DataTypes.SMALLINT,
-		allowNull: false,
-		validate: {
-			min: 1,
-			max: 5,
-		},
-	},
-	name: {
-		type: DataTypes.STRING(4),
-		allowNull: false,
-		validate: { notEmpty: true },
-	},
-	long_name: {
-		type: DataTypes.STRING,
-		allowNull: true,
-		validate: { notEmpty: true },
-	},
-	ects: {
-		type: DataTypes.SMALLINT,
-		allowNull: false,
-		validate: { notEmpty: true },
-	},
+const { models } = sequelize;
+
+/**
+ * @typedef {Object} CampusFilters
+ *
+ * @property {array&lt;number>} campus_ids
+ */
+
+/*****************************************************
+ * Functions
+ *****************************************************/
+
+/*****************************************************
+ * CRUD Methods
+ *****************************************************/
+
+/* ---- READ ------------------------------------ */
+/**
+ * Get all campuses
+ * @function
+ * @async
+ *
+ * @param {CampusFilters} filters
+ * @return {Promise&lt;APIResp>}
+ */
+const getAll = async filters => {
+	const usableFilters = {};
+
+	if (filters) {
+		if (filters.campusIDs) {
+			usableFilters.campus_id = {
+				[Op.in]: filters.campusIDs,
+			};
+		}
+	}
+	const campuses = await models.campus.findAll({
+		where: usableFilters,
+		order: [ ["campus_id", "ASC"] ],
+	});
+
+	return new APIResp(200).setData({ campuses });
 };
 
 /**
- * Define the model
+ * Get one campus by its id
  * @function
+ * @async
  *
- * @param {Sequelize} sequelize
- * @param {string} name - The file name used for the definition
+ * @param {number} campusID
+ * @throws {APIError}
+ * @return {Promise&lt;APIResp>}
  */
-export const define = (sequelize, name) => {
-	sequelize.define(name, module);
+const getByID = async (campusID) => {
+	const campus = await models.campus.findOne({
+		where: { campus_id: campusID },
+	});
+
+	if (!campus) {
+		throw new APIError(404, `Ce campus (${campusID}) n'existe pas.`);
+	}
+
+	return new APIResp(200).setData({ campus });
 };
 
-export default module;
+/* ---- UPDATE ---------------------------------- */
+/* ---- DELETE ---------------------------------- */
+
+/*****************************************************
+ * Export
+ *****************************************************/
+
+const Campus = {
+	getAll, getByID,	// READ
+};
+export default Campus;
 </code></pre>
         </article>
     </section>
