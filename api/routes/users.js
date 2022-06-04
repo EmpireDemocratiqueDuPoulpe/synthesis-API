@@ -105,7 +105,7 @@ export default (router) => {
 	route.post("/authenticate", authenticator, async (request, response) => {
 		const resp = new APIResp();
 
-		const user = (await User.getByID(request.user.sub, {expand: ["study"]})).data.user;
+		const user = (await User.getByID(request.user, request.user.userID, {expand: ["study"]})).data.user;
 		const token = await generateJWT(user);
 		CookiesFn.setTokenCookie(response, token);
 
@@ -163,10 +163,14 @@ export default (router) => {
 	 * }}
 	 */
 	route.get("/by-id/:userID", authenticator, async (request, response, next) => {
-		const resp = await User.getByID(request.params.userID);
-		response.status(resp.code).json(resp.toJSON());
+		const { userID } = request.params;
 
-		logger.log("Retrieves a user by his user ID", { ip: request.clientIP, params: {code: resp.code, userID: request.params.userID} });
+		if (await request.user.hasAllPermissions("READ_USERS")) {
+			const resp = await User.getByID(request.user, userID, {});
+			response.status(resp.code).json(resp.toJSON());
+
+			logger.log("Retrieves a user by his user ID", { ip: request.clientIP, params: {code: resp.code, userID: request.params.userID} });
+		} else next(new APIError(403, "Permission denied: couldn't access this endpoint."));
 	});
 
 	/**
