@@ -618,6 +618,7 @@ async function setData(sequelize, logger) {
 			start_date: "06/16/22 13:00:00",
 			end_date: "06/16/22 14:00:00",
 			event_name: "", event_type: "module",
+			year: 4,
 		},
 	]);
 
