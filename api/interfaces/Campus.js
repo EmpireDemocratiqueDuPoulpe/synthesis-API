@@ -18,7 +18,7 @@ import { APIResp, APIError } from "../../global/global.js";
 const { models } = sequelize;
 
 /**
- * @typedef {Object} CampusFilters
+ * @typedef {Object} CampusesFilters
  *
  * @property {array<number>} campus_ids
  */
@@ -37,7 +37,7 @@ const { models } = sequelize;
  * @function
  * @async
  *
- * @param {CampusFilters} filters
+ * @param {CampusesFilters} filters
  * @return {Promise<APIResp>}
  */
 const getAll = async filters => {

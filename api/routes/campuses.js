@@ -1,5 +1,5 @@
 /**
- * @module campus
+ * @module campuses
  * @author Maxence P. <maxence.pawlowski@supinfo.com>
  */
 
@@ -12,14 +12,14 @@ const route = AsyncRouter();
 const logger = new Logger({ separator: ": " });
 
 export default (router) => {
-	router.use("/campus", route);
+	router.use("/campuses", route);
 
 	/* ---- READ ------------------------------------ */
 	/**
-     * GET /v1/campus/all
+     * GET /v1/campuses/all
      * @summary Get all campuses
      * @security BearerAuth
-     * @tags Campus
+     * @tags Campuses
      *
      * @param {string} brokilone.header.required - Auth header
      * @param {string} campusIDs.query - Campus IDs
@@ -49,10 +49,10 @@ export default (router) => {
 	});
 
 	/**
-     * GET /v1/campus/by-id/{campusID}
+     * GET /v1/campuses/by-id/{campusID}
      * @summary Get a campus by its id
      * @security BearerAuth
-     * @tags Campus
+     * @tags Campuses
      *
      * @param {string} brokilone.header.required - Auth header
      * @param {number} campusID.path.required - Campus id

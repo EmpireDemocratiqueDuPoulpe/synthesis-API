@@ -1,6 +1,6 @@
 export { default as absences } from "./absences.js";
 export { default as comptas } from "./comptas.js";
-export { default as campus } from "./campus.js";
+export { default as campuses } from "./campuses.js";
 export { default as jobs } from "./jobs.js";
 export { default as jobDomains } from "./jobDomains.js";
 export { default as jobOffers } from "./jobOffers.js";
