@@ -29,7 +29,9 @@ const { models } = sequelize;
 /**
  * @typedef {Object} PlanningFilters
  *
- * @property {number} year
+ * @property {array<number>} years
+ * @property {array<string>} eventTypes
+ * @property {array<number>} campuses
  */
 
 /*****************************************************
@@ -51,22 +53,29 @@ const { models } = sequelize;
  */
 const getAll = async filters => {
 	const usableFilters = {};
+
 	if (filters) {
-		if (filters.year) {
-			usableFilters.year = {
-				[Op.eq]: filters.year,
-			};
+		if (filters.years) {
+			usableFilters.year = { [Op.in]: filters.years };
 		}
-		if (filters.eventType) {
-			usableFilters.event_type = {
-				[Op.eq]: filters.eventType,
-			};
+
+		if (filters.eventTypes) {
+			usableFilters.event_type = { [Op.in]: filters.eventTypes };
+		}
+
+		if (filters.campuses) {
+			usableFilters["$campus.campus_id$"] = { [Op.in]: filters.campuses };
 		}
 	}
+
 	const planning = await models.planning.findAll({
 		include: [{
 			model: models.module,
 			as: "module",
+			required: false,
+		}, {
+			model: models.campus,
+			as: "campus",
 			required: false,
 		}],
 		where: usableFilters,

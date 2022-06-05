@@ -4,7 +4,8 @@
  */
 
 import AsyncRouter from "express-promise-router";
-import { Logger } from "../../global/global.js";
+import { authenticator } from "../middlewares/middlewares.js";
+import { Logger, APIError } from "../../global/global.js";
 import { Absence } from "../interfaces/interfaces.js";
 
 const route = AsyncRouter();
@@ -20,6 +21,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Absences
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {NewAbsence} request.body.required - Absence info - application/json
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the absence is added - application/json
@@ -32,13 +34,15 @@ export default (router) => {
 	 * @example response - 400 - Bad request response
 	 * { "code": 400, "error": "Aucun utilisateur ne correspond à ce user_id (2)", "fields": null }
 	 */
-	route.post("/", async (request, response) => {
-		const { absence } = request.body;
+	route.post("/", authenticator, async (request, response, next) => {
+		if (await request.user.hasAllPermissions("MANAGE_ABSENCES")) {
+			const { absence } = request.body;
 
-		const resp = await Absence.add(absence);
-		response.status(resp.code).json(resp.toJSON());
+			const resp = await Absence.add(absence);
+			response.status(resp.code).json(resp.toJSON());
 
-		logger.log("Add a new absence to a user", { ip: request.clientIP, params: {code: resp.code, user_id: absence?.user_id} });
+			logger.log("Add a new absence to a user", { ip: request.clientIP, params: {code: resp.code, user_id: absence?.user_id} });
+		} else next(new APIError(403, "Permission denied: couldn't access this endpoint."));
 	});
 
 	/* ---- READ ------------------------------------ */
@@ -48,6 +52,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Absences
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {number} userID.path.required - User id
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the absences are returned - application/json
@@ -57,11 +62,13 @@ export default (router) => {
 	 *  { "absence_id": 1, "start_date": "2022-03-20T23:00:00.000Z", "end_date": "2022-03-21T23:00:00.000Z", "user_id": 2 }
 	 * ]}
 	 */
-	route.get("/by-user-id/:userID", async (request, response) => {
-		const resp = await Absence.getByUserID(request.params.userID);
-		response.status(resp.code).json(resp.toJSON());
+	route.get("/by-user-id/:userID", authenticator, async (request, response, next) => {
+		if (await request.user.hasAllPermissions("MANAGE_ABSENCES")) {
+			const resp = await Absence.getByUserID(request.params.userID);
+			response.status(resp.code).json(resp.toJSON());
 
-		logger.log("Retrieves all absences of a user", { ip: request.clientIP, params: {code: resp.code, userID: request.params.userID} });
+			logger.log("Retrieves all absences of a user", { ip: request.clientIP, params: {code: resp.code, userID: request.params.userID} });
+		} else next(new APIError(403, "Permission denied: couldn't access this endpoint."));
 	});
 
 	/* ---- UPDATE ---------------------------------- */

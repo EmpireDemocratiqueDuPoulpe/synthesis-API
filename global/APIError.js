@@ -4,7 +4,7 @@
  * @author Alexis L. <alexis.lecomte@supinfo.com>
  */
 
-import Checkers from "./Checkers.js";
+import { isArray, isNil } from "lodash-es";
 
 /**
  * APIError is used to pass errors from anywhere in the express call stack
@@ -28,7 +28,7 @@ export default function APIError(code, message, fields, options = {}) {
 	this.name = "API Error";
 	this.message = error.message;
 	this.stack = opts.withStack ? error.stack : null;
-	this.fields = Checkers.isArray(fields) ? fields : (Checkers.isDefined(fields) ? [fields] : null);
+	this.fields = isArray(fields) ? fields : (!isNil(fields) ? [fields] : null);
 }
 APIError.prototype = Object.create(Error.prototype);
 APIError.prototype.constructor = APIError;

@@ -85,6 +85,7 @@ function startServer() {
 
 
 	// Handle 404
+	// noinspection JSUnusedLocalSymbols
 	app.use((request, response, next) => {
 		throw new APIWarn(404, "Ce endpoint n'existe pas.");
 	});

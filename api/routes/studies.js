@@ -4,7 +4,8 @@
  */
 
 import AsyncRouter from "express-promise-router";
-import { Logger } from "../../global/global.js";
+import { authenticator } from "../middlewares/middlewares.js";
+import { Logger, APIError } from "../../global/global.js";
 import { Study } from "../interfaces/interfaces.js";
 
 const route = AsyncRouter();
@@ -21,6 +22,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Studies
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {number} userID.path.required - User id
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the study is returned - application/json
@@ -31,11 +33,13 @@ export default (router) => {
 	 *  "entry_date": "8/01/2018", "exit_date": "6/30/2023"
 	 * }}
 	 */
-	route.get("/by-user-id/:userID", async (request, response) => {
-		const resp = await Study.getByUserID(request.params.userID);
-		response.status(resp.code).json(resp.toJSON());
+	route.get("/by-user-id/:userID", authenticator, async (request, response, next) => {
+		if (await request.user.hasAllPermissions("READ_STUDENTS")) {
+			const resp = await Study.getByUserID(request.params.userID);
+			response.status(resp.code).json(resp.toJSON());
 
-		logger.log("Retrieves a user by his user ID", { ip: request.clientIP, params: {code: resp.code, userID: request.params.userID} });
+			logger.log("Retrieves a user by his user ID", { ip: request.clientIP, params: {code: resp.code, userID: request.params.userID} });
+		} else next(new APIError(403, "Permission denied: couldn't access this endpoint."));
 	});
 
 	/* ---- UPDATE ---------------------------------- */

@@ -4,7 +4,8 @@
  */
 
 import AsyncRouter from "express-promise-router";
-import { Logger } from "../../global/global.js";
+import { authenticator } from "../middlewares/middlewares.js";
+import { Logger, APIError } from "../../global/global.js";
 import { Note } from "../interfaces/interfaces.js";
 
 const route = AsyncRouter();
@@ -20,6 +21,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Notes
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {NewNote} request.body.required - Note info - application/json
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the note is added - application/json
@@ -32,13 +34,15 @@ export default (router) => {
 	 * @example response - 400 - Bad request response
 	 * { "code": 400, "error": "Aucun module ne correspond à ce module_id (1).", "fields": null }
 	 */
-	route.post("/", async (request, response) => {
-		const { note } = request.body;
+	route.post("/", authenticator, async (request, response, next) => {
+		if (await request.user.hasAllPermissions("EDIT_NOTES")) {
+			const { note } = request.body;
 
-		const resp = await Note.add(note);
-		response.status(resp.code).json(resp.toJSON());
+			const resp = await Note.add(note);
+			response.status(resp.code).json(resp.toJSON());
 
-		logger.log("Add a new note", { ip: request.clientIP, params: {code: resp.code} });
+			logger.log("Add a new note", { ip: request.clientIP, params: {code: resp.code} });
+		} else next(new APIError(403, "Permission denied: couldn't access this endpoint."));
 	});
 
 	/* ---- READ ------------------------------------ */
@@ -48,6 +52,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Notes
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {number} noteID.path.required - Note id
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the note is returned - application/json
@@ -55,11 +60,13 @@ export default (router) => {
 	 * @example response - 200 - Success response
 	 * { "code": 200, "note": {"note_id": 1, "note": 9.95} }
 	 */
-	route.get("/by-id/:noteID", async (request, response) => {
-		const resp = await Note.getByID(request.params.noteID);
-		response.status(resp.code).json(resp.toJSON());
+	route.get("/by-id/:noteID", authenticator, async (request, response, next) => {
+		if (await request.user.hasAllPermissions("READ_NOTES")) {
+			const resp = await Note.getByID(request.params.noteID);
+			response.status(resp.code).json(resp.toJSON());
 
-		logger.log("Retrieves a note by his ID", { ip: request.clientIP, params: {code: resp.code, noteID: request.params.noteID} });
+			logger.log("Retrieves a note by his ID", { ip: request.clientIP, params: {code: resp.code, noteID: request.params.noteID} });
+		} else next(new APIError(403, "Permission denied: couldn't access this endpoint."));
 	});
 
 	/* ---- UPDATE ---------------------------------- */

@@ -5,7 +5,6 @@
  */
 
 import "colors";
-import Checkers from "./Checkers.js";
 
 /**
  * Initialization option of the logger
@@ -20,7 +19,7 @@ import Checkers from "./Checkers.js";
  * @typedef {Object} Logger~BuildOptions
  * @property {boolean} [withTime=true] - Must show time before the log message
  * @property {string|null} [ip=null] - The IP address of the user who triggered this log message
- * @property {Object|null} [params=null] - A list of parameters to log
+ * @property {Object|null} [params=null] - An object of parameters to log
  * @property {boolean} [subLevel=false] - Mark this log message as a sub-level log message
  */
 
@@ -47,6 +46,8 @@ export default class Logger {
 	/* ---- Setters --------------------------------- */
 	/**
 	 * Changes the prefix
+	 * @function
+	 *
 	 * @param {string} prefix - The new prefix
 	 * @return {void}
 	 */
@@ -54,6 +55,8 @@ export default class Logger {
 
 	/**
 	 * Changes the separator
+	 * @function
+	 *
 	 * @param {string} separator - The new separator
 	 * @return {void}
 	 */
@@ -61,6 +64,8 @@ export default class Logger {
 
 	/**
 	 * Used to enable or disable colors in log messages
+	 * @function
+	 *
 	 * @param {boolean} [enable=true] - Enable colors?
 	 * @return {void}
 	 */
@@ -87,14 +92,30 @@ export default class Logger {
 
 	/* ---- Functions-------------------------------- */
 	/**
-	 * Build the complete log message to show
+	 * Builds a date string using a user's locale or the specified one.
+	 * @function
 	 * @private
+	 *
+	 * @param {Date} date - Date to stringify
+	 * @param {boolean} withTime - Include time in the date string?
+	 * @param {string} locale - The locale to used. User's locale if null.
+	 * @return {string}
+	 */
+	_dateToString(date, withTime = true, locale = "fr-FR") {
+		return withTime ? date.toLocaleString(locale) : date.toLocaleDateString(locale);
+	}
+
+	/**
+	 * Build the complete log message to show
+	 * @function
+	 * @private
+	 *
 	 * @param {string} message - The message to log
 	 * @param {Logger~BuildOptions} options - Build options
 	 * @return {string} - The message once it has been built
 	 */
-	build(message, options = { withTime: true, ip: null, params: null, subLevel: false }) {
-		const now = options.withTime ? (Checkers.dateToString(new Date())) : "";
+	_build(message, options = { withTime: true, ip: null, params: null, subLevel: false }) {
+		const now = options.withTime ? (this._dateToString(new Date())) : "";
 		const ip = options.ip ? `[${options.ip}]` : "";
 		let params = [];
 
@@ -117,33 +138,41 @@ export default class Logger {
 
 	/**
 	 * Equivalent of console.log with various options
+	 * @function
+	 *
 	 * @param {string} message - The message to log
 	 * @param {Logger~BuildOptions} [options] - Build options
 	 * @return {void}
 	 */
-	log(message, options) { console.log(this.build(message, { withTime: true, ...options })); }
+	log(message, options) { console.log(this._build(message, { withTime: true, ...options })); }
 
 	/**
 	 * Equivalent of console.info with various options
+	 * @function
+	 *
 	 * @param {string} message - The message to log
 	 * @param {Logger~BuildOptions} [options] - Build options
 	 * @return {void}
 	 */
-	info(message, options) { console.info(this.build(message, { withTime: true, ...options })); }
+	info(message, options) { console.info(this._build(message, { withTime: true, ...options })); }
 
 	/**
 	 * Equivalent of console.warn with various options
+	 * @function
+	 *
 	 * @param {string} message - The message to log
 	 * @param {Logger~BuildOptions} [options] - Build options
 	 * @return {void}
 	 */
-	warn(message, options) { console.warn(this.build(message, { withTime: true, ...options }).stripColors.yellow); }
+	warn(message, options) { console.warn(this._build(message, { withTime: true, ...options }).stripColors.yellow); }
 
 	/**
 	 * Equivalent of console.error with various options
+	 * @function
+	 *
 	 * @param {string} message - The message to log
 	 * @param {Logger~BuildOptions} [options] - Build options
 	 * @return {void}
 	 */
-	error(message, options) { console.warn(this.build(message, { withTime: true, ...options }).stripColors.red); }
+	error(message, options) { console.warn(this._build(message, { withTime: true, ...options }).stripColors.red); }
 }

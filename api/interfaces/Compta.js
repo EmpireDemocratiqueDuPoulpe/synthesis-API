@@ -103,21 +103,27 @@ const getByID = async (comptaID) => {
 };
 
 /**
- * Get user compta
+ * Get user compta by its UUID
  * @function
  * @async
  *
- * @param {number} userID
+ * @param {string} UUID
  * @throws {APIError}
  * @return {Promise<APIResp>}
  */
-const getByUserID = async (userID) => {
+const getByUUID = async (UUID) => {
 	const compta = await models.compta.findOne({
-		where: { user_id: userID },
+		include: [{
+			model: models.user,
+			as: "user",
+			required: true,
+			attributes: [],
+			where: { uuid: UUID },
+		}],
 	});
 
 	if (!compta) {
-		throw new APIError(404, `L'utilisateur (${userID}) n'a pas de comptabilité.`);
+		throw new APIError(404, `L'utilisateur (${UUID}) n'a pas de comptabilité.`);
 	}
 
 	return new APIResp(200).setData({ compta });
@@ -131,7 +137,7 @@ const getByUserID = async (userID) => {
  *****************************************************/
 
 const Compta = {
-	add, addAccountings,									// CREATE
-	getByID, getByUserID,	// READ
+	add, addAccountings,  // CREATE
+	getByID, getByUUID,	// READ
 };
 export default Compta;

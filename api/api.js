@@ -8,6 +8,7 @@ import { Router } from "express";
 import {
 	absences,
 	comptas,
+	campuses,
 	jobs, jobDomains, jobOffers,
 	modules, modulePlanning, notes,
 	permissions,
@@ -16,7 +17,7 @@ import {
 	studies,
 	etl,
 } from "./routes/routes.js";
-import { tokenAssembler, endHandler } from "./middlewares/middlewares.js";
+import { tokenAssembler } from "./middlewares/middlewares.js";
 
 /**
  * @typedef {Object} SuccessResp
@@ -42,12 +43,12 @@ export default () => {
 	const router = Router();
 
 	// Middlewares
-	router.use(endHandler);
 	router.use(tokenAssembler);
 
 	// Routes
 	absences(router);
 	comptas(router);
+	campuses(router);
 	jobs(router);
 	jobDomains(router);
 	jobOffers(router);

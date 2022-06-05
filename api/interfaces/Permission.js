@@ -5,9 +5,10 @@
  * @author Alexis L. <alexis.lecomte@supinfo.com>
  */
 
-import sequelize from "../sequelizeLoader.js";
-import { APIResp } from "../../global/global.js";
 import { isEmpty } from "lodash-es";
+import sequelize from "../sequelizeLoader.js";
+import { buildPermissions } from "./User.js";
+import { APIResp, APIError } from "../../global/global.js";
 
 /**
  * Sequelize models
@@ -45,6 +46,37 @@ const getAll = async () => {
 	return new APIResp(200).setData({ permissions: permsAsObj });
 };
 
+/**
+ * Get all permission of a user by its UUID
+ * @function
+ * @async
+ *
+ * @param {string} uuid
+ * @return {Promise<APIResp>}
+ */
+const getByUUID = async (uuid) => {
+	const user = await models.user.findOne({
+		include: [{
+			model: models.position,
+			as: "position",
+			required: true,
+			include: [{
+				model: models.permission,
+				as: "permissions",
+				required: false,
+			}],
+		}],
+		where: { uuid },
+	});
+
+	if (!user) {
+		throw new APIError(404, `Cet utilisateur (${uuid}) n'existe pas.`);
+	}
+
+	const flattenUser = buildPermissions(user);
+	return new APIResp(200).setData({ permissions: flattenUser.position.permissions });
+};
+
 /* ---- UPDATE ---------------------------------- */
 /* ---- DELETE ---------------------------------- */
 
@@ -53,6 +85,6 @@ const getAll = async () => {
  *****************************************************/
 
 const Permission = {
-	getAll,	// READ
+	getAll, getByUUID,	// READ
 };
 export default Permission;

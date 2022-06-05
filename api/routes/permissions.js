@@ -4,6 +4,7 @@
  */
 
 import AsyncRouter from "express-promise-router";
+import { authenticator } from "../middlewares/middlewares.js";
 import { Logger } from "../../global/global.js";
 import { Permission } from "../interfaces/interfaces.js";
 
@@ -20,6 +21,8 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Permissions
 	 *
+	 * @param {string} brokilone.header.required - Auth header
+	 *
 	 * @return {SuccessResp} 200 - **Success**: the permissions are returned - application/json
 	 *
 	 * @example response - 200 - Success response
@@ -28,7 +31,7 @@ export default (router) => {
 	 *  { "permission_id": 2, "name": "READ_NOTES", "name_localized": "Voir les notes" }
 	 * ]}
 	 */
-	route.get("/all", async (request, response) => {
+	route.get("/all", authenticator, async (request, response) => {
 		const resp = await Permission.getAll();
 		response.status(resp.code).json(resp.toJSON());
 
