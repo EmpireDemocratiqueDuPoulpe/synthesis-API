@@ -5,9 +5,9 @@
 
 import AsyncRouter from "express-promise-router";
 import { Logger, APIResp } from "../../global/global.js";
-import Compta from "../interfaces/Compta.js";
+// import Compta from "../interfaces/Compta.js";
 import User from "../interfaces/User.js";
-import job from "../models/job.js";
+// import job from "../models/job.js";
 
 const route = AsyncRouter();
 const logger = new Logger({ separator: ": " });
@@ -27,6 +27,7 @@ export default (router) => {
 				await User.addStudent(student).then((userId) => {
 					// await Compta.addAccountings(student.accounting, userId)
 					// await job.addJobs(student.job, userId)
+					// TODO : grades
 				});
 			}
 		}
