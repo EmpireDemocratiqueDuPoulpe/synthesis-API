@@ -137,7 +137,7 @@ const getByUUID = async (UUID) => {
  *****************************************************/
 
 const Compta = {
-	add, addAccountings,  // CREATE
+	add, addAccountings,	// CREATE
 	getByID, getByUUID,	// READ
 };
 export default Compta;
