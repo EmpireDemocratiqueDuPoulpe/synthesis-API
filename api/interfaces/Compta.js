@@ -63,6 +63,23 @@ const add = async (newCompta) => {
 	return new APIResp(200).setData({ comptaID: compta.compta_id });
 };
 
+const addAccountings = async (newAccounting, userId) => {
+	const processAccounting = {
+		amount_due: newAccounting.amount_due,
+		amoun_paid: newAccounting.amoun_paid,
+		user_id: userId,
+	};
+
+	// Add to the database
+	const accounting = await models.compta.findOrCreate({
+		where: {
+			user_id: userId,
+		},
+		defaults: processAccounting});
+
+	return { accountingID: accounting[0].compta_id };
+};
+
 /* ---- READ ------------------------------------ */
 /**
  * Get one compta by its id
@@ -120,7 +137,7 @@ const getByUUID = async (UUID) => {
  *****************************************************/
 
 const Compta = {
-	add,								// CREATE
+	add, addAccountings,	// CREATE
 	getByID, getByUUID,	// READ
 };
 export default Compta;

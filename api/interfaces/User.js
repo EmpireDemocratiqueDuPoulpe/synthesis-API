@@ -542,6 +542,34 @@ const getByUUID = async (uuid) => {
  *****************************************************/
 
 /* ---- CREATE ---------------------------------- */
+const addStudent = async (newStudent) => {
+	const processedStudent = {
+		first_name: newStudent.first_name,
+		last_name: newStudent.last_name,
+		email: newStudent.email,
+		password: newStudent.password,
+		gender: newStudent.gender,
+		region: newStudent.region,
+		position_id: 6,
+	};
+
+	processedStudent.password = await hashPassword("Password123!");
+
+	// Add to the database
+	const student = await models.user.findOrCreate({
+		where: {
+			first_name: processedStudent.first_name,
+			last_name: processedStudent.last_name,
+			email: processedStudent.email,
+			gender: processedStudent.gender,
+			region: processedStudent.region,
+			position_id: 6,
+		},
+		defaults: processedStudent});
+
+	return { userID: student[0].user_id };
+};
+
 /* ---- READ ------------------------------------ */
 /**
  * Get all student
@@ -670,7 +698,7 @@ const getAllSCTs = async (currUser, filters) => {
  *****************************************************/
 
 const User = {
-	/* CREATE */ add,
+	/* CREATE */ add, addStudent,
 	/* READ */ login, getAll, getByID, getByUUID, getAllStudents, getStudentByUUID, getStudentsAtResit, getAllSCTs,
 };
 export default User;

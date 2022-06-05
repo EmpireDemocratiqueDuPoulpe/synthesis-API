@@ -69,7 +69,7 @@ function startServer() {
 	app.use(requestIP.mw({ attributeName: "clientIP" }));
 
 	// Transform raw and x-www-form-urlencoded to nice JSON
-	app.use(bodyParser.json());
+	app.use(bodyParser.json({ limit: "1mb" }));
 	app.use(bodyParser.urlencoded({ extended: true }));
 	app.use(cookieParser());
 
@@ -82,6 +82,7 @@ function startServer() {
 
 	// Serves static files
 	app.use("/files", express.static("./uploads"));
+
 
 	// Handle 404
 	// noinspection JSUnusedLocalSymbols

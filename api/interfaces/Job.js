@@ -25,6 +25,24 @@ const { models } = sequelize;
  *****************************************************/
 
 /* ---- CREATE ---------------------------------- */
+const addJobs = async (newJob, userId) => {
+	const processJob = {
+		type: newJob.contrat,
+		start_date: newJob.hire_date,
+		company_name: newJob.companyName,
+		user_id: userId,
+	};
+
+	// Add to the database
+	const job = await models.job.findOrCreate({
+		where: {
+			user_id: userId,
+		},
+		defaults: processJob});
+
+	return { accountingID: job[0].compta_id };
+};
+
 /* ---- READ ------------------------------------ */
 /**
   * Get user's study by user id
@@ -55,6 +73,7 @@ const getAllByUserID = async (userID) => {
  *****************************************************/
 
 const Job = {
+	addJobs, // CREATE
 	getAllByUserID, // READ
 };
 export default Job;

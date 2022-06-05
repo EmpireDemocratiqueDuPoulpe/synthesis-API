@@ -142,12 +142,12 @@ const user = {
 };
 
 /**
- * Define the model
- * @function
- *
- * @param {Sequelize} sequelize
- * @param {string} name - The file name used for the definition
- */
+  * Define the model
+  * @function
+  *
+  * @param {Sequelize} sequelize
+  * @param {string} name - The file name used for the definition
+  */
 export const define = (sequelize, name) => {
 	sequelize.define(name, user);
 };
