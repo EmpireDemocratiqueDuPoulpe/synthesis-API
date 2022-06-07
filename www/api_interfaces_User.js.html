@@ -357,7 +357,7 @@ const processStudentFilters = async (currUser, filters, disabledExpands = []) =>
 	if (filters) {
 		// Campus name
 		if (filters.campus) {
-			where["$campus.name$"] = filters.campus;
+			where["$campus.name$"] = {[Op.in]: filters.campus};
 		}
 
 		if (filters.onlyOld === "true") {
