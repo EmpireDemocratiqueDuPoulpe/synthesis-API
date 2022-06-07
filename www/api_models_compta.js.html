@@ -174,13 +174,8 @@ const compta = {
 		allowNull: false,
 	},
 	paid: {
-		type: DataTypes.BOOLEAN,
-		defaultValue: false,
-		allowNull: false,
-	},
-	relance: {
-		type: DataTypes.BOOLEAN,
-		defaultValue: false,
+		type: DataTypes.DECIMAL(17, 2),
+		defaultValue: 0,
 		allowNull: false,
 	},
 };

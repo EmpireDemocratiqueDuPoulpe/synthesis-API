@@ -177,6 +177,18 @@ const { models } = sequelize;
  */
 
 /**
+ * @typedef {Object} NewStudent
+ *
+ * @property {string} first_name
+ * @property {string} last_name
+ * @property {Date|string} birth_date
+ * @property {string} email
+ * @property {string} gender
+ * @property {string} region
+ * @property {string} campus
+ */
+
+/**
  * @typedef {Object} LoggingUser
  *
  * @property {string} email
@@ -657,11 +669,21 @@ const getByUUID = async (uuid) => {
  *****************************************************/
 
 /* ---- CREATE ---------------------------------- */
+/**
+ * Add a new student
+ * @function
+ * @async
+ *
+ * @param {NewStudent} newStudent
+ * @throws {APIError}
+ * @return {Promise&lt;APIResp>}
+ */
 const addStudent = async (newStudent) => {
 	const processedStudent = {
 		first_name: newStudent.first_name,
 		last_name: newStudent.last_name,
 		email: newStudent.email,
+		campus: newStudent.campus,
 		password: newStudent.password,
 		gender: newStudent.gender,
 		region: newStudent.region,
