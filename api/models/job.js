@@ -56,7 +56,7 @@ const job = {
 	},
 	type: {
 		type: DataTypes.ENUM,
-		values: [ "stage", "alternance" ],
+		values: [ "stage", "apprentissage", "contratpro" ],
 		allowNull: false,
 	},
 	start_date: {
