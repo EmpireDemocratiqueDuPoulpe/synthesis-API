@@ -622,6 +622,34 @@ async function setData(sequelize, logger) {
 		},
 	]);
 
+	/* ---- absences ---------------------------------- */
+	await sequelize.models.absence.bulkCreate([
+		{
+			absence_id: 10000,
+			start_date: "06/09/22 00:00:00",
+			end_date: "06/09/22 23:59:59",
+			user_id: 10000,
+		},
+		{
+			absence_id: 10001,
+			start_date: "06/15/22 00:00:00",
+			end_date: "06/16/22 23:59:59",
+			user_id: 10000,
+		},
+		{
+			absence_id: 10002,
+			start_date: "06/25/22 00:00:00",
+			end_date: "06/25/22 23:59:59",
+			user_id: 10000,
+		},
+		{
+			absence_id: 10003,
+			start_date: "06/30/22 00:00:00",
+			end_date: "06/30/22 23:59:59",
+			user_id: 10001,
+		},
+	]);
+
 	logger.log("Dummy data inserted");
 }
 
