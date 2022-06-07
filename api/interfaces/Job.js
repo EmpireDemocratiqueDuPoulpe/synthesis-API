@@ -25,11 +25,22 @@ const { models } = sequelize;
  *****************************************************/
 
 /* ---- CREATE ---------------------------------- */
+/**
+ * Add a new job
+ * @function
+ * @async
+ *
+ * @param {NewJob} newJob
+ * @param {uuid} userId
+ * @throws {APIError}
+ * @return {Promise<APIResp>}
+ */
 const addJobs = async (newJob, userId) => {
 	const processJob = {
 		type: newJob.contrat,
 		start_date: newJob.hire_date,
 		company_name: newJob.companyName,
+		end_date: newJob.end_date,
 		user_id: userId,
 	};
 

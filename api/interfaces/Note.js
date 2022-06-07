@@ -61,6 +61,38 @@ const add = async (newNote) => {
 	return new APIResp(200).setData({ noteID: note.note_id });
 };
 
+
+/**
+ * Add a new note from etl
+ * @function
+ * @async
+ *
+ * @param {NewNote} newNote
+ * @throws {APIError}
+ * @return {Promise<APIResp>}
+ */
+const addNote = async (newNote) => {
+	const processedNote = {
+		note: newNote.grade,
+	};
+
+	// Check if the new note match the model
+	const model = models.note.build(processedNote);
+
+	try {
+		await model.validate({ skip: ["note_id"] });
+	} catch (err) {
+		// TODO: Adapt the system
+		throw new APIError(400, "error", Object.values(err));
+	}
+
+	// Add to the database
+	const note = await models.note.create(processedNote);
+
+	return new APIResp(200).setData({ noteID: note.note_id });
+};
+
+
 /* ---- READ ------------------------------------ */
 /**
  * Get one note by its id

@@ -27,6 +27,18 @@ const { models } = sequelize;
  */
 
 /**
+ * @typedef {Object} NewModuleETL
+ *
+ * @property {number} id
+ * @property {string} moduleId
+ * @property {string} moduleName
+ * @property {string} moduleDescription
+ * @property {number} year
+ * @property {number} credits
+ * @property {string} cursus
+ */
+
+/**
  * @typedef {Object} ModuleNotesFilters
  *
  * @property {array<number>} years
@@ -75,6 +87,33 @@ const add = async (newModule) => {
 	return new APIResp(200).setData({ moduleID: module.module_id });
 };
 
+/**
+ * Add a new module from etl
+ * @function
+ * @async
+ *
+ * @param {NewModuleETL} newModule
+ * @throws {APIError}
+ * @return {Promise<APIResp>}
+ */
+const addModule = async (newModule) => {
+	const processedModule = {
+		year: newModule.year,
+		name: newModule.moduleId,
+		long_name: newModule.moduleName,
+		description: newModule.moduleDescription,
+		ects: newModule.credits,
+	};
+
+	// Add to the database
+	const module = await models.module.findOrCreate({
+		where: processedModule,
+		default: processedModule,
+	});
+
+	return new APIResp(200).setData({ moduleID: module[0].module_id });
+};
+
 /* ---- READ ------------------------------------ */
 /**
  * Get all modules
@@ -94,6 +133,7 @@ const getAll = async filters => {
 			};
 		}
 	}
+	console.log(filters);
 	const modules = await models.module.findAll({
 		include: [{
 			model: models.user,
@@ -178,7 +218,7 @@ const getNotesByUserID = async (userID, filters) => {
  *****************************************************/
 
 const Module = {
-	add,							// CREATE
+	add, addModule,						// CREATE
 	getAll, getByID, getNotesByUserID,	// READ
 };
 export default Module;

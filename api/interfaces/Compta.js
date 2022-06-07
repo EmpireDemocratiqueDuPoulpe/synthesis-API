@@ -26,6 +26,16 @@ const { models } = sequelize;
  * @property {boolean} relance
  */
 
+/**
+ * @typedef {Object} newAccounting
+ *
+ * @property {number} id
+ * @property {number} student_id
+ * @property {number} amount_due
+ * @property {number} amount_paid
+ * @property {number} percent_paid
+ */
+
 /*****************************************************
  * Functions
  *****************************************************/
@@ -63,10 +73,21 @@ const add = async (newCompta) => {
 	return new APIResp(200).setData({ comptaID: compta.compta_id });
 };
 
+/**
+ * Add a new compta from etl
+ * @function
+ * @async
+ *
+ * @param {newAccounting} newAccounting
+ * @param {uuid} userId
+ * @throws {APIError}
+ * @return {Promise<APIResp>}
+ */
 const addAccountings = async (newAccounting, userId) => {
 	const processAccounting = {
-		amount_due: newAccounting.amount_due,
-		amoun_paid: newAccounting.amoun_paid,
+		payment_due: newAccounting.amount_due,
+		paid: newAccounting.amoun_paid,
+		payment_type: "Comptant",
 		user_id: userId,
 	};
 

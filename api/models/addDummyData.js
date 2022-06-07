@@ -529,7 +529,7 @@ async function setData(sequelize, logger) {
 	await sequelize.models.job.bulkCreate([
 		{
 			job_id: 10000, user_id: 10005,
-			type: "alternance",
+			type: "contratpro",
 			start_date: "06/01/21 04:11:05", end_date: "07/01/23 04:11:05",
 			company_name: "Supfinfo",
 		},
@@ -593,7 +593,7 @@ async function setData(sequelize, logger) {
 			compta_id: 10000, user_id: 10005,
 			payment_type: "Comptant",
 			payment_due: 28750.56,
-			paid: false, relance: true,
+			paid: 0, relance: true,
 		},
 	]);
 
