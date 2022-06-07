@@ -23,7 +23,7 @@ export default (router) => {
 	 * @tags Users [Students]
 	 *
 	 * @param {string} brokilone.header.required - Auth header
-	 * @param {string} campus.query - Filter by campus name
+	 * @param {string} campus.query - Filter by campus name (is an array)
 	 * @param {string} onlyHired.query - Skips students without jobs (true/false)
 	 * @param {string} expand.query - Fetch with associated data (campus, module, ects, job)?
 	 *
@@ -53,6 +53,9 @@ export default (router) => {
 			if (filters.expand) {
 				filters.expand = filters.expand.split(",");
 			}
+			if (filters.campus) {
+				filters.campus = filters.campus.split(",");
+			}
 
 			const resp = await User.getAllStudents(request.user, filters);
 			response.status(resp.code).json(resp.toJSON());
@@ -69,7 +72,7 @@ export default (router) => {
 	 *
 	 * @param {string} brokilone.header.required - Auth header
 	 * @param {string} UUID.path.required - UUIDv4
-	 * @param {string} campus.query - Filter by campus name
+	 * @param {string} campus.query - Filter by campus name (is an array)
 	 * @param {string} expand.query - Fetch with associated data (campus, modules, ects, job)?
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the student is returned - application/json
@@ -97,6 +100,9 @@ export default (router) => {
 
 			if (filters.expand) {
 				filters.expand = filters.expand.split(",");
+			}
+			if (filters.campus) {
+				filters.campus = filters.campus.split(",");
 			}
 
 			const resp = await User.getStudentByUUID(request.user, UUID, filters);

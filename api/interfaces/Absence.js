@@ -85,10 +85,10 @@ const getAll = async filters => {
 			usableFilters.user_id = { [Op.in]: filters.userIDs };
 		}
 		if (filters.campusIDs) {
-			usableFilters.campus_id = { [Op.in]: filters.campusIDs };
+			usableFilters["$user.campus.campus_id$"] = { [Op.in]: filters.campusIDs };
 		}
 		if (filters.years) {
-			usableFilters.current_level = { [Op.in]: filters.years };
+			usableFilters["$user.study.current_level$"] = { [Op.in]: filters.years };
 		}
 	}
 
