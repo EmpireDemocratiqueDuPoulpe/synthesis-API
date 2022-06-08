@@ -74,7 +74,7 @@ export default (router) => {
 			filters.userIDs = (canManageAbsences ? filters.userIDs.split(",").map(u => parseInt(u, 10)) : [request.user.userID]);
 		}
 
-		if (filters.userIDs.some(userID => userID === request.user.userID) || canManageAbsences) {
+		if ((filters.userIDs && filters.userIDs.some(userID => userID === request.user.userID)) || canManageAbsences) {
 			const resp = await Absence.getAll(filters);
 			response.status(resp.code).json(resp.toJSON());
 			logger.log("Fetch all absences", { ip: request.clientIP, params: {code: resp.code, ...filters} });
