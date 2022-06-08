@@ -133,7 +133,7 @@ const getAll = async filters => {
 			};
 		}
 	}
-	console.log(filters);
+
 	const modules = await models.module.findAll({
 		include: [{
 			model: models.user,

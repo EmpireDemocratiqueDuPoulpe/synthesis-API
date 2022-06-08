@@ -8,9 +8,8 @@ import { Logger, APIResp } from "../../global/global.js";
 import Compta from "../interfaces/Compta.js";
 import Job from "../interfaces/Job.js";
 import Module from "../interfaces/Module.js";
-// import Compta from "../interfaces/Compta.js";
 import User from "../interfaces/User.js";
-// import job from "../models/job.js";
+import Note from "../interfaces/Note.js";
 
 const route = AsyncRouter();
 const logger = new Logger({ separator: ": " });
@@ -24,18 +23,27 @@ export default (router) => {
 	route.post("/students", async (request, response) => {
 		const resp = new APIResp(200);
 		const list = request.body;
-		const moduleList = await Module.getAll();
-		console.log(moduleList);
-		for (const key in list) {
+		const moduleList = {};
+		const modules = (await Module.getAll()).data.modules;
+
+		modules.forEach(module => {
+			moduleList[module.dataValues.name] = module.dataValues.module_id;
+		});
+
+		for await (const key of list) {
 			if (Object.hasOwnProperty.call(list, key)) {
 				const student = list[key];
-				await User.addStudent(student).then((userId) => {
-					Compta.addAccountings(student.accounting, userId);
-					Job.addJobs(student.job, userId);
-					// TODO : grades
+				const userID = await User.addStudent(student);
+				await Compta.addAccounting(student.accounting, userID);
+				await Job.addJobs(student.job, userID);
+				student.grades?.forEach(grade => {
+					if (moduleList.hasOwnProperty(grade.name)) {
+						Note.addNote(grade, moduleList[grade.name], userID);
+					}
 				});
 			}
 		}
+
 		response.status(resp.code).json(resp.toJSON());
 
 		logger.log("Add students", { ip: request.clientIP, params: {code: resp.code}});

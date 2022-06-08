@@ -589,7 +589,7 @@ const addStudent = async (newStudent) => {
 		},
 		defaults: processedStudent});
 
-	return { userID: student[0].user_id };
+	return student[0].user_id;
 };
 
 /* ---- READ ------------------------------------ */

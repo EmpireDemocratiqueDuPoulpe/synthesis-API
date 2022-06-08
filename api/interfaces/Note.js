@@ -68,12 +68,16 @@ const add = async (newNote) => {
  * @async
  *
  * @param {NewNote} newNote
+ * @param {number} moduleId
+ * @param {number} userId
  * @throws {APIError}
  * @return {Promise<APIResp>}
  */
-const addNote = async (newNote) => {
+const addNote = async (newNote, moduleId, userId) => {
 	const processedNote = {
 		note: newNote.grade,
+		user_id: userId,
+		module_id: moduleId,
 	};
 
 	// Check if the new note match the model
@@ -123,7 +127,7 @@ const getByID = async (noteID) => {
  *****************************************************/
 
 const Note = {
-	add,									// CREATE
-	getByID,	// READ
+	add, addNote,					// CREATE
+	getByID,						// READ
 };
 export default Note;
