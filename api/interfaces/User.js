@@ -74,6 +74,18 @@ const { models } = sequelize;
  */
 
 /**
+ * @typedef {Object} NewIntervenant
+ *
+ * @property {string} first_name
+ * @property {string} last_name
+ * @property {string} email
+ * @property {string} modules
+ * @property {string} Section
+ * @property {string} gender
+ * @property {string} region
+ */
+
+/**
  * @typedef {Object} LoggingUser
  *
  * @property {string} email
@@ -550,6 +562,47 @@ const getByUUID = async (uuid) => {
 };
 
 /*****************************************************
+ * CRUD Methods - Staff
+ *****************************************************/
+
+/* ---- CREATE ---------------------------------- */
+/**
+ * Add a new student
+ * @function
+ * @async
+ *
+ * @param {NewStaff} newStaff
+ * @param {number} roleId
+ * @throws {APIError}
+ * @return {Promise<APIResp>}
+ */
+const addStaff = async (newStaff, roleId) => {
+	const processedStaff = {
+		first_name: newStaff.first_name,
+		last_name: newStaff.last_name,
+		email: newStaff.email,
+		gender: newStaff.gender,
+		region: newStaff.region,
+		position_id: roleId,
+	};
+
+	processedStaff.password = await hashPassword("Password123!");
+
+	// Add to the database
+	const staff = await models.user.findOrCreate({
+		where: {
+			first_name: processedStaff.first_name,
+			last_name: processedStaff.last_name,
+			email: processedStaff.email,
+			gender: processedStaff.gender,
+			region: processedStaff.region,
+		},
+		defaults: processedStaff});
+
+	return staff[0].user_id;
+};
+
+/*****************************************************
  * CRUD Methods - Students
  *****************************************************/
 
@@ -690,6 +743,43 @@ const getStudentsAtResit = async (currUser, filters) => {
  *****************************************************/
 
 /* ---- CREATE ---------------------------------- */
+/**
+ * Add a new student
+ * @function
+ * @async
+ *
+ * @param {NewIntervenant} newSct
+ * @param {Array<number>} modulesList
+ * @param {number} campusId
+ * @throws {APIError}
+ * @return {Promise<APIResp>}
+ */
+const addSCT = async (newSct, modulesList, campusId) => {
+	const processedSct = {
+		first_name: newSct.first_name,
+		last_name: newSct.last_name,
+		email: newSct.email,
+		campus_id: campusId,
+		gender: newSct.gender,
+		region: newSct.region,
+		position_id: 5,
+	};
+
+	processedSct.password = await hashPassword("Password123!");
+
+	// Create SCT
+	const sct = await models.user.findOrCreate({
+		where: processedSct,
+		defaults: processedSct});
+
+	// Add modules
+	if (modulesList) {
+		await sct[0].addModule(modulesList);
+	}
+
+	// Return response
+	return new APIResp(200).setData({ userID: sct.user_id, modulesIDs: modulesList, campusId });
+};
 /* ---- READ ------------------------------------ */
 /**
  * Get all SCTs
@@ -720,7 +810,7 @@ const getAllSCTs = async (currUser, filters) => {
  *****************************************************/
 
 const User = {
-	/* CREATE */ add, addStudent,
+	/* CREATE */ add, addStudent, addSCT, addStaff,
 	/* READ */ login, getAll, getByID, getByUUID, getAllStudents, getStudentByUUID, getStudentsAtResit, getAllSCTs,
 };
 export default User;
