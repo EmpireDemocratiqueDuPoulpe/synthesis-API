@@ -51,7 +51,7 @@ export default (router) => {
 	 * { "code": 400, "error": "Le titre ne peut pas être vide.", "fields": null }
 	 */
 	route.post("/", authenticator, async (request, response, next) => {
-		if (await request.user.hasAllPermissions("MANAGE_INTERNSHIP_OFFERS")) {
+		if (await request.user.hasAllPermissions("EDIT_INTERNSHIP_OFFERS")) {
 			uploadJobOffer(request, response, async function(err) {
 				if (err) {
 					// TODO: Translate errors
@@ -141,7 +141,7 @@ export default (router) => {
 	 * { "code": 400, "error": "", "fields": null }
 	 */
 	route.put("/", authenticator, async (request, response, next) => {
-		if (await request.user.hasAllPermissions("MANAGE_INTERNSHIP_OFFERS")) {
+		if (await request.user.hasAllPermissions("EDIT_INTERNSHIP_OFFERS")) {
 			const resp = await JobOffer.update(request.body.jobOffer);
 			response.status(resp.code).json(resp.toJSON());
 
@@ -170,7 +170,7 @@ export default (router) => {
 	 * { "code": 400, "error": "", "fields": null }
 	 */
 	route.delete("/delete", authenticator, async (request, response, next) => {
-		if (await request.user.hasAllPermissions("MANAGE_INTERNSHIP_OFFERS")) {
+		if (await request.user.hasAllPermissions("EDIT_INTERNSHIP_OFFERS")) {
 			const resp = await JobOffer.delete(request.body.jobOfferID);
 			response.status(resp.code).json(resp.toJSON());
 
