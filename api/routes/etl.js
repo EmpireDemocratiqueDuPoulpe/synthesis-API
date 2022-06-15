@@ -36,7 +36,7 @@ export default (router) => {
 			if (Object.hasOwnProperty.call(list, key)) {
 				const student = list[key];
 				const userID = await User.addStudent(student);
-				await Compta.addAccounting(student.accounting, userID);
+				await Compta.addAccountings(student.accounting, userID);
 				await Job.addJobs(student.job, userID);
 				student.grades?.forEach(grade => {
 					if (moduleList.hasOwnProperty(grade.name)) {

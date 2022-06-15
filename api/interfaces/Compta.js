@@ -84,9 +84,10 @@ const add = async (newCompta) => {
  * @return {Promise<APIResp>}
  */
 const addAccountings = async (newAccounting, userId) => {
+	console.log(newAccounting, userId);
 	const processAccounting = {
 		payment_due: newAccounting.amount_due,
-		paid: newAccounting.amoun_paid,
+		paid: newAccounting.amount_paid,
 		payment_type: "Comptant",
 		user_id: userId,
 	};
