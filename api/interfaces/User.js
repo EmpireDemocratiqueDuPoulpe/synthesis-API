@@ -614,7 +614,7 @@ const addStaff = async (newStaff, roleId) => {
  *
  * @param {NewStudent} newStudent
  * @throws {APIError}
- * @return {Promise<APIResp>}
+ * @return {Promise<number>}
  */
 const addStudent = async (newStudent) => {
 	const processedStudent = {

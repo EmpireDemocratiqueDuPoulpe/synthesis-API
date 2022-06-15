@@ -26,23 +26,24 @@ export default (router) => {
 		const resp = new APIResp(200);
 		const list = request.body;
 		const moduleList = {};
-		const modules = (await Module.getAll()).data.modules;
+		const modules = (await Module.getAll(undefined)).data.modules;
 
 		modules.forEach(module => {
 			moduleList[module.dataValues.name] = module.dataValues.module_id;
 		});
 
-		for await (const key of list) {
-			if (Object.hasOwnProperty.call(list, key)) {
-				const student = list[key];
-				const userID = await User.addStudent(student);
-				await Compta.addAccountings(student.accounting, userID);
-				await Job.addJobs(student.job, userID);
-				student.grades?.forEach(grade => {
+		for await (const student of list) {
+			const userID = await User.addStudent(student);
+			await Compta.addAccountings(student.accounting, userID);
+			await Job.addJobs(student.job, userID);
+
+			if (student.grades) {
+				await Promise.all(student.grades.map(grade => {
 					if (moduleList.hasOwnProperty(grade.name)) {
-						Note.addNote(grade, moduleList[grade.name], userID);
+						return Note.addNote(grade, moduleList[grade.name], userID);
 					}
-				});
+					return null;
+				}).filter(Boolean));
 			}
 		}
 

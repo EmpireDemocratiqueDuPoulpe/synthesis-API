@@ -33,6 +33,7 @@ const { models } = sequelize;
  * @property {number} student_id
  * @property {number} amount_due
  * @property {number} amount_paid
+ * @property {string} type
  * @property {number} percent_paid
  */
 
@@ -84,11 +85,10 @@ const add = async (newCompta) => {
  * @return {Promise<APIResp>}
  */
 const addAccountings = async (newAccounting, userId) => {
-	console.log(newAccounting, userId);
 	const processAccounting = {
 		payment_due: newAccounting.amount_due,
 		paid: newAccounting.amount_paid,
-		payment_type: "Comptant",
+		payment_type: newAccounting.type,
 		user_id: userId,
 	};
 
