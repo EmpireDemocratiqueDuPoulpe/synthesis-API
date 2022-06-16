@@ -452,8 +452,8 @@ const login = async (user) => {
 	// Generate a JWT token
 	const token = await generateJWT(storedUser);
 
-	delete storedUser.password;
 	const flattenUser = buildPermissions(storedUser);
+	delete flattenUser.password;
 	return new APIResp(200).setData({ token, user: flattenUser });
 };
 
