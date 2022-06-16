@@ -683,7 +683,7 @@ const addStaffFromETL = async (newStaff, positionID) => {
 		last_name: newStaff.last_name,
 		email: newStaff.email,
 		gender: newStaff.gender,
-		region: newStaff.region,
+		region: newStaff.region ?? null,
 	};
 	processedStaff.password = await hashPassword(randomPassword());
 
@@ -861,17 +861,19 @@ const addSCTFromETL = async (newSct, modules, campusID) => {
 		gender: newSct.gender,
 		region: newSct.region,
 	};
-	processedSct.password = await hashPassword(randomPassword());
+	const password = await hashPassword(randomPassword());
 
 	// Create SCT
 	const sct = (await models.user.findOrCreate({
 		where: processedSct,
-		defaults: processedSct,
+		defaults: { ...processedSct, password },
 	}))[0];
 
 	// Add modules
 	if (modules && modules.length > 0) {
-		await sct.addModules(modules);
+		for await (const module of modules) {
+			await sct.addModule(module);
+		}
 	}
 
 	// Return response

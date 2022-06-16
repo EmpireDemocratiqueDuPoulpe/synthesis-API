@@ -41,7 +41,7 @@ export default (router) => {
 			if (student.grades) {
 				await Promise.all(student.grades.map(grade => {
 					return Object.hasOwnProperty.call(modules, grade.name)
-						? Note.add({ user_id: userID, module_id: modules[grade.name], note: grade })
+						? Note.add({ user_id: userID, module_id: modules[grade.name], note: grade.grade })
 						: null;
 				}).filter(Boolean));
 			}
@@ -93,12 +93,17 @@ export default (router) => {
 	route.post("/staff", async (request, response) => {
 		const resp = new APIResp(200);
 
-		// Fetch positions
+		// Fetch positions and campuses
 		const positions = mapToKeyValue(((await Position.getAll()).data.positions), "dataValues.name", "dataValues.position_id");
+		const campuses = mapToKeyValue(((await Campus.getAll()).data.campuses), "dataValues.name", "dataValues.campus_id");
 
 		// Add staff members
 		for await (const staff of request.body) {
 			const positionID = positions[staff.Roles] ?? null;
+
+			staff.campus_id = campuses[staff.Campus] ?? null;
+			delete staff.Campus;
+
 			await User.addStaffFromETL(staff, positionID);
 		}
 
