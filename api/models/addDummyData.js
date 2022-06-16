@@ -47,6 +47,10 @@ async function setData(sequelize, logger) {
 			campus_id: 10005, name: "Tours",
 			address_street: "123 rue des phalempins", address_city: "France", address_postal_code: "AZERTY",
 		},
+		{
+			campus_id: 10006, name: "Rennes",
+			address_street: "123 rue des phalempins", address_city: "France", address_postal_code: "AZERTY",
+		},
 	]);
 
 	/* ---- jobDomain ------------------------------- */

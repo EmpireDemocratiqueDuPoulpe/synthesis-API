@@ -6,7 +6,7 @@
 import AsyncRouter from "express-promise-router";
 import { get } from "lodash-es";
 import { Logger, APIResp } from "../../global/global.js";
-import { Compta, Job, Module, Campus, User, Note, Position } from "../interfaces/interfaces.js";
+import { Compta, Job, Module, Campus, User, Note, Position, Study } from "../interfaces/interfaces.js";
 
 const route = AsyncRouter();
 const logger = new Logger({ separator: ": " });
@@ -32,6 +32,17 @@ export default (router) => {
 			delete student.campus;
 
 			const userID = (await User.addStudentFromETL(student)).data.userID;
+
+			// Add compta and study
+			await Study.addStudy(
+				{
+					entry_level: student.entry_level,
+					exit_level: student.exit_level,
+					current_level: student.current_level,
+					entry_date: student.entry_date,
+					exit_date: student.exit_date,
+					user_id: userID,
+				});
 
 			// Add compta and jobs
 			await Compta.addFromETL(student.accounting, userID);

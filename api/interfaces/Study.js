@@ -28,6 +28,17 @@ const { models } = sequelize;
  * @property {Date|string} [exit_date]
  */
 
+/**
+ * @typedef {Object} NewStudy
+ *
+ * @property {number} entry_level
+ * @property {number} exit_level
+ * @property {number} current_level
+ * @property {Date|string} entry_date
+ * @property {Date|string} exit_date
+ * @property {number} user_id
+ */
+
 /*****************************************************
  * Functions
  *****************************************************/
@@ -37,6 +48,21 @@ const { models } = sequelize;
  *****************************************************/
 
 /* ---- CREATE ---------------------------------- */
+
+/**
+* Get user's study by user id
+* @function
+* @async
+*
+* @param {NewStudy} newStudy
+* @throws {APIError}
+* @return {Promise<APIResp>}
+*/
+const addStudy = async (newStudy) => {
+	const study = await models.study.create(newStudy);
+	return new APIResp(200).setData({ studyID: study.study_id });
+};
+
 /* ---- READ ------------------------------------ */
 /**
   * Get user's study by user id
@@ -67,6 +93,7 @@ const getByUserID = async (userID) => {
  *****************************************************/
 
 const Study = {
+	addStudy, // CREATE
 	getByUserID, // READ
 };
 export default Study;
