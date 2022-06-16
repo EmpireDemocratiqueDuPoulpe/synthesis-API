@@ -131,9 +131,14 @@ import { APIResp, APIError } from "../../global/global.js";
  */
 const { models } = sequelize;
 
-/*****************************************************
- * Functions
- *****************************************************/
+/**
+ * @typedef {Object} NewJobFromETL
+ *
+ * @property {string} companyName
+ * @property {string} contrat
+ * @property {string} hire_date
+ * @property {string} end_date
+ */
 
 /*****************************************************
  * CRUD Methods
@@ -145,28 +150,26 @@ const { models } = sequelize;
  * @function
  * @async
  *
- * @param {NewJob} newJob
- * @param {uuid} userId
- * @throws {APIError}
+ * @param {NewJobFromETL} newJob
+ * @param {string|number} userId
  * @return {Promise&lt;APIResp>}
  */
-const addJobs = async (newJob, userId) => {
-	const processJob = {
+const addFromETL = async (newJob, userId) => {
+	const processedJob = {
+		user_id: userId,
+		company_name: newJob.companyName,
 		type: newJob.contrat,
 		start_date: newJob.hire_date,
-		company_name: newJob.companyName,
 		end_date: newJob.end_date,
-		user_id: userId,
 	};
 
 	// Add to the database
 	const job = await models.job.findOrCreate({
-		where: {
-			user_id: userId,
-		},
-		defaults: processJob});
+		where: { user_id: userId },
+		defaults: processedJob,
+	});
 
-	return { accountingID: job[0].compta_id };
+	return new APIResp(200).setData({ jobID: job[0].job_id });
 };
 
 /* ---- READ ------------------------------------ */
@@ -199,7 +202,7 @@ const getAllByUserID = async (userID) => {
  *****************************************************/
 
 const Job = {
-	addJobs, // CREATE
+	addFromETL, // CREATE
 	getAllByUserID, // READ
 };
 export default Job;

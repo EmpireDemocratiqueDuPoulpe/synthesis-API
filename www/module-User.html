@@ -214,7 +214,7 @@
         <p class="tag-source">
             <a href="api_interfaces_Position.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_Position.js.html">api/interfaces/Position.js</a>, <a href="api_interfaces_Position.js.html#line12">line 12</a>
+                <a href="api_interfaces_Position.js.html">api/interfaces/Position.js</a>, <a href="api_interfaces_Position.js.html#line11">line 11</a>
             </span>
         </p>
     
@@ -297,7 +297,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line16">line 16</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line17">line 17</a>
             </span>
         </p>
     
@@ -442,7 +442,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line223">line 223</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line246">line 246</a>
             </span>
         </p>
     
@@ -619,7 +619,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line180">line 180</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line203">line 203</a>
             </span>
         </p>
     
@@ -796,7 +796,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line368">line 368</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line391">line 391</a>
             </span>
         </p>
     
@@ -873,8 +873,8 @@
 
 
     
-    <h4 class="name" id="~addSCT">
-        <a class="href-link" href="#~addSCT">#</a>
+    <h4 class="name" id="~addSCTFromETL">
+        <a class="href-link" href="#~addSCTFromETL">#</a>
         
             
                 <span class='tag'>async</span>
@@ -884,7 +884,7 @@
         
         <span class="code-name">
             
-                addSCT<span class="signature">(newSct, modulesList, campusId)</span><span class="type-signature"> &rarr; {Promise.&lt;APIResp>}</span>
+                addSCTFromETL<span class="signature">(newSct, modules, campusID)</span><span class="type-signature"> &rarr; {Promise.&lt;APIResp>}</span>
             
         </span>
     </h4>
@@ -937,7 +937,7 @@
   <td class="type">
   
       
-<code class="param-type">NewIntervenant</code>
+<code class="param-type">newSCTFromETL</code>
 
 
   
@@ -956,7 +956,7 @@
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>modulesList</code></td>
+      <td class="name"><code>modules</code></td>
   
 
   <td class="type">
@@ -981,7 +981,7 @@
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>campusId</code></td>
+      <td class="name"><code>campusID</code></td>
   
 
   <td class="type">
@@ -1045,7 +1045,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line757">line 757</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line776">line 776</a>
             </span>
         </p>
     
@@ -1065,28 +1065,6 @@
 
 
 
-
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Throws:</label></div>
-        <div class="column is-10">
-            
-                    
-<div class="columns">
-    
-        
-            <div class='column is-12 has-text-left'>
-            <label>Type: </label>
-<code class="param-type">APIError</code>
-
-
-            </div>
-        
-    
-</div>
-
-                
-        </div>
-    </div>
 
 
 
@@ -1122,8 +1100,8 @@
 
 
     
-    <h4 class="name" id="~addStaff">
-        <a class="href-link" href="#~addStaff">#</a>
+    <h4 class="name" id="~addStaffFromETL">
+        <a class="href-link" href="#~addStaffFromETL">#</a>
         
             
                 <span class='tag'>async</span>
@@ -1133,7 +1111,7 @@
         
         <span class="code-name">
             
-                addStaff<span class="signature">(newStaff, roleId)</span><span class="type-signature"> &rarr; {Promise.&lt;APIResp>}</span>
+                addStaffFromETL<span class="signature">(newStaff, positionID)</span><span class="type-signature"> &rarr; {Promise.&lt;APIResp>}</span>
             
         </span>
     </h4>
@@ -1142,7 +1120,7 @@
     
     
     <div class="description">
-        <p>Add a new student</p>
+        <p>Add a new staff members</p>
     </div>
     
 
@@ -1186,7 +1164,7 @@
   <td class="type">
   
       
-<code class="param-type">NewStaff</code>
+<code class="param-type">newStaffFromETL</code>
 
 
   
@@ -1205,7 +1183,7 @@
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>roleId</code></td>
+      <td class="name"><code>positionID</code></td>
   
 
   <td class="type">
@@ -1269,7 +1247,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line579">line 579</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line601">line 601</a>
             </span>
         </p>
     
@@ -1289,28 +1267,6 @@
 
 
 
-
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Throws:</label></div>
-        <div class="column is-10">
-            
-                    
-<div class="columns">
-    
-        
-            <div class='column is-12 has-text-left'>
-            <label>Type: </label>
-<code class="param-type">APIError</code>
-
-
-            </div>
-        
-    
-</div>
-
-                
-        </div>
-    </div>
 
 
 
@@ -1346,8 +1302,8 @@
 
 
     
-    <h4 class="name" id="~addStudent">
-        <a class="href-link" href="#~addStudent">#</a>
+    <h4 class="name" id="~addStudentFromETL">
+        <a class="href-link" href="#~addStudentFromETL">#</a>
         
             
                 <span class='tag'>async</span>
@@ -1357,7 +1313,7 @@
         
         <span class="code-name">
             
-                addStudent<span class="signature">(newStudent)</span><span class="type-signature"> &rarr; {Promise.&lt;number>}</span>
+                addStudentFromETL<span class="signature">(newStudent)</span><span class="type-signature"> &rarr; {Promise.&lt;APIResp>}</span>
             
         </span>
     </h4>
@@ -1410,7 +1366,7 @@
   <td class="type">
   
       
-<code class="param-type">NewStudent</code>
+<code class="param-type">NewStudentFromETL</code>
 
 
   
@@ -1468,7 +1424,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line619">line 619</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line640">line 640</a>
             </span>
         </p>
     
@@ -1489,28 +1445,6 @@
 
 
 
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Throws:</label></div>
-        <div class="column is-10">
-            
-                    
-<div class="columns">
-    
-        
-            <div class='column is-12 has-text-left'>
-            <label>Type: </label>
-<code class="param-type">APIError</code>
-
-
-            </div>
-        
-    
-</div>
-
-                
-        </div>
-    </div>
-
 
 
     <div class='columns method-parameter'>
@@ -1525,7 +1459,7 @@
     <div class='column is-5 has-text-left'>
         <label>Type: </label>
         
-<code class="param-type">Promise.&lt;number></code>
+<code class="param-type">Promise.&lt;APIResp></code>
 
 
     </div>
@@ -1690,7 +1624,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line137">line 137</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line148">line 148</a>
             </span>
         </p>
     
@@ -1816,133 +1750,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line467">line 467</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Returns:</label></div>
-        <div class="column is-10">
-            
-                    
-
-<div class="columns">
-    
-    
-    <div class='column is-5 has-text-left'>
-        <label>Type: </label>
-        
-<code class="param-type">Promise.&lt;APIResp></code>
-
-
-    </div>
-    
-</div>
-
-                
-        </div>
-    </div>
-
-
-
-
-</div>
-            
-                <div class="member">
-
-
-    
-    <h4 class="name" id="~getAllPositions">
-        <a class="href-link" href="#~getAllPositions">#</a>
-        
-            
-                <span class='tag'>async</span>
-            
-                <span class='tag'>inner</span>
-            
-        
-        <span class="code-name">
-            
-                getAllPositions<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;APIResp>}</span>
-            
-        </span>
-    </h4>
-    
-
-    
-    
-    <div class="description">
-        <p>Get all positions</p>
-    </div>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="api_interfaces_Position.js.html" class="button">View Source</a>
-            <span>
-                <a href="api_interfaces_Position.js.html">api/interfaces/Position.js</a>, <a href="api_interfaces_Position.js.html#line33">line 33</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line490">line 490</a>
             </span>
         </p>
     
@@ -2144,7 +1952,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line793">line 793</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line812">line 812</a>
             </span>
         </p>
     
@@ -2346,7 +2154,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line658">line 658</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line678">line 678</a>
             </span>
         </p>
     
@@ -2573,7 +2381,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line491">line 491</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line514">line 514</a>
             </span>
         </p>
     
@@ -2772,7 +2580,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line538">line 538</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line561">line 561</a>
             </span>
         </p>
     
@@ -3021,7 +2829,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line680">line 680</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line700">line 700</a>
             </span>
         </p>
     
@@ -3223,7 +3031,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line708">line 708</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line728">line 728</a>
             </span>
         </p>
     
@@ -3400,7 +3208,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line168">line 168</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line179">line 179</a>
             </span>
         </p>
     
@@ -3597,7 +3405,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line146">line 146</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line157">line 157</a>
             </span>
         </p>
     
@@ -3774,7 +3582,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line418">line 418</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line441">line 441</a>
             </span>
         </p>
     
@@ -3998,7 +3806,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line212">line 212</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line235">line 235</a>
             </span>
         </p>
     
@@ -4247,7 +4055,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line325">line 325</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line348">line 348</a>
             </span>
         </p>
     
@@ -4474,7 +4282,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line239">line 239</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line262">line 262</a>
             </span>
         </p>
     
@@ -4670,7 +4478,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line88">line 88</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line99">line 99</a>
             </span>
         </p>
     
@@ -4692,11 +4500,11 @@
 
     </span>
 
-<h4 class="name" id="~NewIntervenant">
-    <a class="href-link" href="#~NewIntervenant">#</a>
+<h4 class="name" id="~newSCTFromETL">
+    <a class="href-link" href="#~newSCTFromETL">#</a>
     
     <span class="code-name">
-        NewIntervenant
+        newSCTFromETL
     </span>
     
 </h4>
@@ -4933,7 +4741,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line76">line 76</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line77">line 77</a>
             </span>
         </p>
     
@@ -4955,11 +4763,228 @@
 
     </span>
 
-<h4 class="name" id="~NewStudent">
-    <a class="href-link" href="#~NewStudent">#</a>
+<h4 class="name" id="~newStaffFromETL">
+    <a class="href-link" href="#~newStaffFromETL">#</a>
     
     <span class="code-name">
-        NewStudent
+        newStaffFromETL
+    </span>
+    
+</h4>
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+<div class="table-container">
+    <table class="props table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>first_name</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">string</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>last_name</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">string</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>email</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">string</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>gender</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">string</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>region</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">string</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="api_interfaces_User.js.html" class="button">View Source</a>
+            <span>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line89">line 89</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">Object</code>
+
+
+    </span>
+
+<h4 class="name" id="~NewStudentFromETL">
+    <a class="href-link" href="#~NewStudentFromETL">#</a>
+    
+    <span class="code-name">
+        NewStudentFromETL
     </span>
     
 </h4>
@@ -5138,13 +5163,16 @@
             
 <tr class="deep-level-0">
     
-        <td class="name"><code>campus</code></td>
+        <td class="name"><code>campus_id</code></td>
     
 
     <td class="type">
     
         
 <code class="param-type">string</code>
+|
+
+<code class="param-type">number</code>
 
 
     
@@ -5199,7 +5227,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line64">line 64</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line65">line 65</a>
             </span>
         </p>
     
@@ -5534,7 +5562,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line49">line 49</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line50">line 50</a>
             </span>
         </p>
     
@@ -5700,7 +5728,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line111">line 111</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line122">line 122</a>
             </span>
         </p>
     
@@ -5848,7 +5876,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line118">line 118</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line129">line 129</a>
             </span>
         </p>
     
@@ -5996,7 +6024,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line104">line 104</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line115">line 115</a>
             </span>
         </p>
     
@@ -6236,7 +6264,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line95">line 95</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line106">line 106</a>
             </span>
         </p>
     
@@ -6617,7 +6645,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line32">line 32</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line33">line 33</a>
             </span>
         </p>
     
@@ -6788,7 +6816,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line24">line 24</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line25">line 25</a>
             </span>
         </p>
     
@@ -6920,7 +6948,7 @@
         <p class="tag-source">
             <a href="api_interfaces_Position.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_Position.js.html">api/interfaces/Position.js</a>, <a href="api_interfaces_Position.js.html#line12">line 12</a>
+                <a href="api_interfaces_Position.js.html">api/interfaces/Position.js</a>, <a href="api_interfaces_Position.js.html#line11">line 11</a>
             </span>
         </p>
     
@@ -7003,7 +7031,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line16">line 16</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line17">line 17</a>
             </span>
         </p>
     
@@ -7148,7 +7176,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line223">line 223</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line246">line 246</a>
             </span>
         </p>
     
@@ -7325,7 +7353,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line180">line 180</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line203">line 203</a>
             </span>
         </p>
     
@@ -7502,7 +7530,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line368">line 368</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line391">line 391</a>
             </span>
         </p>
     
@@ -7579,8 +7607,8 @@
 
 
     
-    <h4 class="name" id="~addSCT">
-        <a class="href-link" href="#~addSCT">#</a>
+    <h4 class="name" id="~addSCTFromETL">
+        <a class="href-link" href="#~addSCTFromETL">#</a>
         
             
                 <span class='tag'>async</span>
@@ -7590,7 +7618,7 @@
         
         <span class="code-name">
             
-                addSCT<span class="signature">(newSct, modulesList, campusId)</span><span class="type-signature"> &rarr; {Promise.&lt;APIResp>}</span>
+                addSCTFromETL<span class="signature">(newSct, modules, campusID)</span><span class="type-signature"> &rarr; {Promise.&lt;APIResp>}</span>
             
         </span>
     </h4>
@@ -7643,7 +7671,7 @@
   <td class="type">
   
       
-<code class="param-type">NewIntervenant</code>
+<code class="param-type">newSCTFromETL</code>
 
 
   
@@ -7662,7 +7690,7 @@
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>modulesList</code></td>
+      <td class="name"><code>modules</code></td>
   
 
   <td class="type">
@@ -7687,7 +7715,7 @@
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>campusId</code></td>
+      <td class="name"><code>campusID</code></td>
   
 
   <td class="type">
@@ -7751,7 +7779,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line757">line 757</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line776">line 776</a>
             </span>
         </p>
     
@@ -7771,28 +7799,6 @@
 
 
 
-
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Throws:</label></div>
-        <div class="column is-10">
-            
-                    
-<div class="columns">
-    
-        
-            <div class='column is-12 has-text-left'>
-            <label>Type: </label>
-<code class="param-type">APIError</code>
-
-
-            </div>
-        
-    
-</div>
-
-                
-        </div>
-    </div>
 
 
 
@@ -7828,8 +7834,8 @@
 
 
     
-    <h4 class="name" id="~addStaff">
-        <a class="href-link" href="#~addStaff">#</a>
+    <h4 class="name" id="~addStaffFromETL">
+        <a class="href-link" href="#~addStaffFromETL">#</a>
         
             
                 <span class='tag'>async</span>
@@ -7839,7 +7845,7 @@
         
         <span class="code-name">
             
-                addStaff<span class="signature">(newStaff, roleId)</span><span class="type-signature"> &rarr; {Promise.&lt;APIResp>}</span>
+                addStaffFromETL<span class="signature">(newStaff, positionID)</span><span class="type-signature"> &rarr; {Promise.&lt;APIResp>}</span>
             
         </span>
     </h4>
@@ -7848,7 +7854,7 @@
     
     
     <div class="description">
-        <p>Add a new student</p>
+        <p>Add a new staff members</p>
     </div>
     
 
@@ -7892,7 +7898,7 @@
   <td class="type">
   
       
-<code class="param-type">NewStaff</code>
+<code class="param-type">newStaffFromETL</code>
 
 
   
@@ -7911,7 +7917,7 @@
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>roleId</code></td>
+      <td class="name"><code>positionID</code></td>
   
 
   <td class="type">
@@ -7975,7 +7981,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line579">line 579</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line601">line 601</a>
             </span>
         </p>
     
@@ -7995,28 +8001,6 @@
 
 
 
-
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Throws:</label></div>
-        <div class="column is-10">
-            
-                    
-<div class="columns">
-    
-        
-            <div class='column is-12 has-text-left'>
-            <label>Type: </label>
-<code class="param-type">APIError</code>
-
-
-            </div>
-        
-    
-</div>
-
-                
-        </div>
-    </div>
 
 
 
@@ -8052,8 +8036,8 @@
 
 
     
-    <h4 class="name" id="~addStudent">
-        <a class="href-link" href="#~addStudent">#</a>
+    <h4 class="name" id="~addStudentFromETL">
+        <a class="href-link" href="#~addStudentFromETL">#</a>
         
             
                 <span class='tag'>async</span>
@@ -8063,7 +8047,7 @@
         
         <span class="code-name">
             
-                addStudent<span class="signature">(newStudent)</span><span class="type-signature"> &rarr; {Promise.&lt;number>}</span>
+                addStudentFromETL<span class="signature">(newStudent)</span><span class="type-signature"> &rarr; {Promise.&lt;APIResp>}</span>
             
         </span>
     </h4>
@@ -8116,7 +8100,7 @@
   <td class="type">
   
       
-<code class="param-type">NewStudent</code>
+<code class="param-type">NewStudentFromETL</code>
 
 
   
@@ -8174,7 +8158,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line619">line 619</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line640">line 640</a>
             </span>
         </p>
     
@@ -8195,28 +8179,6 @@
 
 
 
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Throws:</label></div>
-        <div class="column is-10">
-            
-                    
-<div class="columns">
-    
-        
-            <div class='column is-12 has-text-left'>
-            <label>Type: </label>
-<code class="param-type">APIError</code>
-
-
-            </div>
-        
-    
-</div>
-
-                
-        </div>
-    </div>
-
 
 
     <div class='columns method-parameter'>
@@ -8231,7 +8193,7 @@
     <div class='column is-5 has-text-left'>
         <label>Type: </label>
         
-<code class="param-type">Promise.&lt;number></code>
+<code class="param-type">Promise.&lt;APIResp></code>
 
 
     </div>
@@ -8396,7 +8358,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line137">line 137</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line148">line 148</a>
             </span>
         </p>
     
@@ -8522,133 +8484,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line467">line 467</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Returns:</label></div>
-        <div class="column is-10">
-            
-                    
-
-<div class="columns">
-    
-    
-    <div class='column is-5 has-text-left'>
-        <label>Type: </label>
-        
-<code class="param-type">Promise.&lt;APIResp></code>
-
-
-    </div>
-    
-</div>
-
-                
-        </div>
-    </div>
-
-
-
-
-</div>
-            
-                <div class="member">
-
-
-    
-    <h4 class="name" id="~getAllPositions">
-        <a class="href-link" href="#~getAllPositions">#</a>
-        
-            
-                <span class='tag'>async</span>
-            
-                <span class='tag'>inner</span>
-            
-        
-        <span class="code-name">
-            
-                getAllPositions<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;APIResp>}</span>
-            
-        </span>
-    </h4>
-    
-
-    
-    
-    <div class="description">
-        <p>Get all positions</p>
-    </div>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="api_interfaces_Position.js.html" class="button">View Source</a>
-            <span>
-                <a href="api_interfaces_Position.js.html">api/interfaces/Position.js</a>, <a href="api_interfaces_Position.js.html#line33">line 33</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line490">line 490</a>
             </span>
         </p>
     
@@ -8850,7 +8686,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line793">line 793</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line812">line 812</a>
             </span>
         </p>
     
@@ -9052,7 +8888,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line658">line 658</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line678">line 678</a>
             </span>
         </p>
     
@@ -9279,7 +9115,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line491">line 491</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line514">line 514</a>
             </span>
         </p>
     
@@ -9478,7 +9314,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line538">line 538</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line561">line 561</a>
             </span>
         </p>
     
@@ -9727,7 +9563,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line680">line 680</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line700">line 700</a>
             </span>
         </p>
     
@@ -9929,7 +9765,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line708">line 708</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line728">line 728</a>
             </span>
         </p>
     
@@ -10106,7 +9942,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line168">line 168</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line179">line 179</a>
             </span>
         </p>
     
@@ -10303,7 +10139,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line146">line 146</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line157">line 157</a>
             </span>
         </p>
     
@@ -10480,7 +10316,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line418">line 418</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line441">line 441</a>
             </span>
         </p>
     
@@ -10704,7 +10540,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line212">line 212</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line235">line 235</a>
             </span>
         </p>
     
@@ -10953,7 +10789,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line325">line 325</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line348">line 348</a>
             </span>
         </p>
     
@@ -11180,7 +11016,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line239">line 239</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line262">line 262</a>
             </span>
         </p>
     
@@ -11376,7 +11212,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line88">line 88</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line99">line 99</a>
             </span>
         </p>
     
@@ -11398,11 +11234,11 @@
 
     </span>
 
-<h4 class="name" id="~NewIntervenant">
-    <a class="href-link" href="#~NewIntervenant">#</a>
+<h4 class="name" id="~newSCTFromETL">
+    <a class="href-link" href="#~newSCTFromETL">#</a>
     
     <span class="code-name">
-        NewIntervenant
+        newSCTFromETL
     </span>
     
 </h4>
@@ -11639,7 +11475,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line76">line 76</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line77">line 77</a>
             </span>
         </p>
     
@@ -11661,11 +11497,228 @@
 
     </span>
 
-<h4 class="name" id="~NewStudent">
-    <a class="href-link" href="#~NewStudent">#</a>
+<h4 class="name" id="~newStaffFromETL">
+    <a class="href-link" href="#~newStaffFromETL">#</a>
     
     <span class="code-name">
-        NewStudent
+        newStaffFromETL
+    </span>
+    
+</h4>
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+<div class="table-container">
+    <table class="props table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>first_name</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">string</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>last_name</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">string</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>email</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">string</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>gender</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">string</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>region</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">string</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="api_interfaces_User.js.html" class="button">View Source</a>
+            <span>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line89">line 89</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">Object</code>
+
+
+    </span>
+
+<h4 class="name" id="~NewStudentFromETL">
+    <a class="href-link" href="#~NewStudentFromETL">#</a>
+    
+    <span class="code-name">
+        NewStudentFromETL
     </span>
     
 </h4>
@@ -11844,13 +11897,16 @@
             
 <tr class="deep-level-0">
     
-        <td class="name"><code>campus</code></td>
+        <td class="name"><code>campus_id</code></td>
     
 
     <td class="type">
     
         
 <code class="param-type">string</code>
+|
+
+<code class="param-type">number</code>
 
 
     
@@ -11905,7 +11961,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line64">line 64</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line65">line 65</a>
             </span>
         </p>
     
@@ -12240,7 +12296,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line49">line 49</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line50">line 50</a>
             </span>
         </p>
     
@@ -12406,7 +12462,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line111">line 111</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line122">line 122</a>
             </span>
         </p>
     
@@ -12554,7 +12610,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line118">line 118</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line129">line 129</a>
             </span>
         </p>
     
@@ -12702,7 +12758,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line104">line 104</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line115">line 115</a>
             </span>
         </p>
     
@@ -12942,7 +12998,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line95">line 95</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line106">line 106</a>
             </span>
         </p>
     
@@ -13323,7 +13379,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line32">line 32</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line33">line 33</a>
             </span>
         </p>
     
@@ -13494,7 +13550,7 @@
         <p class="tag-source">
             <a href="api_interfaces_User.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line24">line 24</a>
+                <a href="api_interfaces_User.js.html">api/interfaces/User.js</a>, <a href="api_interfaces_User.js.html#line25">line 25</a>
             </span>
         </p>
     

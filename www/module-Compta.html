@@ -361,7 +361,7 @@
         <p class="tag-source">
             <a href="api_interfaces_Compta.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_Compta.js.html">api/interfaces/Compta.js</a>, <a href="api_interfaces_Compta.js.html#line58">line 58</a>
+                <a href="api_interfaces_Compta.js.html">api/interfaces/Compta.js</a>, <a href="api_interfaces_Compta.js.html#line53">line 53</a>
             </span>
         </p>
     
@@ -381,28 +381,6 @@
 
 
 
-
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Throws:</label></div>
-        <div class="column is-10">
-            
-                    
-<div class="columns">
-    
-        
-            <div class='column is-12 has-text-left'>
-            <label>Type: </label>
-<code class="param-type">APIError</code>
-
-
-            </div>
-        
-    
-</div>
-
-                
-        </div>
-    </div>
 
 
 
@@ -438,8 +416,8 @@
 
 
     
-    <h4 class="name" id="~addAccountings">
-        <a class="href-link" href="#~addAccountings">#</a>
+    <h4 class="name" id="~addFromETL">
+        <a class="href-link" href="#~addFromETL">#</a>
         
             
                 <span class='tag'>async</span>
@@ -449,7 +427,7 @@
         
         <span class="code-name">
             
-                addAccountings<span class="signature">(newAccounting, userId)</span><span class="type-signature"> &rarr; {Promise.&lt;APIResp>}</span>
+                addFromETL<span class="signature">(newAccounting, userId)</span><span class="type-signature"> &rarr; {Promise.&lt;APIResp>}</span>
             
         </span>
     </h4>
@@ -502,7 +480,7 @@
   <td class="type">
   
       
-<code class="param-type">newAccounting</code>
+<code class="param-type">NewComptaFromETL</code>
 
 
   
@@ -527,7 +505,10 @@
   <td class="type">
   
       
-<code class="param-type">uuid</code>
+<code class="param-type">number</code>
+|
+
+<code class="param-type">string</code>
 
 
   
@@ -585,7 +566,7 @@
         <p class="tag-source">
             <a href="api_interfaces_Compta.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_Compta.js.html">api/interfaces/Compta.js</a>, <a href="api_interfaces_Compta.js.html#line87">line 87</a>
+                <a href="api_interfaces_Compta.js.html">api/interfaces/Compta.js</a>, <a href="api_interfaces_Compta.js.html#line67">line 67</a>
             </span>
         </p>
     
@@ -605,28 +586,6 @@
 
 
 
-
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Throws:</label></div>
-        <div class="column is-10">
-            
-                    
-<div class="columns">
-    
-        
-            <div class='column is-12 has-text-left'>
-            <label>Type: </label>
-<code class="param-type">APIError</code>
-
-
-            </div>
-        
-    
-</div>
-
-                
-        </div>
-    </div>
 
 
 
@@ -784,7 +743,7 @@
         <p class="tag-source">
             <a href="api_interfaces_Compta.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_Compta.js.html">api/interfaces/Compta.js</a>, <a href="api_interfaces_Compta.js.html#line115">line 115</a>
+                <a href="api_interfaces_Compta.js.html">api/interfaces/Compta.js</a>, <a href="api_interfaces_Compta.js.html#line94">line 94</a>
             </span>
         </p>
     
@@ -983,7 +942,7 @@
         <p class="tag-source">
             <a href="api_interfaces_Compta.js.html" class="button">View Source</a>
             <span>
-                <a href="api_interfaces_Compta.js.html">api/interfaces/Compta.js</a>, <a href="api_interfaces_Compta.js.html#line136">line 136</a>
+                <a href="api_interfaces_Compta.js.html">api/interfaces/Compta.js</a>, <a href="api_interfaces_Compta.js.html#line115">line 115</a>
             </span>
         </p>
     
@@ -1075,11 +1034,228 @@
 
     </span>
 
-<h4 class="name" id="~newAccounting">
-    <a class="href-link" href="#~newAccounting">#</a>
+<h4 class="name" id="~NewCompta">
+    <a class="href-link" href="#~NewCompta">#</a>
     
     <span class="code-name">
-        newAccounting
+        NewCompta
+    </span>
+    
+</h4>
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+<div class="table-container">
+    <table class="props table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>user_id</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">number</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>payment_type</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">string</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>payment_due</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">number</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>paid</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">boolean</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>relance</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">boolean</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="api_interfaces_Compta.js.html" class="button">View Source</a>
+            <span>
+                <a href="api_interfaces_Compta.js.html">api/interfaces/Compta.js</a>, <a href="api_interfaces_Compta.js.html#line19">line 19</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">Object</code>
+
+
+    </span>
+
+<h4 class="name" id="~NewComptaFromETL">
+    <a class="href-link" href="#~NewComptaFromETL">#</a>
+    
+    <span class="code-name">
+        NewComptaFromETL
     </span>
     
 </h4>
@@ -1294,223 +1470,6 @@
             <a href="api_interfaces_Compta.js.html" class="button">View Source</a>
             <span>
                 <a href="api_interfaces_Compta.js.html">api/interfaces/Compta.js</a>, <a href="api_interfaces_Compta.js.html#line29">line 29</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-</div>
-            
-                <div class="member">
-
-    <span class="method-parameter is-pulled-right">
-        <label>Type:</label>
-        
-<code class="param-type">Object</code>
-
-
-    </span>
-
-<h4 class="name" id="~NewCompta">
-    <a class="href-link" href="#~NewCompta">#</a>
-    
-    <span class="code-name">
-        NewCompta
-    </span>
-    
-</h4>
-
-
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-<div class="table-container">
-    <table class="props table">
-        <thead>
-        <tr>
-            
-            <th>Name</th>
-            
-
-            <th>Type</th>
-
-            
-
-            
-
-            <th class="last">Description</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        
-            
-<tr class="deep-level-0">
-    
-        <td class="name"><code>user_id</code></td>
-    
-
-    <td class="type">
-    
-        
-<code class="param-type">number</code>
-
-
-    
-    </td>
-
-    
-
-    
-
-    <td class="description last"></td>
-</tr>
-
-        
-            
-<tr class="deep-level-0">
-    
-        <td class="name"><code>payment_type</code></td>
-    
-
-    <td class="type">
-    
-        
-<code class="param-type">string</code>
-
-
-    
-    </td>
-
-    
-
-    
-
-    <td class="description last"></td>
-</tr>
-
-        
-            
-<tr class="deep-level-0">
-    
-        <td class="name"><code>payment_due</code></td>
-    
-
-    <td class="type">
-    
-        
-<code class="param-type">number</code>
-
-
-    
-    </td>
-
-    
-
-    
-
-    <td class="description last"></td>
-</tr>
-
-        
-            
-<tr class="deep-level-0">
-    
-        <td class="name"><code>paid</code></td>
-    
-
-    <td class="type">
-    
-        
-<code class="param-type">boolean</code>
-
-
-    
-    </td>
-
-    
-
-    
-
-    <td class="description last"></td>
-</tr>
-
-        
-            
-<tr class="deep-level-0">
-    
-        <td class="name"><code>relance</code></td>
-    
-
-    <td class="type">
-    
-        
-<code class="param-type">boolean</code>
-
-
-    
-    </td>
-
-    
-
-    
-
-    <td class="description last"></td>
-</tr>
-
-        
-        </tbody>
-    </table>
-</div>
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="api_interfaces_Compta.js.html" class="button">View Source</a>
-            <span>
-                <a href="api_interfaces_Compta.js.html">api/interfaces/Compta.js</a>, <a href="api_interfaces_Compta.js.html#line19">line 19</a>
             </span>
         </p>
     
