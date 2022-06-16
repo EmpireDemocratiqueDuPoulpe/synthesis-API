@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CBEM - API global/DirName.js</title>
+  <title>CBEM - API api/middlewares/requireHTTPS.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -104,7 +104,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>global/DirName.js</h1>
+                    <h1>api/middlewares/requireHTTPS.js</h1>
                 </header>
                 
 
@@ -114,34 +114,31 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @module DirName
- * @category Global
+ * @module RequireHTTPS
  * @author Alexis L. &lt;alexis.lecomte@supinfo.com>
+ * @category Middlewares
+ * @subcategory Request flow
  */
-
-import { fileURLToPath } from "url";
-import { dirname } from "path";
 
 /**
- * DirName is used to get `__dirname` and `__filename`, because they are not available in ESM modules.
+ * Force a request to use HTTPS
  * @function
  *
- * @param {string} currentFile - Use import.meta.url
- * @return {{__dirname: string, __filename: string}}
+ * @param {e.Request} request
+ * @param {e.Response} response
+ * @param {function} next
  *
- * @example
- * const currentFile = DirName(import.meta.url);
- * console.log(currentFile.__dirname); // --> "/path/to/dir"
- * console.log(currentFile.__filename); // --> "file.js"
+ * @return {void}
  */
-function DirName(currentFile) {
-	const __filename = fileURLToPath(currentFile);
-	const __dirname = dirname(__filename);
+function requireHTTPS(request, response, next) {
+	if (!request.secure &amp;&amp; process.env.NODE_ENV !== "development") {
+		return response.redirect(`https://${request.headers.host}${request.url}`);
+	}
 
-	return { __dirname, __filename };
+	next();
 }
 
-export default DirName;
+export default requireHTTPS;
 </code></pre>
         </article>
     </section>

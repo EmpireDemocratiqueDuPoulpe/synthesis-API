@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CBEM - API global/DirName.js</title>
+  <title>CBEM - API RequireHTTPS</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -103,48 +101,285 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Source</p>
-                    <h1>global/DirName.js</h1>
+                    <p>Module</p>
+                    <h1>RequireHTTPS</h1>
                 </header>
                 
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @module DirName
- * @category Global
- * @author Alexis L. &lt;alexis.lecomte@supinfo.com>
- */
+        
+    
+</header>
 
-import { fileURLToPath } from "url";
-import { dirname } from "path";
+<article>
+    <div class="container-overview">
+    
+        
 
-/**
- * DirName is used to get `__dirname` and `__filename`, because they are not available in ESM modules.
- * @function
- *
- * @param {string} currentFile - Use import.meta.url
- * @return {{__dirname: string, __filename: string}}
- *
- * @example
- * const currentFile = DirName(import.meta.url);
- * console.log(currentFile.__dirname); // --> "/path/to/dir"
- * console.log(currentFile.__filename); // --> "file.js"
- */
-function DirName(currentFile) {
-	const __filename = fileURLToPath(currentFile);
-	const __dirname = dirname(__filename);
+        
+    
+    </div>
+    
+    
 
-	return { __dirname, __filename };
-}
+    
 
-export default DirName;
-</code></pre>
-        </article>
-    </section>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class='vertical-section'>
+            <h1>Methods</h1>
+            <div class="members">
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="~requireHTTPS">
+        <a class="href-link" href="#~requireHTTPS">#</a>
+        
+            
+                <span class='tag'>inner</span>
+            
+        
+        <span class="code-name">
+            
+                requireHTTPS<span class="signature">(request, response, next)</span><span class="type-signature"> &rarr; {void}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Force a request to use HTTPS</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>request</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">e.Request</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>response</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">e.Response</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>next</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">function</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="api_middlewares_requireHTTPS.js.html" class="button">View Source</a>
+            <span>
+                <a href="api_middlewares_requireHTTPS.js.html">api/middlewares/requireHTTPS.js</a>, <a href="api_middlewares_requireHTTPS.js.html#line18">line 18</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">void</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
