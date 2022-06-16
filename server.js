@@ -7,7 +7,7 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import requestIP from "request-ip";
-import { errorHandler } from "./api/middlewares/middlewares.js";
+import { requireHTTPS, errorHandler } from "./api/middlewares/middlewares.js";
 import expressJSDocSwagger from "express-jsdoc-swagger";
 import api from "./api/api.js";
 import "./api/sequelizeLoader.js";
@@ -64,6 +64,9 @@ function startServer() {
 
 	// CORS
 	app.use(cors(API.cors));
+
+	// Force HTTPS
+	app.use(requireHTTPS);
 
 	// IP
 	app.use(requestIP.mw({ attributeName: "clientIP" }));
