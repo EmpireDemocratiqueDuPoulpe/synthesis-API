@@ -63,6 +63,20 @@ const { models } = sequelize;
  */
 
 /**
+ * @typedef {Object}UserFilters
+ *
+ * @property {string} [campus]
+ * @property {array<"permission"|"campus"|"study"|"module"|"ects"|"job"|"compta">} [expand]
+ */
+
+/**
+ * @typedef {Object} SeqUserFilters
+ *
+ * @property {Object} where - Where clause
+ * @property {Array<{model: Object, where: Object, required: boolean}>} include - Include clause
+ */
+
+/**
  * @typedef {Object} NewStudentFromETL
  *
  * @property {string} first_name
@@ -107,7 +121,6 @@ const { models } = sequelize;
  * @typedef {Object} StudentFilters
  *
  * @property {string} [campus]
- * @property {"true"|"false"|string} [onlyHired]
  * @property {"true"|"false"|string} [onlyOld]
  * @property {array<"campus"|"module"|"ects"|"job"|"compta">} [expand]
  */
@@ -248,6 +261,78 @@ export const buildPermissions = (user) => {
 	userJSON.position.permissions.forEach((p, i, arr) => (arr[i] = p.name));
 
 	return userJSON;
+};
+
+/**
+ * Transform URI query params to sequelize `where` and `include` clauses.
+ * @function
+ *
+ * @param {module:LoggedUser} currUser
+ * @param {UserFilters} filters
+ * @param {Array<string>} disabledExpands - List of expand to not include in the clauses
+ * @return {SeqUserFilters}
+ */
+const processUserFilters = async (currUser, filters, disabledExpands = []) => {
+	const validExpands = [Expand.PERMISSION, Expand.CAMPUS, Expand.STUDY, Expand.MODULE, Expand.ECTS, Expand.JOB, Expand.COMPTA]
+		.filter(e => !disabledExpands.includes(e));
+
+	const where = {};
+	const include = { position: {model: models.position, as: "position", required: true} };
+
+	if (filters) {
+		// Campus name
+		if (filters.campus) {
+			where["$campus.name$"] = {[Op.in]: filters.campus};
+		}
+
+		// Expand
+		if (filters.expand) {
+			await new Expand(currUser).setAuthorized(validExpands).process(filters.expand, expand => {
+				switch (expand.name) {
+					case "campus":
+						include.campus = { model: models.campus, as: "campus", required: expand.required };
+						break;
+					case "study":
+						include.study = { model: models.study, as: "study", required: expand.required };
+						break;
+					case "module":
+						include.module = { model: models.module, as: "modules", required: expand.required };
+						break;
+					case "ects":
+						if (include.hasOwnProperty("module")) {
+							include.module.include = [{
+								model: models.note,
+								as: "notes",
+								required: expand.required,
+								where: {
+									user_id: {[Op.col]: "user.user_id" },
+								},
+							}];
+						}
+						break;
+					case "job":
+						const model = { model: models.job, as: "jobs", required: expand.required };
+
+						if (expand.how === "current") {
+							const today = new Date().setHours(0, 0, 0, 0);
+
+							model.where = {
+								start_date: { [Op.lte]: today },
+								end_date: { [Op.or]: {[Op.eq]: null, [Op.gte]: today} },
+							};
+						}
+
+						include.job = model;
+						break;
+					case "compta":
+						include.compta = { model: models.compta, as: "compta", required: expand.required };
+						break;
+				}
+			});
+		}
+	}
+
+	return { where, include: Object.values(include) };
 };
 
 /**
@@ -554,33 +639,26 @@ const getByID = async (currUser, userID, filters) => {
  * @function
  * @async
  *
+ * @param {module:LoggedUser} currUser
  * @param {string} uuid
+ * @param {StudentFilters} filters
  * @throws {APIError}
  * @return {Promise<APIResp>}
  */
-const getByUUID = async (uuid) => {
+const getByUUID = async (currUser, uuid, filters) => {
+	const clauses = await processUserFilters(currUser, filters);
+
 	const user = await models.user.findOne({
 		attributes: { exclude: ["password"] },
-		include: [
-			{
-				model: models.position,
-				as: "position",
-				required: true,
-				include: [{
-					model: models.permission,
-					as: "permissions",
-				}],
-			},
-			{ model: models.campus, as: "campus", required: false },
-		],
-		where: { uuid },
+		include: clauses.include,
+		where: { ...clauses.where, uuid },
 	});
 
 	if (!user) {
 		throw new APIError(404, `Cet utilisateur (${uuid}) n'existe pas.`);
 	}
 
-	const flattenUser = buildPermissions(user);
+	const flattenUser = filters?.expand?.includes("permission") ? buildPermissions(user) : user;
 	return new APIResp(200).setData({ user: flattenUser });
 };
 

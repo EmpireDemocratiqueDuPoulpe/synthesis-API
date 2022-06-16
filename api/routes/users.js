@@ -181,6 +181,8 @@ export default (router) => {
 	 *
 	 * @param {string} brokilone.header.required - Auth header
 	 * @param {string} UUID.path.required - UUIDv4
+	 * @param {string} campus.query - Filter by campus name (is an array)
+	 * @param {string} expand.query - Fetch with associated data (campus, study, module, ects, job, compta)?
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the user is returned - application/json
 	 *
@@ -192,7 +194,17 @@ export default (router) => {
 	 * }}
 	 */
 	route.get("/by-uuid/:UUID", authenticator, async (request, response, next) => {
-		const resp = await User.getByUUID(request.params.UUID);
+		const { UUID } = request.params;
+		const filters = request.query;
+
+		if (filters.expand) {
+			filters.expand = filters.expand.split(",");
+		}
+		if (filters.campus) {
+			filters.campus = filters.campus.split(",");
+		}
+
+		const resp = await User.getByUUID(request.user, UUID, filters);
 		response.status(resp.code).json(resp.toJSON());
 
 		logger.log("Retrieves a user by his UUID", { ip: request.clientIP, params: {code: resp.code, UUID: request.params.UUID} });

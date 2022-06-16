@@ -73,7 +73,7 @@ export default (router) => {
 	 * @param {string} brokilone.header.required - Auth header
 	 * @param {string} UUID.path.required - UUIDv4
 	 * @param {string} campus.query - Filter by campus name (is an array)
-	 * @param {string} expand.query - Fetch with associated data (campus, modules, ects, job)?
+	 * @param {string} expand.query - Fetch with associated data (campus, module, ects, job)?
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the student is returned - application/json
 	 *

@@ -6,7 +6,13 @@
 
 import { isArray } from "lodash-es";
 
-const ex = { CAMPUS: "campus", MODULE: "module", ECTS: "ects", JOB: "job", COMPTA: "compta" };
+const ex = {
+	PERMISSION: "permission",
+	CAMPUS: "campus", STUDY: "study",
+	MODULE: "module", ECTS: "ects",
+	JOB: "job",
+	COMPTA: "compta",
+};
 const exPerms = {
 	campus: [ "READ_CAMPUS" ],
 	module: [ "READ_MODULES" ],
@@ -55,7 +61,9 @@ export default class Expand {
 	}
 
 	/* ---- Getters --------------------------------- */
-	/** @type {string} - Campus */ static get CAMPUS() { return ex.CAMPUS; }
+	/** @type {string} - PERMISSION */ static get PERMISSION() { return ex.PERMISSION; }
+	/** @type {string} - CAMPUS */ static get CAMPUS() { return ex.CAMPUS; }
+	/** @type {string} - STUDY */ static get STUDY() { return ex.STUDY; }
 	/** @type {string} - MODULE */ static get MODULE() { return ex.MODULE; }
 	/** @type {string} - ECTS */ static get ECTS() { return ex.ECTS; }
 	/** @type {string} - JOB */ static get JOB() { return ex.JOB; }
