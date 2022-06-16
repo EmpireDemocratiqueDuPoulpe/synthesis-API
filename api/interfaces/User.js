@@ -6,6 +6,7 @@
  */
 
 import bcrypt from "bcrypt";
+import { generate as generatePassword } from "generate-password";
 import * as jose from "jose";
 import { Op } from "sequelize";
 import keys from "../joseLoader.js";
@@ -62,7 +63,7 @@ const { models } = sequelize;
  */
 
 /**
- * @typedef {Object} NewStudent
+ * @typedef {Object} NewStudentFromETL
  *
  * @property {string} first_name
  * @property {string} last_name
@@ -70,17 +71,27 @@ const { models } = sequelize;
  * @property {string} email
  * @property {string} gender
  * @property {string} region
- * @property {string} campus
+ * @property {string|number} campus_id
  */
 
 /**
- * @typedef {Object} NewIntervenant
+ * @typedef {Object} newSCTFromETL
  *
  * @property {string} first_name
  * @property {string} last_name
  * @property {string} email
  * @property {string} modules
  * @property {string} Section
+ * @property {string} gender
+ * @property {string} region
+ */
+
+/**
+ * @typedef {Object} newStaffFromETL
+ *
+ * @property {string} first_name
+ * @property {string} last_name
+ * @property {string} email
  * @property {string} gender
  * @property {string} region
  */
@@ -167,6 +178,18 @@ const isPasswordSafe = (password) => {
  */
 const hashPassword = async (password) => {
 	return await bcrypt.hash(password, Passwords.saltRound);
+};
+
+const randomPassword = () => {
+	return generatePassword({
+		length: Passwords.minLength,
+		numbers: Passwords.mustContain.number,
+		symbols: Passwords.mustContain.special,
+		lowercase: Passwords.mustContain.lowerCase,
+		uppercase: Passwords.mustContain.upperCase,
+		excludeSimilarCharacters: true,
+		strict: true,
+	});
 };
 
 /**
@@ -567,26 +590,24 @@ const getByUUID = async (uuid) => {
 
 /* ---- CREATE ---------------------------------- */
 /**
- * Add a new student
+ * Add a new staff members
  * @function
  * @async
  *
- * @param {NewStaff} newStaff
- * @param {number} roleId
- * @throws {APIError}
+ * @param {newStaffFromETL} newStaff
+ * @param {number} positionID
  * @return {Promise<APIResp>}
  */
-const addStaff = async (newStaff, roleId) => {
+const addStaffFromETL = async (newStaff, positionID) => {
 	const processedStaff = {
+		position_id: positionID,
 		first_name: newStaff.first_name,
 		last_name: newStaff.last_name,
 		email: newStaff.email,
 		gender: newStaff.gender,
 		region: newStaff.region,
-		position_id: roleId,
 	};
-
-	processedStaff.password = await hashPassword("Password123!");
+	processedStaff.password = await hashPassword(randomPassword());
 
 	// Add to the database
 	const staff = await models.user.findOrCreate({
@@ -597,9 +618,10 @@ const addStaff = async (newStaff, roleId) => {
 			gender: processedStaff.gender,
 			region: processedStaff.region,
 		},
-		defaults: processedStaff});
+		defaults: processedStaff,
+	});
 
-	return staff[0].user_id;
+	return new APIResp(200).setData({ userID: staff[0].user_id });
 };
 
 /*****************************************************
@@ -612,37 +634,35 @@ const addStaff = async (newStaff, roleId) => {
  * @function
  * @async
  *
- * @param {NewStudent} newStudent
- * @throws {APIError}
- * @return {Promise<number>}
+ * @param {NewStudentFromETL} newStudent
+ * @return {Promise<APIResp>}
  */
-const addStudent = async (newStudent) => {
+const addStudentFromETL = async newStudent => {
 	const processedStudent = {
+		position_id: 6,
+		campus_id: newStudent.campus_id,
 		first_name: newStudent.first_name,
 		last_name: newStudent.last_name,
 		email: newStudent.email,
-		campus: newStudent.campus,
-		password: newStudent.password,
 		gender: newStudent.gender,
 		region: newStudent.region,
-		position_id: 6,
 	};
-
-	processedStudent.password = await hashPassword("Password123!");
+	const password = await hashPassword(randomPassword());
 
 	// Add to the database
 	const student = await models.user.findOrCreate({
 		where: {
+			position_id: processedStudent.position_id,
+			campus_id: processedStudent.campus_id,
 			first_name: processedStudent.first_name,
 			last_name: processedStudent.last_name,
 			email: processedStudent.email,
 			gender: processedStudent.gender,
 			region: processedStudent.region,
-			position_id: 6,
 		},
-		defaults: processedStudent});
+		defaults: { ...processedStudent, password }});
 
-	return student[0].user_id;
+	return new APIResp(200).setData({ userID: student[0].user_id });
 };
 
 /* ---- READ ------------------------------------ */
@@ -748,37 +768,36 @@ const getStudentsAtResit = async (currUser, filters) => {
  * @function
  * @async
  *
- * @param {NewIntervenant} newSct
- * @param {Array<number>} modulesList
- * @param {number} campusId
- * @throws {APIError}
+ * @param {newSCTFromETL} newSct
+ * @param {Array<number>} modules
+ * @param {number} campusID
  * @return {Promise<APIResp>}
  */
-const addSCT = async (newSct, modulesList, campusId) => {
+const addSCTFromETL = async (newSct, modules, campusID) => {
 	const processedSct = {
+		position_id: 5,
+		campus_id: campusID,
 		first_name: newSct.first_name,
 		last_name: newSct.last_name,
 		email: newSct.email,
-		campus_id: campusId,
 		gender: newSct.gender,
 		region: newSct.region,
-		position_id: 5,
 	};
-
-	processedSct.password = await hashPassword("Password123!");
+	processedSct.password = await hashPassword(randomPassword());
 
 	// Create SCT
-	const sct = await models.user.findOrCreate({
+	const sct = (await models.user.findOrCreate({
 		where: processedSct,
-		defaults: processedSct});
+		defaults: processedSct,
+	}))[0];
 
 	// Add modules
-	if (modulesList) {
-		await sct[0].addModule(modulesList);
+	if (modules && modules.length > 0) {
+		await sct.addModules(modules);
 	}
 
 	// Return response
-	return new APIResp(200).setData({ userID: sct.user_id, modulesIDs: modulesList, campusId });
+	return new APIResp(200).setData({ userID: sct.user_id, modulesIDs: modules, campusID });
 };
 /* ---- READ ------------------------------------ */
 /**
@@ -810,7 +829,19 @@ const getAllSCTs = async (currUser, filters) => {
  *****************************************************/
 
 const User = {
-	/* CREATE */ add, addStudent, addSCT, addStaff,
-	/* READ */ login, getAll, getByID, getByUUID, getAllStudents, getStudentByUUID, getStudentsAtResit, getAllSCTs,
+	/* --- Users --- */
+	/* CREATE */ add,
+	/* READ */ login, getAll, getByID, getByUUID,
+
+	/* --- Students --- */
+	/* CREATE */ addStudentFromETL,
+	/* READ */ getAllStudents, getStudentByUUID, getStudentsAtResit,
+
+	/* --- SCT --- */
+	/* CREATE */ addSCTFromETL,
+	/* READ */ getAllSCTs,
+
+	/* --- Staff --- */
+	/* CREATE */ addStaffFromETL,
 };
 export default User;

@@ -27,7 +27,7 @@ const { models } = sequelize;
  */
 
 /**
- * @typedef {Object} newAccounting
+ * @typedef {Object} NewComptaFromETL
  *
  * @property {number} id
  * @property {number} student_id
@@ -36,10 +36,6 @@ const { models } = sequelize;
  * @property {string} type
  * @property {number} percent_paid
  */
-
-/*****************************************************
- * Functions
- *****************************************************/
 
 /*****************************************************
  * CRUD Methods
@@ -52,25 +48,10 @@ const { models } = sequelize;
  * @async
  *
  * @param {NewCompta} newCompta
- * @throws {APIError}
  * @return {Promise<APIResp>}
  */
-const add = async (newCompta) => {
-	const processedCompta = newCompta;
-
-	// Check if the new compta match the model
-	const model = models.compta.build(processedCompta);
-
-	try {
-		await model.validate({ skip: ["compta_id"] });
-	} catch (err) {
-		// TODO: Adapt the system
-		throw new APIError(400, "error", Object.values(err));
-	}
-
-	// Add to the database
-	const compta = await models.compta.create(processedCompta);
-
+const add = async newCompta => {
+	const compta = await models.compta.create(newCompta);
 	return new APIResp(200).setData({ comptaID: compta.compta_id });
 };
 
@@ -79,27 +60,25 @@ const add = async (newCompta) => {
  * @function
  * @async
  *
- * @param {newAccounting} newAccounting
- * @param {uuid} userId
- * @throws {APIError}
+ * @param {NewComptaFromETL} newAccounting
+ * @param {number|string} userId
  * @return {Promise<APIResp>}
  */
-const addAccountings = async (newAccounting, userId) => {
-	const processAccounting = {
+const addFromETL = async (newAccounting, userId) => {
+	const processedAccounting = {
+		user_id: userId,
+		payment_type: newAccounting.type,
 		payment_due: newAccounting.amount_due,
 		paid: newAccounting.amount_paid,
-		payment_type: newAccounting.type,
-		user_id: userId,
 	};
 
 	// Add to the database
 	const accounting = await models.compta.findOrCreate({
-		where: {
-			user_id: userId,
-		},
-		defaults: processAccounting});
+		where: { user_id: userId },
+		defaults: processedAccounting,
+	});
 
-	return { accountingID: accounting[0].compta_id };
+	return new APIResp(200).setData({ accountingID: accounting[0].compta_id });
 };
 
 /* ---- READ ------------------------------------ */
@@ -112,7 +91,7 @@ const addAccountings = async (newAccounting, userId) => {
  * @throws {APIError}
  * @return {Promise<APIResp>}
  */
-const getByID = async (comptaID) => {
+const getByID = async comptaID => {
 	const compta = await models.compta.findOne({
 		where: { compta_id: comptaID },
 	});
@@ -133,7 +112,7 @@ const getByID = async (comptaID) => {
  * @throws {APIError}
  * @return {Promise<APIResp>}
  */
-const getByUUID = async (UUID) => {
+const getByUUID = async UUID => {
 	const compta = await models.compta.findOne({
 		include: [{
 			model: models.user,
@@ -159,7 +138,7 @@ const getByUUID = async (UUID) => {
  *****************************************************/
 
 const Compta = {
-	add, addAccountings,	// CREATE
-	getByID, getByUUID,	// READ
+	/* CREATE */ add, addFromETL,
+	/* READ */ getByID, getByUUID,
 };
 export default Compta;

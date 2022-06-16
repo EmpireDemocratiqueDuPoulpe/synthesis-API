@@ -37,7 +37,7 @@ const { models } = sequelize;
  * @function
  * @async
  *
- * @param {CampusesFilters} filters
+ * @param {CampusesFilters} [filters]
  * @return {Promise<APIResp>}
  */
 const getAll = async filters => {

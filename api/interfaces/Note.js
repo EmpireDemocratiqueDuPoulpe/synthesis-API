@@ -43,59 +43,9 @@ const { models } = sequelize;
  * @return {Promise<APIResp>}
  */
 const add = async (newNote) => {
-	const processedNote = newNote;
-
-	// Check if the new note match the model
-	const model = models.note.build(processedNote);
-
-	try {
-		await model.validate({ skip: ["note_id"] });
-	} catch (err) {
-		// TODO: Adapt the system
-		throw new APIError(400, "error", Object.values(err));
-	}
-
-	// Add to the database
-	const note = await models.note.create(processedNote);
-
+	const note = await models.note.create(newNote);
 	return new APIResp(200).setData({ noteID: note.note_id });
 };
-
-
-/**
- * Add a new note from etl
- * @function
- * @async
- *
- * @param {NewNote} newNote
- * @param {number} moduleId
- * @param {number} userId
- * @throws {APIError}
- * @return {Promise<APIResp>}
- */
-const addNote = async (newNote, moduleId, userId) => {
-	const processedNote = {
-		note: newNote.grade,
-		user_id: userId,
-		module_id: moduleId,
-	};
-
-	// Check if the new note match the model
-	const model = models.note.build(processedNote);
-
-	try {
-		await model.validate({ skip: ["note_id"] });
-	} catch (err) {
-		// TODO: Adapt the system
-		throw new APIError(400, "error", Object.values(err));
-	}
-
-	// Add to the database
-	const note = await models.note.create(processedNote);
-
-	return new APIResp(200).setData({ noteID: note.note_id });
-};
-
 
 /* ---- READ ------------------------------------ */
 /**
@@ -127,7 +77,7 @@ const getByID = async (noteID) => {
  *****************************************************/
 
 const Note = {
-	add, addNote,					// CREATE
+	add,					// CREATE
 	getByID,						// READ
 };
 export default Note;

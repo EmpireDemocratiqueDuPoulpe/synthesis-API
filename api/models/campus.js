@@ -23,6 +23,7 @@ import { DataTypes } from "sequelize";
  *  name: {
  *    type: DataTypes.STRING,
  *    allowNull: boolean,
+ *    unique: boolean,
  *    validate: { notEmpty: boolean }
  *  },
  *  address_street: {
@@ -50,6 +51,7 @@ const campus = {
 	name: {
 		type: DataTypes.STRING(100),
 		allowNull: false,
+		unique: true,
 		validate: { notEmpty: true },
 	},
 	address_street: {

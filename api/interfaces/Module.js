@@ -27,7 +27,7 @@ const { models } = sequelize;
  */
 
 /**
- * @typedef {Object} NewModuleETL
+ * @typedef {Object} NewModuleFromETL
  *
  * @property {number} id
  * @property {string} moduleId
@@ -92,11 +92,10 @@ const add = async (newModule) => {
  * @function
  * @async
  *
- * @param {NewModuleETL} newModule
- * @throws {APIError}
+ * @param {NewModuleFromETL} newModule
  * @return {Promise<APIResp>}
  */
-const addModule = async (newModule) => {
+const addFromETL = async newModule => {
 	const processedModule = {
 		year: newModule.year,
 		name: newModule.moduleId,
@@ -120,7 +119,7 @@ const addModule = async (newModule) => {
  * @function
  * @async
  *
- * @param {ModuleFilters} filters
+ * @param {ModuleFilters} [filters]
  * @return {Promise<APIResp>}
  */
 const getAll = async filters => {
@@ -218,7 +217,7 @@ const getNotesByUserID = async (userID, filters) => {
  *****************************************************/
 
 const Module = {
-	add, addModule,						// CREATE
-	getAll, getByID, getNotesByUserID,	// READ
+	/* CREATE */ add, addFromETL,
+	/* READ */ getAll, getByID, getNotesByUserID,
 };
 export default Module;

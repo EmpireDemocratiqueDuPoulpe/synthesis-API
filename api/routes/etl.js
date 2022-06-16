@@ -4,52 +4,51 @@
  */
 
 import AsyncRouter from "express-promise-router";
+import { get } from "lodash-es";
 import { Logger, APIResp } from "../../global/global.js";
-import Compta from "../interfaces/Compta.js";
-import Job from "../interfaces/Job.js";
-import Module from "../interfaces/Module.js";
-import User from "../interfaces/User.js";
-import Note from "../interfaces/Note.js";
-import Campus from "../interfaces/Campus.js";
-import Position from "../interfaces/Position.js";
+import { Compta, Job, Module, Campus, User, Note, Position } from "../interfaces/interfaces.js";
 
 const route = AsyncRouter();
 const logger = new Logger({ separator: ": " });
 
 export default (router) => {
 	router.use("/etl", route);
+
 	/* ---- CREATE ---------------------------------- */
 	/**
 	  * TODO: POST /v1/etl/students
 	  */
 	route.post("/students", async (request, response) => {
 		const resp = new APIResp(200);
-		const list = request.body;
-		const moduleList = {};
-		const modules = (await Module.getAll(undefined)).data.modules;
 
-		modules.forEach(module => {
-			moduleList[module.dataValues.name] = module.dataValues.module_id;
-		});
+		// Fetch modules and campuses
+		const modules = mapToKeyValue(((await Module.getAll()).data.modules), "dataValues.name", "dataValues.module_id");
+		const campuses = mapToKeyValue(((await Campus.getAll()).data.campuses), "dataValues.name", "dataValues.campus_id");
 
-		for await (const student of list) {
-			const userID = await User.addStudent(student);
-			await Compta.addAccountings(student.accounting, userID);
-			await Job.addJobs(student.job, userID);
+		// Add students
+		for await (const student of request.body) {
+			// Add student
+			student.campus_id = campuses[student.campus] ?? null;
+			delete student.campus;
 
+			const userID = (await User.addStudentFromETL(student)).data.userID;
+
+			// Add compta and jobs
+			await Compta.addFromETL(student.accounting, userID);
+			await Job.addFromETL(student.job, userID);
+
+			// Add grades
 			if (student.grades) {
 				await Promise.all(student.grades.map(grade => {
-					if (moduleList.hasOwnProperty(grade.name)) {
-						return Note.addNote(grade, moduleList[grade.name], userID);
-					}
-					return null;
+					return Object.hasOwnProperty.call(modules, grade.name)
+						? Note.add({ user_id: userID, module_id: modules[grade.name], note: grade })
+						: null;
 				}).filter(Boolean));
 			}
 		}
 
 		response.status(resp.code).json(resp.toJSON());
-
-		logger.log("Add students", { ip: request.clientIP, params: {code: resp.code}});
+		logger.log("Add students from ETL", { ip: request.clientIP, params: {code: resp.code}});
 	});
 
 	/**
@@ -57,50 +56,35 @@ export default (router) => {
 	*/
 	route.post("/modules", async (request, response) => {
 		const resp = new APIResp(200);
-		const list = request.body;
-		for (const key in list) {
-			if (Object.hasOwnProperty.call(list, key)) {
-				const module = list[key];
-				await Module.addModule(module);
-			}
-		}
-		response.status(resp.code).json(resp.toJSON());
 
+		for await (const module of request.body) {
+			await Module.addFromETL(module);
+		}
+
+		response.status(resp.code).json(resp.toJSON());
 		logger.log("Add modules", { ip: request.clientIP, params: {code: resp.code}});
 	});
 
 	/**
-	* TODO: POST /v1/etl/intervenants
+	* TODO: POST /v1/etl/scts
 	*/
-	route.post("/intervenants", async (request, response) => {
+	route.post("/scts", async (request, response) => {
 		const resp = new APIResp(200);
-		const list = request.body;
 
-		const modules = (await Module.getAll()).data.modules;
-		const campus = (await Campus.getAll()).data.campuses;
+		// Fetch modules and campuses
+		const modules = mapToKeyValue(((await Module.getAll()).data.modules), "dataValues.name", "dataValues.module_id");
+		const campuses = mapToKeyValue(((await Campus.getAll()).data.campuses), "dataValues.name", "dataValues.campus_id");
 
-		for await (const intervenant of list) {
-			const intervenantModules = modules.map(m => {
-				if (m.dataValues.name === intervenant.modules) {
-					return m.dataValues.module_id;
-				}
-				return null;
-			}).filter(Boolean);
+		// Add SCTs
+		for await (const sct of request.body) {
+			const moduleID = modules[sct.modules] ?? null;
+			const campusID = campuses[sct.Section] ?? null;
 
-			const campusId = campus.map(c =>{
-				if (c.dataValues.name === intervenant.Section) {
-					return c.dataValues.campus_id;
-				}
-				return null;
-			}).filter(Boolean)[0];
-
-			if (intervenantModules.length > 0) {
-				await User.addSCT(intervenant, intervenantModules, campusId);
-			}
+			await User.addSCTFromETL(sct, [moduleID], campusID);
 		}
-		response.status(resp.code).json(resp.toJSON());
 
-		logger.log("Add intervenants", { ip: request.clientIP, params: {code: resp.code}});
+		response.status(resp.code).json(resp.toJSON());
+		logger.log("Add SCTs", { ip: request.clientIP, params: {code: resp.code}});
 	});
 
 	/**
@@ -108,21 +92,37 @@ export default (router) => {
 	*/
 	route.post("/staff", async (request, response) => {
 		const resp = new APIResp(200);
-		const list = request.body;
-		const positions = (await Position.getAllPositions()).data.positions;
 
-		for await (const staff of list) {
-			const roleId = positions.map(p => {
-				if (p.dataValues.name === staff.Roles) {
-					return p.dataValues.position_id;
-				}
-				return null;
-			}).filter(Boolean)[0];
+		// Fetch positions
+		const positions = mapToKeyValue(((await Position.getAll()).data.positions), "dataValues.name", "dataValues.position_id");
 
-			User.addStaff(staff, roleId);
+		// Add staff members
+		for await (const staff of request.body) {
+			const positionID = positions[staff.Roles] ?? null;
+			await User.addStaffFromETL(staff, positionID);
 		}
-		response.status(resp.code).json(resp.toJSON());
 
-		logger.log("Add staff", { ip: request.clientIP, params: {code: resp.code}});
+		response.status(resp.code).json(resp.toJSON());
+		logger.log("Add staff members", { ip: request.clientIP, params: {code: resp.code}});
 	});
 };
+
+/**
+ * Transform an array of objects to an object.
+ * @function
+ *
+ * @example
+ * const positions = mapToKeyValue(((await Position.getAll()).data.positions), "dataValues.name", "dataValues.position_id");
+ *
+ * @param {Array} arr - Array to transform
+ * @param {string} keyProp - Path to the property used as key
+ * @param {string} valueProp - Path to the property used as value
+ * @return {Object}
+ */
+function mapToKeyValue(arr, keyProp, valueProp) {
+	const obj = {};
+
+	arr.forEach(item => obj[get(item, keyProp, "_")] = get(item, valueProp, null));
+
+	return obj;
+}

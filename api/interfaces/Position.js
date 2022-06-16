@@ -5,9 +5,8 @@
  * @author Louan L. <louan.leplae@supinfo.com>
  */
 
-
-import { APIResp } from "../../global/global.js";
 import sequelize from "../sequelizeLoader.js";
+import { APIResp } from "../../global/global.js";
 
 /**
  * Sequelize models
@@ -19,7 +18,7 @@ const { models } = sequelize;
 
 
 /*****************************************************
- * CRUD Methods - Students
+ * CRUD Methods
  *****************************************************/
 
 /* ---- READ ------------------------------------ */
@@ -30,17 +29,15 @@ const { models } = sequelize;
  *
  * @return {Promise<APIResp>}
  */
-const getAllPositions = async () => {
+const getAll = async () => {
 	const positions = await models.position.findAll();
-
 	return new APIResp(200).setData({ positions });
 };
 
 /* ---- UPDATE ---------------------------------- */
 /* ---- DELETE ---------------------------------- */
 
-
 const Position = {
-	/* READ */ getAllPositions,
+	/* READ */ getAll,
 };
 export default Position;
