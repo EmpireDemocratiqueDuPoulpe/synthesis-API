@@ -37,6 +37,10 @@ import { DataTypes } from "sequelize";
  *  address_postal_code: {
  *  	type: DataTypes.STRING,
  * 	 	allowNull: boolean,
+ *  },
+ *  geo_position: {
+ *  	type: DataTypes.GEOMETRY("POINT"),
+ * 	 	allowNull: boolean,
  *  }
  * }
  */
@@ -64,6 +68,10 @@ const campus = {
 	},
 	address_postal_code: {
 		type: DataTypes.STRING,
+		allowNull: true,
+	},
+	geo_position: {
+		type: DataTypes.GEOMETRY("POINT"),
 		allowNull: true,
 	},
 };

@@ -26,6 +26,7 @@ async function setData(sequelize, logger) {
 		{
 			campus_id: 10000, name: "Caen",
 			address_street: "123 rue des phalempins", address_city: "France", address_postal_code: "AZERTY",
+			geo_position: { type: "Point", coordinates: [49.188468, -0.3640630] },
 		},
 		{
 			campus_id: 10001, name: "Distanciel",
@@ -34,22 +35,27 @@ async function setData(sequelize, logger) {
 		{
 			campus_id: 10002, name: "Lille",
 			address_street: "123 rue des phalempins", address_city: "France", address_postal_code: "AZERTY",
+			geo_position: { type: "Point", coordinates: [50.633700, 3.0543615] },
 		},
 		{
 			campus_id: 10003, name: "Lyon",
 			address_street: "123 rue des phalempins", address_city: "France", address_postal_code: "AZERTY",
+			geo_position: { type: "Point", coordinates: [45.763406, 4.8321925] },
 		},
 		{
 			campus_id: 10004, name: "Paris",
 			address_street: "123 rue des phalempins", address_city: "France", address_postal_code: "AZERTY",
+			geo_position: { type: "Point", coordinates: [48.858268, 2.2944971] },
 		},
 		{
 			campus_id: 10005, name: "Tours",
 			address_street: "123 rue des phalempins", address_city: "France", address_postal_code: "AZERTY",
+			geo_position: { type: "Point", coordinates: [47.395376, 0.6938961] },
 		},
 		{
 			campus_id: 10006, name: "Rennes",
 			address_street: "123 rue des phalempins", address_city: "France", address_postal_code: "AZERTY",
+			geo_position: { type: "Point", coordinates: [48.114989, -1.6803826] },
 		},
 	]);
 
@@ -477,7 +483,7 @@ IT composé de 6 personnes :
 		},
 		// Étudiant
 		{
-			user_id: 10005, position_id: 6, campus_id: 10001,
+			user_id: 10005, position_id: 6, campus_id: 10002,
 			first_name: "Jay", last_name: "Raté Mon Année À L'Aide",
 			birth_date: "2002-06-24", gender: "homme",
 			email: "jay.rate@forni.te",
