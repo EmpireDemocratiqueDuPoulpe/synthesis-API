@@ -269,10 +269,11 @@ export const buildPermissions = (user) => {
  *
  * @param {module:LoggedUser} currUser
  * @param {UserFilters} filters
- * @param {Array<string>} disabledExpands - List of expand to not include in the clauses
+ * @param {string} uuid
+ * @param {Array<string>} [disabledExpands] - List of expand to not include in the clauses
  * @return {SeqUserFilters}
  */
-const processUserFilters = async (currUser, filters, disabledExpands = []) => {
+const processUserFilters = async (currUser, filters, uuid, disabledExpands = []) => {
 	const validExpands = [Expand.PERMISSION, Expand.CAMPUS, Expand.STUDY, Expand.MODULE, Expand.ECTS, Expand.JOB, Expand.COMPTA]
 		.filter(e => !disabledExpands.includes(e));
 
@@ -287,7 +288,7 @@ const processUserFilters = async (currUser, filters, disabledExpands = []) => {
 
 		// Expand
 		if (filters.expand) {
-			await new Expand(currUser).setAuthorized(validExpands).process(filters.expand, expand => {
+			await new Expand(currUser).setRequestUUID(uuid).setAuthorized(validExpands).process(filters.expand, expand => {
 				switch (expand.name) {
 					case Expand.CAMPUS:
 						include.campus = { model: models.campus, as: "campus", required: expand.required };
@@ -341,7 +342,7 @@ const processUserFilters = async (currUser, filters, disabledExpands = []) => {
  *
  * @param {module:LoggedUser} currUser
  * @param {StudentFilters} filters
- * @param {Array<string>} disabledExpands - List of expand to not include in the clauses
+ * @param {Array<string>} [disabledExpands] - List of expand to not include in the clauses
  * @return {SeqStudentFilters}
  */
 const processStudentFilters = async (currUser, filters, disabledExpands = []) => {
@@ -427,7 +428,7 @@ const processStudentFilters = async (currUser, filters, disabledExpands = []) =>
  *
  * @param {module:LoggedUser} currUser
  * @param {SCTsFilters} filters
- * @param {Array<string>} disabledExpands - List of expand to not include in the clauses
+ * @param {Array<string>} [disabledExpands] - List of expand to not include in the clauses
  * @return {SeqSCTsFilters}
  */
 const processSCTFilters = async (currUser, filters, disabledExpands = []) => {
@@ -646,7 +647,7 @@ const getByID = async (currUser, userID, filters) => {
  * @return {Promise<APIResp>}
  */
 const getByUUID = async (currUser, uuid, filters) => {
-	const clauses = await processUserFilters(currUser, filters);
+	const clauses = await processUserFilters(currUser, filters, uuid);
 
 	const user = await models.user.findOne({
 		attributes: { exclude: ["password"] },

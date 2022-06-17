@@ -4,7 +4,7 @@
  * @author Alexis L. <alexis.lecomte@supinfo.com>
  */
 
-import { isArray } from "lodash-es";
+import { isArray, isString } from "lodash-es";
 
 const ex = {
 	PERMISSION: "permission",
@@ -44,6 +44,7 @@ const exPerms = {
  */
 export default class Expand {
 	currUser = null;
+	requestUUID = null;
 	authorizedTableNames = null;
 
 	/**
@@ -79,6 +80,21 @@ export default class Expand {
 	 */
 	setUser(user) {
 		this.currUser = user;
+		return this;
+	}
+
+	/**
+	 * Sets the UUID searched in the request. This UUID is used for permissions checks.
+	 * @function
+	 *
+	 * @param {*} uuid
+	 * @return {Expand}
+	 */
+	setRequestUUID(uuid) {
+		if (isString(uuid)) {
+			this.requestUUID = uuid;
+		}
+
 		return this;
 	}
 
@@ -199,9 +215,11 @@ export default class Expand {
 	async process(expands, callback) {
 		const splittedExpands = this._sort(this._filter(expands)).map(ex => Expand._extractParts(ex));
 		const usableExpands = await this._asyncFilter(splittedExpands, async splittedEx => {
-			if (this.currUser && exPerms[splittedEx.name]) {
+			if ((this.currUser)
+				&& (!this.requestUUID || (this.requestUUID !== this.currUser.uuid))
+				&& exPerms[splittedEx.name]) {
 				return await this.currUser.hasAllPermissions(exPerms[splittedEx.name]);
-			} return true;
+			} else return true;
 		});
 
 		usableExpands.map(callback);
