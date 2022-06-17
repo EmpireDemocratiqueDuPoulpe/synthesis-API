@@ -289,16 +289,16 @@ const processUserFilters = async (currUser, filters, disabledExpands = []) => {
 		if (filters.expand) {
 			await new Expand(currUser).setAuthorized(validExpands).process(filters.expand, expand => {
 				switch (expand.name) {
-					case "campus":
+					case Expand.CAMPUS:
 						include.campus = { model: models.campus, as: "campus", required: expand.required };
 						break;
-					case "study":
+					case Expand.STUDY:
 						include.study = { model: models.study, as: "study", required: expand.required };
 						break;
-					case "module":
+					case Expand.MODULE:
 						include.module = { model: models.module, as: "modules", required: expand.required };
 						break;
-					case "ects":
+					case Expand.ECTS:
 						if (include.hasOwnProperty("module")) {
 							include.module.include = [{
 								model: models.note,
@@ -310,7 +310,7 @@ const processUserFilters = async (currUser, filters, disabledExpands = []) => {
 							}];
 						}
 						break;
-					case "job":
+					case Expand.JOB:
 						const model = { model: models.job, as: "jobs", required: expand.required };
 
 						if (expand.how === "current") {
@@ -324,7 +324,7 @@ const processUserFilters = async (currUser, filters, disabledExpands = []) => {
 
 						include.job = model;
 						break;
-					case "compta":
+					case Expand.COMPTA:
 						include.compta = { model: models.compta, as: "compta", required: expand.required };
 						break;
 				}
@@ -378,13 +378,13 @@ const processStudentFilters = async (currUser, filters, disabledExpands = []) =>
 		if (filters.expand) {
 			await new Expand(currUser).setAuthorized(validExpands).process(filters.expand, expand => {
 				switch (expand.name) {
-					case "campus":
+					case Expand.CAMPUS:
 						include.campus = { model: models.campus, as: "campus", required: expand.required };
 						break;
-					case "module":
+					case Expand.MODULE:
 						include.module = { model: models.module, as: "modules", required: expand.required };
 						break;
-					case "ects":
+					case Expand.ECTS:
 						if (include.hasOwnProperty("module")) {
 							include.module.include = [{
 								model: models.note,
@@ -396,7 +396,7 @@ const processStudentFilters = async (currUser, filters, disabledExpands = []) =>
 							}];
 						}
 						break;
-					case "job":
+					case Expand.JOB:
 						const model = { model: models.job, as: "jobs", required: expand.required };
 
 						if (expand.how === "current") {
@@ -410,7 +410,7 @@ const processStudentFilters = async (currUser, filters, disabledExpands = []) =>
 
 						include.job = model;
 						break;
-					case "compta":
+					case Expand.COMPTA:
 						include.compta = { model: models.compta, as: "compta", required: expand.required };
 						break;
 				}
@@ -445,10 +445,10 @@ const processSCTFilters = async (currUser, filters, disabledExpands = []) => {
 		if (filters.expand) {
 			await new Expand(currUser).setAuthorized(validExpands).process(filters.expand, expand => {
 				switch (expand.name) {
-					case "campus":
+					case Expand.CAMPUS:
 						include.campus = {model: models.campus, as: "campus", required: expand.required};
 						break;
-					case "module":
+					case Expand.MODULE:
 						include.module = {model: models.module, as: "modules", required: expand.required};
 						break;
 				}
