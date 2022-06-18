@@ -94,6 +94,7 @@ const { models } = sequelize;
  * @property {string} first_name
  * @property {string} last_name
  * @property {string} email
+ * @property {Date | string} birth_date
  * @property {string} modules
  * @property {string} Section
  * @property {string} gender
@@ -106,6 +107,7 @@ const { models } = sequelize;
  * @property {string} first_name
  * @property {string} last_name
  * @property {string} email
+ * @property {Date | string} birth_date
  * @property {string} gender
  * @property {string} region
  */
@@ -683,21 +685,17 @@ const addStaffFromETL = async (newStaff, positionID) => {
 		first_name: newStaff.first_name,
 		last_name: newStaff.last_name,
 		email: newStaff.email,
+		birth_date: newStaff.birth_date,
 		gender: newStaff.gender,
 		region: newStaff.region ?? null,
 	};
-	processedStaff.password = await hashPassword(randomPassword());
+
+	const password = await hashPassword(randomPassword());
 
 	// Add to the database
 	const staff = await models.user.findOrCreate({
-		where: {
-			first_name: processedStaff.first_name,
-			last_name: processedStaff.last_name,
-			email: processedStaff.email,
-			gender: processedStaff.gender,
-			region: processedStaff.region,
-		},
-		defaults: processedStaff,
+		where: processedStaff,
+		defaults: { ...processedStaff, password},
 	});
 
 	return new APIResp(200).setData({ userID: staff[0].user_id });
@@ -850,7 +848,8 @@ const addSCTFromETL = async (newSct, modules, campusID) => {
 		position_id: 5,
 		campus_id: campusID,
 		first_name: newSct.first_name,
-		last_name: newSct.last_name,
+		last_naame: newSct.last_name,
+		birth_dte: newSct.birth_date,
 		email: newSct.email,
 		gender: newSct.gender,
 		region: newSct.region,
