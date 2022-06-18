@@ -724,21 +724,14 @@ const addStudentFromETL = async newStudent => {
 		last_name: newStudent.last_name,
 		email: newStudent.email,
 		gender: newStudent.gender,
+		birth_date: newStudent.birth_date,
 		region: newStudent.region,
 	};
 	const password = await hashPassword(randomPassword());
 
 	// Add to the database
 	const student = await models.user.findOrCreate({
-		where: {
-			position_id: processedStudent.position_id,
-			campus_id: processedStudent.campus_id,
-			first_name: processedStudent.first_name,
-			last_name: processedStudent.last_name,
-			email: processedStudent.email,
-			gender: processedStudent.gender,
-			region: processedStudent.region,
-		},
+		where: processedStudent,
 		defaults: { ...processedStudent, password }});
 
 	return new APIResp(200).setData({ userID: student[0].user_id });
