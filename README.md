@@ -1,5 +1,5 @@
 # Synthesis - API
-[Documentation](https://empiredemocratiquedupoulpe.github.io/campus-booster-en-mieux-API/www/)
+[Documentation](https://empiredemocratiquedupoulpe.github.io/synthesis-API/www/index.html)
 
 
 ## Français

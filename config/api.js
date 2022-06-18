@@ -20,7 +20,7 @@ export default {
 	},
 	cookies: {
 		path: "/",
-		sameSite: "Lax",
+		sameSite: "None", /* ONLY FOR DEVELOPMENT PURPOSE. MUST BE "Lax" */
 		secure: true,
 	},
 	uploads: {
