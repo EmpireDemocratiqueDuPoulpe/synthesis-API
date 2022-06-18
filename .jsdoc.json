@@ -29,13 +29,13 @@
     "monospaceLinks": false,
     "search": true,
     "better-docs": {
-      "name": "Campus Booster en mieux - API",
-      "title": "CBEM - API",
-      "logo": "https://i.imgur.com/G69c43Q.png",
+      "name": "Synthesis API",
+      "title": "Synthesis - API",
+      "logo": "https://i.imgur.com/ePRsf5Q.png",
       "css": "../custom/top-nav.css",
       "hideGenerator": false,
       "navLinks": [
-        { "label": "GitHub", "href": "https://github.com/EmpireDemocratiqueDuPoulpe/campus-booster-en-mieux-API" },
+        { "label": "GitHub", "href": "https://github.com/EmpireDemocratiqueDuPoulpe/synthesis-API" },
         { "label": "YouTube", "href": "https://www.youtube.com/watch?v=dQw4w9WgXcQ" }
       ]
     }
