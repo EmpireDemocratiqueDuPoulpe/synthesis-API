@@ -1,4 +1,4 @@
 export { default as authenticator } from "./authenticator.js";
-export { default as endHandler } from "./endHandler.js";
 export { default as errorHandler } from "./errorHandler.js";
+export { default as requireHTTPS } from "./requireHTTPS.js";
 export { default as tokenAssembler } from "./tokenAssembler.js";

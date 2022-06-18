@@ -5,9 +5,19 @@
  */
 
 import { Router } from "express";
-import requestIP from "request-ip";
-import { absences, comptas, jobs, modules, notes, permissions, students, studies, users } from "./routes/routes.js";
-import { tokenAssembler, endHandler, errorHandler } from "./middlewares/middlewares.js";
+import {
+	absences,
+	comptas,
+	campuses,
+	jobs, jobDomains, jobOffers,
+	modules, modulePlanning, notes,
+	permissions,
+	resits,
+	users, scts, students,
+	studies,
+	etl,
+} from "./routes/routes.js";
+import { tokenAssembler } from "./middlewares/middlewares.js";
 
 /**
  * @typedef {Object} SuccessResp
@@ -33,25 +43,25 @@ export default () => {
 	const router = Router();
 
 	// Middlewares
-	router.use(endHandler);
-	router.use(requestIP.mw({ attributeName: "clientIP" }));
 	router.use(tokenAssembler);
 
 	// Routes
 	absences(router);
 	comptas(router);
+	campuses(router);
 	jobs(router);
+	jobDomains(router);
+	jobOffers(router);
 	modules(router);
+	modulePlanning(router);
 	notes(router);
 	permissions(router);
+	resits(router);
+	scts(router);
 	students(router);
 	studies(router);
 	users(router);
-
-	// Middlewares for errors
-	router.use(errorHandler.expressLogger);
-	router.use(errorHandler.errorForwarder);
-	router.use(errorHandler.failSafe);
+	etl(router);
 
 	return router;
 };

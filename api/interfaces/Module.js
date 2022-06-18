@@ -5,6 +5,7 @@
  * @author Maxence P. <maxence.pawlowski@supinfo.com>
  */
 
+import { Op } from "sequelize";
 import sequelize from "../sequelizeLoader.js";
 import { APIResp, APIError } from "../../global/global.js";
 
@@ -23,6 +24,30 @@ const { models } = sequelize;
  * @property {string} name
  * @property {string} long_name
  * @property {number} ects
+ */
+
+/**
+ * @typedef {Object} NewModuleFromETL
+ *
+ * @property {number} id
+ * @property {string} moduleId
+ * @property {string} moduleName
+ * @property {string} moduleDescription
+ * @property {number} year
+ * @property {number} credits
+ * @property {string} cursus
+ */
+
+/**
+ * @typedef {Object} ModuleNotesFilters
+ *
+ * @property {array<number>} years
+ */
+
+/**
+ * @typedef {Object} ModuleFilters
+ *
+ * @property {array<number>} years
  */
 
 /*****************************************************
@@ -46,7 +71,7 @@ const { models } = sequelize;
 const add = async (newModule) => {
 	const processedModule = newModule;
 
-	// Check if the new user match the model
+	// Check if the new module match the model
 	const model = models.module.build(processedModule);
 
 	try {
@@ -62,16 +87,69 @@ const add = async (newModule) => {
 	return new APIResp(200).setData({ moduleID: module.module_id });
 };
 
+/**
+ * Add a new module from etl
+ * @function
+ * @async
+ *
+ * @param {NewModuleFromETL} newModule
+ * @return {Promise<APIResp>}
+ */
+const addFromETL = async newModule => {
+	const processedModule = {
+		year: newModule.year,
+		name: newModule.moduleId,
+		long_name: newModule.moduleName,
+		description: newModule.moduleDescription,
+		ects: newModule.credits,
+	};
+
+	// Add to the database
+	const module = await models.module.findOrCreate({
+		where: processedModule,
+		default: processedModule,
+	});
+
+	return new APIResp(200).setData({ moduleID: module[0].module_id });
+};
+
 /* ---- READ ------------------------------------ */
 /**
  * Get all modules
  * @function
  * @async
  *
+ * @param {ModuleFilters} [filters]
  * @return {Promise<APIResp>}
  */
-const getAll = async () => {
-	const modules = await models.module.findAll();
+const getAll = async filters => {
+	const usableFilters = {};
+
+	if (filters) {
+		if (filters.years) {
+			usableFilters.year = {
+				[Op.in]: filters.years,
+			};
+		}
+	}
+
+	const modules = await models.module.findAll({
+		include: [{
+			model: models.user,
+			as: "users",
+			required: false,
+			include: [{
+				model: models.position,
+				as: "position",
+				required: true,
+				where: {
+					name: "Intervenant",
+				},
+			}],
+		}],
+		where: usableFilters,
+		order: [ ["year", "ASC"] ],
+	});
 
 	return new APIResp(200).setData({ modules });
 };
@@ -97,6 +175,40 @@ const getByID = async (moduleID) => {
 	return new APIResp(200).setData({ module });
 };
 
+/**
+ * Get all modules with notes of a user
+ * @function
+ * @async
+ *
+ * @param {number} userID
+ * @param {ModuleNotesFilters} filters
+ * @return {Promise<APIResp>}
+ */
+const getNotesByUserID = async (userID, filters) => {
+	const usableFilters = {};
+
+	if (filters) {
+		if (filters.years) {
+			usableFilters.year = {
+				[Op.in]: filters.years,
+			};
+		}
+	}
+
+	const modules = await models.module.findAll({
+		include: [{
+			model: models.note,
+			as: "notes",
+			required: false,
+			where: { user_id: userID },
+		}],
+		where: usableFilters,
+		order: [ ["year", "DESC"] ],
+	});
+
+	return new APIResp(200).setData({ modules });
+};
+
 /* ---- UPDATE ---------------------------------- */
 /* ---- DELETE ---------------------------------- */
 
@@ -105,7 +217,7 @@ const getByID = async (moduleID) => {
  *****************************************************/
 
 const Module = {
-	add,							// CREATE
-	getAll, getByID,	// READ
+	/* CREATE */ add, addFromETL,
+	/* READ */ getAll, getByID, getNotesByUserID,
 };
 export default Module;

@@ -5,7 +5,7 @@
 
 import AsyncRouter from "express-promise-router";
 import { authenticator } from "../middlewares/middlewares.js";
-import { Logger, APIResp, CookiesFn } from "../../global/global.js";
+import { Logger, APIResp, APIError, CookiesFn } from "../../global/global.js";
 import { User, generateJWT } from "../interfaces/interfaces.js";
 
 const route = AsyncRouter();
@@ -21,6 +21,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Users
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {NewUser} request.body.required - User info - application/json
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the user is added - application/json
@@ -37,13 +38,15 @@ export default (router) => {
 	 * @example response - 400 - Bad request response
 	 * { "code": 400, "error": "Les mots de passe ne correspondent pas.", "fields": ["password1", "password2"] }
 	 */
-	route.post("/", async (request, response) => {
-		const { user } = request.body;
+	route.post("/", authenticator, async (request, response, next) => {
+		if (await request.user.hasAllPermissions("EDIT_USERS")) {
+			const { user } = request.body;
 
-		const resp = await User.add(user);
-		response.status(resp.code).json(resp.toJSON());
+			const resp = await User.add(user);
+			response.status(resp.code).json(resp.toJSON());
 
-		logger.log("Add a new user", { ip: request.clientIP, params: {code: resp.code, email: user?.email} });
+			logger.log("Add a new user", { ip: request.clientIP, params: {code: resp.code, email: user.email} });
+		} else next(new APIError(403, "Permission denied: couldn't access this endpoint."));
 	});
 
 	/* ---- READ ------------------------------------ */
@@ -52,10 +55,12 @@ export default (router) => {
 	 * @summary Login a user
 	 * @tags Users
 	 *
+	 * @param {LoggingUser} request.body.required - User email and password
+	 *
 	 * @return {SuccessResp} 200 - **Success**: the user is returned along with a JWT token in the cookies - application/json
 	 *
 	 * @example request - Login user
-	 * { "user": {"email": "pony.sparks@psindustry.com", "password": "My lil P0ny"} }
+	 * { "user": {"email": "pony.sparks@weapo.ns", "password": "Mot De P4sse"} }
 	 * @example response - 200 - Success response
 	 * { "code": 200, "user": {
 	 *  "first_name": "Pony", "last_name": "Sparks", "birth_date": "4/16/1974", "email": "pony.sparks@psindustry.com",
@@ -84,6 +89,8 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Users
 	 *
+	 * @param {string} brokilone.header.required - Auth header
+	 *
 	 * @return {SuccessResp} 200 - **Success**: the user is returned along with a new JWT token in the cookies - application/json
 	 *
 	 * @example response - 200 - Success response
@@ -98,14 +105,14 @@ export default (router) => {
 	route.post("/authenticate", authenticator, async (request, response) => {
 		const resp = new APIResp();
 
-		const user = (await User.getByID(request.user.sub)).data.user;
+		const user = (await User.getByID(request.user, request.user.userID, {expand: ["study~"]})).data.user;
 		const token = await generateJWT(user);
 		CookiesFn.setTokenCookie(response, token);
 
 		resp.setData({ user });
 		response.status(resp.code).json(resp.toJSON());
 
-		logger.log("Logs in using a JWT token", { ip: request.clientIP, params: {code: resp.code, user_id: request.user.sub} });
+		logger.log("Logs in using a JWT token", { ip: request.clientIP, params: {code: resp.code, user_id: request.user.sub, email: user.email} });
 	});
 
 	/**
@@ -114,6 +121,8 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Users
 	 * @deprecated
+	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the users are returned - application/json
 	 *
@@ -126,11 +135,13 @@ export default (router) => {
 	 *  }
 	 * ]}
 	 */
-	route.get("/all", authenticator, async (request, response) => {
-		const resp = await User.getAll();
-		response.status(resp.code).json(resp.toJSON());
+	route.get("/all", authenticator, async (request, response, next) => {
+		if (await request.user.hasAllPermissions("READ_USERS")) {
+			const resp = await User.getAll();
+			response.status(resp.code).json(resp.toJSON());
 
-		logger.log("Fetch all users", { ip: request.clientIP, params: {code: resp.code} });
+			logger.log("Fetch all users", { ip: request.clientIP, params: {code: resp.code} });
+		} else next(new APIError(403, "Permission denied: couldn't access this endpoint."));
 	});
 
 	/**
@@ -139,6 +150,7 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Users
 	 *
+	 * @param {string} brokilone.header.required - Auth header
 	 * @param {number} userID.path.required - User id
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the user is returned - application/json
@@ -150,11 +162,15 @@ export default (router) => {
 	 *    "position": { "position_id": 5, "name": "Étudiant", "permissions": {"READ_PLANNINGS": "READ_PLANNINGS"} }
 	 * }}
 	 */
-	route.get("/by-id/:userID", async (request, response) => {
-		const resp = await User.getByID(request.params.userID);
-		response.status(resp.code).json(resp.toJSON());
+	route.get("/by-id/:userID", authenticator, async (request, response, next) => {
+		const { userID } = request.params;
 
-		logger.log("Retrieves a user by his user ID", { ip: request.clientIP, params: {code: resp.code, userID: request.params.userID} });
+		if (await request.user.hasAllPermissions("READ_USERS")) {
+			const resp = await User.getByID(request.user, userID, {});
+			response.status(resp.code).json(resp.toJSON());
+
+			logger.log("Retrieves a user by his user ID", { ip: request.clientIP, params: {code: resp.code, userID: request.params.userID} });
+		} else next(new APIError(403, "Permission denied: couldn't access this endpoint."));
 	});
 
 	/**
@@ -163,7 +179,10 @@ export default (router) => {
 	 * @security BearerAuth
 	 * @tags Users
 	 *
-	 * @param {number} UUID.path.required - UUIDv4
+	 * @param {string} brokilone.header.required - Auth header
+	 * @param {string} UUID.path.required - UUIDv4
+	 * @param {string} campus.query - Filter by campus name (is an array)
+	 * @param {string} expand.query - Fetch with associated data (campus, study, module, ects, job, compta)?
 	 *
 	 * @return {SuccessResp} 200 - **Success**: the user is returned - application/json
 	 *
@@ -174,8 +193,18 @@ export default (router) => {
 	 *    "position": { "position_id": 5, "name": "Étudiant", "permissions": {"READ_PLANNINGS": "READ_PLANNINGS"} }
 	 * }}
 	 */
-	route.get("/by-uuid/:UUID", async (request, response) => {
-		const resp = await User.getByUUID(request.params.UUID);
+	route.get("/by-uuid/:UUID", authenticator, async (request, response, next) => {
+		const { UUID } = request.params;
+		const filters = request.query;
+
+		if (filters.expand) {
+			filters.expand = filters.expand.split(",");
+		}
+		if (filters.campus) {
+			filters.campus = filters.campus.split(",");
+		}
+
+		const resp = await User.getByUUID(request.user, UUID, filters);
 		response.status(resp.code).json(resp.toJSON());
 
 		logger.log("Retrieves a user by his UUID", { ip: request.clientIP, params: {code: resp.code, UUID: request.params.UUID} });

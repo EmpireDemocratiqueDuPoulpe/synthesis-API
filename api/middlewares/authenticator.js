@@ -7,7 +7,7 @@
 
 import { jwtVerify } from "jose";
 import keys from "../joseLoader.js";
-import { APIError, Logger } from "../../global/global.js";
+import { APIError, Logger, LoggedUser } from "../../global/global.js";
 
 /**
  * @const
@@ -21,7 +21,7 @@ const logger = new Logger({ prefix: "🔒 " });
  *
  * @param {e.Request} request
  * @param {e.Response} response
- * @param {e.NextFunction} next
+ * @param {function} next
  */
 function authenticator(request, response, next) {
 	const authHeader = request.headers["authorization"];
@@ -29,17 +29,17 @@ function authenticator(request, response, next) {
 	const token = authHeader && authHeader.split(" ")[1];
 
 	if (!token || !specialHeader) {
-		throw new APIError(401, "Jeton d'authentification manquant.");
+		next(new APIError(401, "Jeton d'authentification manquant ou invalide.", null, { withStack: false }));
 	}
 
 	jwtVerify(token, keys.publicKey)
 		.then(({ payload }) => {
-			request.user = payload;
+			request.user = new LoggedUser(payload);
 			next();
 		})
 		.catch(err => {
-			logger.error("Unauthorized access", { ip: request.clientIP, params: err });
-			throw new APIError(403, "Accès non autorisé.");
+			logger.error("Unauthorized access", { ip: request.clientIP, params: {err} });
+			next(new APIError(403, "Accès non autorisé."));
 		});
 }
 

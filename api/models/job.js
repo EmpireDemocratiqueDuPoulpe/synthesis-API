@@ -47,16 +47,16 @@ import { DataTypes } from "sequelize";
  *  }
  * }
  */
-const Job = {
+const job = {
 	job_id: {
 		type: DataTypes.INTEGER,
 		primaryKey: true,
 		allowNull: false,
 		autoIncrement: true,
 	},
-	job_type: {
+	type: {
 		type: DataTypes.ENUM,
-		values: [ "stage", "alternance" ],
+		values: [ "stage", "apprentissage", "contratpro" ],
 		allowNull: false,
 	},
 	start_date: {
@@ -71,15 +71,6 @@ const Job = {
 		type: DataTypes.STRING,
 		allowNull: false,
 	},
-	is_hired: {
-		type: DataTypes.BOOLEAN,
-		defaultValue: false,
-		allowNull: false,
-	},
-	length_month_hired: {
-		type: DataTypes.INTEGER,
-		allowNull: true,
-	},
 };
 
 /**
@@ -90,7 +81,7 @@ const Job = {
  * @param {string} name - The file name used for the definition
  */
 export const define = (sequelize, name) => {
-	sequelize.define(name, Job);
+	sequelize.define(name, job);
 };
 
-export default Job;
+export default job;

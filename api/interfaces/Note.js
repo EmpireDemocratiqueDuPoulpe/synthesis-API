@@ -43,21 +43,7 @@ const { models } = sequelize;
  * @return {Promise<APIResp>}
  */
 const add = async (newNote) => {
-	const processedNote = newNote;
-
-	// Check if the new user match the model
-	const model = models.note.build(processedNote);
-
-	try {
-		await model.validate({ skip: ["note_id"] });
-	} catch (err) {
-		// TODO: Adapt the system
-		throw new APIError(400, "error", Object.values(err));
-	}
-
-	// Add to the database
-	const note = await models.note.create(processedNote);
-
+	const note = await models.note.create(newNote);
 	return new APIResp(200).setData({ noteID: note.note_id });
 };
 
@@ -83,22 +69,6 @@ const getByID = async (noteID) => {
 	return new APIResp(200).setData({ note });
 };
 
-/**
- * Get all notes of a user
- * @function
- * @async
- *
- * @param {number} userID
- * @return {Promise<APIResp>}
- */
-const getByUserID = async (userID) => {
-	const notes = await models.note.findAll({
-		where: { user_id: userID },
-	});
-
-	return new APIResp(200).setData({ notes });
-};
-
 /* ---- UPDATE ---------------------------------- */
 /* ---- DELETE ---------------------------------- */
 
@@ -107,7 +77,7 @@ const getByUserID = async (userID) => {
  *****************************************************/
 
 const Note = {
-	add,									// CREATE
-	getByID, getByUserID,	// READ
+	add,					// CREATE
+	getByID,						// READ
 };
 export default Note;

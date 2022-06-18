@@ -58,7 +58,12 @@ const module = {
 	},
 	long_name: {
 		type: DataTypes.STRING,
-		allowNull: false,
+		allowNull: true,
+		validate: { notEmpty: true },
+	},
+	description: {
+		type: DataTypes.TEXT,
+		allowNull: true,
 		validate: { notEmpty: true },
 	},
 	ects: {

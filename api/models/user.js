@@ -33,13 +33,14 @@ import { DataTypes } from "sequelize";
  *    allowNull: boolean,
  *    validate: { notEmpty: boolean }
  *  },
- *    last_name: {
+ *  last_name: {
  *    type: DataTypes.STRING,
  *    allowNull: boolean,
  *    validate: { notEmpty: boolean }
  *  },
  *  birth_date: {
  *    type: DataTypes.DATE,
+ *    allowNull: boolean,
  *    validate: { isAfter: string }
  *  },
  *  email: {
@@ -52,12 +53,25 @@ import { DataTypes } from "sequelize";
  *    type: DataTypes.STRING,
  *    allowNull: boolean
  *  },
- *  street_address: { type: DataTypes.STRING },
- *  gender: { type: DataTypes.STRING },
- *  region: { type: DataTypes.STRING },
- *  campus: {
- *    type: DataTypes.ENUM,
- *    values: string[]
+ *  address_street: {
+ *  	type: DataTypes.STRING,
+ *  	allowNull: boolean
+ *  },
+ *  address_city: {
+ *  	type: DataTypes.STRING,
+ *  	allowNull: boolean
+ *  },
+ *  address_postal_code: {
+ *  	type: DataTypes.STRING,
+ *  	allowNull: boolean
+ *  },
+ *  gender: {
+ *  	type: DataTypes.STRING,
+ *  	allowNull: boolean
+ *  },
+ *  region: {
+ *  	type: DataTypes.STRING,
+ *  	allowNull: boolean
  *  }
  * }
  */
@@ -88,6 +102,7 @@ const user = {
 	},
 	birth_date: {
 		type: DataTypes.DATE,
+		allowNull: true,
 		validate: { isAfter: "1900-01-01" },
 	},
 	email: {
@@ -103,29 +118,36 @@ const user = {
 		type: DataTypes.STRING,
 		allowNull: false,
 	},
-	street_address: { type: DataTypes.STRING },
-	gender: { type: DataTypes.STRING },
-	region: { type: DataTypes.STRING },
-	campus: {
+	address_street: {
+		type: DataTypes.STRING,
+		allowNull: true,
+	},
+	address_city: {
+		type: DataTypes.STRING,
+		allowNull: true,
+	},
+	address_postal_code: {
+		type: DataTypes.STRING,
+		allowNull: true,
+	},
+	gender: {
 		type: DataTypes.ENUM,
-		values: [
-			"Caen",
-			"Distanciel",
-			"Lille",
-			"Lyon",
-			"Paris",
-			"Tours",
-		],
+		values: ["homme", "femme"],
+		allowNull: true,
+	},
+	region: {
+		type: DataTypes.STRING,
+		allowNull: true,
 	},
 };
 
 /**
- * Define the model
- * @function
- *
- * @param {Sequelize} sequelize
- * @param {string} name - The file name used for the definition
- */
+  * Define the model
+  * @function
+  *
+  * @param {Sequelize} sequelize
+  * @param {string} name - The file name used for the definition
+  */
 export const define = (sequelize, name) => {
 	sequelize.define(name, user);
 };

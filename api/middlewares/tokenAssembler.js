@@ -11,7 +11,7 @@
  *
  * @param {e.Request} request
  * @param {e.Response} response
- * @param {e.NextFunction} next
+ * @param {function} next
  */
 function tokenAssembler(request, response, next) {
 	const { tokenPayload, tokenSignature } = parseCookies(request.headers.cookie);

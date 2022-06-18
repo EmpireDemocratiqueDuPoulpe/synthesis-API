@@ -35,6 +35,10 @@ const sequelize = new Sequelize(DB.name, DB.user, DB.password, {
 	},
 });
 
+// Prevent decimal numbers to be returned as a string
+// NOTE: It can cause a lost of precision. Use with care.
+Sequelize.postgres.DECIMAL.parse = value => parseFloat(value);
+
 /* ---- Test the connection --------------------- */
 try {
 	await sequelize.authenticate();

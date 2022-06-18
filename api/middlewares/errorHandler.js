@@ -5,7 +5,8 @@
  * @subcategory Request flow
  */
 
-import { APIResp, APIError, Logger } from "../../global/global.js";
+import { isString } from "lodash-es";
+import { APIResp, APIError, APIWarn, Logger } from "../../global/global.js";
 
 /**
  * @const
@@ -18,23 +19,33 @@ const logger = new Logger({ separator: ": " });
  * Logs the error in the console and can send a mail
  * @function
  *
- * @param {module:APIError|Error|string} err
+ * @param {module:APIError|module:APIWarn|Error|string} err
  * @param {e.Request} request
  * @param {e.Response} response
- * @param {e.NextFunction} next
+ * @param {function} next
  */
 function expressLogger(err, request, response, next) {
-	const error = (err instanceof APIError || err instanceof Error)
-		? (`${err.message}${err.message ? "\n" : ""}${err.stack}`)
-		: (err.toString());
+	const url = `${request.protocol}://${request.headers.host}${request.originalUrl}`;
+	const error = isString(err) ? new Error(err) : err;
+	const types = {
+		isAPIErr: (error instanceof APIError),
+		isAPIWarn: (error instanceof APIWarn),
+		isError: (error instanceof Error),
+	};
+	const stack = err.stack ? (`\t${err.stack.replace(/\n\r?/g, "\n\t")}`) : null;
+	const message = (!stack ? err.message : (`${err.message}${err.message ? "\n" : ""}${stack}`));
 
-	logger.error(error, { ip: request.clientIP });
+	if (types.isAPIWarn) {
+		logger.warn(`At ${url}\n${message}`, {ip: request.clientIP});
+	} else {
+		logger.error(`At ${url}\n${message}`, {ip: request.clientIP});
+	}
 
-	if (err instanceof Error && !(err instanceof APIError)) {
+	if (types.isError && !(types.isAPIErr || types.isAPIWarn)) {
 		// TODO: Send mail
 	}
 
-	next(err);
+	next({ url, types, ref: err });
 }
 
 /* ---- Error forwarder ------------------------- */
@@ -42,18 +53,25 @@ function expressLogger(err, request, response, next) {
  * Forward the error to the user
  * @function
  *
- * @param {APIError|Error|string} err
+ * @param {{ url: string, types: Object<Boolean>, ref: (APIError|APIWarn|Error) }} err
  * @param {e.Request} request
  * @param {e.Response} response
- * @param {e.NextFunction} next
+ * @param {function} next
  */
 function errorForwarder(err, request, response, next) {
-	const resp = new APIResp().setData({ error: err.message });
+	if (response.headersSent) next();
 
-	if (err instanceof APIError) {
-		response.status(err.code).json({ code: err.code, error: err.message, fields: err.fields });
+	const resp = new APIResp(err.ref.code).setData({
+		code: err.ref.code ?? 500,
+		type: (err.types.isAPIWarn ? "warning" : "error"),
+		message: err.ref.message,
+	});
+
+	if (err.types.isAPIErr || err.types.isAPIWarn) {
+		resp.setData({ ...resp.data, fields: err.ref.fields });
+		response.status(resp.code).json(resp.toJSON());
 	} else {
-		switch (err.type) {
+		switch (err.ref.type) {
 			case "time-out":
 				resp.setCode(408);
 				response.status(resp.code).json(resp.toJSON());
@@ -65,7 +83,6 @@ function errorForwarder(err, request, response, next) {
 }
 
 /* ---- FailSafe -------------------------------- */
-// noinspection JSUnusedLocalSymbols
 /**
  * In case the error is unexpected, it sends a generic error message to the user
  * @function
@@ -73,14 +90,15 @@ function errorForwarder(err, request, response, next) {
  * @param {APIResp} err
  * @param {e.Request} request
  * @param {e.Response} response
- * @param {e.NextFunction} next
+ * @param {function} next
  */
 function failSafe(err, request, response, next) {
 	const resp = err.setCode(500);
 
 	if (process.env.NODE_ENV === "production") {
 		resp.setData({
-			error: "Le serveur a rencontré une erreur inconnue. Veuillez réessayer plus tard où contacter le support.",
+			...resp.data,
+			message: "Le serveur a rencontré une erreur inconnue. Veuillez réessayer plus tard où contacter le support.",
 		});
 	}
 

@@ -6,11 +6,13 @@ import urljoin from "urljoin";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import requestIP from "request-ip";
+import { requireHTTPS, errorHandler } from "./api/middlewares/middlewares.js";
 import expressJSDocSwagger from "express-jsdoc-swagger";
 import api from "./api/api.js";
 import "./api/sequelizeLoader.js";
 import "./api/joseLoader.js";
-import { DirName } from "./global/global.js";
+import { DirName, APIWarn } from "./global/global.js";
 import { API, Swagger } from "./config/config.js";
 
 /**
@@ -63,8 +65,14 @@ function startServer() {
 	// CORS
 	app.use(cors(API.cors));
 
+	// Force HTTPS
+	app.use(requireHTTPS);
+
+	// IP
+	app.use(requestIP.mw({ attributeName: "clientIP" }));
+
 	// Transform raw and x-www-form-urlencoded to nice JSON
-	app.use(bodyParser.json());
+	app.use(bodyParser.json({ limit: "1mb" }));
 	app.use(bodyParser.urlencoded({ extended: true }));
 	app.use(cookieParser());
 
@@ -75,11 +83,20 @@ function startServer() {
 	// Add API routes
 	app.use(API.prefix, api());
 
+	// Serves static files
+	app.use("/files", express.static("./uploads"));
+
+
 	// Handle 404
+	// noinspection JSUnusedLocalSymbols
 	app.use((request, response, next) => {
-		response.status(404).end();
-		next();
+		throw new APIWarn(404, `Ce endpoint n'existe pas (${request.method}).`);
 	});
+
+	// Error handling
+	app.use(errorHandler.expressLogger);
+	app.use(errorHandler.errorForwarder);
+	app.use(errorHandler.failSafe);
 
 	// Start listening
 	server.listen(port, () => serverReady("http", port))
