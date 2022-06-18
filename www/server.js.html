@@ -199,8 +199,8 @@ function startServer() {
 	app.use(API.prefix, api());
 
 	// Serves static files
+	app.use("/.well-known", express.static("./.well-known", { dotfiles: "allow" }));
 	app.use("/files", express.static("./uploads"));
-
 
 	// Handle 404
 	// noinspection JSUnusedLocalSymbols
