@@ -34,4 +34,7 @@ export default {
 	backups: {
 		path: null,
 	},
+	etlData: {
+		path: null,
+	},
 };
