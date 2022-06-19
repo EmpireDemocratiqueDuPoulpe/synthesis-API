@@ -16,8 +16,14 @@ export default (router) => {
 
 	/* ---- CREATE ---------------------------------- */
 	/**
-	  * TODO: POST /v1/etl/students
-	  */
+	 * POST /v1/etl/students
+	 * @summary Add students from ETL
+	 * @tags ETL
+	 *
+	 * @param {Array<Object>} request.body - List of students
+	 *
+	 * @return {SuccessResp} 200 - **Success**: the response is returned - application/json
+	 */
 	route.post("/students", async (request, response) => {
 		const resp = new APIResp(200);
 
@@ -63,8 +69,14 @@ export default (router) => {
 	});
 
 	/**
-	* TODO: POST /v1/etl/modules
-	*/
+	 * POST /v1/etl/modules
+	 * @summary Add moduules from ETL
+	 * @tags ETL
+	 *
+	 * @param {Array<Object>} request.body - List of modules
+	 *
+	 * @return {SuccessResp} 200 - **Success**: the response is returned - application/json
+	 */
 	route.post("/modules", async (request, response) => {
 		const resp = new APIResp(200);
 
@@ -77,8 +89,14 @@ export default (router) => {
 	});
 
 	/**
-	* TODO: POST /v1/etl/scts
-	*/
+	 * POST /v1/etl/scts
+	 * @summary Add SCTs from ETL
+	 * @tags ETL
+	 *
+	 * @param {Array<Object>} request.body - List of SCTs
+	 *
+	 * @return {SuccessResp} 200 - **Success**: the response is returned - application/json
+	 */
 	route.post("/scts", async (request, response) => {
 		const resp = new APIResp(200);
 
@@ -98,9 +116,16 @@ export default (router) => {
 		logger.log("Add SCTs", { ip: request.clientIP, params: {code: resp.code}});
 	});
 
+
 	/**
-	* TODO: POST /v1/etl/staff
-	*/
+	 * POST /v1/etl/staff
+	 * @summary Add staff member from ETL
+	 * @tags ETL
+	 *
+	 * @param {Array<Object>} request.body - List of staff member
+	 *
+	 * @return {SuccessResp} 200 - **Success**: the response is returned - application/json
+	 */
 	route.post("/staff", async (request, response) => {
 		const resp = new APIResp(200);
 
