@@ -80,6 +80,7 @@ export default (router) => {
 			logger.log("Fetch all absences", { ip: request.clientIP, params: {code: resp.code, ...filters} });
 		} else next(new APIError(403, "Permission denied: couldn't access this endpoint."));
 	});
+
 	/**
 	 * GET /v1/absences/by-user-id/{userID}
 	 * @summary Get all absences of a user
