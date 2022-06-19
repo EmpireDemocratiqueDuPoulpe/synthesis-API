@@ -117,6 +117,7 @@
 import http from "http";
 import https from "https";
 import fs from "fs";
+import path from "path";
 import urljoin from "urljoin";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
@@ -165,6 +166,8 @@ const swaggerReady = (protocol, port, swaggerPath) => {
  * @return {void}
  */
 function startServer() {
+	const currentFile = DirName(import.meta.url);
+
 	// Set HTTPS certificates
 	const key = fs.readFileSync("./certs/selfsigned-key.pem", "utf-8");
 	const cert = fs.readFileSync("./certs/selfsigned.pem", "utf-8");
@@ -192,15 +195,15 @@ function startServer() {
 	app.use(cookieParser());
 
 	// Setup Swagger UI x JSDoc
-	expressJSDocSwagger(app)({ ...Swagger, baseDir: (DirName(import.meta.url).__dirname) });
+	expressJSDocSwagger(app)({ ...Swagger, baseDir: currentFile.__dirname });
 	swaggerReady("https", securePort, Swagger.swaggerUIPath);
 
 	// Add API routes
 	app.use(API.prefix, api());
 
 	// Serves static files
-	app.use("/.well-known", express.static("./.well-known", { dotfiles: "allow" }));
-	app.use("/files", express.static("./uploads"));
+	app.use("/.well-known", express.static(path.join(currentFile.__dirname, "./.well-known"), { dotfiles: "allow" }));
+	app.use("/files", express.static(path.join(currentFile.__dirname, "./uploads")));
 
 	// Handle 404
 	// noinspection JSUnusedLocalSymbols
