@@ -1,6 +1,6 @@
 export default {
 	dialect: "postgres",
-	host: "35.180.51.221",
+	host: "13.38.103.85",
 	port: 5432,
 	name: "cpem_db",
 	user: "cpem",
