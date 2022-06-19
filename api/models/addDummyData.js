@@ -417,15 +417,15 @@ asynchrone, tâches cron, microservices, message broker (Redis), serverless…
 			postal_code: "59000",
 			content: `DECATHLON accélère sa transformation digitale avec pour ambition de devenir LA plateforme numérique
 du sportif qui permettra aux utilisateurs d'accéder à toutl'univers du sport en un clic (matériel, installations, cours….).
-Notre but est de créer un écosystème ouvert afin de connecter de nombreux 
+Notre but est de créer un écosystème ouvert afin de connecter de nombreux
 acteur.trices et services tiers, de manière sûre et performante.
 
-Nos équipes digitales basées à Lille, Paris, Nantes, Lyon, Montréal (et bien d’autres…) regroupant plus de 1500 
-collaborateurs sont unies pour construire et faire grandir des produits numériques 
+Nos équipes digitales basées à Lille, Paris, Nantes, Lyon, Montréal (et bien d’autres…) regroupant plus de 1500
+collaborateurs sont unies pour construire et faire grandir des produits numériques
 dans le but de toujours offrir la meilleure valeur à nos utilisateurs
 
-Au cœur de la direction financière du groupe Decathlon et du réseau IT United, nos équipes IT Finance (>60 coéquipiers) 
-assurent la conception, la mise en place et le bon fonctionnement de solutions informatiques (50 outils). Ces solutions 
+Au cœur de la direction financière du groupe Decathlon et du réseau IT United, nos équipes IT Finance (>60 coéquipiers)
+assurent la conception, la mise en place et le bon fonctionnement de solutions informatiques (50 outils). Ces solutions
 permettent:
 
 Aux financiers d’assurer leur métier de manière optimisée (clôture comptable, gestion des achats, pilotage économique, …)
@@ -436,13 +436,13 @@ Votre Mission :
 
 Vous pilotez et portez la responsabilité informatique des projets au service de la direction financière du groupe.
 
-Vous prenez en charge des projets variés : intégration de solutions SAAS, animation de développement de solutions homemade, 
+Vous prenez en charge des projets variés : intégration de solutions SAAS, animation de développement de solutions homemade,
 entre autres...
 
-Vous serez amené.es à interagir avec différentes parties prenantes: software engineers, Chef de projet métier, sponsors, 
+Vous serez amené.es à interagir avec différentes parties prenantes: software engineers, Chef de projet métier, sponsors,
 architectes IT,.. dans un contexte international.
 
-Vous adaptez l’organisation des projets et l’animation selon les besoins pour faire vivre la transformation digitale au 
+Vous adaptez l’organisation des projets et l’animation selon les besoins pour faire vivre la transformation digitale au
 service de la performance de nos collaborateurs.
 
 Cadrage des enjeux et objectifs au service des utilisateurs
@@ -481,7 +481,7 @@ Ce que nous offrons :
 Liberté de choix de l'outil de travail (Mac, Windows, Chromebooks)
 Montée en compétence (diversité de projets, langages et technologies, certifications, events, mentorat)
 Devenir membre d’une communauté mondiale, unie par l'amour du sport, par des valeurs communes et par une passion pour la tech.
-Participer à des événements « Tech » externes (DevFest, AWS summit, FIC) et à nos événements internes 
+Participer à des événements « Tech » externes (DevFest, AWS summit, FIC) et à nos événements internes
 (Meetups, All hands, podcasts internes).
 Évoluer professionnellement grâce aux nombreuses opportunités offertes par la mobilité interne.
 Partager votre passion grâce à nos programmes de réduction Decathlon, un bon annuel pour vos activités sportives,
@@ -516,11 +516,11 @@ Ce qui rythme tes journées
 
 Tu pilotes la production des Contenus de l’offre produit, pour cela tu :
 Associes, sensibilises et coordonnes les différents services autour de tes enjeux liés aux données des produits.
-Coordonnes le lancement des gammes, des opérations commerciales, les rattrapages et les corrections des enseignes en lien 
+Coordonnes le lancement des gammes, des opérations commerciales, les rattrapages et les corrections des enseignes en lien
 avec les équipes Marketing, Trading et Supply chain.
 Elabores une planification prévisionnelle d'activité et de répartition des charges.
-Es garant(e) de la bonne collecte et du suivi des caractéristiques produits nécessaire pour compléter les éléments de la 
-nomenclature produits du groupe, par le biais de sources externes ou du Groupe Kingfisher (équipes data acquisition, 
+Es garant(e) de la bonne collecte et du suivi des caractéristiques produits nécessaire pour compléter les éléments de la
+nomenclature produits du groupe, par le biais de sources externes ou du Groupe Kingfisher (équipes data acquisition,
 supply chain, qualité…).
 Optimises les méthodes et la gestion de la production des contenus.
 Assures l’enrichissement et la mise en conformité des contenus produits dans le PIM.
@@ -532,10 +532,10 @@ Suis la publication des équipes. Lèves les points bloquants la publication (vi
 Vérifies l’ensemble des éléments permettant de s’assurer que le produit soit visible et achetable sur le site web.
 Les petits plus...
 
-Sur le site de Templemars, tu bénéficies d’avantages tels que : mutuelle et prévoyance, restaurant et snack d’entreprise, 
+Sur le site de Templemars, tu bénéficies d’avantages tels que : mutuelle et prévoyance, restaurant et snack d’entreprise,
 espaces verts de détente, ainsi que d’offres du Comité Social et Economique.
 
-Au-delà de trois mois de présence, tu profiteras également de tickets restaurant et d’une carte de réduction sur les 
+Au-delà de trois mois de présence, tu profiteras également de tickets restaurant et d’une carte de réduction sur les
 produits vendus en magasin.`,
 			expiration_date: new Date(Date.now() + ((3600 * 1000 * 24) * 15)),
 		},
@@ -558,10 +558,10 @@ produits vendus en magasin.`,
 	await sequelize.models.attachement.bulkCreate([
 		{
 			attachement_id: 10000, job_offer_id: 10000,
-			name: "Elecheems",
-			path: "attachements/job-offers/attachement-1651512233662-ab7c52b6-4e51-42cc-90dd-a00269dd2be0.jpg",
-			size: "3072",
-			type: "image/jpeg",
+			name: "Presentation de Railenium",
+			path: "attachements/job-offers/attachement-1651512233662-ab7c52b6-4e51-42cc-90dd-a00269dd2be0.pdf",
+			size: "53632",
+			type: "application/pdf",
 		},
 	]);
 
