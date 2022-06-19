@@ -1,4 +1,5 @@
 export { default as absences } from "./absences.js";
+export { default as backups } from "./backups.js";
 export { default as comptas } from "./comptas.js";
 export { default as etl } from "./etl.js";
 export { default as campuses } from "./campuses.js";
