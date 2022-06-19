@@ -7,6 +7,7 @@
 import { Router } from "express";
 import {
 	absences,
+	backups,
 	comptas,
 	campuses,
 	jobs, jobDomains, jobOffers,
@@ -47,6 +48,7 @@ export default () => {
 
 	// Routes
 	absences(router);
+	backups(router);
 	comptas(router);
 	campuses(router);
 	jobs(router);

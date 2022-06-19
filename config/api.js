@@ -20,7 +20,8 @@ export default {
 	},
 	cookies: {
 		path: "/",
-		sameSite: "None", /* ONLY FOR DEVELOPMENT PURPOSE. MUST BE "Lax" */
+		/* sameSite: process.env.NODE_ENV === "development" ? "None" : "Lax", */
+		sameSite: process.env.NODE_ENV === "development" ? "None" : "None", /* ONLY FOR DEVELOPMENT PURPOSE. MUST BE "Lax" */
 		secure: true,
 	},
 	uploads: {
@@ -29,5 +30,8 @@ export default {
 			folder: "./uploads/attachements/job-offers/",
 			maxSize: 8388608, // 8 Mo
 		},
+	},
+	backups: {
+		path: null,
 	},
 };
