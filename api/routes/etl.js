@@ -3,11 +3,17 @@
  * @author Louan L. <louan.leplae@supinfo.com>
  */
 
+import fs from "fs";
+import path from "path";
+import archiver from "archiver";
 import AsyncRouter from "express-promise-router";
 import { get } from "lodash-es";
-import { Logger, APIResp } from "../../global/global.js";
+import { authenticator } from "../middlewares/middlewares.js";
+import { Logger, APIResp, APIError, DirName } from "../../global/global.js";
 import { Compta, Job, Module, Campus, User, Note, Position, Study } from "../interfaces/interfaces.js";
+import { API } from "../../config/config.js";
 
+const fsAsync = fs.promises;
 const route = AsyncRouter();
 const logger = new Logger({ separator: ": " });
 
@@ -145,6 +151,77 @@ export default (router) => {
 
 		response.status(resp.code).json(resp.toJSON());
 		logger.log("Add staff members", { ip: request.clientIP, params: {code: resp.code}});
+	});
+
+	/* ---- READ ------------------------------------ */
+	/**
+	 * GET /v1/etl/download
+	 * @summary Download the data files
+	 * @security BearerAuth
+	 * @tags ETL
+	 *
+	 * @param {string} brokilone.header.required - Auth header
+	 *
+	 * @return {SuccessResp} 200 - **Success**: the data files are sent - application/json}
+	 */
+	route.get("/download", authenticator, async (request, response, next) => {
+		if (await request.user.hasAllPermissions("EXPORT_DATA")) {
+		// Get the path to the backups directory
+			let fullPath = API.etlData.path;
+
+			if (!fullPath) {
+				throw new APIError(500, "Le répertoire de données est introuvable.");
+			}
+
+			if (!path.isAbsolute(fullPath)) {
+				const currentFile = DirName(import.meta.url);
+				fullPath = path.join(currentFile.__dirname, fullPath);
+			}
+
+			if (!fs.existsSync(fullPath)) {
+				throw new APIError(500, "Le répertoire de données est introuvable.");
+			}
+
+			// Get all files in this folder
+			const files = (await fsAsync.readdir(fullPath))
+				.map(file => {
+					const filePath = path.join(fullPath, file);
+					const stats = fs.lstatSync(filePath);
+
+					return { path: filePath, name: file, isFile: stats.isFile() };
+				})
+				.filter(file => file.isFile);
+
+			if (!files.length) {
+				throw new APIError(500, "Aucun fichier de données n'a été trouvé.");
+			}
+
+			// Zip files
+			const zipName = "etl_data.zip";
+			const zipPath = path.join(fullPath, `./${zipName}`);
+			const output = fs.createWriteStream(zipPath);
+			const archive = archiver("zip", { gzip: true, zlib: {level: 9} });
+
+			archive.on("error", err => {
+				console.error(err);
+				throw new APIError(500, "Impossible d'archiver les fichiers de données.");
+			});
+
+			archive.pipe(output);
+			files.map(file => archive.file(file.path, {name: file.name}));
+			await archive.finalize();
+
+			// Send the zip file
+			response.download(zipPath, zipName, err => {
+				if (err) {
+					throw new APIError(500, "Erreur lors de l'envoi du fichier.");
+				}
+
+				fs.unlink(zipPath, () => {});
+			});
+
+			logger.log("Download the last backup file", { ip: request.clientIP, params: {code: 200, file: zipName, count: files.length} });
+		} else next(new APIError(403, "Permission denied: couldn't access this endpoint."));
 	});
 };
 
