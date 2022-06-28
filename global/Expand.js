@@ -14,7 +14,7 @@ const ex = {
 	COMPTA: "compta",
 };
 const exPerms = {
-	campus: [ "READ_CAMPUS" ],
+	campus: [ ],
 	module: [ "READ_MODULES" ],
 	ects: [ "READ_MODULES", "READ_ECTS" ],
 	job: [ "READ_STUDENTS_JOBS" ],
